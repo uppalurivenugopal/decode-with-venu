@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const steps = [
+  { letter: 'D', word: 'Define', desc: 'Focus on problem framing and KPI alignment.' },
+  { letter: 'E', word: 'Explore', desc: 'Assess the data landscape, governance, pipelines, and architecture safety.' },
+  { letter: 'C', word: 'Contextualize', desc: 'Layer business reality and operational constraints onto the numbers.' },
+  { letter: 'O', word: 'Optimize', desc: 'Fine-tune analytical models, maximize processing efficiencies, and align team capabilities.' },
+  { letter: 'D', word: 'Deliver', desc: 'Master executive data storytelling and clean visualization.' },
+  { letter: 'E', word: 'Execute', desc: 'Drive user adoption, operationalize the insight, and measure the exact strategic or financial ROI.' },
+];
+
+const personas = [
+  { title: 'The Technical Builder', who: 'Data Engineers, Analysts, Developers' },
+  { title: 'The Practice Leader', who: 'Consultants, Managers, Practice Leads' },
+  { title: 'The Business Executive', who: 'C-Suite, Directors, Stakeholders' },
+];
+---
+
+<Layout title="DECODE Framework" description="A repeatable leadership methodology that ensures every data model, pipeline, and report is directly anchored to an executive decision and a concrete business outcome.">
+  <section class="relative overflow-hidden bg-grid border-b border-white/5">
+    <div class="glow w-[30rem] h-[30rem] bg-indigo-glow/15 -top-40 left-1/3"></div>
+    <div class="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 pt-20 pb-16 sm:pt-28 sm:pb-20">
+      <p class="font-mono text-xs tracking-widest text-cyan-glow/80 uppercase mb-4">Methodology</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        DECODE <span class="gradient-text">Framework</span>
+      </h1>
+      <p class="mt-4 text-lg text-mist-300">Driving Business Value through Strategic Analytics</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 sm:px-8 py-16 sm:py-20">
+    <SectionHeading eyebrow="The Mission" title="Bridging the Data Execution Gap" />
+    <div class="mt-8 space-y-5 text-mist-300 leading-relaxed">
+      <p>
+        Most analytics initiatives fail not because of technical execution, but because they lack
+        alignment with business reality. Throughout my consulting career and client engagements, I
+        consistently observe a distinct disconnect: technical teams excel at deploying brilliant data
+        models and executive dashboards, while business leaders focus entirely on driving customer
+        value and top- or bottom-line growth.
+      </p>
+      <p class="text-white font-medium text-lg leading-snug">
+        The missing link is a single, coherent story that bridges the technical output to the strategic outcome.
+      </p>
+      <p>
+        The DECODE framework was envisioned to bridge this exact gap. It is a repeatable leadership
+        methodology that ensures every data model, pipeline, and report is directly anchored to an
+        executive decision and a concrete business outcome.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 sm:px-8 pb-16 sm:pb-20">
+    <div class="space-y-3">
+      {steps.map((s, i) => (
+        <div class="card flex items-start gap-5 p-5 sm:p-6">
+          <div class="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-white/10 flex items-center justify-center font-mono font-bold text-cyan-glow">
+            {s.letter}
+          </div>
+          <div>
+            <h3 class="text-white font-semibold text-base">{i + 1}. {s.word}</h3>
+            <p class="mt-1 text-sm text-mist-400 leading-relaxed">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 sm:px-8 pb-20 sm:pb-28">
+    <SectionHeading eyebrow="Who It's For" title="Framework Inference for Personas" />
+    <div class="mt-8 grid sm:grid-cols-3 gap-5">
+      {personas.map((p, i) => (
+        <div class="card p-6">
+          <p class="font-mono text-xs text-cyan-glow/70 mb-2">Persona {i + 1}</p>
+          <h3 class="text-white font-semibold">{p.title}</h3>
+          <p class="mt-2 text-sm text-mist-400">{p.who}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-12 text-center">
+      <a href="/concepts" class="inline-flex items-center rounded-full bg-white text-ink-950 px-6 py-3 text-sm font-semibold hover:bg-mist-200 transition-colors">
+        Explore DECODE Insights
+      </a>
+    </div>
+  </section>
+</Layout>

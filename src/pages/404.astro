@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page not found">
+  <section class="relative overflow-hidden bg-grid min-h-[70vh] flex items-center">
+    <div class="glow w-[28rem] h-[28rem] bg-indigo-glow/15 top-0 left-1/2 -translate-x-1/2"></div>
+    <div class="relative z-10 mx-auto max-w-lg px-5 sm:px-8 py-24 text-center w-full">
+      <p class="font-mono text-6xl font-bold gradient-text mb-4">404</p>
+      <h1 class="text-2xl font-bold text-white">This page couldn't be decoded</h1>
+      <p class="mt-3 text-mist-400">The page you're looking for doesn't exist, or moved.</p>
+      <a href="/" class="mt-8 inline-flex items-center rounded-full bg-white text-ink-950 px-6 py-3 text-sm font-semibold hover:bg-mist-200 transition-colors">
+        Back to Home
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Subscribe" description="Get new Concepts, Strategies, and Perspectives essays delivered straight to your inbox.">
+  <section class="relative overflow-hidden bg-grid min-h-[70vh] flex items-center">
+    <div class="glow w-[32rem] h-[32rem] bg-cyan-glow/15 top-0 left-1/2 -translate-x-1/2"></div>
+    <div class="relative z-10 mx-auto max-w-lg px-5 sm:px-8 py-24 text-center w-full">
+      <p class="font-mono text-xs tracking-widest text-cyan-glow/80 uppercase mb-4">Subscribe</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        Stay <span class="gradient-text">decoded</span>
+      </h1>
+      <p class="mt-4 text-mist-300">
+        New Concepts, Strategies, and Perspectives essays — straight to your inbox, no spam.
+      </p>
+
+      <form id="subscribe-form" class="mt-10 flex flex-col sm:flex-row gap-3">
+        <input
+          type="email"
+          required
+          placeholder="you@company.com"
+          class="flex-1 rounded-full bg-white/5 border border-white/15 px-5 py-3 text-sm text-white placeholder:text-mist-400 focus:outline-none focus:border-cyan-glow/50 transition-colors"
+        />
+        <button
+          type="submit"
+          class="rounded-full bg-white text-ink-950 px-6 py-3 text-sm font-semibold hover:bg-mist-200 transition-colors shrink-0"
+        >
+          Subscribe
+        </button>
+      </form>
+      <p id="subscribe-note" class="mt-4 text-xs text-mist-400"></p>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('subscribe-form') as HTMLFormElement | null;
+  const note = document.getElementById('subscribe-note');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (note) {
+      note.textContent = "This form isn't wired up to an email service yet — connect it to Buttondown, ConvertKit, or Mailchimp to start collecting subscribers.";
+    }
+  });
+</script>
