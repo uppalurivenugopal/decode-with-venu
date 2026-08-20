@@ -10,6 +10,8 @@ Traditionally, Enterprises grouped their customers by the proportion of revenue 
 
 Rank on revenue alone and the largest accounts look like your greatest assets. But are these accounts the safest? A big account that runs through a single service line, leans on one champion, and has escalations creeping up is not exactly an asset — it's a huge renewal risk. This pattern may not be visible when we rank the customers. This article tries to explore an alternate way of creating these clusters.
 
+![The same portfolio, read two ways: a revenue ranking sorted by annual value versus a clustering view where bubble size is revenue, plotted by relationship health and footprint & stickiness](./images/portfolio-ranking-vs-clustering.png)
+
 ## So, How Do We Transition From Left to Right?
 
 Start from the decision, not the data. Before a single variable goes into a model, an Enterprise must be clear on the decision they are making on each account. A portfolio can belong to one of these four — grow it, defend it, optimize the cost of serving it, or harvest and move on. A variable earns its place only if it helps separate accounts into any of these four moves. If a data point wouldn't change which of the four you'd choose, it's noise — leave it out. This one rule is what keeps clustering from becoming a beautiful chart nobody acts on.
@@ -25,6 +27,8 @@ In practice, the choice of variables is the analysis. The method just groups wha
 **Health and risk** — is this relationship trending up or down? These are your leading indicators of churn. Deciding parameters: CSAT/NPS, SLA breaches, escalation trend, renewal proximity, DSO (Days Sales Outstanding).
 
 **Potential** — where could this account go next? This is the only forward-looking family, and it does one specific job: it separates an account you should grow from one you should merely defend. Two accounts can look identical today and deserve opposite strategies because one has room to run and the other doesn't. Deciding parameters: whitespaces, references/testimonials, open pipeline value.
+
+![Use all four: value without stickiness is fragile, stickiness without health is risky, health without potential is defensive, potential without value is a daydream. The seat goes to the account that scores across all four.](./images/tier-four-pillars.png)
 
 A few ground rules. Leave out any number that won't change a decision. Don't pile in several versions of "size," or the groups just rebuild your revenue tiers. And put everything on the same scale first — revenue in crores/million USD, CSAT out of 5 — otherwise the big numbers drown out the rest, and you're back to ranking by revenue.
 

@@ -140,6 +140,17 @@ body {
   font-weight: 600;
 }
 
+.prose-decode img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 2rem 0;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+  border: 1px solid color-mix(in srgb, var(--color-edge) 8%, transparent);
+}
+
 .prose-decode blockquote {
   margin: 1.75rem 0;
   padding: 0.9rem 1.25rem;
