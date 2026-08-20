@@ -15,8 +15,35 @@
   --color-mist-300: #b7c2d4;
   --color-mist-200: #d7deea;
 
+  --color-fg: #ffffff;
+  --color-edge: #ffffff;
+
   --color-cyan-glow: #22d3ee;
   --color-indigo-glow: #6366f1;
+}
+
+/*
+  Light theme overrides. Dark (defined above) is the default brand look;
+  data-theme="light" is opted into via the nav toggle and persisted in
+  localStorage. Attribute selector outranks the bare :root from @theme,
+  so these values win once applied — no component classes need to change.
+*/
+:root[data-theme='light'] {
+  --color-ink-950: #f8fafc;
+  --color-ink-900: #ffffff;
+  --color-ink-800: #eef1f6;
+  --color-ink-700: #e2e6ee;
+  --color-ink-600: #cbd2df;
+
+  --color-mist-400: #64748b;
+  --color-mist-300: #475569;
+  --color-mist-200: #1e2532;
+
+  --color-fg: #0b0f19;
+  --color-edge: #0b0f19;
+
+  --color-cyan-glow: #0891b2;
+  --color-indigo-glow: #4f46e5;
 }
 
 html {
@@ -28,15 +55,16 @@ body {
   color: var(--color-mist-200);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.25);
-  color: #fff;
+  background: color-mix(in srgb, var(--color-cyan-glow) 25%, transparent);
+  color: var(--color-fg);
 }
 
 .gradient-text {
-  background-image: linear-gradient(90deg, #22d3ee, #6366f1);
+  background-image: linear-gradient(90deg, var(--color-cyan-glow), var(--color-indigo-glow));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -46,13 +74,13 @@ body {
   height: 3px;
   width: 3.5rem;
   border-radius: 999px;
-  background-image: linear-gradient(90deg, #22d3ee, #6366f1);
+  background-image: linear-gradient(90deg, var(--color-cyan-glow), var(--color-indigo-glow));
 }
 
 .bg-grid {
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--color-mist-400) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-mist-400) 6%, transparent) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 
@@ -65,17 +93,27 @@ body {
 }
 
 .card {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: color-mix(in srgb, var(--color-edge) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-edge) 8%, transparent);
   border-radius: 1rem;
   backdrop-filter: blur(6px);
   transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
 }
 
 .card:hover {
-  border-color: rgba(34, 211, 238, 0.35);
-  background-color: rgba(255, 255, 255, 0.045);
+  border-color: color-mix(in srgb, var(--color-cyan-glow) 35%, transparent);
+  background-color: color-mix(in srgb, var(--color-edge) 4.5%, transparent);
   transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-image: linear-gradient(90deg, var(--color-cyan-glow), var(--color-indigo-glow));
+  color: #fff;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
 }
 
 .prose-decode {
@@ -84,7 +122,7 @@ body {
 }
 
 .prose-decode h2 {
-  color: #fff;
+  color: var(--color-fg);
   font-weight: 700;
   font-size: 1.375rem;
   letter-spacing: -0.01em;
@@ -98,27 +136,27 @@ body {
 }
 
 .prose-decode strong {
-  color: #e7ecf5;
+  color: var(--color-fg);
   font-weight: 600;
 }
 
 .prose-decode blockquote {
   margin: 1.75rem 0;
   padding: 0.9rem 1.25rem;
-  border-left: 2px solid #22d3ee;
-  background: rgba(34, 211, 238, 0.06);
+  border-left: 2px solid var(--color-cyan-glow);
+  background: color-mix(in srgb, var(--color-cyan-glow) 6%, transparent);
   border-radius: 0 0.5rem 0.5rem 0;
-  color: #d7deea;
+  color: var(--color-mist-200);
   font-style: italic;
 }
 
 .prose-decode a {
-  color: #22d3ee;
+  color: var(--color-cyan-glow);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .prose-decode hr {
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: color-mix(in srgb, var(--color-edge) 8%, transparent);
   margin: 2.5rem 0;
 }

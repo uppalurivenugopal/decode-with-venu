@@ -19,11 +19,11 @@ const personas = [
 ---
 
 <Layout title="DECODE Framework" description="A repeatable leadership methodology that ensures every data model, pipeline, and report is directly anchored to an executive decision and a concrete business outcome.">
-  <section class="relative overflow-hidden bg-grid border-b border-white/5">
+  <section class="relative overflow-hidden bg-grid border-b border-edge/5">
     <div class="glow w-[30rem] h-[30rem] bg-indigo-glow/15 -top-40 left-1/3"></div>
     <div class="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 pt-20 pb-16 sm:pt-28 sm:pb-20">
       <p class="font-mono text-xs tracking-widest text-cyan-glow/80 uppercase mb-4">Methodology</p>
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-fg leading-tight">
         DECODE <span class="gradient-text">Framework</span>
       </h1>
       <p class="mt-4 text-lg text-mist-300">Driving Business Value through Strategic Analytics</p>
@@ -40,7 +40,7 @@ const personas = [
         models and executive dashboards, while business leaders focus entirely on driving customer
         value and top- or bottom-line growth.
       </p>
-      <p class="text-white font-medium text-lg leading-snug">
+      <p class="text-fg font-medium text-lg leading-snug">
         The missing link is a single, coherent story that bridges the technical output to the strategic outcome.
       </p>
       <p>
@@ -55,11 +55,11 @@ const personas = [
     <div class="space-y-3">
       {steps.map((s, i) => (
         <div class="card flex items-start gap-5 p-5 sm:p-6">
-          <div class="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-white/10 flex items-center justify-center font-mono font-bold text-cyan-glow">
+          <div class="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center font-mono font-bold text-cyan-glow">
             {s.letter}
           </div>
           <div>
-            <h3 class="text-white font-semibold text-base">{i + 1}. {s.word}</h3>
+            <h3 class="text-fg font-semibold text-base">{i + 1}. {s.word}</h3>
             <p class="mt-1 text-sm text-mist-400 leading-relaxed">{s.desc}</p>
           </div>
         </div>
@@ -73,13 +73,13 @@ const personas = [
       {personas.map((p, i) => (
         <div class="card p-6">
           <p class="font-mono text-xs text-cyan-glow/70 mb-2">Persona {i + 1}</p>
-          <h3 class="text-white font-semibold">{p.title}</h3>
+          <h3 class="text-fg font-semibold">{p.title}</h3>
           <p class="mt-2 text-sm text-mist-400">{p.who}</p>
         </div>
       ))}
     </div>
     <div class="mt-12 text-center">
-      <a href="/concepts" class="inline-flex items-center rounded-full bg-white text-ink-950 px-6 py-3 text-sm font-semibold hover:bg-mist-200 transition-colors">
+      <a href="/concepts" class="inline-flex items-center rounded-full btn-primary px-6 py-3 text-sm font-semibold transition-colors">
         Explore DECODE Insights
       </a>
     </div>

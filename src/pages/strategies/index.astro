@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const strategies = (await getCollection('strategies')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="Strategies" description="Real-world enterprise case studies and deep dives into shifting market dynamics.">
+  <section class="relative overflow-hidden bg-grid border-b border-edge/5">
+    <div class="glow w-[30rem] h-[30rem] bg-indigo-glow/15 -top-40 left-1/3"></div>
+    <div class="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 pt-20 pb-16 sm:pt-28 sm:pb-20">
+      <p class="font-mono text-xs tracking-widest text-cyan-glow/80 uppercase mb-4">Strategies</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-fg leading-tight">
+        Real-world execution, <span class="gradient-text">decoded</span>
+      </h1>
+      <p class="mt-4 max-w-xl text-lg text-mist-300">
+        Real-world enterprise case studies and deep dives into shifting market dynamics —
+        dissecting execution models, structural growth, and strategic pitfalls across industries.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 sm:px-8 py-16 sm:py-20">
+    {strategies.length > 0 ? (
+      <div class="space-y-5">
+        {strategies.map((s) => (
+          <a href={`/strategies/${s.id}`} class="card group block p-6 sm:p-8">
+            {s.data.subtitle && (
+              <p class="text-xs text-mist-400 mb-3">{s.data.subtitle}</p>
+            )}
+            <h2 class="text-xl sm:text-2xl font-bold text-fg group-hover:text-cyan-glow transition-colors">
+              {s.data.title}
+            </h2>
+            <p class="mt-3 text-mist-400 leading-relaxed">{s.data.description}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-mist-300 group-hover:text-fg transition-colors">
+              Read article
+              <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="card p-10 sm:p-14 text-center">
+        <div class="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center mb-6">
+          <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M12 8v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h2 class="text-xl font-semibold text-fg">More coming soon</h2>
+        <p class="mt-3 text-mist-400 max-w-md mx-auto leading-relaxed">Subscribe to get the next deep dive in your inbox the moment it publishes.</p>
+        <a href="/subscribe" class="mt-8 inline-flex items-center rounded-full btn-primary px-6 py-3 text-sm font-semibold transition-colors">
+          Get notified when it's live
+        </a>
+      </div>
+    )}
+  </section>
+</Layout>
