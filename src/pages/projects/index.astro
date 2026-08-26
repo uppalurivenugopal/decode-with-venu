@@ -3,13 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 
 const projects = [
   {
-    href: '/projects/churn-signal',
-    icon: 'churn',
-    tag: 'Logistic regression',
-    title: 'Churn signal',
-    description: 'Drag a customer\'s tenure, spend, support tickets, and contract type, and watch churn probability update live — with each factor\'s pull broken out in plain log-odds.',
-  },
-  {
     href: '/projects/offer-signal',
     icon: 'offer',
     tag: 'Weighted scorecard',
@@ -36,13 +29,10 @@ const projects = [
   </section>
 
   <section class="mx-auto max-w-4xl px-5 sm:px-8 py-16 sm:py-20">
-    <div class="grid sm:grid-cols-2 gap-5">
+    <div class="grid gap-5 max-w-xl">
       {projects.map((p) => (
         <a href={p.href} class="card group p-7 flex flex-col">
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center mb-6">
-            {p.icon === 'churn' && (
-              <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M4 6l5 5 4-3 7 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            )}
             {p.icon === 'offer' && (
               <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             )}
