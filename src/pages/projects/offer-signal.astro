@@ -1,0 +1,436 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Offer signal" description="An interactive offer-acceptance scorecard — 17 hiring signals across five categories, with relocation risk scaled by career stage and industry x skill combos weighted for market heat.">
+  <section class="relative overflow-hidden bg-grid border-b border-edge/5">
+    <div class="glow w-[28rem] h-[28rem] bg-indigo-glow/15 -top-40 left-1/3"></div>
+    <div class="relative z-10 mx-auto max-w-5xl px-5 sm:px-8 pt-14 pb-12 sm:pt-20 sm:pb-16">
+      <a href="/projects" class="inline-flex items-center gap-1.5 text-xs text-mist-400 hover:text-fg transition-colors mb-6">
+        <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M9.5 6h-7M6 2.5L2.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Casual Projects
+      </a>
+      <p class="font-mono text-xs tracking-widest text-cyan-glow/80 uppercase mb-4">Interactive demo &middot; weighted risk scorecard</p>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-fg leading-tight">
+        Will they actually show up <span class="gradient-text">on day one?</span>
+      </h1>
+      <p class="mt-4 max-w-2xl text-mist-400">
+        The offer's signed, the interviews are done — but offer-to-join drop-off is where a lot of
+        hiring effort quietly dies. Adjust the 17 signals below, bucketed into five categories, and
+        watch both the category-level flags and the overall probability move.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-5 sm:px-8 py-12 sm:py-16">
+    <div class="card p-6 sm:p-7 mb-5 flex flex-wrap items-center gap-x-8 gap-y-5">
+      <div>
+        <p class="text-xs text-mist-400 mb-1">Probability candidate does not join</p>
+        <div id="prob-out" class="font-mono text-4xl font-semibold text-fg tabular-nums">--</div>
+      </div>
+      <span id="overall-badge" class="font-mono text-xs px-3 py-1 rounded-full border">--</span>
+      <div class="ml-auto flex flex-col gap-1.5">
+        <div class="flex items-baseline gap-2 text-sm">
+          <span class="text-mist-400 min-w-[9.5rem]">Biggest risk driver</span>
+          <span id="top-risk" class="font-medium text-fg">--</span>
+        </div>
+        <div class="flex items-baseline gap-2 text-sm">
+          <span class="text-mist-400 min-w-[9.5rem]">Biggest protective factor</span>
+          <span id="top-protect" class="font-medium text-fg">--</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+          <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400">Compensation &amp; offer economics</p>
+          <span id="badge-comp" class="font-mono text-[10px] px-2.5 py-0.5 rounded-full border shrink-0">--</span>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="hike">Salary hike over current CTC</label>
+          <div class="relative">
+            <input type="number" min="0" step="1" value="20" id="hike" aria-label="Salary hike percentage, uncapped" class="pr-8" />
+            <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-mist-400">%</span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">Joining bonus</span>
+            <span id="bonus-out" class="font-mono text-xs text-cyan-glow tabular-nums">&#8377;2.0L</span>
+          </div>
+          <input type="range" min="0" max="10" step="0.5" value="2" id="bonus" aria-label="Joining bonus in lakhs" />
+        </div>
+        <div>
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">Offer vs. market benchmark</span>
+            <span id="market-out" class="font-mono text-xs text-cyan-glow tabular-nums">0%</span>
+          </div>
+          <input type="range" min="-20" max="20" step="1" value="0" id="market" aria-label="Offer versus market benchmark percentage" />
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+          <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400">Role &amp; market fit</p>
+          <span id="badge-role" class="font-mono text-[10px] px-2.5 py-0.5 rounded-full border shrink-0">--</span>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="skillset">Primary skill set</label>
+          <select id="skillset" aria-label="Primary skill set">
+            <option value="qa">Testing / QA</option>
+            <option value="pm">Project management</option>
+            <option value="ba" selected>Business analyst</option>
+            <option value="functional">Functional consultant</option>
+            <option value="dev">Software developer</option>
+            <option value="architect">Technical architect</option>
+            <option value="data">Data / AI-ML</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="industry">Industry</label>
+          <select id="industry" aria-label="Industry">
+            <option value="bfsi">Banking / BFSI</option>
+            <option value="fs">Financial services (NBFC, insurance, asset mgmt)</option>
+            <option value="it" selected>IT / software services</option>
+            <option value="healthcare">Healthcare / pharma</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="retail">Retail / e-commerce</option>
+            <option value="telecom">Telecom</option>
+            <option value="consulting">Consulting</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="workmode">Work mode</label>
+          <select id="workmode" aria-label="Work mode">
+            <option value="onsite">Onsite</option>
+            <option value="hybrid" selected>Hybrid</option>
+            <option value="remote">Remote</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="band">Band jump</label>
+          <select id="band" aria-label="Band jump">
+            <option value="lateral" selected>Lateral move</option>
+            <option value="promotion">Promotion</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+          <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400">Mobility &amp; readiness</p>
+          <span id="badge-mobility" class="font-mono text-[10px] px-2.5 py-0.5 rounded-full border shrink-0">--</span>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="reloc">Relocation required</label>
+          <select id="reloc" aria-label="Relocation required">
+            <option value="no" selected>No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="onsiteexp">Onsite experience</label>
+          <select id="onsiteexp" aria-label="Prior onsite experience">
+            <option value="no" selected>No prior onsite experience</option>
+            <option value="yes">Has worked onsite before</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="visa">US visa validity</label>
+          <select id="visa" aria-label="US visa validity">
+            <option value="none" selected>No valid US visa</option>
+            <option value="process">Visa applied / in process</option>
+            <option value="valid">Valid US visa (H1B, B1, etc.)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+          <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400">Process &amp; timing</p>
+          <span id="badge-timing" class="font-mono text-[10px] px-2.5 py-0.5 rounded-full border shrink-0">--</span>
+        </div>
+
+        <div class="mb-4">
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">Notice period at current employer</span>
+            <span id="notice-out" class="font-mono text-xs text-cyan-glow tabular-nums">30 days</span>
+          </div>
+          <input type="range" min="0" max="90" step="5" value="30" id="notice" aria-label="Notice period in days" />
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">Offer-to-decision lag</span>
+            <span id="lag-out" class="font-mono text-xs text-cyan-glow tabular-nums">7 days</span>
+          </div>
+          <input type="range" min="0" max="30" step="1" value="7" id="lag" aria-label="Offer to decision lag in days" />
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">Competing offers in hand</span>
+            <span id="compete-out" class="font-mono text-xs text-cyan-glow tabular-nums">1</span>
+          </div>
+          <input type="range" min="0" max="5" step="1" value="1" id="compete" aria-label="Competing offers in hand" />
+        </div>
+        <div>
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">BGV turnaround time</span>
+            <span id="bgv-out" class="font-mono text-xs text-cyan-glow tabular-nums">15 days</span>
+          </div>
+          <input type="range" min="0" max="45" step="1" value="15" id="bgv" aria-label="Background verification turnaround time in days" />
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+          <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400">Candidate context</p>
+          <span id="badge-context" class="font-mono text-[10px] px-2.5 py-0.5 rounded-full border shrink-0">--</span>
+        </div>
+
+        <div class="mb-4">
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">Total years of experience</span>
+            <span id="exp-out" class="font-mono text-xs text-cyan-glow tabular-nums">5 yrs</span>
+          </div>
+          <input type="range" min="0" max="25" step="1" value="5" id="exp" aria-label="Total years of experience" />
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between items-baseline mb-1.5">
+            <span class="text-sm font-medium text-mist-200">Tenure at current company</span>
+            <span id="tenure-out" class="font-mono text-xs text-cyan-glow tabular-nums">24 mo</span>
+          </div>
+          <input type="range" min="0" max="120" step="1" value="24" id="tenure" aria-label="Tenure at current company in months" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-mist-200 mb-1.5" for="source">Source</label>
+          <select id="source" aria-label="Candidate source">
+            <option value="applied" selected>Applied</option>
+            <option value="referral">Referral</option>
+            <option value="recruiter">Recruiter-sourced</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-8 text-xs text-mist-400 max-w-3xl leading-relaxed">
+      Built on illustrative weights, not a trained model — a stand-in for how a scorecard would
+      combine these signals. Relocation risk scales with years of experience (low early-career,
+      peaks mid-career, eases again for leadership-level moves) rather than a flat yes/no, and
+      industry &times; skill-set combinations in high demand &mdash; Banking with Analytics,
+      Financial services with Functional consulting &mdash; carry extra weight rather than being
+      treated as independent factors. Deliberately excludes gender, age, and marital status: none
+      are reliable drivers of offer acceptance once experience, tenure, and relocation are already
+      in the model, and using them would create legal and ethical exposure without adding
+      predictive value.
+    </p>
+  </section>
+</Layout>
+
+<style>
+  input[type='range'] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--color-edge) 12%, transparent);
+    outline: none;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-cyan-glow);
+    border: 2px solid var(--color-ink-950);
+    box-shadow: 0 0 0 1px var(--color-cyan-glow);
+    cursor: pointer;
+  }
+  input[type='range']::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-cyan-glow);
+    border: 2px solid var(--color-ink-950);
+    cursor: pointer;
+  }
+  select,
+  input[type='number'] {
+    width: 100%;
+    height: 36px;
+    padding: 0 0.7rem;
+    border-radius: 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--color-edge) 12%, transparent);
+    background: color-mix(in srgb, var(--color-edge) 4%, transparent);
+    color: var(--color-mist-200);
+    font-size: 13px;
+    font-family: var(--font-mono);
+  }
+  select {
+    font-family: var(--font-sans);
+  }
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  select:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--color-cyan-glow);
+    outline-offset: 1px;
+  }
+</style>
+
+<script>
+  function clamp(v: number, a: number, b: number) { return Math.max(a, Math.min(b, v)); }
+  function elm(id: string) { return document.getElementById(id) as HTMLInputElement | HTMLSelectElement; }
+  function val(id: string) { return elm(id).value; }
+  function num(id: string) { return parseFloat(val(id)) || 0; }
+
+  type Term = { label: string; val: number };
+
+  function bandFor(score: number): 'low' | 'medium' | 'high' {
+    if (score <= 0) return 'low';
+    if (score <= 0.6) return 'medium';
+    return 'high';
+  }
+
+  function probBand(pct: number): 'low' | 'medium' | 'high' {
+    if (pct < 25) return 'low';
+    if (pct < 50) return 'medium';
+    return 'high';
+  }
+
+  function paintPill(target: HTMLElement, band: 'low' | 'medium' | 'high', compact = false) {
+    const base = compact
+      ? 'font-mono text-[10px] px-2.5 py-0.5 rounded-full border shrink-0'
+      : 'font-mono text-xs px-3 py-1 rounded-full border';
+    const map: Record<string, [string, string]> = {
+      low: ['bg-emerald-500/10 text-emerald-400 border-emerald-500/20', 'Low risk'],
+      medium: ['bg-amber-500/10 text-amber-400 border-amber-500/20', 'Medium risk'],
+      high: ['bg-rose-500/10 text-rose-400 border-rose-500/20', 'High risk'],
+    };
+    const [cls, label] = map[band];
+    target.className = `${base} ${cls}`;
+    target.textContent = label;
+  }
+
+  function relocMultiplier(exp: number) {
+    if (exp <= 7) return 0.3;
+    if (exp <= 14) return 1.0;
+    return 0.4;
+  }
+
+  function onsiteTerm(onsiteexp: string, workmode: string) {
+    const base = onsiteexp === 'yes' ? 0.15 : 0;
+    let interaction = 0;
+    if (workmode === 'onsite') {
+      interaction = onsiteexp === 'yes' ? -0.1 : 0.3;
+    }
+    return base + interaction;
+  }
+
+  function sum(arr: Term[]) { return arr.reduce((a, f) => a + f.val, 0); }
+
+  function render() {
+    const hike = Math.max(0, num('hike'));
+    const bonus = num('bonus');
+    const market = num('market');
+    const skillset = val('skillset');
+    const industry = val('industry');
+    const workmode = val('workmode');
+    const band = val('band');
+    const reloc = val('reloc');
+    const onsiteexp = val('onsiteexp');
+    const visa = val('visa');
+    const notice = num('notice');
+    const lag = num('lag');
+    const compete = num('compete');
+    const bgv = num('bgv');
+    const exp = num('exp');
+    const tenure = num('tenure');
+    const source = val('source');
+
+    document.getElementById('bonus-out')!.textContent = '₹' + bonus.toFixed(1) + 'L';
+    document.getElementById('market-out')!.textContent = (market >= 0 ? '+' : '') + market + '%';
+    document.getElementById('notice-out')!.textContent = notice + ' days';
+    document.getElementById('lag-out')!.textContent = lag + ' days';
+    document.getElementById('compete-out')!.textContent = String(compete);
+    document.getElementById('bgv-out')!.textContent = bgv + ' days';
+    document.getElementById('exp-out')!.textContent = exp + ' yrs';
+    document.getElementById('tenure-out')!.textContent = tenure + ' mo';
+
+    const skillsetMap: Record<string, number> = { qa: 0, pm: -0.1, ba: 0, functional: 0.1, dev: 0.2, architect: 0.5, data: 0.6 };
+    const industryBase: Record<string, number> = { bfsi: 0.1, fs: 0.1, it: 0.1, healthcare: -0.1, manufacturing: -0.1, retail: 0, telecom: 0, consulting: 0.1 };
+    const comboBonus: Record<string, number> = {
+      'bfsi|data': 0.4,
+      'bfsi|architect': 0.2,
+      'fs|functional': 0.4,
+      'fs|data': 0.3,
+      'it|architect': 0.3,
+      'it|data': 0.3,
+    };
+    const workmodeMap: Record<string, number> = { hybrid: 0, onsite: 0.3, remote: 0.1 };
+    const bandMap: Record<string, number> = { lateral: 0, promotion: -0.6 };
+    const relocMap: Record<string, number> = { no: 0, yes: 0.9 };
+    const visaMap: Record<string, number> = { none: 0, process: 0.1, valid: 0.35 };
+    const sourceMap: Record<string, number> = { referral: -0.4, applied: 0, recruiter: 0.3 };
+
+    const comp: Term[] = [
+      { label: 'Salary hike', val: clamp(-0.05 * (hike - 20), -3, 1.5) },
+      { label: 'Joining bonus', val: -0.15 * (bonus - 2) },
+      { label: 'Offer vs. market', val: -0.04 * market },
+    ];
+    const role: Term[] = [
+      { label: 'Primary skill set', val: skillsetMap[skillset] },
+      { label: 'Industry', val: industryBase[industry] + (comboBonus[industry + '|' + skillset] || 0) },
+      { label: 'Work mode', val: workmodeMap[workmode] },
+      { label: 'Band jump', val: bandMap[band] },
+    ];
+    const mobility: Term[] = [
+      { label: 'Relocation required', val: relocMap[reloc] * relocMultiplier(exp) },
+      { label: 'Onsite experience', val: onsiteTerm(onsiteexp, workmode) },
+      { label: 'US visa validity', val: visaMap[visa] },
+    ];
+    const timing: Term[] = [
+      { label: 'Notice period', val: 0.015 * (notice - 30) },
+      { label: 'Offer-to-decision lag', val: 0.06 * (lag - 7) },
+      { label: 'Competing offers', val: 0.4 * compete },
+      { label: 'BGV turnaround', val: 0.025 * (bgv - 15) },
+    ];
+    const context: Term[] = [
+      { label: 'Years of experience', val: 0.02 * (exp - 5) },
+      { label: 'Current tenure', val: 0.01 * (tenure - 24) },
+      { label: 'Source', val: sourceMap[source] },
+    ];
+
+    paintPill(document.getElementById('badge-comp')!, bandFor(sum(comp)), true);
+    paintPill(document.getElementById('badge-role')!, bandFor(sum(role)), true);
+    paintPill(document.getElementById('badge-mobility')!, bandFor(sum(mobility)), true);
+    paintPill(document.getElementById('badge-timing')!, bandFor(sum(timing)), true);
+    paintPill(document.getElementById('badge-context')!, bandFor(sum(context)), true);
+
+    const intercept = -1.0;
+    const all = comp.concat(role, mobility, timing, context);
+    const logit = intercept + sum(all);
+    const prob = 1 / (1 + Math.exp(-logit));
+    const pct = Math.round(clamp(prob, 0, 1) * 100);
+
+    document.getElementById('prob-out')!.textContent = pct + '%';
+    paintPill(document.getElementById('overall-badge')!, probBand(pct));
+
+    const maxRisk = all.reduce((a, f) => (f.val > a.val ? f : a), all[0]);
+    const maxProtect = all.reduce((a, f) => (f.val < a.val ? f : a), all[0]);
+    document.getElementById('top-risk')!.textContent = maxRisk.val > 0 ? maxRisk.label : 'None flagged';
+    document.getElementById('top-protect')!.textContent = maxProtect.val < 0 ? maxProtect.label : 'None flagged';
+  }
+
+  ['hike', 'bonus', 'market', 'skillset', 'industry', 'workmode', 'band', 'reloc', 'onsiteexp', 'visa', 'notice', 'lag', 'compete', 'bgv', 'exp', 'tenure', 'source'].forEach((id) => {
+    elm(id).addEventListener('input', render);
+    elm(id).addEventListener('change', render);
+  });
+  render();
+</script>
