@@ -1,6 +1,25 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
+const industries = [
+  { key: '', label: 'All industries' },
+  { key: 'bfsi', label: 'BFSI' },
+  { key: 'tech', label: 'Technology' },
+  { key: 'healthcare', label: 'Healthcare' },
+  { key: 'manufacturing', label: 'Manufacturing' },
+  { key: 'retail', label: 'Retail & consumer' },
+  { key: 'consulting', label: 'Consulting & services' },
+];
+
+const functions = [
+  { key: '', label: 'All functions' },
+  { key: 'hr', label: 'HR & talent' },
+  { key: 'marketing', label: 'Marketing & growth' },
+  { key: 'finance', label: 'Finance & risk' },
+  { key: 'ops', label: 'Operations & supply chain' },
+  { key: 'strategy', label: 'Strategy & analytics' },
+];
+
 const projects = [
   {
     href: '/projects/offer-signal',
@@ -8,6 +27,8 @@ const projects = [
     tag: 'Weighted scorecard',
     title: 'Offer signal',
     description: 'The offer is signed, the interviews are done — will they actually join? A 17-signal scorecard across compensation, market fit, mobility, timing, and candidate context.',
+    industries: ['bfsi', 'tech', 'healthcare', 'manufacturing', 'retail', 'consulting'],
+    functions: ['hr'],
   },
 ];
 ---
@@ -29,9 +50,33 @@ const projects = [
   </section>
 
   <section class="mx-auto max-w-4xl px-5 sm:px-8 py-16 sm:py-20">
-    <div class="grid gap-5 max-w-xl">
+    <div class="mb-10 space-y-5">
+      <div>
+        <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400 mb-2.5">Industry</p>
+        <div class="flex flex-wrap gap-2" data-filter-group="industry">
+          {industries.map((i) => (
+            <button type="button" data-filter-value={i.key} class="filter-btn">{i.label}</button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400 mb-2.5">Business function</p>
+        <div class="flex flex-wrap gap-2" data-filter-group="function">
+          {functions.map((f) => (
+            <button type="button" data-filter-value={f.key} class="filter-btn">{f.label}</button>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-5 max-w-xl" id="project-grid">
       {projects.map((p) => (
-        <a href={p.href} class="card group p-7 flex flex-col">
+        <a
+          href={p.href}
+          class="card group p-7 flex flex-col"
+          data-industries={p.industries.join(',')}
+          data-functions={p.functions.join(',')}
+        >
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center mb-6">
             {p.icon === 'offer' && (
               <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -46,5 +91,75 @@ const projects = [
         </a>
       ))}
     </div>
+
+    <div id="empty-state" class="hidden card max-w-xl p-10 text-center">
+      <p class="text-mist-300 font-medium">No projects match yet</p>
+      <p class="mt-2 text-sm text-mist-400">More Casual Projects are on the way — try a different combination or check back soon.</p>
+    </div>
   </section>
 </Layout>
+
+<style>
+  .filter-btn {
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-edge) 10%, transparent);
+    color: var(--color-mist-400);
+    opacity: 0.5;
+    background: transparent;
+    transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .filter-btn:hover {
+    opacity: 0.85;
+  }
+  .filter-btn[data-active='true'] {
+    opacity: 1;
+    color: var(--color-cyan-glow);
+    border-color: color-mix(in srgb, var(--color-cyan-glow) 35%, transparent);
+    background: color-mix(in srgb, var(--color-cyan-glow) 10%, transparent);
+  }
+</style>
+
+<script>
+  const state: { industry: string; fn: string } = { industry: '', fn: '' };
+
+  function applyButtonStyles() {
+    document.querySelectorAll<HTMLButtonElement>('[data-filter-group="industry"] .filter-btn').forEach((btn) => {
+      btn.dataset.active = String(btn.dataset.filterValue === state.industry);
+    });
+    document.querySelectorAll<HTMLButtonElement>('[data-filter-group="function"] .filter-btn').forEach((btn) => {
+      btn.dataset.active = String(btn.dataset.filterValue === state.fn);
+    });
+  }
+
+  function applyFilter() {
+    const cards = document.querySelectorAll<HTMLAnchorElement>('#project-grid > a');
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const cardIndustries = (card.dataset.industries || '').split(',');
+      const cardFunctions = (card.dataset.functions || '').split(',');
+      const industryMatch = state.industry === '' || cardIndustries.includes(state.industry);
+      const functionMatch = state.fn === '' || cardFunctions.includes(state.fn);
+      const visible = industryMatch && functionMatch;
+      card.classList.toggle('hidden', !visible);
+      if (visible) visibleCount++;
+    });
+    document.getElementById('empty-state')!.classList.toggle('hidden', visibleCount > 0);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.filter-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest<HTMLElement>('[data-filter-group]')!.dataset.filterGroup;
+      const value = btn.dataset.filterValue || '';
+      if (group === 'industry') state.industry = value;
+      if (group === 'function') state.fn = value;
+      applyButtonStyles();
+      applyFilter();
+    });
+  });
+
+  applyButtonStyles();
+  applyFilter();
+</script>
