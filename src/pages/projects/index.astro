@@ -18,6 +18,7 @@ const functions = [
   { key: 'finance', label: 'Finance & risk' },
   { key: 'ops', label: 'Operations & supply chain' },
   { key: 'strategy', label: 'Strategy & analytics' },
+  { key: 'tech', label: 'Technology' },
 ];
 
 const projects = [
@@ -29,6 +30,15 @@ const projects = [
     description: 'The offer is signed, the interviews are done — will they actually join? A 17-signal scorecard across compensation, market fit, mobility, timing, and candidate context.',
     industries: ['bfsi', 'tech', 'healthcare', 'manufacturing', 'retail', 'consulting'],
     functions: ['hr'],
+  },
+  {
+    href: '/projects/governance-passport',
+    icon: 'governance',
+    tag: 'Maturity assessment',
+    title: 'Governance Passport',
+    description: 'A 24-question, 8-theme AI governance assessment for enterprises. Places you at Novice, Dabbling, or Intermediate, then builds a phased roadmap of concrete steps, time estimates, and the templates each one needs.',
+    industries: ['bfsi', 'tech', 'healthcare', 'manufacturing', 'retail', 'consulting'],
+    functions: ['strategy', 'ops', 'tech'],
   },
 ];
 ---
@@ -80,6 +90,9 @@ const projects = [
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center mb-6">
             {p.icon === 'offer' && (
               <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            )}
+            {p.icon === 'governance' && (
+              <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             )}
           </div>
           <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400 mb-2">{p.tag}</p>

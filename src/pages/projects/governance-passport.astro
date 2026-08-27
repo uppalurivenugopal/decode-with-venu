@@ -1,0 +1,1195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Governance Passport"
+  description="A phased AI governance maturity assessment for enterprises — 24 calibrated questions across 8 themes, a personalized roadmap, and step-by-step activity tracking with save-and-resume."
+>
+  <section class="relative overflow-hidden bg-grid border-b border-edge/5">
+    <div class="glow w-[28rem] h-[28rem] bg-cyan-glow/15 -top-40 left-1/3"></div>
+    <div class="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 pt-14 pb-12 sm:pt-20 sm:pb-16">
+      <a href="/projects" class="inline-flex items-center gap-1.5 text-xs text-mist-400 hover:text-fg transition-colors mb-6">
+        <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M9.5 6h-7M6 2.5L2.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Casual Projects
+      </a>
+      <p class="font-mono text-xs tracking-widest text-cyan-glow/80 uppercase mb-4">Interactive assessment &middot; enterprise AI governance</p>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-fg leading-tight">
+        Chart your organization's <span class="gradient-text">AI governance maturity.</span>
+      </h1>
+      <p class="mt-4 max-w-2xl text-mist-400">
+        24 questions across 8 themes place your organization at Novice, Dabbling, or Intermediate, then
+        build a phased, step-by-step roadmap — what to fix first, how long it takes, and which template
+        or framework each step needs.
+      </p>
+      <div id="stagebadge" class="mt-5"></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 sm:px-8 py-12 sm:py-16">
+    <div class="stage anim" id="stage"></div>
+  </section>
+</Layout>
+
+<style is:global>
+  #stage, #stage * { box-sizing: border-box; }
+
+  #stage {
+    --surface: color-mix(in srgb, var(--color-edge) 3%, transparent);
+    --surface-alt: color-mix(in srgb, var(--color-edge) 6%, transparent);
+    --ink: var(--color-fg);
+    --ink-muted: var(--color-mist-300);
+    --ink-faint: var(--color-mist-400);
+    --border: color-mix(in srgb, var(--color-edge) 8%, transparent);
+    --border-strong: color-mix(in srgb, var(--color-edge) 16%, transparent);
+    --accent: var(--color-cyan-glow);
+    --accent-strong: var(--color-indigo-glow);
+    --accent-tint: color-mix(in srgb, var(--color-cyan-glow) 12%, transparent);
+    --success: #34d399;
+    --success-tint: color-mix(in srgb, #34d399 14%, transparent);
+    --warning: #fbbf24;
+    --warning-tint: color-mix(in srgb, #fbbf24 14%, transparent);
+    --critical: #fb7185;
+    --critical-tint: color-mix(in srgb, #fb7185 14%, transparent);
+    --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.5);
+  }
+  :root[data-theme='light'] #stage {
+    --success: #059669;
+    --success-tint: color-mix(in srgb, #059669 12%, transparent);
+    --warning: #b45309;
+    --warning-tint: color-mix(in srgb, #b45309 12%, transparent);
+    --critical: #e11d48;
+    --critical-tint: color-mix(in srgb, #e11d48 12%, transparent);
+    --shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.2);
+  }
+
+  #stage, #stagebadge { font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif; }
+  #stage a, #stage button { font-family: inherit; }
+
+  #stage .eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  #stage h1, #stage h2, #stage h3 {
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+  #stage p { line-height: 1.6; color: var(--ink); margin: 0; }
+
+  .stagebadge-pill {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--color-cyan-glow);
+    color: var(--color-cyan-glow);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-cyan-glow) 12%, transparent);
+    white-space: nowrap;
+  }
+
+  /* ---------- Stage panel ---------- */
+  .stage {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    padding: 2.75rem 2.5rem;
+    backdrop-filter: blur(6px);
+  }
+  @media (max-width: 640px) { .stage { padding: 1.75rem 1.25rem; } }
+
+  .stage.anim { animation: fadeSlideIn .32s ease; }
+  @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .stage.anim { animation: none; } }
+
+  #stage .btn {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.68rem 1.35rem;
+    border-radius: 0.6rem;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, opacity .15s ease, background-image .15s ease;
+  }
+  #stage .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #stage .btn-primary { background-image: linear-gradient(90deg, var(--color-cyan-glow), var(--color-indigo-glow)); color: #fff; }
+  #stage .btn-primary:hover { opacity: .88; }
+  #stage .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+  #stage .btn-ghost { background: transparent; border-color: var(--border-strong); color: var(--ink); }
+  #stage .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  #stage .btn-ghost:disabled { opacity: 0.35; cursor: not-allowed; }
+  #stage .btn-ghost:disabled:hover { border-color: var(--border-strong); color: var(--ink); }
+
+  #stage .actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 2.25rem; }
+  #stage .actions.split { justify-content: space-between; }
+
+  /* ---------- Intro ---------- */
+  #stage .hero h1 { font-size: 2.15rem; line-height: 1.18; max-width: 22ch; }
+  #stage .hero .lede { margin-top: 1rem; max-width: 58ch; color: var(--ink-muted); font-size: 1.02rem; }
+  #stage .hero .meta { margin-top: 1.4rem; font-family: var(--font-mono), monospace; font-size: 0.75rem; color: var(--ink-faint); letter-spacing: 0.03em; }
+
+  #stage .route {
+    margin-top: 2.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden;
+  }
+  @media (max-width: 640px) { #stage .route { grid-template-columns: 1fr; } }
+  #stage .route-card { background: var(--surface); padding: 1.1rem 1.2rem; }
+  #stage .route-card .ri { font-family: var(--font-mono), monospace; font-size: 0.68rem; color: var(--ink-faint); letter-spacing: 0.08em; }
+  #stage .route-card .rn { font-weight: 700; font-size: 1.05rem; margin-top: 0.25rem; color: var(--ink); }
+  #stage .route-card .rt { font-size: 0.83rem; color: var(--ink-muted); margin-top: 0.4rem; font-style: italic; }
+  #stage .route-note { margin-top: 0.9rem; font-size: 0.82rem; color: var(--ink-faint); }
+
+  #stage .resume-banner {
+    margin-top: 1.6rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+    padding: 1rem 1.15rem; background: var(--accent-tint); border: 1px solid var(--accent); border-radius: 0.75rem;
+  }
+  #stage .resume-title { font-weight: 600; font-size: 0.95rem; color: var(--ink); }
+  #stage .resume-sub { margin-top: 0.25rem; font-family: var(--font-mono), monospace; font-size: 0.72rem; color: var(--ink-muted); }
+  #stage .resume-actions { display: flex; gap: 0.6rem; flex: none; }
+
+  /* ---------- Quiz ---------- */
+  #stage .quizlayout { display: grid; grid-template-columns: 210px 1fr; gap: 2.2rem; }
+  @media (max-width: 760px) { #stage .quizlayout { grid-template-columns: 1fr; } }
+
+  #stage .themerail { display: flex; flex-direction: column; gap: 0.3rem; border-right: 1px solid var(--border); padding-right: 1.5rem; }
+  @media (max-width: 760px) {
+    #stage .themerail { flex-direction: row; flex-wrap: wrap; border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 1.1rem; margin-bottom: 0.3rem; }
+    #stage .themerail-item { flex: 1 1 auto; }
+  }
+  #stage .themerail-item {
+    display: flex; align-items: center; gap: 0.5rem; text-align: left; background: none; border: none;
+    padding: 0.45rem 0.5rem; border-radius: 0.5rem; cursor: default; color: var(--ink-faint); font-size: 0.78rem;
+    line-height: 1.3;
+  }
+  #stage .themerail-item .tri-num { font-family: var(--font-mono), monospace; font-size: 0.65rem; flex: none; width: 1.2rem; }
+  #stage .themerail-item .tri-name { flex: 1; }
+  #stage .themerail-item .tri-check { color: var(--success); font-size: 0.72rem; flex: none; }
+  #stage .themerail-item.current { color: var(--ink); font-weight: 600; background: var(--accent-tint); }
+  #stage .themerail-item.current .tri-num { color: var(--accent); }
+  #stage .themerail-item.done { color: var(--ink-muted); cursor: pointer; }
+  #stage .themerail-item.done:hover { background: var(--surface-alt); }
+  #stage .themerail-item.done:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #stage .themerail-item.upcoming { opacity: 0.55; }
+
+  #stage .qmeta { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.4rem; }
+  #stage .qcounter { font-family: var(--font-mono), monospace; font-size: 0.72rem; color: var(--ink-faint); }
+  #stage .progressbar-track { height: 4px; background: var(--surface-alt); border-radius: 999px; overflow: hidden; margin-top: 0.9rem; }
+  #stage .progressbar-fill { height: 100%; background: var(--accent); transition: width .25s ease; }
+  #stage .qtext { font-size: 1.5rem; margin-top: 1.3rem; max-width: 32ch; }
+  #stage .options { margin-top: 1.6rem; display: flex; flex-direction: column; gap: 0.65rem; }
+  #stage .opt {
+    text-align: left; padding: 0.9rem 1.1rem; border: 1.5px solid var(--border);
+    border-radius: 0.75rem; background: var(--surface); cursor: pointer; font-size: 0.94rem;
+    display: flex; gap: 0.75rem; align-items: flex-start; color: var(--ink);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  #stage .opt:hover { border-color: var(--border-strong); }
+  #stage .opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #stage .opt.sel { border-color: var(--accent); background: var(--accent-tint); }
+  #stage .opt .mark {
+    flex: none; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-strong);
+    margin-top: 0.15rem; position: relative;
+  }
+  #stage .opt.sel .mark { border-color: var(--accent); }
+  #stage .opt.sel .mark::after {
+    content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent);
+  }
+  #stage .opt-divider { border-top: 1px dashed var(--border-strong); margin: 0.3rem 0; }
+  #stage .opt.skip { color: var(--ink-muted); font-size: 0.86rem; padding: 0.7rem 1.1rem; }
+  #stage .opt.skip.sel { border-color: var(--border-strong); background: var(--surface-alt); }
+  #stage .opt.skip.sel .mark { border-color: var(--ink-muted); }
+  #stage .opt.skip.sel .mark::after { background: var(--ink-muted); }
+
+  /* ---------- Briefing ---------- */
+  #stage .stagename { font-size: 2.1rem; margin-top: 0.4rem; }
+  #stage .tagline { font-style: italic; color: var(--ink-muted); margin-top: 0.5rem; font-size: 1.02rem; }
+  #stage .profile { margin-top: 1.3rem; padding: 1rem 1.2rem; background: var(--surface-alt); border-radius: 0.75rem; border: 1px solid var(--border); font-size: 0.95rem; color: var(--ink-muted); }
+  #stage .fieldnotes { margin-top: 1.6rem; }
+  #stage .fieldnotes .fn-title { font-family: var(--font-mono), monospace; font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); }
+  #stage .fieldnotes ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+  #stage .fieldnotes li { display: flex; gap: 0.65rem; font-size: 0.94rem; color: var(--ink); align-items: baseline; }
+  #stage .fieldnotes li::before { content: "\2013"; color: var(--ink-faint); flex: none; }
+
+  /* ---------- Roadmap ---------- */
+  #stage .qb-summary {
+    margin-top: 1.2rem; padding: 0.95rem 1.15rem; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 0.75rem;
+  }
+  #stage .qb-summary .qlabel { font-weight: 500; font-size: 0.96rem; color: var(--ink); }
+  #stage .qb-summary .qcount { display: block; margin-top: 0.35rem; font-family: var(--font-mono), monospace; font-size: 0.75rem; color: var(--ink-muted); }
+
+  #stage .phase { margin-top: 2.3rem; }
+  #stage .phase:first-of-type { margin-top: 1.8rem; }
+  #stage .phase-head { padding-left: 1rem; border-left: 3px solid var(--accent); }
+  #stage .phase-head.focus { border-left-color: var(--critical); }
+  #stage .phase-head.inline { border-left-color: var(--accent); }
+  #stage .phase-head.ahead { border-left-color: var(--success); }
+  #stage .phase-head .peyebrow { font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+  #stage .phase-head h3 { font-size: 1.28rem; margin-top: 0.35rem; }
+  #stage .phase-head .phase-sub { margin-top: 0.4rem; font-size: 0.86rem; color: var(--ink-muted); max-width: 62ch; }
+
+  #stage .gapgrid { margin-top: 1.2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 760px) { #stage .gapgrid { grid-template-columns: 1fr; } }
+
+  #stage .gapcard { border: 1px solid var(--border); border-left-width: 3px; border-radius: 0.75rem; padding: 1.1rem 1.15rem; background: var(--surface); display: flex; flex-direction: column; gap: 0.7rem; }
+  #stage .gapcard.phase-focus { border-left-color: var(--critical); }
+  #stage .gapcard.phase-inline { border-left-color: var(--accent); }
+  #stage .gapcard.phase-ahead { border-left-color: var(--success); }
+  #stage .gapcard-top { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
+  #stage .gapcard .gi { font-family: var(--font-mono), monospace; font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+
+  #stage .reqtag {
+    display: inline-flex; align-items: baseline; gap: 0.35rem; font-family: var(--font-mono), monospace; font-size: 0.68rem;
+    letter-spacing: 0.02em; padding: 0.35rem 0.6rem; border: 1px dashed var(--border-strong); border-radius: 0.5rem;
+    color: var(--ink-muted); width: fit-content;
+  }
+  #stage .reqtag b { color: var(--ink); font-weight: 500; }
+
+  #stage .statuspill {
+    font-family: var(--font-mono), monospace; font-size: 0.63rem; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 0.22rem 0.55rem; border-radius: 999px; border: 1px solid transparent; flex: none; white-space: nowrap;
+  }
+  #stage .statuspill[data-cls="todo"] { background: var(--surface-alt); color: var(--ink-muted); border-color: var(--border-strong); }
+  #stage .statuspill[data-cls="started"] { background: var(--warning-tint); color: var(--warning); }
+  #stage .statuspill[data-cls="progress"] { background: var(--warning-tint); color: var(--warning); }
+  #stage .statuspill[data-cls="closing"] { background: var(--accent-tint); color: var(--accent); }
+  #stage .statuspill[data-cls="done"] { background: var(--success-tint); color: var(--success); }
+
+  #stage .activity-track { height: 3px; background: var(--surface-alt); border-radius: 999px; overflow: hidden; }
+  #stage .activity-fill { height: 100%; background: var(--accent); transition: width .2s ease; }
+
+  #stage .steplist { display: flex; flex-direction: column; gap: 0.55rem; }
+  #stage .step { display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; font-size: 0.87rem; }
+  #stage .step input[type="checkbox"] { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  #stage .step-box {
+    flex: none; width: 16px; height: 16px; border: 1.5px solid var(--border-strong); border-radius: 4px;
+    margin-top: 0.15rem; position: relative; background: var(--surface);
+  }
+  #stage .step.checked .step-box { background: var(--success); border-color: var(--success); }
+  #stage .step.checked .step-box::after {
+    content: ""; position: absolute; left: 4px; top: 1px; width: 4px; height: 8px;
+    border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(40deg);
+  }
+  #stage .step-text { flex: 1; color: var(--ink); line-height: 1.45; }
+  #stage .step-days { flex: none; font-family: var(--font-mono), monospace; font-size: 0.66rem; color: var(--ink-faint); white-space: nowrap; margin-top: 0.18rem; }
+  #stage .step.locked { opacity: 0.45; cursor: not-allowed; }
+  #stage .step.locked .step-text { color: var(--ink-faint); }
+  #stage .step input:focus-visible ~ .step-box { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #stage .gate-note { font-size: 0.78rem; color: var(--critical); max-width: 32ch; text-align: right; }
+
+  #stage .glabel { font-family: var(--font-mono), monospace; font-size: 0.65rem; letter-spacing: 0.07em; text-transform: uppercase; }
+  #stage .glabel.gap { color: var(--critical); }
+  #stage .glabel.rec { color: var(--accent); }
+  #stage .gtext { font-size: 0.89rem; margin-top: 0.3rem; color: var(--ink); line-height: 1.5; }
+  #stage .divider-dash { border-top: 1px dashed var(--border-strong); }
+
+  /* ---------- Scenario ---------- */
+  #stage .scenario-prompt { margin-top: 1.1rem; font-size: 1.25rem; line-height: 1.45; max-width: 46ch; color: var(--ink); font-weight: 700; letter-spacing: -0.01em; }
+  #stage .sopt {
+    width: 100%; text-align: left; padding: 0.85rem 1.05rem; margin-top: 0.65rem; border: 1.5px solid var(--border);
+    border-radius: 0.75rem; background: var(--surface); cursor: pointer; font-size: 0.93rem; color: var(--ink);
+  }
+  #stage .sopt:hover:not(:disabled) { border-color: var(--border-strong); }
+  #stage .sopt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #stage .sopt.chosen.best { border-color: var(--success); background: var(--success-tint); }
+  #stage .sopt.chosen:not(.best) { border-color: var(--warning); background: var(--warning-tint); }
+  #stage .sopt:disabled { cursor: default; }
+  #stage .feedback { margin-top: 1.2rem; padding: 1rem 1.15rem; border-radius: 0.75rem; border: 1px solid var(--border); background: var(--surface-alt); }
+  #stage .feedback .flabel { font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+  #stage .feedback p { margin-top: 0.4rem; font-size: 0.93rem; color: var(--ink); }
+
+  /* ---------- Completion / stamp ---------- */
+  #stage .stampwrap { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem 0; }
+  #stage .stamp-big {
+    width: 108px; height: 108px; border-radius: 50%; border: 3px solid var(--accent); color: var(--accent);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    font-family: var(--font-mono), monospace; transform: rotate(-4deg);
+    animation: stampIn .5s cubic-bezier(.2,1.3,.4,1);
+  }
+  @media (prefers-reduced-motion: reduce) { #stage .stamp-big { animation: none; } }
+  @keyframes stampIn { 0% { opacity: 0; transform: scale(.5) rotate(-14deg); } 60% { opacity: 1; transform: scale(1.08) rotate(2deg); } 100% { opacity: 1; transform: scale(1) rotate(-4deg); } }
+  #stage .stamp-big .sn { font-size: 1.35rem; font-weight: 600; }
+  #stage .stamp-big .sl { font-size: 0.52rem; letter-spacing: 0.08em; margin-top: 2px; }
+  #stage .passport-h { margin-top: 1.4rem; font-size: 1.6rem; }
+  #stage .passport-p { margin-top: 0.6rem; color: var(--ink-muted); max-width: 46ch; }
+</style>
+
+<script is:inline>
+  const TIER_ORDER = ["novice", "dabbling", "intermediate"];
+
+  const THEMES = [
+    { id: "adoption", name: "Adoption & Visibility" },
+    { id: "policy", name: "Policy & Accountability" },
+    { id: "data", name: "Data & Risk Classification" },
+    { id: "vendor", name: "Vendor & Model Risk" },
+    { id: "competency", name: "Competency & Enablement" },
+    { id: "monitoring", name: "Monitoring & Controls" },
+    { id: "incident", name: "Incident Response & Compliance" },
+    { id: "strategy", name: "Strategic Oversight" }
+  ];
+
+  const TIERS = [
+    {
+      id: "novice",
+      index: "01",
+      name: "Novice",
+      tagline: "AI is arriving whether you've planned for it or not.",
+      profile: "Picture a 40-person company. The IT Director just learned three teams are already using free AI tools for client work — nobody asked, nobody's tracking what data goes in.",
+      atGlance: [
+        "No AI-specific policy or accountable owner exists yet",
+        "Little to no visibility into which tools staff already use",
+        "Leadership treats AI as an opportunity, not yet as a risk category"
+      ],
+      gapsByTheme: {
+        adoption: { gap: "No one can say which AI tools are actually in use, or by whom.", requires: "Shadow-AI discovery checklist", steps: [
+          { text: "Send a short survey to every team lead asking which AI tools they or their team already use.", days: 2, parallel: false },
+          { text: "Cross-check responses against expense reports and admin or SSO logs to catch tools nobody reported.", days: 2, parallel: true },
+          { text: "Consolidate both sources into a single tracked list with tool name, team, and purpose.", days: 1, parallel: false }
+        ]},
+        policy: { gap: "No written AI policy exists, and no one is formally accountable for AI-related decisions.", requires: "Acceptable Use Policy template", steps: [
+          { text: "Draft a one-page Acceptable Use Policy covering approved uses, banned uses, and who to ask.", days: 2, parallel: false },
+          { text: "Name an accountable owner for AI decisions, even part-time, and get their sign-off on the draft.", days: 1, parallel: true },
+          { text: "Circulate the policy for leadership approval and publish it somewhere all staff can find it.", days: 2, parallel: false }
+        ]},
+        data: { gap: "Data sensitivity isn't mapped to AI exposure — client IP or PII could already be leaving the building.", requires: "Data sensitivity tagging guide", steps: [
+          { text: "List the top three data types that must never enter a public AI tool — client contracts, source code, financials.", days: 1, parallel: false },
+          { text: "Add this list as a named section inside the Acceptable Use Policy.", days: 0.5, parallel: false },
+          { text: "Send a one-line reminder to all staff pointing to the new data rule.", days: 0.5, parallel: false }
+        ]},
+        vendor: { gap: "Vendor onboarding doesn't ask any AI-specific questions.", requires: "Vendor AI risk questionnaire", steps: [
+          { text: "Draft four AI-specific questions for vendor intake — data use, retention, training, subprocessors.", days: 1, parallel: false },
+          { text: "Add the questions to the standard vendor onboarding checklist or contract review step.", days: 1, parallel: false },
+          { text: "Apply the new questions retroactively to your top three active AI vendors.", days: 2, parallel: true }
+        ]},
+        competency: { gap: "AI tool licenses get handed out on request, with no tracking of who's actually using them well — or at all.", requires: "License & access tracking log", steps: [
+          { text: "Pull a list of everyone with an active AI tool license from admin consoles.", days: 1, parallel: false },
+          { text: "Record whether each person has had any onboarding or guidance on using it.", days: 1, parallel: false },
+          { text: "Start a simple log — owner, tool, onboarded yes or no — updated whenever licenses change.", days: 1, parallel: true }
+        ]},
+        monitoring: { gap: "There's no logging or visibility into what's typed into, or generated by, the AI tools already in use.", requires: "AI tool visibility checklist", steps: [
+          { text: "Confirm which of your active AI tools have any built-in activity logging available.", days: 1, parallel: false },
+          { text: "Turn on logging for each tool where it's available but currently off.", days: 1, parallel: false },
+          { text: "Note where logging isn't available at all — that's a vendor question for next renewal.", days: 0.5, parallel: false }
+        ]},
+        incident: { gap: "If an AI tool leaked data or produced a harmful output tomorrow, there's no defined path for what happens next.", requires: "Incident escalation one-pager template", steps: [
+          { text: "Write a half-page path: who gets told first if an AI tool leaks data or misbehaves.", days: 1, parallel: false },
+          { text: "Define what gets paused immediately versus what can wait for investigation.", days: 1, parallel: false },
+          { text: "Share the path with the people named in it so they know they're on the hook.", days: 0.5, parallel: false }
+        ]},
+        strategy: { gap: "AI hasn't come up as a topic in leadership conversations — it's not yet treated as a risk category.", requires: "Leadership briefing template", steps: [
+          { text: "Draft a five-minute AI risk briefing covering what's in use and what's not yet governed.", days: 1, parallel: false },
+          { text: "Get it onto the agenda of the next leadership or ops meeting.", days: 0.5, parallel: false },
+          { text: "Deliver the briefing and note down any follow-up questions raised.", days: 0.5, parallel: false }
+        ]}
+      },
+      scenario: {
+        prompt: "An employee mentions, almost in passing, that they've been using a free AI tool to draft client proposals for the last six months. What's your first move?",
+        options: [
+          { text: "Ban the tool immediately, company-wide, effective today.", best: false, feedback: "Understandable instinct, but a blanket ban without understanding exposure first often just pushes the behavior underground. Pair any restriction with a look at what's already happened." },
+          { text: "Quietly ask what data has gone into it, then decide next steps — while starting the policy draft in parallel.", best: true, feedback: "This is the move. Assess exposure before you react, and use the moment to accelerate the policy you don't have yet." },
+          { text: "Say nothing — it's probably fine, and raising it might make people defensive.", best: false, feedback: "Six months of undocumented data exposure is exactly the blind spot this stage is defined by. This is the moment to start closing it, not skip it." }
+        ]
+      }
+    },
+    {
+      id: "dabbling",
+      index: "02",
+      name: "Dabbling with AI",
+      tagline: "A few pilots are live. Governance hasn't caught up yet.",
+      profile: "One to three tools are running, someone approved each one, but every approval looked different — and nobody could produce a full list if asked today.",
+      atGlance: [
+        "One to three AI tools or pilots are live, approved inconsistently",
+        "A basic policy exists but isn't tied to any risk tiering",
+        "No centralized inventory of tools and the data each one touches"
+      ],
+      gapsByTheme: {
+        adoption: { gap: "One to three tools are live, but there's still no full inventory of what each one touches.", requires: "AI tool inventory template", steps: [
+          { text: "Create a shared inventory sheet listing every known AI tool, owner, and department.", days: 1, parallel: false },
+          { text: "Interview each department lead to fill gaps and confirm tools already on the list.", days: 3, parallel: false },
+          { text: "Set a recurring monthly reminder to review and update the inventory.", days: 0.5, parallel: true }
+        ]},
+        policy: { gap: "A basic policy exists, but approvals happen without a consistent bar across requests.", requires: "Governance committee charter template", steps: [
+          { text: "Identify one representative each from IT, Legal, Security, and one business unit for a governance committee.", days: 2, parallel: false },
+          { text: "Draft a one-page charter: what the committee reviews, how often, and who has final say.", days: 1, parallel: false },
+          { text: "Route the next three pending AI requests through the new committee as a trial run.", days: 2, parallel: false }
+        ]},
+        data: { gap: "There's no risk-tiered register — a low-stakes and a high-stakes use case get treated the same.", requires: "Risk-tiering register template", steps: [
+          { text: "List every current and planned AI use case with the data type each one touches.", days: 2, parallel: false },
+          { text: "Score each use case low, medium, or high impact based on data sensitivity and decision consequence.", days: 2, parallel: false },
+          { text: "Turn the scored list into a living register the committee references for new requests.", days: 1, parallel: true }
+        ]},
+        vendor: { gap: "Vendor checks happen, but the criteria differ depending on who is reviewing the request.", requires: "Vendor & model risk assessment framework", steps: [
+          { text: "Draft a vendor and model risk assessment covering data handling, training-data use, and explainability.", days: 2, parallel: false },
+          { text: "Apply it to every vendor currently in use, starting with the highest data-access tools.", days: 3, parallel: false },
+          { text: "Require the assessment for any new vendor going forward.", days: 0.5, parallel: false }
+        ]},
+        competency: { gap: "Usage and license data exists but nobody reviews it — you can't yet say who's actually AI-qualified.", requires: "License utilization review framework", steps: [
+          { text: "Pull license usage data for every AI tool from admin dashboards.", days: 1, parallel: false },
+          { text: "Flag seats with little or no activity in the last 60 days for review.", days: 1, parallel: false },
+          { text: "Pair the review with role-based training requirements for seats that stay active.", days: 2, parallel: true }
+        ]},
+        monitoring: { gap: "Some approved tools log activity, but no one reviews the logs on a cadence.", requires: "Log review cadence checklist", steps: [
+          { text: "List every approved tool and confirm whether its logs are actually being reviewed by anyone.", days: 1, parallel: false },
+          { text: "Assign a named reviewer for each tool's logs.", days: 0.5, parallel: false },
+          { text: "Put log review on a recurring monthly calendar reminder for each reviewer.", days: 0.5, parallel: false }
+        ]},
+        incident: { gap: "An escalation path exists in someone's head, but it isn't written down or tested.", requires: "Incident response runbook template", steps: [
+          { text: "Write down the escalation path currently held informally in people's heads.", days: 1, parallel: false },
+          { text: "Walk one hypothetical scenario — a data leak — through the written path with the committee.", days: 1, parallel: false },
+          { text: "Fix any gaps the walkthrough exposes and publish the finished version.", days: 1, parallel: false }
+        ]},
+        strategy: { gap: "Leadership only hears about AI risk when something's already gone wrong.", requires: "Quarterly AI risk reporting template", steps: [
+          { text: "Draft a one-page AI risk summary template covering open items and recent decisions.", days: 1, parallel: false },
+          { text: "Get a recurring slot on the leadership meeting calendar, even quarterly.", days: 0.5, parallel: false },
+          { text: "Deliver the first update and calendar the next one before the meeting ends.", days: 0.5, parallel: false }
+        ]}
+      },
+      scenario: {
+        prompt: "Marketing wants to roll out an AI personalization tool using customer purchase history, company-wide, starting next month. What has to happen first?",
+        options: [
+          { text: "Approve it — marketing has been asking for months and the budget is already set.", best: false, feedback: "Speed without a risk tier is how governance gets skipped entirely. This is exactly the case a risk register exists for." },
+          { text: "Route it through risk tiering and committee review, sized to the actual customer-data exposure.", best: true, feedback: "Right instinct — this touches customer PII at company scale, which is precisely what risk-tiered review is for." },
+          { text: "Let marketing run a quiet pilot with one team first, without telling governance, to save time.", best: false, feedback: "An ungoverned pilot is still ungoverned, no matter how small it starts. It just delays closing the inventory gap instead of closing it." }
+        ]
+      }
+    },
+    {
+      id: "intermediate",
+      index: "03",
+      name: "Intermediate",
+      tagline: "Governance is a function now, not a favor.",
+      profile: "Multiple use cases run across departments. There's a real committee and a real inventory — the next test is whether it holds up when something breaks.",
+      atGlance: [
+        "A formal governance policy and committee are in place, with a defined review cadence",
+        "New use cases go through a risk-tiered approval workflow",
+        "The next test is whether controls hold up under real incidents, not just on paper"
+      ],
+      gapsByTheme: {
+        adoption: { gap: "The inventory exists but only tracks intake — retired or abandoned tools quietly linger.", requires: "Model/tool lifecycle tracker", steps: [
+          { text: "Add lifecycle status — dev, pilot, production, retired — as a field in the existing inventory.", days: 1, parallel: false },
+          { text: "Review every entry and assign a current lifecycle stage.", days: 2, parallel: false },
+          { text: "Set a quarterly review to catch tools that should move to retired but haven't.", days: 0.5, parallel: true }
+        ]},
+        policy: { gap: "The governance committee reviews new requests well, but enforcement still depends on people remembering the policy.", requires: "Policy automation control matrix", steps: [
+          { text: "Map which policy rules could be enforced technically — DLP, allow-listing, API gateways.", days: 2, parallel: false },
+          { text: "Prioritize the two or three highest-risk rules for automation first.", days: 1, parallel: false },
+          { text: "Implement automated enforcement for the prioritized rules with IT and Security.", days: 5, parallel: false }
+        ]},
+        data: { gap: "Higher-stakes use cases — hiring, credit, healthcare-adjacent — haven't been formally checked for bias or explainability.", requires: "Bias & explainability assessment framework", steps: [
+          { text: "Identify every use case touching hiring, credit, healthcare, or similarly consequential decisions.", days: 1, parallel: false },
+          { text: "Select a bias and explainability assessment method appropriate to those use cases.", days: 2, parallel: false },
+          { text: "Run the assessment on each identified use case and log the results.", days: 3, parallel: false }
+        ]},
+        vendor: { gap: "Vendors get assessed at onboarding, but never re-audited as models and terms change.", requires: "Recurring vendor audit framework", steps: [
+          { text: "List every AI vendor currently under contract and their last assessment date.", days: 1, parallel: false },
+          { text: "Set a recurring audit cadence — annual, or triggered by material model changes.", days: 0.5, parallel: false },
+          { text: "Run the first recurring audit on your highest-exposure vendor as a pilot.", days: 3, parallel: true }
+        ]},
+        competency: { gap: "Role-based training exists, but there's no ongoing check that skills and access stay matched as tools evolve.", requires: "Role-based re-certification framework", steps: [
+          { text: "Identify roles with higher-risk AI access that warrant re-certification.", days: 1, parallel: false },
+          { text: "Design a periodic re-certification step for those roles, including refresher training.", days: 2, parallel: false },
+          { text: "Schedule the first re-certification cycle and notify affected employees.", days: 1, parallel: false }
+        ]},
+        monitoring: { gap: "Monitoring catches usage, but not quiet behavior drift in a model over time.", requires: "Model drift monitoring framework", steps: [
+          { text: "Identify which tools are high-risk enough to warrant drift monitoring.", days: 1, parallel: false },
+          { text: "Define what “drift” means for each — output pattern shifts, error rate changes, complaint spikes.", days: 2, parallel: false },
+          { text: "Set thresholds that trigger a review, and assign who gets alerted.", days: 2, parallel: false }
+        ]},
+        incident: { gap: "An incident response plan exists on paper, but it's never been run against a real scenario.", requires: "Incident tabletop exercise kit", steps: [
+          { text: "Pick a realistic scenario to test — a silent model update or a leaked prompt.", days: 0.5, parallel: false },
+          { text: "Run a tabletop exercise with everyone named in the incident plan.", days: 1, parallel: false },
+          { text: "Update the plan based on gaps the exercise revealed.", days: 1, parallel: false }
+        ]},
+        strategy: { gap: "AI risk is tracked, but sits in its own silo, separate from enterprise risk reporting.", requires: "ERM integration framework", steps: [
+          { text: "Map AI risk categories onto the existing enterprise risk register's format.", days: 1, parallel: false },
+          { text: "Add AI risk as a standing line item in the register with a named owner.", days: 0.5, parallel: false },
+          { text: "Align AI risk reporting to the same cadence and audience as other enterprise risks.", days: 1, parallel: false }
+        ]}
+      },
+      scenario: {
+        prompt: "A vendor pushes a silent model update to a customer-facing tool. Three weeks later, a customer complains about a biased response. What broke down?",
+        options: [
+          { text: "The vendor should have asked permission before updating — this is on them.", best: false, feedback: "Vendors will keep shipping updates. The gap is on your side: nothing was watching for a behavior change after the update landed." },
+          { text: "Nothing broke down — this kind of thing is unpredictable and can't really be caught in advance.", best: false, feedback: "It can be caught — vendor change-management and drift monitoring exist precisely for this. Treating it as unpredictable is the blind spot itself." },
+          { text: "Vendor change-management and drift monitoring should have flagged the behavior shift before a customer did.", best: true, feedback: "Exactly — the fix isn't blaming the vendor, it's connecting change-management and monitoring so drift gets caught internally, first." }
+        ]
+      }
+    }
+  ];
+
+  const SKIP_OPTIONS = ["Don't know", "Prefer not to answer"];
+
+  const QUESTIONS = [
+    { theme: "adoption", q: "How would you describe AI tool usage across the organization today?", opts: [
+      "Employees may be using consumer AI tools on company devices or accounts, and we have no way to confirm which ones or how many.",
+      "We know anecdotally that some teams use AI tools, but there's no record of which tools, how many users, or what they're used for.",
+      "A partial list of AI tools exists, built from what a few departments reported — it's known to be incomplete.",
+      "Most AI tool usage is documented, covering all major departments, though some edge cases or newly adopted tools may not yet be captured.",
+      "Every AI tool in active use is documented in a maintained system of record, reviewed at least quarterly."
+    ]},
+    { theme: "adoption", q: "Could you produce a current inventory of every AI tool in use and the data each one touches?", opts: [
+      "No — we have no inventory and no process to build one.",
+      "No, but we could start compiling one manually if asked, drawing on IT purchasing records and manager interviews.",
+      "A partial inventory exists for tools procured through IT, but tools adopted directly by business teams are likely missing.",
+      "Yes, for approved and procured tools — data-touch mapping is complete for most, but not all, entries.",
+      "Yes, a single system of record tracks every tool, its data access, and its owner, kept current as tools are added or retired."
+    ]},
+    { theme: "adoption", q: "When a team starts using a new AI tool, how does IT or Security typically find out?", opts: [
+      "They usually don't find out unless there's an incident or an unrelated audit surfaces it.",
+      "They find out after the fact — through an expense report, a support ticket, or a conversation — not before adoption.",
+      "Teams are asked to notify IT before adopting a new tool, but there's no enforcement and compliance is inconsistent.",
+      "New AI tools go through a documented intake request in most cases, with occasional exceptions for smaller or free tools.",
+      "Every new AI tool, regardless of cost, must clear a mandatory intake process before any employee can use it."
+    ]},
+    { theme: "policy", q: "Is there a written policy governing how AI tools may be used?", opts: [
+      "No written policy exists, and none is currently being drafted.",
+      "A policy is being discussed or drafted, but nothing has been published or communicated to staff yet.",
+      "A policy exists and has been shared, but it doesn't distinguish between different levels of risk or use case.",
+      "A risk-aware policy exists and is communicated to staff, though it hasn't yet been formally tied into enterprise risk management.",
+      "A risk-tiered AI policy is published, version-controlled, and integrated into the broader enterprise risk management framework."
+    ]},
+    { theme: "policy", q: "Who is accountable when an AI-related risk decision needs to be made?", opts: [
+      "No individual or group has been assigned this responsibility.",
+      "Whoever is closest to the issue at the time makes the call — there's no assigned owner.",
+      "IT or Legal will weigh in if asked, but accountability isn't formally assigned to either.",
+      "A named individual is accountable for AI risk decisions, though there's no standing committee or charter yet.",
+      "A chartered governance committee, with named members and defined authority, owns AI risk decisions."
+    ]},
+    { theme: "policy", q: "How does a new AI initiative get approved before it can launch?", opts: [
+      "There's no approval step — teams begin using tools on their own initiative.",
+      "Approval is verbal and inconsistent — it depends entirely on who happens to be asked.",
+      "A sign-off is required, but the criteria for approval differ depending on who is reviewing the request.",
+      "Every request goes through the same documented approval steps, though the process isn't yet tied to a formal risk tier.",
+      "Every use case is routed through the same risk-tiered workflow, with approval criteria that scale to the use case's impact."
+    ]},
+    { theme: "data", q: "Does your organization define what data can and cannot be entered into an AI tool?", opts: [
+      "No — there's no guidance connecting our data classification, if one exists, to AI tool usage at all.",
+      "Data classification exists for other purposes, but nobody has translated it into rules for AI tool use.",
+      "General guidance exists — “don't share confidential data with AI tools” — but it isn't specific enough to apply consistently.",
+      "Specific data types are named as off-limits for AI tools and this is documented, though enforcement relies on individual judgment.",
+      "Data sensitivity rules for AI tools are documented, specific, and enforced through technical controls, not just guidance."
+    ]},
+    { theme: "data", q: "How is a new AI use case assessed for risk before it's approved?", opts: [
+      "It isn't — all use cases are treated the same, regardless of what data or decisions are involved.",
+      "Risk gets discussed if someone happens to raise it in a meeting, but nothing is documented.",
+      "A basic risk question is asked during intake, but there's no register or consistent method for tiering impact.",
+      "Each use case is scored against a documented risk framework, though the framework hasn't been applied retroactively to older use cases.",
+      "Every use case, past and present, is scored and tracked in a risk register using a consistent, documented methodology."
+    ]},
+    { theme: "data", q: "Have any AI use cases affecting hiring, credit, healthcare, or similarly consequential decisions been evaluated for bias?", opts: [
+      "We don't know whether any of our use cases fall into this category.",
+      "We have use cases like this, and they have not been evaluated for bias or explainability.",
+      "One or two have been reviewed, but not through a repeatable, documented process.",
+      "Consequential use cases are evaluated for bias using a documented method, though not all have been re-evaluated after model updates.",
+      "Bias and explainability evaluation is a mandatory, documented step for every consequential use case, repeated after material changes."
+    ]},
+    { theme: "vendor", q: "What due diligence happens before adopting a new AI vendor or tool?", opts: [
+      "None — procurement and adoption happen without any AI-specific review.",
+      "Whoever is negotiating the contract may raise data questions verbally, but nothing is documented or required.",
+      "A standard vendor security questionnaire is used, but it doesn't ask anything specific to AI or model behavior.",
+      "An AI-specific risk questionnaire is required for new vendors, though re-assessment after the initial approval is inconsistent.",
+      "A formal AI vendor risk assessment is required at onboarding and repeated on a defined cadence thereafter."
+    ]},
+    { theme: "vendor", q: "If a vendor changes the underlying AI model behind a tool you use, how would you find out?", opts: [
+      "We would have no way of knowing unless a user happened to notice a difference.",
+      "We might hear about it from the vendor's release notes, if anyone happens to read them.",
+      "Major vendors' change logs are checked occasionally, but there's no assigned owner or regular cadence.",
+      "Vendor model changes are tracked for our most critical tools, though coverage isn't complete across every vendor.",
+      "Vendor change management is a defined process covering every AI vendor, with a named owner and a review step before changes take effect internally."
+    ]},
+    { theme: "vendor", q: "What happens to an AI tool once the team using it moves on or stops needing it?", opts: [
+      "Nothing — tools are never formally decommissioned; access and integrations can persist indefinitely.",
+      "It typically just stops being used, but licenses, integrations, and data access are rarely cleaned up.",
+      "Decommissioning happens sometimes, if someone remembers to raise it with IT.",
+      "A decommissioning checklist exists and is usually followed, though it isn't consistently enforced across every tool.",
+      "Every AI tool has a defined lifecycle including a mandatory decommissioning step that revokes access and data connections."
+    ]},
+    { theme: "competency", q: "How are AI tool licenses or seats assigned to employees?", opts: [
+      "Anyone who requests a license receives one, with no review of role, need, or prior training.",
+      "A manager can approve a request verbally, but there's no documented criteria for who should or shouldn't get access.",
+      "Requests go through a basic approval form, but approval criteria vary by manager and aren't standardized.",
+      "Licenses are tied to documented role-based criteria, though periodic review of existing assignments hasn't started yet.",
+      "Licenses are assigned by documented role-based criteria and reviewed on a defined cadence to reclaim unused or miscategorized seats."
+    ]},
+    { theme: "competency", q: "How is AI license usage or return on investment tracked?", opts: [
+      "It isn't tracked in any form.",
+      "Usage data may exist in a vendor dashboard, but nobody at the company reviews it.",
+      "Usage is reviewed occasionally, when someone happens to ask about renewal costs.",
+      "Usage is reviewed on a regular cadence, though findings haven't yet been tied to license reallocation decisions.",
+      "Usage and value are reviewed on a defined cadence, and underused or misapplied licenses are actively reallocated or reclaimed."
+    ]},
+    { theme: "competency", q: "What qualifies an employee to use AI tools for their work?", opts: [
+      "Nothing — receiving a license is the only requirement, with no training of any kind.",
+      "New hires may see a brief mention of AI tools during general onboarding, with no AI-specific content.",
+      "An AI orientation exists, but it's optional, and completion isn't tracked.",
+      "Role-based AI training is required before or shortly after access is granted, though refreshers haven't been formalized.",
+      "Role-based AI training is required before access is granted, tracked to completion, and refreshed on a defined cadence."
+    ]},
+    { theme: "monitoring", q: "Is activity within approved AI tools logged in any form?", opts: [
+      "No — we would have no record of what was asked or generated.",
+      "Some tools may log activity by default, but no one at the company has looked at or configured this.",
+      "Logging is enabled for a few tools, but there's no consistent standard applied across all approved tools.",
+      "Logging is enabled for most approved tools and reviewed occasionally, though not on a defined cadence.",
+      "Logging is enabled for every approved tool and reviewed on a defined, documented cadence."
+    ]},
+    { theme: "monitoring", q: "If an AI tool's output quality or behavior changed noticeably, how would your organization likely find out?", opts: [
+      "Only if a customer or employee complained loudly enough for it to reach leadership.",
+      "We might notice through routine use, but there's no mechanism actively watching for this.",
+      "Spot checks happen occasionally for our most visible tools, but not systematically.",
+      "Output quality is monitored for our highest-risk tools on a defined cadence, though coverage doesn't yet extend to every tool.",
+      "Behavior and output drift are monitored systematically across all higher-risk tools, with defined thresholds that trigger review."
+    ]},
+    { theme: "monitoring", q: "Are technical controls — data-loss prevention, tool allow-listing, API gateways — used to enforce AI policy?", opts: [
+      "No technical controls exist — policy relies entirely on employees remembering and following it.",
+      "We've discussed adding technical controls but haven't implemented any yet.",
+      "A control exists for one or two specific tools, implemented as a one-off rather than part of a broader standard.",
+      "Technical controls cover most approved AI tools, with a few gaps in newer or less common ones.",
+      "Technical controls are applied consistently across all approved AI tools as a standard part of onboarding any new tool."
+    ]},
+    { theme: "incident", q: "If an AI tool leaked sensitive data or produced a harmful output today, what would happen?", opts: [
+      "We don't know — there's no defined process, and no one has thought through what would happen.",
+      "Someone would likely escalate it up the chain, but there's no defined process for what happens next or who decides.",
+      "There's a general sense of who should be told, but no documented steps, timelines, or ownership.",
+      "A documented incident path exists and covers most scenarios, though it hasn't been tested against a specific AI-related situation.",
+      "A documented, AI-specific incident path exists with clear ownership, timelines, and communication steps."
+    ]},
+    { theme: "incident", q: "Has any part of your AI incident response process been tested, even as a tabletop exercise?", opts: [
+      "There's no incident response plan to test.",
+      "A plan exists in name, but it has never been reviewed, walked through, or tested in any form.",
+      "The plan has been reviewed internally by its author, but not exercised with the broader team.",
+      "A tabletop exercise has been run once, though it hasn't yet become a recurring practice.",
+      "Tabletop exercises are conducted on a recurring, scheduled basis and findings are used to update the plan."
+    ]},
+    { theme: "incident", q: "How does your organization track which regulations apply to its AI use — the EU AI Act, sector-specific rules, and so on?", opts: [
+      "We haven't looked into which regulations might apply to us.",
+      "We're aware regulations likely apply, but no one has researched which ones or how.",
+      "Someone has looked into this once, but findings weren't documented or shared beyond that person.",
+      "A documented map of applicable regulations exists, though it hasn't been reviewed since new rules have come into force.",
+      "A documented regulatory map is maintained and reviewed on a defined cadence as rules change."
+    ]},
+    { theme: "strategy", q: "Does leadership or the board receive reporting on AI risk posture?", opts: [
+      "AI hasn't been raised as a topic in any leadership or board setting.",
+      "AI has come up in conversation, but never as a structured report or agenda item.",
+      "AI risk has appeared on an agenda once or twice, prompted by a specific event.",
+      "AI risk reporting happens on a defined cadence, though it's a relatively new addition to the reporting calendar.",
+      "AI risk is a standing, recurring item in leadership or board reporting, reviewed on the same cadence as other enterprise risks."
+    ]},
+    { theme: "strategy", q: "Is AI risk tracked as part of enterprise risk management, or separately?", opts: [
+      "We don't have an enterprise risk management process for AI risk to plug into.",
+      "AI risk isn't tracked in any structured way, ERM or otherwise.",
+      "AI risk is tracked in its own separate document or spreadsheet, disconnected from the main ERM process.",
+      "AI risk has been added to the ERM register, though it isn't yet reviewed on the same cadence as other enterprise risks.",
+      "AI risk is fully integrated into ERM — same register, same cadence, same reporting structure as every other enterprise risk."
+    ]},
+    { theme: "strategy", q: "How would you characterize how AI governance is positioned internally?", opts: [
+      "It isn't positioned as anything yet — the organization hasn't framed it one way or another.",
+      "It's discussed only when a concern or incident forces the conversation.",
+      "It's treated primarily as a compliance obligation, something to satisfy rather than build on.",
+      "It's understood as a risk-management function that also enables safer adoption, though this view isn't yet shared org-wide.",
+      "It's positioned as a driver of trust and competitive advantage, actively referenced in how the organization talks about its AI strategy."
+    ]}
+  ];
+
+  const state = {
+    screen: "intro",
+    qIndex: 0,
+    answers: new Array(QUESTIONS.length).fill(null),
+    placedTier: null,
+    themeSignals: {},
+    unratedThemes: [],
+    stepChecks: {},
+    unlockedPhases: 1,
+    scenarioChoice: null
+  };
+
+  function tier(id) { return TIERS.find(t => t.id === id); }
+  function themeById(id) { return THEMES.find(t => t.id === id); }
+  function tierIndex(id) { return TIER_ORDER.indexOf(id); }
+
+  function ensureStepChecks(themeId) {
+    const key = state.placedTier + ":" + themeId;
+    const steps = tier(state.placedTier).gapsByTheme[themeId].steps;
+    if (!state.stepChecks[key] || state.stepChecks[key].length !== steps.length) {
+      state.stepChecks[key] = steps.map(() => false);
+    }
+    return state.stepChecks[key];
+  }
+
+  function canCheckStep(steps, checks, i) {
+    if (i === 0) return true;
+    if (steps[i].parallel) return true;
+    return checks[i - 1];
+  }
+
+  function normalizeChecks(steps, checks) {
+    for (let i = 1; i < steps.length; i++) {
+      if (!steps[i].parallel && !checks[i - 1]) checks[i] = false;
+    }
+    return checks;
+  }
+
+  function activityStatus(steps, checks) {
+    const totalDays = steps.reduce((a, s) => a + s.days, 0);
+    const doneDays = steps.reduce((a, s, i) => a + (checks[i] ? s.days : 0), 0);
+    const pct = totalDays ? doneDays / totalDays : 0;
+    if (pct >= 1) return { label: "Completed", pct: 100, cls: "done" };
+    if (pct >= 0.75) return { label: "Progressing toward closure", pct: pct * 100, cls: "closing" };
+    if (pct >= 0.5) return { label: "In progress", pct: pct * 100, cls: "progress" };
+    if (pct >= 0.15) return { label: "Started", pct: pct * 100, cls: "started" };
+    return { label: "Not started", pct: pct * 100, cls: "todo" };
+  }
+
+  const SAVE_KEY = "governance-passport-v1";
+  function saveState() {
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) { /* storage unavailable */ }
+  }
+  function loadSavedState() {
+    try {
+      const raw = localStorage.getItem(SAVE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function clearSavedState() {
+    try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* storage unavailable */ }
+  }
+  function hasProgress(s) {
+    return !!s && (s.screen !== "intro" || (s.answers || []).some(a => a !== null));
+  }
+
+  // Options 0-4 are scored maturity levels; 5 = "Don't know", 6 = "Prefer not to answer" (unscored).
+  function scoreOf(qi) {
+    const idx = state.answers[qi];
+    return (idx === null || idx === undefined || idx >= 5) ? null : idx;
+  }
+  function scoreToTier(avg) {
+    if (avg < 4 / 3) return "novice";
+    if (avg < 8 / 3) return "dabbling";
+    return "intermediate";
+  }
+
+  function computeResults() {
+    const signals = {};
+    const themeAverages = {};
+    let sumOfThemeAverages = 0;
+    let ratedThemeCount = 0;
+
+    THEMES.forEach((th, ti) => {
+      const scores = [];
+      for (let k = 0; k < 3; k++) {
+        const s = scoreOf(ti * 3 + k);
+        if (s !== null) scores.push(s);
+      }
+      const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
+      themeAverages[th.id] = avg;
+      if (avg !== null) { sumOfThemeAverages += avg; ratedThemeCount++; }
+    });
+
+    const overallAvg = ratedThemeCount ? sumOfThemeAverages / ratedThemeCount : 2;
+    state.placedTier = scoreToTier(overallAvg);
+
+    THEMES.forEach(th => {
+      const avg = themeAverages[th.id];
+      signals[th.id] = avg === null ? state.placedTier : scoreToTier(avg);
+    });
+    state.themeSignals = signals;
+    state.unratedThemes = THEMES.filter(th => themeAverages[th.id] === null).map(th => th.id);
+    state.unlockedPhases = 1;
+  }
+
+  function priorityFor(themeId) {
+    const diff = tierIndex(state.themeSignals[themeId]) - tierIndex(state.placedTier);
+    if (diff < 0) return "focus";
+    if (diff > 0) return "ahead";
+    return "inline";
+  }
+
+  const PHASE_TITLES = ["Start now", "Next", "Later"];
+  const PHASE_PHRASE = {
+    focus: "close your biggest gaps",
+    inline: "build out the basics",
+    ahead: "formalize what's working"
+  };
+  const PHASE_SUB = {
+    focus: "Your answers marked these areas furthest behind your overall stage — the most urgent to close, and mostly documentation and process rather than new infrastructure.",
+    inline: "These track with your overall stage. Once the urgent gaps are handled, this is the next layer of structure to put in place.",
+    ahead: "These are already ahead of your stage. The work here is less about starting and more about locking in what's already working."
+  };
+
+  function phaseBuckets() {
+    const buckets = [
+      { key: "focus", themes: THEMES.filter(th => priorityFor(th.id) === "focus") },
+      { key: "inline", themes: THEMES.filter(th => priorityFor(th.id) === "inline") },
+      { key: "ahead", themes: THEMES.filter(th => priorityFor(th.id) === "ahead") }
+    ].filter(b => b.themes.length > 0);
+    return buckets.map((b, i) => ({
+      key: b.key,
+      themes: b.themes,
+      title: `${PHASE_TITLES[i]}: ${PHASE_PHRASE[b.key].charAt(0).toUpperCase() + PHASE_PHRASE[b.key].slice(1)}`,
+      sub: PHASE_SUB[b.key]
+    }));
+  }
+
+  function phaseComplete(ph) {
+    const t = tier(state.placedTier);
+    return ph.themes.every(th => {
+      const g = t.gapsByTheme[th.id];
+      const checks = normalizeChecks(g.steps, ensureStepChecks(th.id));
+      return activityStatus(g.steps, checks).cls === "done";
+    });
+  }
+
+  const stageEl = document.getElementById("stage");
+  const stagebadgeEl = document.getElementById("stagebadge");
+
+  function setStage(html) {
+    stageEl.innerHTML = html;
+    stageEl.classList.remove("anim");
+    void stageEl.offsetWidth;
+    stageEl.classList.add("anim");
+    stageEl.scrollIntoView({ block: "start", behavior: "auto" });
+  }
+
+  function renderStageBadge() {
+    stagebadgeEl.innerHTML = state.placedTier
+      ? `<span class="stagebadge-pill">Your stage: ${tier(state.placedTier).name}</span>`
+      : "";
+  }
+
+  function renderIntro() {
+    const saved = loadSavedState();
+    const resumable = hasProgress(saved);
+    setStage(`
+      <div class="hero">
+        <span class="eyebrow">Begin the assessment</span>
+        <h1>Chart your organization's AI governance maturity.</h1>
+        <p class="lede">24 questions across 8 themes place you at one of three stages. From there, you'll see a roadmap built for your organization alone — what's furthest behind, what's already ahead, and what to do about each.</p>
+        <p class="meta">24 questions · 8 themes · about 6 minutes · you can go back and change any answer</p>
+      </div>
+      ${resumable ? `
+        <div class="resume-banner">
+          <div>
+            <div class="resume-title">You have an assessment in progress.</div>
+            <div class="resume-sub">${saved.screen === "quiz" ? `Question ${saved.qIndex + 1} of ${QUESTIONS.length}` : saved.placedTier ? `Placed as ${tier(saved.placedTier).name} — roadmap in progress` : "Progress saved"}</div>
+          </div>
+          <div class="resume-actions">
+            <button class="btn btn-ghost" id="startover">Start over</button>
+            <button class="btn btn-primary" id="resume">Resume</button>
+          </div>
+        </div>
+      ` : ""}
+      <div class="route">
+        ${TIERS.map(t => `<div class="route-card"><div class="ri">STAGE ${t.index}</div><div class="rn">${t.name}</div><div class="rt">${t.tagline}</div></div>`).join("")}
+      </div>
+      <p class="route-note">You'll only see the results and roadmap for the stage that matches your answers. Your progress is saved automatically in this browser, so you can pick up later.</p>
+      <div class="actions">
+        <button class="btn btn-primary" id="start">${resumable ? "Start a new assessment" : "Begin assessment"}</button>
+      </div>
+    `);
+    if (resumable) {
+      document.getElementById("resume").addEventListener("click", () => {
+        Object.assign(state, saved);
+        render();
+      });
+      document.getElementById("startover").addEventListener("click", () => {
+        clearSavedState();
+        render();
+      });
+    }
+    document.getElementById("start").addEventListener("click", () => {
+      clearSavedState();
+      Object.assign(state, {
+        screen: "quiz", qIndex: 0,
+        answers: new Array(QUESTIONS.length).fill(null),
+        placedTier: null, themeSignals: {}, unratedThemes: [],
+        stepChecks: {}, unlockedPhases: 1, scenarioChoice: null
+      });
+      render();
+    });
+  }
+
+  function renderQuiz() {
+    const qi = state.qIndex;
+    const q = QUESTIONS[qi];
+    const currentThemeIdx = Math.floor(qi / 3);
+    const themeNum = currentThemeIdx + 1;
+    const th = themeById(q.theme);
+    const selected = state.answers[qi];
+    const pct = Math.round((qi / QUESTIONS.length) * 100);
+
+    const railHTML = THEMES.map((rt, i) => {
+      const firstQ = i * 3;
+      let cls = "upcoming";
+      if (i === currentThemeIdx) cls = "current";
+      else if (i < currentThemeIdx) cls = "done";
+      const clickable = cls === "done";
+      return `<button class="themerail-item ${cls}" ${clickable ? `data-jump="${firstQ}"` : "disabled"}>
+        <span class="tri-num">${String(i + 1).padStart(2, "0")}</span>
+        <span class="tri-name">${rt.name}</span>
+        ${cls === "done" ? `<span class="tri-check">✓</span>` : ""}
+      </button>`;
+    }).join("");
+
+    setStage(`
+      <div class="quizlayout">
+        <nav class="themerail" aria-label="Assessment themes">${railHTML}</nav>
+        <div class="quizmain">
+          <div class="qmeta">
+            <span class="eyebrow">Theme ${themeNum} of ${THEMES.length} · ${th.name}</span>
+            <span class="qcounter">Question ${qi + 1} of ${QUESTIONS.length}</span>
+          </div>
+          <div class="progressbar-track"><div class="progressbar-fill" style="width:${pct}%"></div></div>
+          <h2 class="qtext">${q.q}</h2>
+          <div class="options" id="opts">
+            ${q.opts.map((t, i) => `<button class="opt ${selected === i ? "sel" : ""}" data-i="${i}"><span class="mark"></span><span>${t}</span></button>`).join("")}
+            <div class="opt-divider"></div>
+            ${SKIP_OPTIONS.map((t, k) => { const i = q.opts.length + k; return `<button class="opt skip ${selected === i ? "sel" : ""}" data-i="${i}"><span class="mark"></span><span>${t}</span></button>`; }).join("")}
+          </div>
+          <div class="actions split">
+            <button class="btn btn-ghost" id="back" ${qi === 0 ? "disabled" : ""}>Back</button>
+            <button class="btn btn-primary" id="next" ${selected === null ? "disabled" : ""}>${qi === QUESTIONS.length - 1 ? "See results" : "Next"}</button>
+          </div>
+        </div>
+      </div>
+    `);
+    document.querySelectorAll(".themerail-item[data-jump]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.qIndex = parseInt(btn.getAttribute("data-jump"), 10);
+        render();
+      });
+    });
+    const nextBtn = document.getElementById("next");
+    document.querySelectorAll(".opt").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".opt").forEach(b => b.classList.remove("sel"));
+        btn.classList.add("sel");
+        state.answers[qi] = parseInt(btn.getAttribute("data-i"), 10);
+        nextBtn.disabled = false;
+      });
+    });
+    document.getElementById("back").addEventListener("click", () => {
+      if (qi === 0) return;
+      state.qIndex--;
+      render();
+    });
+    nextBtn.addEventListener("click", () => {
+      if (state.answers[qi] === null) return;
+      if (qi < QUESTIONS.length - 1) {
+        state.qIndex++;
+        render();
+      } else {
+        computeResults();
+        state.screen = "briefing";
+        render();
+      }
+    });
+  }
+
+  function renderBriefing() {
+    const t = tier(state.placedTier);
+    setStage(`
+      <span class="eyebrow">Your placement</span>
+      <h2 class="stagename">${t.name}</h2>
+      <p class="tagline">${t.tagline}</p>
+      <div class="profile">${t.profile}</div>
+      <div class="fieldnotes">
+        <div class="fn-title">At a glance</div>
+        <ul>${t.atGlance.map(n => `<li>${n}</li>`).join("")}</ul>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="toroadmap">See your roadmap</button>
+      </div>
+    `);
+    document.getElementById("toroadmap").addEventListener("click", () => {
+      state.screen = "roadmap";
+      render();
+    });
+  }
+
+  function renderRoadmap() {
+    const t = tier(state.placedTier);
+    const phases = phaseBuckets();
+    const unlockedCount = Math.min(state.unlockedPhases, phases.length);
+    const visiblePhases = phases.slice(0, unlockedCount);
+    const hasMore = unlockedCount < phases.length;
+    const currentPhaseDone = visiblePhases.length ? phaseComplete(visiblePhases[visiblePhases.length - 1]) : true;
+    const leadIn = phases.length
+      ? `Phase 1 starts with ${phases[0].themes.map(th => th.name).join(", ")}. Later phases stay hidden until you get there.`
+      : "Every area is tracking together — work through the list in any order.";
+
+    function cardHTML(th, phaseKey) {
+      const g = t.gapsByTheme[th.id];
+      const steps = g.steps;
+      const key = state.placedTier + ":" + th.id;
+      const checks = normalizeChecks(steps, ensureStepChecks(th.id));
+      const status = activityStatus(steps, checks);
+      const totalDays = steps.reduce((a, s) => a + s.days, 0);
+      return `
+      <div class="gapcard phase-${phaseKey}">
+        <div class="gapcard-top">
+          <span class="gi">${th.name}</span>
+          <span class="statuspill" data-cls="${status.cls}">${status.label}</span>
+        </div>
+        <div class="activity-track"><div class="activity-fill" style="width:${status.pct}%"></div></div>
+        <div>
+          <div class="glabel gap">Gap</div>
+          <div class="gtext">${g.gap}</div>
+        </div>
+        <div class="divider-dash"></div>
+        <div>
+          <div class="glabel rec">Recommended steps · ${totalDays % 1 === 0 ? totalDays : totalDays.toFixed(1)} day${totalDays === 1 ? "" : "s"} total</div>
+          <div class="steplist">
+            ${steps.map((s, i) => {
+              const unlocked = canCheckStep(steps, checks, i);
+              const checked = checks[i];
+              const dayLabel = s.days === 0.5 ? "0.5 day" : `${s.days} day${s.days === 1 ? "" : "s"}`;
+              return `<label class="step ${checked ? "checked" : ""} ${!unlocked ? "locked" : ""}">
+                <input type="checkbox" data-key="${key}" data-i="${i}" ${checked ? "checked" : ""} ${!unlocked ? "disabled" : ""}>
+                <span class="step-box"></span>
+                <span class="step-text">${s.text}</span>
+                <span class="step-days">${dayLabel}${s.parallel ? " · parallel-ok" : ""}</span>
+              </label>`;
+            }).join("")}
+          </div>
+        </div>
+        <span class="reqtag">Needs: <b>${g.requires}</b></span>
+      </div>`;
+    }
+
+    setStage(`
+      <span class="eyebrow">Your roadmap · ${t.name}</span>
+      <h2 class="stagename" style="font-size:1.7rem;margin-top:0.4rem;">A phased plan, built from your answers</h2>
+      <div class="qb-summary">
+        <span class="qlabel">${leadIn}</span>
+        <span class="qcount">Status updates automatically as you check off steps · progress is saved in this browser</span>
+      </div>
+      ${visiblePhases.map((ph, i) => `
+        <section class="phase">
+          <div class="phase-head ${ph.key}">
+            <span class="peyebrow">Phase ${i + 1} of ${phases.length}</span>
+            <h3>${ph.title}</h3>
+            <p class="phase-sub">${ph.sub}</p>
+          </div>
+          <div class="gapgrid">
+            ${ph.themes.map(th => cardHTML(th, ph.key)).join("")}
+          </div>
+        </section>
+      `).join("")}
+      <div class="actions split" style="align-items:center;">
+        <button class="btn btn-ghost" id="back">Back to your placement</button>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
+          ${!currentPhaseDone ? `<span class="gate-note">Complete every activity in Phase ${unlockedCount} to continue.</span>` : ""}
+          ${hasMore
+            ? `<button class="btn btn-primary" id="unlockphase" ${currentPhaseDone ? "" : "disabled"}>Continue to Phase ${unlockedCount + 1}</button>`
+            : `<button class="btn btn-primary" id="toscenario" ${currentPhaseDone ? "" : "disabled"}>Continue to field test</button>`}
+        </div>
+      </div>
+    `);
+
+    document.querySelectorAll(".steplist input[type=checkbox]").forEach(cb => {
+      cb.addEventListener("change", () => {
+        const key = cb.getAttribute("data-key");
+        const i = parseInt(cb.getAttribute("data-i"), 10);
+        state.stepChecks[key][i] = cb.checked;
+        renderRoadmap();
+        saveState();
+      });
+    });
+    document.getElementById("back").addEventListener("click", () => { state.screen = "briefing"; render(); });
+    if (hasMore) {
+      const btn = document.getElementById("unlockphase");
+      if (currentPhaseDone) btn.addEventListener("click", () => { state.unlockedPhases = unlockedCount + 1; render(); });
+    } else {
+      const btn = document.getElementById("toscenario");
+      if (currentPhaseDone) btn.addEventListener("click", () => { state.screen = "scenario"; render(); });
+    }
+  }
+
+  function renderScenario() {
+    const t = tier(state.placedTier);
+    const chosen = state.scenarioChoice;
+    setStage(`
+      <span class="eyebrow">Field test</span>
+      <p class="scenario-prompt">${t.scenario.prompt}</p>
+      <div id="sopts">
+        ${t.scenario.options.map((o, i) => `
+          <button class="sopt ${chosen === i ? "chosen " + (o.best ? "best" : "") : ""}" data-i="${i}" ${chosen !== null ? "disabled" : ""}>${o.text}</button>
+        `).join("")}
+      </div>
+      <div id="fbwrap">${chosen !== null ? feedbackHTML(t, chosen) : ""}</div>
+      <div class="actions split">
+        <button class="btn btn-ghost" id="back">Back to roadmap</button>
+        <button class="btn btn-primary" id="tostamp" ${chosen === null ? "disabled" : ""}>Continue</button>
+      </div>
+    `);
+    function feedbackHTML(t, i) {
+      const o = t.scenario.options[i];
+      return `<div class="feedback">
+        <div class="flabel">${o.best ? "Strong move" : "Worth reconsidering"}</div>
+        <p>${o.feedback}</p>
+      </div>`;
+    }
+    document.querySelectorAll(".sopt").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (state.scenarioChoice !== null) return;
+        state.scenarioChoice = parseInt(btn.getAttribute("data-i"), 10);
+        render();
+      });
+    });
+    document.getElementById("back").addEventListener("click", () => { state.screen = "roadmap"; render(); });
+    document.getElementById("tostamp").addEventListener("click", () => {
+      if (state.scenarioChoice === null) return;
+      state.screen = "complete";
+      render();
+    });
+  }
+
+  function renderComplete() {
+    const t = tier(state.placedTier);
+    setStage(`
+      <div class="stampwrap">
+        <div class="stamp-big"><span class="sn">✓</span><span class="sl">ASSESSED</span></div>
+        <h2 class="passport-h">Assessment complete: ${t.name}</h2>
+        <p class="passport-p">Your roadmap is logged and ready to share. Treat this as a baseline — reassess in a quarter or two as your program matures, and the picture will shift with it.</p>
+      </div>
+      <div class="actions" style="justify-content:center; gap:1rem;">
+        <button class="btn btn-ghost" id="revisit">Revisit your roadmap</button>
+        <button class="btn btn-primary" id="restart">Retake assessment</button>
+      </div>
+    `);
+    document.getElementById("revisit").addEventListener("click", () => { state.screen = "roadmap"; render(); });
+    document.getElementById("restart").addEventListener("click", () => {
+      clearSavedState();
+      Object.assign(state, {
+        screen: "intro", qIndex: 0,
+        answers: new Array(QUESTIONS.length).fill(null),
+        placedTier: null, themeSignals: {}, unratedThemes: [],
+        stepChecks: {}, unlockedPhases: 1, scenarioChoice: null
+      });
+      render();
+    });
+  }
+
+  function render() {
+    renderStageBadge();
+    if (state.screen === "intro") renderIntro();
+    else if (state.screen === "quiz") renderQuiz();
+    else if (state.screen === "briefing") renderBriefing();
+    else if (state.screen === "roadmap") renderRoadmap();
+    else if (state.screen === "scenario") renderScenario();
+    else if (state.screen === "complete") renderComplete();
+    saveState();
+  }
+
+  render();
+</script>
