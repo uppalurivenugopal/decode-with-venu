@@ -6,12 +6,17 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title,
   description = 'Strategy, Analytics, AI — Decoded. Practical frameworks and real-world case studies at the intersection of data, strategy, and leadership.',
+  image = '/images/og/default.png',
 } = Astro.props;
+
+const absoluteImage = new URL(image, Astro.site).toString();
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!doctype html>
@@ -29,10 +34,26 @@ const {
     <meta name="description" content={description} />
     <title>{title} · Decode with Venu</title>
 
+    <link rel="canonical" href={canonicalURL} />
+
     <meta property="og:title" content={`${title} · Decode with Venu`} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} · Decode with Venu`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImage} />
+
+    <script>
+      // Vercel Web Analytics: aggregate, anonymized pageview counts only.
+      // No cookies, no personal data, no cross-site tracking.
+      import { inject } from '@vercel/analytics';
+      inject();
+    </script>
   </head>
   <body class="bg-ink-950 text-mist-200 selection:bg-cyan-glow/20">
     <Nav />

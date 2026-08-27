@@ -5,6 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 <Layout
   title="Governance Passport"
   description="A phased AI governance maturity assessment for enterprises — 24 calibrated questions across 8 themes, a personalized roadmap, and step-by-step activity tracking with save-and-resume."
+  image="/images/og/governance-passport.png"
 >
   <section class="relative overflow-hidden bg-grid border-b border-edge/5">
     <div class="glow w-[28rem] h-[28rem] bg-cyan-glow/15 -top-40 left-1/3"></div>
@@ -165,8 +166,14 @@ import Layout from '../../layouts/Layout.astro';
 
   #stage .themerail { display: flex; flex-direction: column; gap: 0.3rem; border-right: 1px solid var(--border); padding-right: 1.5rem; }
   @media (max-width: 760px) {
-    #stage .themerail { flex-direction: row; flex-wrap: wrap; border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 1.1rem; margin-bottom: 0.3rem; }
-    #stage .themerail-item { flex: 1 1 auto; }
+    #stage .themerail {
+      flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 0.9rem; margin-bottom: 0.3rem;
+      scrollbar-width: none;
+    }
+    #stage .themerail::-webkit-scrollbar { display: none; }
+    #stage .themerail-item { flex: 0 0 auto; white-space: nowrap; }
+    #stage .themerail-item .tri-name { max-width: 9rem; overflow: hidden; text-overflow: ellipsis; }
   }
   #stage .themerail-item {
     display: flex; align-items: center; gap: 0.5rem; text-align: left; background: none; border: none;
