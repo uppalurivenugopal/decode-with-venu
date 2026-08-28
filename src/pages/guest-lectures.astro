@@ -42,9 +42,10 @@ import Layout from '../layouts/Layout.astro';
         <label class="grid gap-2 text-sm font-semibold text-fg">Work email<input required name="email" type="email" class="form-input" autocomplete="email" /></label>
         <label class="grid gap-2 text-sm font-semibold text-fg">Institution or organisation<input required name="organisation" class="form-input" /></label>
         <div class="grid gap-5 sm:grid-cols-2">
-          <label class="grid gap-2 text-sm font-semibold text-fg">Audience<select name="audience" class="form-input"><option>School students</option><option>College students</option><option>Leadership team</option><option>Other</option></select></label>
-          <label class="grid gap-2 text-sm font-semibold text-fg">Preferred date<input name="date" type="date" class="form-input" /></label>
+          <label class="grid gap-2 text-sm font-semibold text-fg">Audience<select name="audience" class="form-input"><option>Students</option><option>Leadership Team</option><option>Analyst Forum</option><option>Analytics Conclave</option><option>Others</option></select></label>
+          <label class="grid gap-2 text-sm font-semibold text-fg">Preferred time slot<select name="time_slot" class="form-input"><option>30 mins</option><option>1 hr</option></select></label>
         </div>
+        <label class="grid gap-2 text-sm font-semibold text-fg">Preferred date<input name="date" type="date" class="form-input" /></label>
         <label class="grid gap-2 text-sm font-semibold text-fg">What would you like the session to cover?<textarea required name="message" rows="4" class="form-input resize-y"></textarea></label>
         <button type="submit" class="justify-self-start btn-primary px-5 py-3 text-sm font-semibold">Send speaking enquiry</button>
       </form>
