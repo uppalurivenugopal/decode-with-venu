@@ -51,9 +51,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
   </head>
   <body class="bg-ink-950 text-mist-200 selection:bg-cyan-glow/20">
     <Nav />
-    <main>
-      <slot />
-    </main>
-    <Footer />
+    <div class="md:ml-[248px]">
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
