@@ -22,12 +22,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 <!doctype html>
 <html lang="en">
   <head>
-    <script is:inline>
-      // Runs before first paint so a saved light-mode preference doesn't flash dark first.
-      if (localStorage.getItem('theme') === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

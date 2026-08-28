@@ -1,49 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
 
-  --color-ink-950: #05070a;
-  --color-ink-900: #0a0e17;
-  --color-ink-800: #0f1420;
-  --color-ink-700: #161c2c;
-  --color-ink-600: #232b3f;
+  --color-ink-950: #f7f5f0;
+  --color-ink-900: #fffdf8;
+  --color-ink-800: #ede9e1;
+  --color-ink-700: #ddd7cc;
+  --color-ink-600: #c8c0b2;
 
-  --color-mist-400: #94a3b8;
-  --color-mist-300: #b7c2d4;
-  --color-mist-200: #d7deea;
+  --color-mist-400: #706c65;
+  --color-mist-300: #4e4c47;
+  --color-mist-200: #292c31;
 
-  --color-fg: #ffffff;
-  --color-edge: #ffffff;
+  --color-fg: #13283c;
+  --color-edge: #13283c;
 
-  --color-cyan-glow: #22d3ee;
-  --color-indigo-glow: #6366f1;
-}
-
-/*
-  Light theme overrides. Dark (defined above) is the default brand look;
-  data-theme="light" is opted into via the nav toggle and persisted in
-  localStorage. Attribute selector outranks the bare :root from @theme,
-  so these values win once applied — no component classes need to change.
-*/
-:root[data-theme='light'] {
-  --color-ink-950: #f8fafc;
-  --color-ink-900: #ffffff;
-  --color-ink-800: #eef1f6;
-  --color-ink-700: #e2e6ee;
-  --color-ink-600: #cbd2df;
-
-  --color-mist-400: #64748b;
-  --color-mist-300: #475569;
-  --color-mist-200: #1e2532;
-
-  --color-fg: #0b0f19;
-  --color-edge: #0b0f19;
-
-  --color-cyan-glow: #0891b2;
-  --color-indigo-glow: #4f46e5;
+  --color-cyan-glow: #9e3d2f;
+  --color-indigo-glow: #355f7d;
 }
 
 html {
@@ -55,7 +32,7 @@ body {
   color: var(--color-mist-200);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  letter-spacing: -0.01em;
 }
 
 ::selection {
@@ -64,56 +41,45 @@ body {
 }
 
 .gradient-text {
-  background-image: linear-gradient(90deg, var(--color-cyan-glow), var(--color-indigo-glow));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-cyan-glow);
 }
 
 .accent-rule {
-  height: 3px;
-  width: 3.5rem;
-  border-radius: 999px;
-  background-image: linear-gradient(90deg, var(--color-cyan-glow), var(--color-indigo-glow));
+  height: 1px;
+  width: 4rem;
+  background: var(--color-cyan-glow);
 }
 
 .bg-grid {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--color-mist-400) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-mist-400) 6%, transparent) 1px, transparent 1px);
-  background-size: 44px 44px;
+  background-image: none;
 }
 
 .glow {
-  position: absolute;
-  border-radius: 999px;
-  filter: blur(110px);
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 .card {
-  background-color: color-mix(in srgb, var(--color-edge) 3%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-edge) 8%, transparent);
-  border-radius: 1rem;
-  backdrop-filter: blur(6px);
-  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-edge) 18%, transparent);
+  border-radius: 0;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .card:hover {
-  border-color: color-mix(in srgb, var(--color-cyan-glow) 35%, transparent);
-  background-color: color-mix(in srgb, var(--color-edge) 4.5%, transparent);
-  transform: translateY(-2px);
+  border-color: var(--color-cyan-glow);
+  background-color: color-mix(in srgb, var(--color-cyan-glow) 3%, transparent);
 }
 
 .btn-primary {
-  background-image: linear-gradient(90deg, var(--color-cyan-glow), var(--color-indigo-glow));
+  background: var(--color-fg);
   color: #fff;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  border-radius: 0;
+  transition: background-color 0.2s ease;
 }
 
 .btn-primary:hover {
-  opacity: 0.88;
+  background: var(--color-cyan-glow);
 }
 
 .prose-decode {
@@ -123,8 +89,9 @@ body {
 
 .prose-decode h2 {
   color: var(--color-fg);
-  font-weight: 700;
-  font-size: 1.375rem;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.7rem;
   letter-spacing: -0.01em;
   margin-top: 2.75rem;
   margin-bottom: 1rem;
@@ -155,8 +122,8 @@ body {
   margin: 1.75rem 0;
   padding: 0.9rem 1.25rem;
   border-left: 2px solid var(--color-cyan-glow);
-  background: color-mix(in srgb, var(--color-cyan-glow) 6%, transparent);
-  border-radius: 0 0.5rem 0.5rem 0;
+  background: transparent;
+  border-radius: 0;
   color: var(--color-mist-200);
   font-style: italic;
 }
