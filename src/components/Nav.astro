@@ -38,7 +38,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 
   <div class="mt-auto pt-8 border-t border-edge/15">
     <a href="/subscribe" class="inline-flex items-center border-b border-cyan-glow pb-0.5 text-[15px] font-semibold text-fg hover:text-cyan-glow transition-colors">
-      Newsletter
+      Alert Me
     </a>
   </div>
 </aside>
@@ -60,7 +60,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
       {currentPath.startsWith('/concepts') && concepts.map((c) => (
         <a href={`/concepts/${c.id}`} class="pl-5 py-2 text-mist-400 hover:text-fg text-sm">{c.data.title}</a>
       ))}
-      <a href="/subscribe" class="mt-2 px-2 py-2.5 font-semibold text-cyan-glow">Newsletter</a>
+      <a href="/subscribe" class="mt-2 px-2 py-2.5 font-semibold text-cyan-glow">Alert Me</a>
     </nav>
   </div>
 </header>

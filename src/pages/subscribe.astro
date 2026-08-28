@@ -5,14 +5,14 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Subscribe" description="Get new Concepts, Strategies, and Perspectives essays delivered straight to your inbox.">
   <section class="min-h-[70vh] border-b border-edge/15">
     <div class="mx-auto max-w-2xl px-5 py-20 sm:px-8 sm:py-28">
-      <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-glow">Newsletter</p>
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Alert Me</p>
       <h1 class="mt-5 font-serif text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg sm:text-6xl">Stay in the loop.</h1>
       <p class="mt-6 max-w-xl text-lg leading-relaxed text-mist-300">New essays, frameworks, and resources—sent when there is something genuinely useful to share. No noise.</p>
       <form class="mt-10 flex flex-col gap-3 sm:flex-row" action="https://formsubmit.co/venu@decodewithvenu.com" method="POST">
         <input type="hidden" name="_subject" value="New newsletter subscriber — Decode with Venu" />
         <input type="hidden" name="_next" value="https://www.decodewithvenu.com/thank-you" />
         <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="interest" value="Newsletter subscription" />
+        <input type="hidden" name="interest" value="Alert Me subscription" />
         <label class="sr-only" for="subscriber-email">Email address</label>
         <input id="subscriber-email" name="email" type="email" required placeholder="you@company.com" class="form-input flex-1" autocomplete="email" />
         <button type="submit" class="btn-primary px-6 py-3 text-sm font-semibold shrink-0">Subscribe</button>
