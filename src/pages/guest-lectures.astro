@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Guest Lectures" description="Invite Venu Uppaluri to speak on sustainability, analytics, AI, and decision-making.">
+  <section class="border-b border-edge/15">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-glow">Guest lectures &amp; speaker sessions</p>
+      <h1 class="mt-5 max-w-4xl font-serif text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg sm:text-6xl">Ideas become useful when they are shared.</h1>
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-mist-300">I speak with students, educators, and leaders about sustainability, analytics, AI, and how to make better decisions in an increasingly complex world.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-6xl gap-14 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[.85fr_1.15fr]">
+    <div>
+      <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-glow">Recent session</p>
+      <h2 class="mt-4 font-serif text-4xl font-semibold leading-tight tracking-[-0.035em] text-fg">Sustainability: the choices behind a better future.</h2>
+      <p class="mt-5 leading-relaxed text-mist-300">A recent session for school learners explored sustainability as a practical mindset: how everyday choices, systems thinking, and long-term responsibility connect.</p>
+      <div class="mt-10 border-l-2 border-cyan-glow pl-5">
+        <p class="font-serif text-2xl leading-snug text-fg">Suitable for schools, colleges, leadership forums, and learning communities.</p>
+      </div>
+      <div class="mt-10 border-t border-edge/15 pt-7">
+        <p class="text-sm font-semibold text-fg">Possible themes</p>
+        <ul class="mt-4 space-y-2 text-sm leading-relaxed text-mist-300">
+          <li>• Sustainability and systems thinking</li>
+          <li>• Analytics and AI for non-technical audiences</li>
+          <li>• Careers and lifelong learning in a changing world</li>
+          <li>• From insight to action: better decisions at work</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border border-edge/15 bg-ink-900 p-6 sm:p-9">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-glow">Invite Venu to speak</p>
+      <h2 class="mt-3 font-serif text-3xl font-semibold tracking-[-0.03em] text-fg">Tell me about your audience.</h2>
+      <p class="mt-3 text-sm leading-relaxed text-mist-300">Share a few details and I’ll respond with availability and a suggested format.</p>
+      <form class="mt-8 grid gap-5" action="https://formsubmit.co/venu@decodewithvenu.com" method="POST">
+        <input type="hidden" name="_subject" value="New guest lecture enquiry — Decode with Venu" />
+        <input type="hidden" name="_next" value="https://www.decodewithvenu.com/thank-you" />
+        <input type="hidden" name="_template" value="table" />
+        <label class="grid gap-2 text-sm font-semibold text-fg">Your name<input required name="name" class="form-input" autocomplete="name" /></label>
+        <label class="grid gap-2 text-sm font-semibold text-fg">Work email<input required name="email" type="email" class="form-input" autocomplete="email" /></label>
+        <label class="grid gap-2 text-sm font-semibold text-fg">Institution or organisation<input required name="organisation" class="form-input" /></label>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="grid gap-2 text-sm font-semibold text-fg">Audience<select name="audience" class="form-input"><option>School students</option><option>College students</option><option>Leadership team</option><option>Other</option></select></label>
+          <label class="grid gap-2 text-sm font-semibold text-fg">Preferred date<input name="date" type="date" class="form-input" /></label>
+        </div>
+        <label class="grid gap-2 text-sm font-semibold text-fg">What would you like the session to cover?<textarea required name="message" rows="4" class="form-input resize-y"></textarea></label>
+        <button type="submit" class="justify-self-start btn-primary px-5 py-3 text-sm font-semibold">Send speaking enquiry</button>
+      </form>
+    </div>
+  </section>
+</Layout>
