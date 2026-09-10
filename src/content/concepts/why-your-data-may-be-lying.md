@@ -7,8 +7,6 @@ seriesIndex: 1
 date: 2026-06-01
 ---
 
-![A magnifying glass over a tangle of noisy metrics resolves into a clean causal graph feeding a decision](./images/why-your-data-may-be-lying.png)
-
 This is the first article in the series **"The Architecture of Deception."**
 
 When leading major transformation projects or scaling enterprise analytics practices, leaders frequently run into a frustrating paradox: organizations are drowning in data but starved of true causal insights. Standard A/B testing, regression models, and highly polished dashboard metrics consistently yield statistically significant findings — yet they often completely misrepresent the operational reality.

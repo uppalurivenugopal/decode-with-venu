@@ -6,8 +6,6 @@ date: 2026-08-15
 source: "https://www.linkedin.com/pulse/your-biggest-account-might-risk-venu-gopal-uppaluri-so4bf/"
 ---
 
-![A revenue ranking flagged with single-service-line risk, one-champion dependence, and high renewal risk transforms into four balanced account archetypes — defend, grow, protect, and harvest](./images/your-biggest-account-might-be-your-biggest-risk-cover.png)
-
 Traditionally, Enterprises grouped their customers by the proportion of revenue generated — quarter on quarter, year on year. Categories are typically defined as Silver, Gold, Diamond, Platinum, depending on the revenue contribution to the Enterprise. The naming convention may vary but the concept remains the same. But that lens has a blind spot.
 
 Rank on revenue alone and the largest accounts look like your greatest assets. But are these accounts the safest? A big account that runs through a single service line, leans on one champion, and has escalations creeping up is not exactly an asset — it's a huge renewal risk. This pattern may not be visible when we rank the customers. This article tries to explore an alternate way of creating these clusters.
