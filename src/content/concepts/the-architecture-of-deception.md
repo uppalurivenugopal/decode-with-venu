@@ -7,6 +7,8 @@ seriesIndex: 2
 date: 2026-07-01
 ---
 
+![A lone figure in red stands at a junction inside a vast, maze-like structure](./images/the-architecture-of-deception.png)
+
 This is the second article in the series **"The Architecture of Deception."** (In case you missed it, click [here](/concepts/why-your-data-may-be-lying) to scan through the first post.)
 
 In my last post, we looked at why and how corporate dashboards can confidently showcase a false picture. We discussed a case on how a high number of pre-sales architect hours can easily look like a negative driver for deal wins on paper, simply because we missed a hidden real-world variable: Deal complexity — large, complex deals naturally require massive architect hours and are inherently harder to win.
