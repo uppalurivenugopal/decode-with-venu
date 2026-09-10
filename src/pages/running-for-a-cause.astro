@@ -5,6 +5,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 const causeRuns = [
   {
     name: 'Tata Mumbai Marathon',
+    slug: 'tata-mumbai-marathon',
     years: '2025 · 2026',
     tags: ['Rural & tribal healthcare', "Women's empowerment", 'Child education'],
     impact:
@@ -13,6 +14,7 @@ const causeRuns = [
   },
   {
     name: 'NMDC Hyderabad Marathon',
+    slug: 'nmdc-hyderabad-marathon',
     years: '2024 · 2025 · 2026',
     tags: ['Tribal empowerment', 'Blood disorder care', 'Autism & disability care'],
     impact:
@@ -21,6 +23,7 @@ const causeRuns = [
   },
   {
     name: 'Wipro Bangalore Marathon',
+    slug: 'wipro-bangalore-marathon',
     years: '2025',
     tags: ['Underprivileged children', 'Grassroots sport access'],
     impact:
@@ -29,6 +32,7 @@ const causeRuns = [
   },
   {
     name: 'Freshworks Chennai Marathon',
+    slug: 'freshworks-chennai-marathon',
     years: '2026 · preparing for 2027',
     tags: ["Underprivileged children's education", 'Freshwater & environment', 'Disadvantaged young athletes'],
     impact:
@@ -37,6 +41,7 @@ const causeRuns = [
   },
   {
     name: 'Kaveri Trail Marathon',
+    slug: 'kaveri-trail-marathon',
     years: '2024 · 2025',
     tags: ['Access to running culture', 'Community building'],
     impact:
@@ -45,6 +50,7 @@ const causeRuns = [
   },
   {
     name: 'Vizag Navy Marathon',
+    slug: 'vizag-navy-marathon',
     years: '2025 · training for 2026',
     tags: ["Naval families' welfare", 'Children with disabilities', 'Early childhood education'],
     impact:
@@ -53,6 +59,7 @@ const causeRuns = [
   },
   {
     name: 'Oxfam Trailwalker',
+    slug: 'oxfam-trailwalker',
     years: 'Completed',
     tags: ['Gender justice', 'Fighting poverty'],
     impact:
@@ -72,7 +79,8 @@ const causeRuns = [
       <p class="mt-6 max-w-2xl text-lg leading-relaxed text-mist-300">
         None of these races are about a personal best or a target pace. Every marathon here is
         one that ties fitness to something bigger — a community, an NGO, a cause that needed the
-        mile more than I did. This is a small slice of the 15 marathons I've completed to date.
+        mile more than I did. This is a small slice of the 15 Full Marathons (42.2km) I've
+        completed to date.
       </p>
     </div>
   </section>
@@ -92,11 +100,27 @@ const causeRuns = [
             ))}
           </div>
 
-          <p class="mt-4 leading-relaxed text-mist-300">{run.impact}</p>
+          <div class="mt-4 grid gap-6 sm:grid-cols-[160px_1fr]">
+            <div class="w-full sm:w-40 shrink-0">
+              <div class="aspect-[4/5] w-full overflow-hidden border border-edge/15 bg-ink-800 flex items-center justify-center">
+                <img
+                  src={`/images/marathons/${run.slug}.jpg`}
+                  alt={run.name}
+                  class="w-full h-full object-cover"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                />
+                <span class="hidden w-full h-full items-center justify-center text-center px-2 font-mono text-[11px] text-mist-400">Photo coming soon</span>
+              </div>
+            </div>
 
-          {run.stat && (
-            <p class="mt-4 border-l-2 border-cyan-glow/40 pl-4 text-sm leading-relaxed text-mist-400">{run.stat}</p>
-          )}
+            <div class="min-w-0">
+              <p class="leading-relaxed text-mist-300">{run.impact}</p>
+
+              {run.stat && (
+                <p class="mt-4 border-l-2 border-cyan-glow/40 pl-4 text-sm leading-relaxed text-mist-400">{run.stat}</p>
+              )}
+            </div>
+          </div>
         </div>
       ))}
     </div>
