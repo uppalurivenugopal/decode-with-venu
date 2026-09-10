@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const causeRuns = [
+  {
+    name: 'Tata Mumbai Marathon',
+    years: '2025 · 2026',
+    tags: ['Rural & tribal healthcare', "Women's empowerment", 'Child education'],
+    impact:
+      "Ran as part of TMM's “United We Run” movement — the country's largest sporting platform for philanthropy. Its top fundraising NGO for 14 years running, Shrimad Rajchandra Love and Care, puts its Mumbai Marathon proceeds into free multi-speciality medical camps for underserved rural and tribal communities, alongside a centre of excellence for women and children's education initiatives. Across the two editions I ran, the marathon backed 270+ and then 309 NGOs spanning healthcare, education, and women's empowerment.",
+    stat: '₹53.62 Cr raised event-wide in 2025, ₹60.68 Cr in 2026 — the event’s reported totals, not my individual fundraising.',
+  },
+  {
+    name: 'NMDC Hyderabad Marathon',
+    years: '2024 · 2025 · 2026',
+    tags: ['Tribal empowerment', 'Blood disorder care', 'Autism & disability care'],
+    impact:
+      "The 2026 edition brought 184 young tribal runners from Bastar's mining villages — Bailadila, Sukma, Dantewada, Bijapur — to the start line alongside me. Many had trained barefoot on village roads; NMDC gave them running shoes, kits, coaching, travel, and stay, turning it into several runners' first-ever city marathon and, for a few, a possible path into competitive athletics. In the editions before, the funds I ran alongside supported Blood Warriors Foundation's fight against thalassemia and Divi's Foundation's autism and disability care for children.",
+    stat: '₹2 Cr+ raised for 40 NGOs (2024) and ₹1.4 Cr for 29 NGOs (2025); the 2026 edition targeted ₹3 Cr across 35 NGO partners.',
+  },
+  {
+    name: 'Wipro Bangalore Marathon',
+    years: '2025',
+    tags: ['Underprivileged children', 'Grassroots sport access'],
+    impact:
+      "Ran the full marathon in the same edition where the event's Charity 10K channelled support to NGOs like Ananya Trust, Thayi Mane, and the Bangalore Schools Sports Foundation — groups working with underprivileged and vulnerable children on shelter, education, and access to sport.",
+    stat: '₹45 Lakh+ raised cumulatively through the Charity 10K over the years.',
+  },
+  {
+    name: 'Freshworks Chennai Marathon',
+    years: '2026 · preparing for 2027',
+    tags: ["Underprivileged children's education", 'Freshwater & environment', 'Disadvantaged young athletes'],
+    impact:
+      "Ran the 2026 edition, where FCM Charities partnered with five NGOs across health, education, environment, sports, and arts — Bhumi (education for underprivileged children), the Environmentalist Foundation of India (reviving freshwater bodies and afforestation), Hope Ladder Sports Foundation (developing athletes from economically disadvantaged backgrounds), NalandaWay Foundation (art and play for disadvantaged children), and the Tamil Nadu Type 1 Diabetes Foundation (funding insulin for those who can't afford it).",
+    stat: "FCM '25 Charities recorded the event's highest-ever fundraising across its five NGO partners.",
+  },
+  {
+    name: 'Kaveri Trail Marathon',
+    years: '2024 · 2025',
+    tags: ['Access to running culture', 'Community building'],
+    impact:
+      "India's oldest trail marathon, organised by Runners For Life along the Kaveri near the Ranganthittu Bird Sanctuary. Its cause is less about a cheque and more about opening world-class trail running to everyday runners, not just elites, and building a running community from the ground up.",
+    stat: null,
+  },
+  {
+    name: 'Vizag Navy Marathon',
+    years: '2025 · training for 2026',
+    tags: ["Naval families' welfare", 'Children with disabilities', 'Early childhood education'],
+    impact:
+      "Conducted by the Indian Navy with the Naval Wives Welfare Association (Eastern Region), the run's Sankalp component stands behind NWWA's work — crèches for naval families, the Sankalp school for differently-abled children, and an early-childhood education programme run jointly with TISS.",
+    stat: null,
+  },
+  {
+    name: 'Oxfam Trailwalker',
+    years: 'Completed',
+    tags: ['Gender justice', 'Fighting poverty'],
+    impact:
+      "A 100km, team-based “walkathon for a cause” — funds raised go directly into Oxfam India's work on gender justice and economic inequality across some of the country's poorest states.",
+    stat: null,
+  },
+];
+---
+
+<Layout title="Running for a Cause" description="Marathons I've run in service of a cause — the communities and NGOs behind the miles, not the medals.">
+  <section class="border-b border-edge/15">
+    <div class="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
+      <p class="text-[13px] font-bold tracking-[0.14em] text-cyan-glow uppercase mb-4">Beyond the finish line</p>
+      <h1 class="font-serif text-4xl sm:text-5xl font-semibold tracking-[-0.04em] text-fg leading-tight">
+        Running for <span class="gradient-text">a cause.</span>
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-mist-300">
+        None of these races are about a personal best or a target pace. Every marathon here is
+        one that ties fitness to something bigger — a community, an NGO, a cause that needed the
+        mile more than I did. This is a small slice of the 15 marathons I've completed to date.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 sm:px-8 py-12 sm:py-16">
+    <div class="space-y-6">
+      {causeRuns.map((run) => (
+        <div class="card p-6 sm:p-8">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h2 class="font-serif text-xl sm:text-2xl font-semibold text-fg">{run.name}</h2>
+            <span class="text-[13px] font-bold tracking-[0.1em] text-cyan-glow uppercase">{run.years}</span>
+          </div>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+            {run.tags.map((tag) => (
+              <span class="border border-edge/20 px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.04em] text-mist-300">{tag}</span>
+            ))}
+          </div>
+
+          <p class="mt-4 leading-relaxed text-mist-300">{run.impact}</p>
+
+          {run.stat && (
+            <p class="mt-4 border-l-2 border-cyan-glow/40 pl-4 text-sm leading-relaxed text-mist-400">{run.stat}</p>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-8 text-sm leading-relaxed text-mist-400">
+      Impact details and fundraising figures above are each event's or NGO's own publicly
+      reported information — shared here to point at the cause behind the race, not to claim
+      credit for it.
+    </p>
+  </section>
+</Layout>
