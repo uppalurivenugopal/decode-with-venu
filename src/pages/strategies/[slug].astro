@@ -38,19 +38,8 @@ const { Content } = await render(entry);
     </section>
 
     <section class="mx-auto max-w-3xl px-5 sm:px-8 py-14 sm:py-16">
-      <div class="grid gap-8 sm:grid-cols-[200px_1fr] items-start">
-        <div class="w-full sm:w-[200px] shrink-0 sm:sticky sm:top-8">
-          <img
-            src={`/images/articles/${entry.id}.png`}
-            alt={entry.data.title}
-            class="w-full h-auto border border-edge/15"
-            onerror="this.closest('div').style.display='none';"
-          />
-        </div>
-
-        <div class="prose-decode min-w-0">
-          <Content />
-        </div>
+      <div class="prose-decode">
+        <Content />
       </div>
 
       {entry.data.source && (
