@@ -24,4 +24,15 @@ const strategies = defineCollection({
   }),
 });
 
-export const collections = { concepts, strategies };
+const perspectives = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/perspectives' }),
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string().optional(),
+    description: z.string(),
+    date: z.date(),
+    source: z.string().optional(),
+  }),
+});
+
+export const collections = { concepts, strategies, perspectives };
