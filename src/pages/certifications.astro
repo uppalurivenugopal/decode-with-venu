@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// One entry per certification. `date` is 'YYYY-MM' (or just 'YYYY');
+// `href` (optional) links to the credential / verification page.
+const certifications: { title: string; issuer: string; date: string; href?: string }[] = [
+  { title: 'Creatio Sales Specialist', issuer: 'Creatio', date: '2026-09' },
+  { title: 'Claude Certified Associate — Foundations', issuer: 'Anthropic', date: '2026-08', href: 'https://www.credly.com/badges/1b41c92d-77b6-44a1-91e7-8016b3a3219f' },
+  { title: 'Designing and Implementing a Microsoft Azure AI Solution (AI-102)', issuer: 'Microsoft', date: '2023-10', href: 'https://learn.microsoft.com/api/credentials/share/en-us/uvg/91A95FB747A1B0DB?sharingId=7996880A3FC45013' },
+  { title: 'Microsoft Power Platform Functional Consultant (PL-200)', issuer: 'Microsoft', date: '2023-09', href: 'https://learn.microsoft.com/en-us/users/uvg/transcript/dg8ymb82r628xp2' },
+  { title: 'Microsoft Dynamics 365 Fundamentals — ERP (MB-920)', issuer: 'Microsoft', date: '2023-01', href: 'https://learn.microsoft.com/en-us/users/uvg/transcript/dg8ymb82r628xp2' },
+  { title: 'Microsoft Dynamics 365 Fundamentals — CRM (MB-910)', issuer: 'Microsoft', date: '2022-12', href: 'https://learn.microsoft.com/en-us/users/uvg/transcript/dg8ymb82r628xp2' },
+  { title: 'Azure AI Fundamentals (AI-900)', issuer: 'Microsoft', date: '2022-11', href: 'https://learn.microsoft.com/en-us/users/uppalurigopal-7293/transcript/dg8ymb82r628xp2' },
+  { title: 'Credit Risk Modelling in Python', issuer: 'Udemy', date: '2022-06', href: 'https://ude.my/UC-0a95b99a-f7b3-4c32-bb5f-0e9f58fd93fe' },
+  { title: 'Microsoft Azure Data Fundamentals (DP-900)', issuer: 'Microsoft', date: '2022-06' },
+];
+
+const sorted = [...certifications].sort((a, b) => b.date.localeCompare(a.date));
+
+const formatDate = (d: string) => {
+  const [y, m] = d.split('-');
+  if (!m) return y;
+  return new Date(Number(y), Number(m) - 1).toLocaleString('en-US', { month: 'short', year: 'numeric' });
+};
+---
+
+<Layout title="Certifications" description="Professional certifications earned by Venu Uppaluri across strategy, analytics, cloud, and AI.">
+  <section class="border-b border-edge/15">
+    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Certifications</p>
+      <h1 class="mt-5 max-w-4xl font-serif text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg sm:text-6xl">Credentials, earned along the way.</h1>
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-mist-300">A running record of the professional certifications I've completed to date.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+    {sorted.length === 0 ? (
+      <p class="text-mist-400">Certifications coming soon.</p>
+    ) : (
+      <ol class="border-t border-edge/15">
+        {sorted.map((c, i) => (
+          <li class="grid grid-cols-[2.5rem_1fr] gap-x-4 border-b border-edge/15 py-6 sm:grid-cols-[3rem_1fr_auto] sm:items-baseline sm:gap-x-8">
+            <span class="text-[13px] font-bold tracking-[0.14em] text-cyan-glow">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h2 class="font-serif text-2xl font-semibold leading-snug tracking-[-0.02em] text-fg">{c.title}</h2>
+              <p class="mt-1 text-mist-300">{c.issuer} <span class="text-mist-400">· {formatDate(c.date)}</span></p>
+            </div>
+            {c.href && (
+              <a href={c.href} target="_blank" rel="noopener noreferrer" class="col-start-2 mt-3 inline-flex items-center gap-1.5 justify-self-start text-[11px] font-semibold uppercase tracking-wide text-mist-400 hover:text-cyan-glow transition-colors sm:col-start-3 sm:mt-0">
+                Verify
+                <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5 8.5 3.5M4 3.5h4.5V8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
+    )}
+  </section>
+</Layout>
