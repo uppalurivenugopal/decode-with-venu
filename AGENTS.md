@@ -12,9 +12,10 @@ you don't have to be re-taught the setup from scratch in a new conversation.
   `.vercel/project.json`. Logged-in Vercel CLI is required (`npx vercel whoami` to check;
   `npx vercel login` — device-code flow — if not authenticated).
 - **GitHub repo**: `git@github.com:uppalurivenugopal/decode-with-venu.git`, branch `main`.
-  Every commit is pushed here; Vercel is also connected to this repo for its own dashboard
-  history, but production promotion is done explicitly via the CLI (see below), not by
-  waiting on the git webhook.
+  The Vercel project is linked to this repo with `main` as the production branch (verified
+  via the Vercel API, Oct 2026). **A push to `main` automatically deploys to production** —
+  the live deployment carries the pushed commit's SHA and message. No separate deploy step
+  is needed for committed changes.
 
 **Standard workflow for any change to this site — always do all of these, in order:**
 
@@ -24,11 +25,19 @@ you don't have to be re-taught the setup from scratch in a new conversation.
 3. Spot-check the change visually. Use `npx astro dev --background` (see Development below)
    or serve `dist/` with `python3 -m http.server <port>` and check it in the Browser pane.
 4. `git add` the specific files (never a blind `-A` without checking status first), commit,
-   `git push origin main`.
-5. `npx vercel deploy --prod` — this is what actually promotes to the live domain. A `git
-   push` alone does not update decodewithvenu.com; this explicit prod deploy step does.
-   ("Not authorized" on first try is usually transient — retry once.)
-6. Verify the live URL with `curl` and/or the Browser pane before calling it done.
+   `git push origin main`. **This push is what deploys to production** (see above).
+5. Verify the live URL with `curl` and/or the Browser pane (give Vercel ~15-30 seconds to
+   build). `npx vercel ls` shows deployment status if something looks stale.
+6. Only use `npx vercel deploy --prod` for a manual redeploy without a new commit — and
+   note it uploads the whole **working folder, including uncommitted and untracked files**,
+   not just what's in git. If other work-in-progress is sitting in the folder, it ships too,
+   so set it aside first or just push instead. (A "Not authorized" error from the CLI is
+   usually transient; retry once.)
+
+**Other windows may be editing this repo at the same time.** Before committing, always check
+`git status` for changes you didn't make and leave them out of your commit. If git reports a
+stale `.git/index.lock` with no running git process, check what holds it open (`lsof`) and
+confirm with the user before deleting it.
 
 Never touch domain or DNS settings without being explicitly asked to.
 
