@@ -139,6 +139,33 @@ body {
   margin: 2.5rem 0;
 }
 
+.prose-decode ul,
+.prose-decode ol {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose-decode ul {
+  list-style: disc;
+}
+
+.prose-decode ol {
+  list-style: decimal;
+}
+
+.prose-decode li {
+  margin: 0.5rem 0;
+  padding-left: 0.25rem;
+}
+
+.prose-decode li::marker {
+  color: var(--color-cyan-glow);
+}
+
+.prose-decode li > p {
+  margin: 0;
+}
+
 .form-input {
   width: 100%;
   border: 1px solid color-mix(in srgb, var(--color-edge) 22%, transparent);
