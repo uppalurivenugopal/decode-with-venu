@@ -102,6 +102,12 @@ palette changes) and a plain `<script>` (not `is:inline`) holding the tool's log
   only, no cookies/PII). It requires "Web Analytics" to be toggled on for the project in the
   Vercel dashboard (Project → Analytics tab) — a one-time, dashboard-only setting; there's no
   CLI switch for it.
+- **Google Analytics 4** (Measurement ID `G-JP76TKZHSB`) is loaded only after the visitor clicks
+  Accept on the cookie notice — `src/components/CookieConsent.astro` (included in
+  `Layout.astro`) holds the ID, the banner, and the loader. Declined/undecided visitors get no
+  GA script and no cookies. The choice is stored in `localStorage` under `cookie-consent`.
+  `/privacy` (`src/pages/privacy.astro`) explains all data collection and has a "Change my
+  cookie choice" button. If a new data-collecting tool is added, update that page too.
 - OG/social preview images: `Layout.astro` takes an `image` prop (defaults to
   `/images/og/default.png`); pass a page-specific one via
   `<Layout image="/images/og/whatever.png">`. Absolute URLs are built automatically from

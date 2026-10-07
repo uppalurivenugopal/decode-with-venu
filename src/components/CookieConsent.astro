@@ -1,0 +1,73 @@
+---
+---
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-label="Cookie preferences"
+  hidden
+  class="fixed bottom-0 left-0 right-0 z-40 border-t border-edge/20 bg-ink-900 md:left-[248px]"
+>
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-4 sm:px-8 sm:flex-row sm:items-center sm:justify-between">
+    <p class="max-w-3xl text-sm leading-relaxed text-mist-300">
+      I'd like to use Google Analytics to understand which pages are useful and how visitors find them.
+      It sets cookies only if you accept.{' '}
+      <a href="/privacy" class="font-semibold text-fg underline decoration-cyan-glow underline-offset-4">Privacy details</a>
+    </p>
+    <div class="flex shrink-0 gap-3">
+      <button id="cookie-decline" type="button" class="border border-edge/30 px-4 py-2 text-sm font-semibold text-fg transition-colors hover:border-cyan-glow hover:text-cyan-glow">Decline</button>
+      <button id="cookie-accept" type="button" class="btn-primary px-4 py-2 text-sm font-semibold">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var GA_ID = 'G-JP76TKZHSB';
+    var KEY = 'cookie-consent';
+    var banner = document.getElementById('cookie-banner');
+
+    function loadGA() {
+      if (window.__gaLoaded) return;
+      window.__gaLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', GA_ID);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+    }
+
+    function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+    function clearGACookies() {
+      document.cookie.split(';').forEach(function (c) {
+        var name = c.split('=')[0].trim();
+        if (name === '_ga' || name.indexOf('_ga_') === 0) {
+          document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+          document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        }
+      });
+    }
+
+    document.getElementById('cookie-accept').addEventListener('click', function () {
+      set('granted'); banner.hidden = true; loadGA();
+    });
+    document.getElementById('cookie-decline').addEventListener('click', function () {
+      set('denied'); banner.hidden = true; clearGACookies();
+    });
+
+    // Used by the "Change your choice" button on the Privacy page.
+    window.resetCookieChoice = function () {
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      clearGACookies();
+      location.reload();
+    };
+
+    var choice = get();
+    if (choice === 'granted') loadGA();
+    else if (choice !== 'denied') banner.hidden = false;
+  })();
+</script>

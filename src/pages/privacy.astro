@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Privacy" description="What this site collects, why, and the choices you have.">
+  <section class="border-b border-edge/15">
+    <div class="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-24">
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Privacy</p>
+      <h1 class="mt-5 font-serif text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg sm:text-6xl">What this site collects, and why.</h1>
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-mist-300">A short, plain-language summary. I don't sell data, run ads, or build profiles of visitors.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
+    <div class="prose-decode">
+      <h2>When you send me a message</h2>
+      <p>The Contact, Guest Lectures and Alert Me forms collect what you type: your name, email address, and message. They are delivered to my inbox through a form service called FormSubmit, which handles them on my behalf. I use them only to reply to you, and I don't share them with anyone else.</p>
+
+      <h2>Visit counts (no cookies)</h2>
+      <p>I use Vercel Web Analytics to see anonymous totals: which pages are viewed, roughly which country visitors are in, and what device they use. It does not use cookies and does not follow you around the web.</p>
+
+      <h2>Google Analytics (only if you say yes)</h2>
+      <p>To understand which articles are useful and how people find them, I'd like to use Google Analytics. It stays switched off unless you click <strong>Accept</strong> on the notice at the bottom of the page. If you accept, Google sets cookies in your browser and records things like the pages you view, how long you stay, roughly where you are (city and country), the type of device and browser you use, and how you reached the site. It does not tell me who you are by name. Google processes this data under <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">its own terms</a>.</p>
+      <p>If you click <strong>Decline</strong>, Google Analytics never loads.</p>
+
+      <h2>Tools on this site</h2>
+      <p>Interactive tools such as Governance Passport save your progress inside your own browser so you can come back later. That information stays on your device and is not sent to me or to anyone else.</p>
+
+      <h2>Your choices</h2>
+      <p>You can change your analytics choice at any time:</p>
+      <p><button type="button" id="reset-consent" class="btn-primary px-5 py-3 text-sm font-semibold">Change my cookie choice</button></p>
+      <p>To ask what I hold about you, or to have it deleted, email <a href="mailto:venu@decodewithvenu.com">venu@decodewithvenu.com</a>.</p>
+
+      <p class="mt-12 text-sm text-mist-400">Last updated 7 October 2026.</p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  document.getElementById('reset-consent')?.addEventListener('click', function () {
+    if (window.resetCookieChoice) window.resetCookieChoice();
+  });
+</script>
