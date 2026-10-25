@@ -1,5 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { formatShortDate } from '../utils/article';
+
+const latest = (
+  await Promise.all(
+    (['concepts', 'strategies', 'perspectives'] as const).map(async (name) =>
+      (await getCollection(name)).map((e) => ({ ...e.data, href: `/${name}/${e.id}`, section: name }))
+    )
+  )
+)
+  .flat()
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+  .slice(0, 3);
 
 const sections = [
   { href: '/concepts', number: '01', title: 'Concepts', description: 'Clear explanations of data models, analytics, and practical AI—written for people who need to make decisions with them.' },
@@ -20,6 +33,20 @@ const sections = [
         <a href="/about" class="border-b border-edge/30 pb-0.5 text-sm font-semibold text-fg hover:border-cyan-glow hover:text-cyan-glow transition-colors">More about Venu</a>
       </div>
     </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pt-12 sm:px-8 sm:pt-16">
+    <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Latest writing</p>
+    <ol class="mt-6 grid border-t border-edge/15 md:grid-cols-3 md:border-b">
+      {latest.map((a, i) => (
+        <li class:list={['border-b border-edge/15 md:border-b-0', i > 0 && 'md:border-l md:pl-8', i < 2 && 'md:pr-8']}>
+          <a href={a.href} class="group block py-6 md:py-7">
+            <p class="text-sm text-mist-400"><span class="font-semibold capitalize text-fg">{a.section}</span> &middot; {formatShortDate(a.date)}</p>
+            <h3 class="mt-3 font-serif text-[1.4rem] font-semibold leading-snug tracking-[-0.02em] text-fg group-hover:text-cyan-glow transition-colors">{a.title}</h3>
+          </a>
+        </li>
+      ))}
+    </ol>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">

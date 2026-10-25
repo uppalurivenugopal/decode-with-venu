@@ -1,0 +1,100 @@
+---
+// Shared article shell for the concepts, strategies and perspectives templates.
+// Hero and body sit on the same max-w-6xl grid as the home page, with a sticky
+// "In this article" rail on large screens so the page reads as one composition.
+import Layout from '../layouts/Layout.astro';
+import type { MarkdownHeading } from 'astro';
+import { formatDate, readingMinutes } from '../utils/article';
+
+interface Props {
+  title: string;
+  description: string;
+  subtitle?: string;
+  date: Date;
+  body?: string;
+  section: string;
+  sectionHref: string;
+  kicker?: string;
+  headings: MarkdownHeading[];
+  dropcap?: boolean;
+}
+
+const { title, description, subtitle, date, body, section, sectionHref, kicker, headings, dropcap = true } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2);
+const hasRail = toc.length > 0 || Astro.slots.has('rail');
+---
+
+<Layout title={title} description={description}>
+  <article class="mx-auto max-w-6xl px-5 sm:px-8">
+    <header class="border-b border-edge/15 pt-12 pb-10 sm:pt-16 sm:pb-12">
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">
+        <a href={sectionHref} class="hover:text-fg transition-colors">{section}</a>
+        {kicker && <span class="text-mist-400"> &middot; {kicker}</span>}
+      </p>
+      <h1 class="mt-5 max-w-4xl font-serif text-4xl sm:text-5xl font-semibold leading-[1.04] tracking-[-0.035em] text-fg">
+        {title}
+      </h1>
+      {subtitle && (
+        <p class="mt-5 max-w-3xl text-lg sm:text-xl leading-relaxed text-mist-300">{subtitle}</p>
+      )}
+      <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist-400">
+        <span>Venu Uppaluri</span>
+        <span aria-hidden="true" class="text-edge/25">/</span>
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        {body && (
+          <>
+            <span aria-hidden="true" class="text-edge/25">/</span>
+            <span>{readingMinutes(body)} min read</span>
+          </>
+        )}
+      </p>
+    </header>
+
+    <div class:list={['grid gap-12 pt-10 sm:pt-12', hasRail && 'lg:grid-cols-[minmax(0,42rem)_14rem] lg:justify-between']}>
+      <div class="min-w-0 max-w-[42rem]">
+        <div class:list={['prose-decode', dropcap && 'dropcap']}>
+          <slot />
+        </div>
+        <slot name="after" />
+      </div>
+
+      {hasRail && (
+        <aside class="hidden lg:block">
+          <div class="sticky top-10 space-y-10">
+            {toc.length > 0 && (
+              <nav aria-label="In this article">
+                <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">In this article</p>
+                <ol class="mt-4 border-l border-edge/15 text-sm leading-snug">
+                  {toc.map((h) => (
+                    <li>
+                      <a href={`#${h.slug}`} data-toc={h.slug} class="toc-link -ml-px block border-l-2 border-transparent py-1.5 pl-4 text-mist-400 hover:text-fg transition-colors">{h.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+            <slot name="rail" />
+          </div>
+        </aside>
+      )}
+    </div>
+  </article>
+</Layout>
+
+<script>
+  // Highlight the rail entry for the section currently being read.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc-link')];
+  const targets = links
+    .map((l) => document.getElementById(l.dataset.toc ?? ''))
+    .filter((el): el is HTMLElement => !!el);
+  if (targets.length) {
+    const setActive = () => {
+      const line = window.innerHeight * 0.3;
+      let current = targets[0].id;
+      for (const t of targets) if (t.getBoundingClientRect().top <= line) current = t.id;
+      links.forEach((l) => l.classList.toggle('is-active', l.dataset.toc === current));
+    };
+    setActive();
+    window.addEventListener('scroll', setActive, { passive: true });
+  }
+</script>

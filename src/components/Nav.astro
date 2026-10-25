@@ -6,19 +6,28 @@ const concepts = (await getCollection('concepts')).sort(
   (a, b) => (a.data.seriesIndex ?? 0) - (b.data.seriesIndex ?? 0)
 );
 
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/decode-framework', label: 'DECODE Framework' },
-  { href: '/concepts', label: 'Concepts' },
-  { href: '/strategies', label: 'Strategies' },
-  { href: '/perspectives', label: 'Perspectives' },
-  { href: '/projects', label: 'Casual Projects' },
-  { href: '/thought-leadership', label: 'Thought Leadership' },
-  { href: '/certifications', label: 'Certifications' },
-  { href: '/guest-lectures', label: 'Guest Lectures' },
-  { href: '/running-for-a-cause', label: 'Running for a Cause' },
-  { href: '/contact', label: 'Contact Me' },
-  { href: '/about', label: 'About Me' },
+// Grouped so the sidebar reads as reading / work / about rather than one long list.
+const groups = [
+  [
+    { href: '/', label: 'Home' },
+    { href: '/decode-framework', label: 'DECODE Framework' },
+  ],
+  [
+    { href: '/concepts', label: 'Concepts' },
+    { href: '/strategies', label: 'Strategies' },
+    { href: '/perspectives', label: 'Perspectives' },
+    { href: '/projects', label: 'Casual Projects' },
+  ],
+  [
+    { href: '/thought-leadership', label: 'Thought Leadership' },
+    { href: '/certifications', label: 'Certifications' },
+    { href: '/guest-lectures', label: 'Guest Lectures' },
+    { href: '/running-for-a-cause', label: 'Running for a Cause' },
+  ],
+  [
+    { href: '/about', label: 'About Me' },
+    { href: '/contact', label: 'Contact Me' },
+  ],
 ];
 
 const currentPath = Astro.url.pathname;
@@ -29,12 +38,17 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 <aside class="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:w-[248px] md:border-r md:border-edge/15 md:bg-ink-950 md:px-7 md:py-9 md:overflow-y-auto">
   <Logo />
 
-  <nav class="mt-12 flex flex-col gap-0.5 text-[15px]">
-    {links.map((l) => (
-      <a
-        href={l.href}
-        class:list={["px-2.5 py-2 -mx-2.5 rounded-md font-medium transition-colors", isActive(l.href) ? 'text-fg bg-edge/[0.04]' : 'text-mist-400 hover:text-fg']}
-      >{l.label}</a>
+  <nav class="mt-11 flex flex-col text-[15px]">
+    {groups.map((group, i) => (
+      <div class:list={["flex flex-col", i > 0 && 'mt-3 pt-3 border-t border-edge/10']}>
+        {group.map((l) => (
+          <a
+            href={l.href}
+            aria-current={isActive(l.href) ? 'page' : undefined}
+            class:list={["-ml-[14px] border-l-2 pl-3 py-[7px] font-medium transition-colors", isActive(l.href) ? 'border-cyan-glow text-fg' : 'border-transparent text-mist-400 hover:text-fg']}
+          >{l.label}</a>
+        ))}
+      </div>
     ))}
   </nav>
 
@@ -42,6 +56,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
     <a href="/subscribe" class="inline-flex items-center border-b border-cyan-glow pb-0.5 text-[15px] font-semibold text-fg hover:text-cyan-glow transition-colors">
       Alert Me
     </a>
+    <p class="mt-2.5 text-[13px] leading-snug text-mist-400">New essays by email. No noise.</p>
   </div>
 </aside>
 
@@ -56,8 +71,8 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 
   <div id="mobile-menu" class="hidden border-t border-edge/15 bg-ink-950">
     <nav class="flex flex-col px-5 py-3 gap-0.5 text-base">
-      {links.map((l) => (
-        <a href={l.href} class="px-2 py-2.5 text-mist-300 hover:text-fg">{l.label}</a>
+      {groups.flat().map((l) => (
+        <a href={l.href} class:list={["-ml-px border-l-2 px-3 py-2.5", isActive(l.href) ? 'border-cyan-glow font-semibold text-fg' : 'border-transparent text-mist-300 hover:text-fg']}>{l.label}</a>
       ))}
       {currentPath.startsWith('/concepts') && concepts.map((c) => (
         <a href={`/concepts/${c.id}`} class="pl-5 py-2 text-mist-400 hover:text-fg text-sm">{c.data.title}</a>
