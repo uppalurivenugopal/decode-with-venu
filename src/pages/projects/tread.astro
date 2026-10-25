@@ -35,6 +35,10 @@ const bands = [
 
   <section class="mx-auto max-w-6xl px-5 sm:px-8 py-10 sm:py-12">
     <div id="stage">
+      <p class="rs-organiser">
+        <b>Organising a race?</b> If you're an organiser and want your race listed here, reach out to me
+        at <a href="mailto:venu@decodewithvenu.com">venu@decodewithvenu.com</a>. The listing is free.
+      </p>
       <div class="rs-stats">
         <div><span id="st-showing">–</span><small>Showing</small></div>
         <div><span id="st-open">–</span><small>Registrations open</small></div>
@@ -172,6 +176,9 @@ const bands = [
   #stage .rs-name:hover { color: var(--accent); }
   #stage .rs-sub { margin-top: 0.3rem; font-size: 12.5px; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
   #stage .rs-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+  #stage .rs-organiser { margin-bottom: 1.75rem; padding: 0.85rem 1.1rem; border-left: 3px solid var(--color-cyan-glow); background: var(--color-ink-900); font-size: 14.5px; line-height: 1.6; color: var(--ink-muted); }
+  #stage .rs-organiser b { color: var(--ink); font-weight: 600; }
+  #stage .rs-organiser a { color: var(--color-cyan-glow); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
   #stage .rs-cause { margin-top: 0.55rem; padding-left: 0.55rem; border-left: 2px solid var(--blue); font-size: 12.5px; font-weight: 600; color: var(--blue); }
   #stage .rs-cause b { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 0.4rem; }
   #stage .rs-pill { font-size: 11px; font-weight: 600; padding: 0.1rem 0.45rem; border: 1px solid var(--line-strong); color: var(--ink-muted); }
@@ -207,6 +214,8 @@ const bands = [
   .rs-dialog .rs-note { background: color-mix(in srgb, #9a5b12 8%, transparent); border-left: 2px solid #9a5b12; padding: 0.65rem 0.85rem; font-size: 13.5px; margin-bottom: 1.25rem; }
   .rs-dialog .rs-src a { color: var(--color-indigo-glow); text-decoration: underline; text-underline-offset: 3px; font-size: 13.5px; }
   .rs-dialog .rs-cta { display: block; text-align: center; margin-top: 1.25rem; padding: 0.75rem 1rem; font-weight: 600; }
+  .rs-dialog .rs-ics { display: block; width: 100%; margin-top: 0.6rem; padding: 0.7rem 1rem; font-weight: 600; font-size: 14px; color: var(--color-fg); border: 1px solid color-mix(in srgb, var(--color-edge) 35%, transparent); }
+  .rs-dialog .rs-ics:hover { border-color: var(--color-cyan-glow); color: var(--color-cyan-glow); }
   .rs-dialog .rs-cmp { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.25rem; margin-top: 1rem; }
   .rs-dialog .rs-cmp > div { border-top: 2px solid var(--color-fg); padding-top: 0.75rem; font-size: 13.5px; }
   .rs-dialog .rs-cmp dt { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist-400); font-weight: 600; margin-top: 0.7rem; }
@@ -324,7 +333,7 @@ const bands = [
         ${e.causes?.length ? `<div class="rs-cause"><b>For a cause</b>${esc(e.causes.join(' · '))}</div>` : ''}
       </div>
       <div class="rs-entry"><span class="rs-status ${statusCls(e.status)}">${esc(e.status)}</span>${priceText(e) ? `<span class="rs-price">${esc(priceText(e))}</span>` : ''}</div>
-      <div class="rs-actions"><button type="button" data-open="${esc(e.id)}">Details</button><button type="button" data-cmp="${esc(e.id)}" class="${isCmp ? 'on' : ''}">${isCmp ? '✓ Comparing' : 'Compare'}</button></div>
+      <div class="rs-actions"><button type="button" data-open="${esc(e.id)}">Details</button><button type="button" data-ics="${esc(e.id)}">Add to calendar</button><button type="button" data-cmp="${esc(e.id)}" class="${isCmp ? 'on' : ''}">${isCmp ? '✓ Comparing' : 'Compare'}</button></div>
     </li>`;
   }
 
@@ -376,7 +385,8 @@ const bands = [
       <ul class="rs-src space-y-1">${e.sources.filter((s) => safeUrl(s.url)).map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a></li>`).join('')}</ul>
       <p class="text-xs text-mist-400 mt-3">Last checked ${esc(e.lastChecked || '')}. Aid stations, medical cover, cut-offs and photo policy appear only when an organiser publishes them.</p>
       <p class="text-xs mt-2" style="color:#9a5b12"><strong>Before you pay:</strong> collated from third-party sources. Verify this link is the official organiser's page before making any payment.</p>
-      ${link ? `<a class="btn-primary rs-cta" href="${esc(link)}" target="_blank" rel="noopener">Go to registration / official page ↗</a>` : ''}`;
+      ${link ? `<a class="btn-primary rs-cta" href="${esc(link)}" target="_blank" rel="noopener">Go to registration / official page ↗</a>` : ''}
+      <button type="button" class="rs-ics" data-ics="${esc(e.id)}">Add to calendar (.ics)</button>`;
     $<HTMLDialogElement>('dlg-detail').showModal();
   }
 
@@ -394,6 +404,63 @@ const bands = [
     $<HTMLDialogElement>('dlg-compare').showModal();
   }
 
+  // --- calendar export (RFC 5545 .ics, one all-day event) ---
+  const icsText = (v: string) => v.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  const icsDate = (s: string, addDays = 0) => {
+    const d = parseDate(s); d.setDate(d.getDate() + addDays);
+    return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+  };
+  // Lines longer than 75 octets are folded onto continuation lines that start with a space.
+  function icsFold(line: string) {
+    const enc = new TextEncoder();
+    const out: string[] = [];
+    let cur = '';
+    for (const ch of line) {
+      if (enc.encode(cur + ch).length > (out.length ? 74 : 75)) { out.push(cur); cur = ''; }
+      cur += ch;
+    }
+    out.push(cur);
+    return out.join('\r\n ');
+  }
+
+  function downloadIcs(e: RaceEvent) {
+    const page = `${location.origin}/projects/tread`;
+    const link = safeUrl(e.regLink);
+    // Skip parts the venue already names ("Visakhapatnam, Andhra Pradesh" + "Visakhapatnam").
+    const where = [e.venue, e.city, e.country].reduce<string[]>((acc, v) => (v && !acc.join(', ').includes(v) ? [...acc, v] : acc), []).join(', ');
+    const desc = [
+      e.dateTBC ? 'DATE NOT YET CONFIRMED by the organiser. Check before you plan travel.' : '',
+      e.distances?.length ? `Distances: ${e.distances.map(fmtKm).join(' · ')}` : '',
+      e.categories?.length ? `Categories: ${e.categories.join(' · ')}` : '',
+      e.causes?.length ? `For a cause: ${e.causes.join(' · ')}` : '',
+      `Entry status (as listed): ${e.status}`,
+      e.notes || '',
+      link ? `Official page: ${link}` : '',
+      `Collated by T.R.E.A.D from third-party sources. Verify with the official organiser before paying: ${page}`,
+    ].filter(Boolean).join('\n');
+    const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const lines = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Decode with Venu//T.R.E.A.D//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      `UID:${e.id}@tread.decodewithvenu.com`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${icsDate(e.date)}`,
+      `DTEND;VALUE=DATE:${icsDate(e.endDate || e.date, 1)}`,
+      `SUMMARY:${icsText(e.name + (e.dateTBC ? ' (date TBC)' : ''))}`,
+      where ? `LOCATION:${icsText(where)}` : '',
+      `DESCRIPTION:${icsText(desc)}`,
+      `URL:${link || page}`,
+      'TRANSP:TRANSPARENT',
+      'END:VEVENT', 'END:VCALENDAR',
+    ].filter(Boolean).map(icsFold);
+    const blob = new Blob([lines.join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'race'}.ics`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+
   function toggleCompare(id: string) {
     const i = compare.findIndex((x) => x.id === id);
     if (i >= 0) compare.splice(i, 1);
@@ -407,7 +474,9 @@ const bands = [
     const t = ev.target as HTMLElement;
     const open = t.closest<HTMLElement>('[data-open]');
     const cmp = t.closest<HTMLElement>('[data-cmp]');
+    const ics = t.closest<HTMLElement>('[data-ics]');
     if (open) openDetail(all.find((x) => x.id === open.dataset.open)!);
+    if (ics) downloadIcs(all.find((x) => x.id === ics.dataset.ics)!);
     if (cmp) {
       toggleCompare(cmp.dataset.cmp!);
       if ($<HTMLDialogElement>('dlg-compare').open) compare.length ? openCompare() : $<HTMLDialogElement>('dlg-compare').close();
