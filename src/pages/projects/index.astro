@@ -23,6 +23,15 @@ const functions = [
 
 const projects = [
   {
+    href: '/projects/runsphere',
+    icon: 'run',
+    tag: 'Data aggregator · refreshed weekly',
+    title: 'RunSphere',
+    description: 'Every upcoming running event in India, from 5K community runs to 300K Himalayan ultras, plus the world\'s marquee races, for the next 13 months. Crawled weekly from four race platforms, de-duplicated, with a source link for every race.',
+    industries: [],
+    functions: [],
+  },
+  {
     href: '/projects/offer-signal',
     icon: 'offer',
     tag: 'Weighted scorecard',
@@ -90,6 +99,9 @@ const projects = [
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center mb-6">
             {p.icon === 'offer' && (
               <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            )}
+            {p.icon === 'run' && (
+              <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 12h17M12 3.5c2.5 2.3 3.6 5.2 3.6 8.5S14.5 18.2 12 20.5M12 3.5C9.5 5.8 8.4 8.7 8.4 12s1.1 6.2 3.6 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
             )}
             {p.icon === 'governance' && (
               <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
