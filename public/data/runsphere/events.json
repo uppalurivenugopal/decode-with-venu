@@ -7,7 +7,7 @@
   "IndiaRunning": 140,
   "MarathonMitra": 100,
   "FatMarathoner": 180,
-  "Curated": 38
+  "Curated": 40
  },
  "events": [
   {
@@ -5877,6 +5877,46 @@
    ],
    "tier": "community",
    "notes": null,
+   "lastChecked": "2026-10-25",
+   "causes": []
+  },
+  {
+   "id": "hyderabad-stadium-run-2026",
+   "name": "Hyderabad Stadium Run 2026 (Gaudium Stadium Run)",
+   "date": "2026-11-29",
+   "dateTBC": true,
+   "endDate": null,
+   "city": "Hyderabad",
+   "venue": "",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Ultra (Road)",
+   "distances": [],
+   "categories": [
+    "24-hour individual",
+    "24-hour relay"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Hyderabad Runners Society",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": null,
+   "entry": null,
+   "sources": [
+    {
+     "name": "Deccan Chronicle (2025 edition)",
+     "url": "https://www.deccanchronicle.com/southern-states/telangana/nine-runners-complete-24-hour-challenge-at-gaudium-stadium-run-1920968"
+    },
+    {
+     "name": "Telangana Today (2023 edition)",
+     "url": "https://telanganatoday.com/third-edition-of-24-hour-run-held-in-hyderabad"
+    }
+   ],
+   "tier": "Marquee India",
+   "notes": "24-hour stadium run. The 2025 edition started on the night of Sun 30 Nov and ran for 24 hours, with 65 relay teams. 2026 date not announced yet; shown on the matching weekend.",
    "lastChecked": "2026-10-25",
    "causes": []
   },
@@ -14918,6 +14958,43 @@
    ],
    "tier": "community",
    "notes": null,
+   "lastChecked": "2026-10-25",
+   "causes": []
+  },
+  {
+   "id": "bengaluru-stadium-run-2027",
+   "name": "Bengaluru Stadium Run 2027",
+   "date": "2027-03-28",
+   "dateTBC": true,
+   "endDate": null,
+   "city": "Bengaluru",
+   "venue": "Sree Kanteerava Stadium",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Ultra (Road)",
+   "distances": [],
+   "categories": [
+    "24-hour individual",
+    "12-hour individual",
+    "Relay"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "NEB Sports",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://nebsports.in/bengaluru-stadium-run/",
+   "entry": null,
+   "sources": [
+    {
+     "name": "NEB Sports (organiser)",
+     "url": "https://nebsports.in/bengaluru-stadium-run/"
+    }
+   ],
+   "tier": "Marquee India",
+   "notes": "Stadium ultra with 24-hour and 12-hour formats; individual entries need a qualifying ultra. The 2025 edition ran 30-31 Mar at Sree Kanteerava Stadium. Next date not announced yet; shown on the matching weekend.",
    "lastChecked": "2026-10-25",
    "causes": []
   },

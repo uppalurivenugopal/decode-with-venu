@@ -291,9 +291,11 @@ const bands = [
   };
 
   function filtered() {
-    const q = els.q.value.trim().toLowerCase();
+    // Bangalore and Bengaluru are the same city; sources use either name.
+    const alias = (t: string) => t.replace(/bangalore/g, 'bengaluru');
+    const q = alias(els.q.value.trim().toLowerCase());
     return all.filter((e) => {
-      if (q && !`${e.name} ${e.city} ${e.venue} ${e.organizer || ''} ${e.country} ${(e.causes || []).join(' ')}`.toLowerCase().includes(q)) return false;
+      if (q && !alias(`${e.name} ${e.city} ${e.venue} ${e.organizer || ''} ${e.country} ${(e.causes || []).join(' ')}`.toLowerCase()).includes(q)) return false;
       const cz = els.cause.value;
       if (cz !== 'All' && !(cz === 'any' ? (e.causes || []).length > 0 : (e.causes || []).includes(cz))) return false;
       if (els.disc.value !== 'All' && e.discipline !== els.disc.value) return false;
