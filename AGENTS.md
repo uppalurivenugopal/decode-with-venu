@@ -125,7 +125,8 @@ Don't match on aggregator descriptions (too noisy), and never tag a race without
   `/privacy` (`src/pages/privacy.astro`) explains all data collection and has a "Change my
   cookie choice" button. If a new data-collecting tool is added, update that page too.
 - OG/social preview images: `Layout.astro` takes an `image` prop (defaults to
-  `/images/og/default.png`); pass a page-specific one via
+  `/images/og/site-2026.jpg`; redrawn in the cream brand Oct 2026, keep each under ~300 KB or WhatsApp drops it.
+  Give a redesigned image a new file name so WhatsApp/LinkedIn caches can't keep serving the old one); pass a page-specific one via
   `<Layout image="/images/og/whatever.png">`. Absolute URLs are built automatically from
   `astro.config.mjs`'s `site` value.
 
