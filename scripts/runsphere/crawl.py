@@ -449,10 +449,14 @@ def main():
     curated = [make_event(**{**c, "lastChecked": c.get("lastChecked", TODAY.isoformat())}) for c in curated]
     print(f"Curated: {len(curated)} events")
 
+    # Curated records can list aggregator ids they replace ("supersedes"), for listings with a wrong
+    # date or name that the duplicate matcher can't pair up on its own.
+    superseded = {i for c in curated for i in c.pop("supersedes", [])}
+
     merged = []
     # curated first so hand-verified details win; then aggregators in order of data richness
     for e in curated + ifin + mm + ir + fm:
-        if not e["date"]:
+        if not e["date"] or e["id"] in superseded:
             continue
         hit = next((m for m in merged if same_event(m, e)), None)
         if hit:

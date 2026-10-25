@@ -7,7 +7,7 @@
   "IndiaRunning": 140,
   "MarathonMitra": 100,
   "FatMarathoner": 180,
-  "Curated": 37
+  "Curated": 38
  },
  "events": [
   {
@@ -8406,43 +8406,6 @@
    "causes": []
   },
   {
-   "id": "fm-vizag-navy-half-marathon-2026",
-   "name": "Vizag Navy Half Marathon 2026",
-   "date": "2026-12-06",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Visakhapatnam",
-   "venue": "Visakhapatnam, Andhra Pradesh",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-10-25",
-   "causes": []
-  },
-  {
    "id": "fm-the-border-2026",
    "name": "The Border 2026",
    "date": "2026-12-07",
@@ -9611,6 +9574,55 @@
    "notes": "Rs 58 lakh prize purse; free stay and meals for outstation runners.",
    "lastChecked": "2026-10-25",
    "causes": []
+  },
+  {
+   "id": "vizag-navy-2026",
+   "name": "Vizag Navy Marathon 2026",
+   "date": "2026-12-13",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Visakhapatnam",
+   "venue": "Visakhapatnam, Andhra Pradesh",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    5,
+    10,
+    21.1,
+    42.2
+   ],
+   "categories": [],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Eastern Naval Command, Indian Navy",
+   "regOpens": "2026-10-04",
+   "regCloses": null,
+   "status": "Registrations Open",
+   "regLink": "https://vizagnavymarathon.run",
+   "entry": "Open",
+   "sources": [
+    {
+     "name": "Official site",
+     "url": "https://vizagnavymarathon.run"
+    },
+    {
+     "name": "News On AIR",
+     "url": "https://newsonair.gov.in/eastern-naval-command-to-organise-11th-edition-of-vizag-navy-marathon-in-visakhapatnam-on-dec-13/"
+    },
+    {
+     "name": "UNI",
+     "url": "https://www.uniindia.com/sports/sports-ap-vizag-navy-marathon/194096"
+    }
+   ],
+   "tier": "Marquee India",
+   "notes": "11th edition, part of Navy Day celebrations. AIMS-accredited course; SBI is the sponsor.",
+   "lastChecked": "2026-10-25",
+   "causes": [
+    "Community welfare",
+    "Education"
+   ]
   },
   {
    "id": "fm-lokmat-mahamarathon-chhatrapati-sambhajinagar-2026-2026",
