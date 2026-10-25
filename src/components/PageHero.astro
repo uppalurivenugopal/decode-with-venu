@@ -1,23 +1,27 @@
 ---
-// Listing-page hero on the shared max-w-6xl grid, so every section starts on the same left edge.
+// Page hero on the shared max-w-6xl grid, so every page starts on the same left edge.
+// `rule` draws the hairline under it for content pages (listings get theirs from the list).
 interface Props {
   eyebrow: string;
   aside?: string;
+  rule?: boolean;
 }
 
-const { eyebrow, aside } = Astro.props;
+const { eyebrow, aside, rule = false } = Astro.props;
 ---
 
-<header class="pt-14 pb-12 sm:pt-20 sm:pb-14">
+<header class:list={['pt-14 pb-12 sm:pt-20 sm:pb-14', rule && 'border-b border-edge/15']}>
   <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_14rem] lg:items-end">
     <div>
       <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">{eyebrow}</p>
       <h1 class="mt-5 max-w-3xl font-serif text-5xl sm:text-6xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg">
         <slot name="title" />
       </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-mist-300">
-        <slot />
-      </p>
+      {Astro.slots.has('default') && (
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-mist-300">
+          <slot />
+        </p>
+      )}
     </div>
     {aside && <p class="text-sm leading-relaxed text-mist-400 lg:border-l lg:border-edge/15 lg:pl-6">{aside}</p>}
   </div>

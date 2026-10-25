@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
 
 const industries = [
   { key: '', label: 'All industries' },
@@ -53,34 +54,26 @@ const projects = [
 ---
 
 <Layout title="Casual Projects" description="Small interactive builds applying business-school concepts — logistic regression, weighted scorecards — to real workplace decisions.">
-  <section class="relative overflow-hidden bg-grid border-b border-edge/5">
-    <div class="glow w-[30rem] h-[30rem] bg-indigo-glow/15 -top-40 right-1/4"></div>
-    <div class="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 pt-20 pb-16 sm:pt-28 sm:pb-20">
-      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">Casual Projects</p>
-      <h1 class="font-serif text-5xl sm:text-6xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg">
-        Small builds, <span class="gradient-text">real intuition</span>
-      </h1>
-      <p class="mt-4 max-w-xl text-lg text-mist-300">
-        Not case studies — toy models. Each one takes a concept from the classroom and turns it into
-        something you can drag, break, and stare at until it clicks. Illustrative weights, not trained
-        on real data, built to teach the shape of the reasoning rather than ship a production score.
-      </p>
-    </div>
-  </section>
+  <div class="mx-auto max-w-6xl px-5 sm:px-8">
+    <PageHero eyebrow="Casual Projects" aside={`${projects.length} interactive tools, filtered by industry and function below.`}>
+      <Fragment slot="title">Small builds, <span class="gradient-text">real intuition</span></Fragment>
+      Not case studies — toy models. Each one takes a concept from the classroom and turns it into
+      something you can drag, break, and stare at until it clicks. Illustrative weights, not trained
+      on real data, built to teach the shape of the reasoning rather than ship a production score.
+    </PageHero>
 
-  <section class="mx-auto max-w-4xl px-5 sm:px-8 py-12 sm:py-16">
-    <div class="mb-10 space-y-5">
+    <div class="mb-10 grid gap-6 border-t border-edge/15 pt-8 lg:grid-cols-2 lg:gap-10">
       <div>
-        <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400 mb-2.5">Industry</p>
-        <div class="flex flex-wrap gap-2" data-filter-group="industry">
+        <p class="mb-3 text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Industry</p>
+        <div class="flex flex-wrap gap-x-5 gap-y-2" data-filter-group="industry">
           {industries.map((i) => (
             <button type="button" data-filter-value={i.key} class="filter-btn">{i.label}</button>
           ))}
         </div>
       </div>
       <div>
-        <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400 mb-2.5">Business function</p>
-        <div class="flex flex-wrap gap-2" data-filter-group="function">
+        <p class="mb-3 text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Business function</p>
+        <div class="flex flex-wrap gap-x-5 gap-y-2" data-filter-group="function">
           {functions.map((f) => (
             <button type="button" data-filter-value={f.key} class="filter-btn">{f.label}</button>
           ))}
@@ -88,62 +81,59 @@ const projects = [
       </div>
     </div>
 
-    <div class="grid gap-5 sm:grid-cols-2" id="project-grid">
+    <div class="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3" id="project-grid">
       {projects.map((p) => (
         <a
           href={p.href}
-          class="card group p-7 flex flex-col"
+          class="card group flex flex-col py-7"
           data-industries={p.industries.join(',')}
           data-functions={p.functions.join(',')}
         >
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center mb-6">
+          <div class="mb-5">
             {p.icon === 'offer' && (
-              <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="w-7 h-7 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             )}
             {p.icon === 'run' && (
-              <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 12h17M12 3.5c2.5 2.3 3.6 5.2 3.6 8.5S14.5 18.2 12 20.5M12 3.5C9.5 5.8 8.4 8.7 8.4 12s1.1 6.2 3.6 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              <svg class="w-7 h-7 text-cyan-glow" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 12h17M12 3.5c2.5 2.3 3.6 5.2 3.6 8.5S14.5 18.2 12 20.5M12 3.5C9.5 5.8 8.4 8.7 8.4 12s1.1 6.2 3.6 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
             )}
             {p.icon === 'governance' && (
-              <svg class="w-5 h-5 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="w-7 h-7 text-cyan-glow" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             )}
           </div>
-          <p class="font-mono text-[11px] tracking-widest uppercase text-mist-400 mb-2">{p.tag}</p>
-          <h2 class="text-xl font-semibold text-fg flex items-center gap-2">
+          <p class="mb-2 text-sm text-mist-400">{p.tag}</p>
+          <h2 class="flex items-center gap-2 font-serif text-2xl font-semibold tracking-[-0.02em] text-fg group-hover:text-cyan-glow transition-colors">
             {p.title}
             <svg class="w-3.5 h-3.5 text-mist-400 group-hover:text-cyan-glow group-hover:translate-x-0.5 transition-all" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </h2>
-          <p class="mt-3 text-mist-400 leading-relaxed">{p.description}</p>
+          <p class="mt-3 leading-relaxed text-mist-300">{p.description}</p>
         </a>
       ))}
     </div>
 
-    <div id="empty-state" class="hidden card max-w-xl p-10 text-center">
+    <div id="empty-state" class="hidden card max-w-xl py-10">
       <p class="text-mist-300 font-medium">No projects match yet</p>
       <p class="mt-2 text-sm text-mist-400">More Casual Projects are on the way — try a different combination or check back soon.</p>
     </div>
-  </section>
+  </div>
 </Layout>
 
 <style>
   .filter-btn {
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 500;
-    padding: 0.4rem 0.85rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--color-edge) 10%, transparent);
+    padding: 0.2rem 0;
+    border-bottom: 2px solid transparent;
     color: var(--color-mist-400);
-    opacity: 0.5;
     background: transparent;
-    transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
   .filter-btn:hover {
-    opacity: 0.85;
+    color: var(--color-fg);
   }
   .filter-btn[data-active='true'] {
-    opacity: 1;
-    color: var(--color-cyan-glow);
-    border-color: color-mix(in srgb, var(--color-cyan-glow) 35%, transparent);
-    background: color-mix(in srgb, var(--color-cyan-glow) 10%, transparent);
+    color: var(--color-fg);
+    font-weight: 600;
+    border-color: var(--color-cyan-glow);
   }
 </style>
 

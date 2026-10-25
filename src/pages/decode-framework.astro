@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
+import PageHero from '../components/PageHero.astro';
 
 const steps = [
   { letter: 'D', word: 'Define', desc: 'Focus on problem framing and KPI alignment.' },
@@ -19,69 +19,70 @@ const personas = [
 ---
 
 <Layout title="DECODE Framework" description="A repeatable leadership methodology that ensures every data model, pipeline, and report is directly anchored to an executive decision and a concrete business outcome.">
-  <section class="relative overflow-hidden bg-grid border-b border-edge/5">
-    <div class="glow w-[30rem] h-[30rem] bg-indigo-glow/15 -top-40 left-1/3"></div>
-    <div class="relative z-10 mx-auto max-w-4xl px-5 sm:px-8 pt-14 pb-10 sm:pt-20 sm:pb-14">
-      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">Methodology</p>
-      <h1 class="font-serif text-5xl sm:text-6xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg">
-        DECODE <span class="gradient-text">Framework</span>
-      </h1>
-      <p class="mt-4 text-lg text-mist-300">Driving Business Value through Strategic Analytics</p>
-    </div>
-  </section>
+  <div class="mx-auto max-w-6xl px-5 sm:px-8">
+    <PageHero eyebrow="Methodology" aside="Six steps, one story: from the business question to measured ROI." rule>
+      <Fragment slot="title">DECODE <span class="gradient-text">Framework</span></Fragment>
+      Driving Business Value through Strategic Analytics
+    </PageHero>
 
-  <section class="mx-auto max-w-4xl px-5 sm:px-8 py-12 sm:py-16">
-    <SectionHeading eyebrow="The Mission" title="Bridging the Data Execution Gap" />
-    <div class="mt-8 space-y-5 text-mist-300 leading-relaxed">
-      <p>
-        Most analytics initiatives fail not because of technical execution, but because they lack
-        alignment with business reality. Throughout my consulting career and client engagements, I
-        consistently observe a distinct disconnect: technical teams excel at deploying brilliant data
-        models and executive dashboards, while business leaders focus entirely on driving customer
-        value and top- or bottom-line growth.
-      </p>
-      <p class="text-fg font-medium text-lg leading-snug">
-        The missing link is a single, coherent story that bridges the technical output to the strategic outcome.
-      </p>
-      <p>
-        The DECODE framework was envisioned to bridge this exact gap. It is a repeatable leadership
-        methodology that ensures every data model, pipeline, and report is directly anchored to an
-        executive decision and a concrete business outcome.
-      </p>
-    </div>
-  </section>
+    <section class="grid gap-8 py-12 sm:py-16 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+      <div>
+        <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">The Mission</p>
+        <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-semibold leading-tight tracking-[-0.03em] text-fg">Bridging the Data Execution Gap</h2>
+      </div>
+      <div class="prose-decode">
+        <p>
+          Most analytics initiatives fail not because of technical execution, but because they lack
+          alignment with business reality. Throughout my consulting career and client engagements, I
+          consistently observe a distinct disconnect: technical teams excel at deploying brilliant data
+          models and executive dashboards, while business leaders focus entirely on driving customer
+          value and top- or bottom-line growth.
+        </p>
+        <blockquote><p>The missing link is a single, coherent story that bridges the technical output to the strategic outcome.</p></blockquote>
+        <p>
+          The DECODE framework was envisioned to bridge this exact gap. It is a repeatable leadership
+          methodology that ensures every data model, pipeline, and report is directly anchored to an
+          executive decision and a concrete business outcome.
+        </p>
+      </div>
+    </section>
 
-  <section class="mx-auto max-w-4xl px-5 sm:px-8 pb-12 sm:pb-16">
-    <div class="space-y-3">
-      {steps.map((s, i) => (
-        <div class="card flex items-start gap-5 p-5 sm:p-6">
-          <div class="shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-cyan-glow/20 to-indigo-glow/20 border border-edge/10 flex items-center justify-center font-mono font-bold text-cyan-glow">
-            {s.letter}
+    <section class="border-t border-edge/15 pt-12 sm:pt-16">
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">The six steps</p>
+      <ol class="mt-8 grid border-t border-edge/15 sm:grid-cols-2 lg:grid-cols-3">
+        {steps.map((s, i) => (
+          <li class:list={[
+            'border-b border-edge/15 py-8',
+            i % 2 === 0 ? 'sm:pr-8' : 'sm:border-l sm:pl-8',
+            i % 3 === 0 ? 'lg:border-l-0 lg:pl-0' : 'lg:border-l lg:pl-8',
+            i % 3 === 2 ? 'lg:pr-0' : 'lg:pr-8',
+          ]}>
+            <div class="flex items-baseline gap-4">
+              <span class="font-serif text-6xl font-semibold leading-none tracking-[-0.04em] text-cyan-glow">{s.letter}</span>
+              <span class="text-[13px] font-bold tracking-[0.14em] text-mist-400">0{i + 1}</span>
+            </div>
+            <h3 class="mt-5 font-serif text-2xl font-semibold tracking-[-0.02em] text-fg">{s.word}</h3>
+            <p class="mt-2 max-w-sm leading-relaxed text-mist-300">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="pt-14 sm:pt-20">
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Who It's For</p>
+      <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-fg">Framework Inference for Personas</h2>
+      <div class="mt-8 grid gap-x-8 sm:grid-cols-3">
+        {personas.map((p, i) => (
+          <div class="card py-6">
+            <p class="text-sm font-semibold text-mist-400">Persona {i + 1}</p>
+            <h3 class="mt-2 font-serif text-xl font-semibold text-fg">{p.title}</h3>
+            <p class="mt-2 text-mist-300">{p.who}</p>
           </div>
-          <div>
-            <h3 class="text-fg font-semibold text-base">{i + 1}. {s.word}</h3>
-            <p class="mt-1 text-mist-400 leading-relaxed">{s.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="mx-auto max-w-4xl px-5 sm:px-8 pb-14 sm:pb-20">
-    <SectionHeading eyebrow="Who It's For" title="Framework Inference for Personas" />
-    <div class="mt-8 grid sm:grid-cols-3 gap-5">
-      {personas.map((p, i) => (
-        <div class="card p-6">
-          <p class="font-mono text-xs text-cyan-glow/70 mb-2">Persona {i + 1}</p>
-          <h3 class="text-fg font-semibold">{p.title}</h3>
-          <p class="mt-2 text-sm text-mist-400">{p.who}</p>
-        </div>
-      ))}
-    </div>
-    <div class="mt-12 text-center">
-      <a href="/concepts" class="inline-flex items-center rounded-full btn-primary px-6 py-3 text-sm font-semibold transition-colors">
+        ))}
+      </div>
+      <a href="/concepts" class="mt-10 inline-flex items-center btn-primary px-5 py-3 text-sm font-semibold">
         Explore DECODE Insights
       </a>
-    </div>
-  </section>
+    </section>
+  </div>
 </Layout>
