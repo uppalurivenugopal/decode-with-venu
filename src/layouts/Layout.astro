@@ -43,6 +43,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={absoluteImage} />
 
+    <script is:inline>
+      // Apply the reader's saved text size before first paint (see TextSize.astro).
+      try {
+        var t = localStorage.getItem('text-size');
+        if (t === 'large' || t === 'xlarge') document.documentElement.dataset.textSize = t;
+      } catch (e) {}
+    </script>
+
     <script>
       // Vercel Web Analytics: aggregate, anonymized pageview counts only.
       // No cookies, no personal data, no cross-site tracking.
@@ -59,5 +67,28 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
       <Footer />
     </div>
     <CookieConsent />
+
+    <script>
+      // Text-size control: one handler for every instance (sidebar and mobile header).
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-text-size-btn]');
+      const sync = () => {
+        const current = root.dataset.textSize ?? 'default';
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.textSizeBtn === current)));
+      };
+      buttons.forEach((b) =>
+        b.addEventListener('click', () => {
+          const size = b.dataset.textSizeBtn ?? 'default';
+          if (size === 'default') delete root.dataset.textSize;
+          else root.dataset.textSize = size;
+          try {
+            if (size === 'default') localStorage.removeItem('text-size');
+            else localStorage.setItem('text-size', size);
+          } catch {}
+          sync();
+        })
+      );
+      sync();
+    </script>
   </body>
 </html>

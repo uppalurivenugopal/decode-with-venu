@@ -36,24 +36,6 @@ const bands = [
 
   <section class="mx-auto max-w-6xl px-5 sm:px-8 py-10 sm:py-12">
     <div id="stage">
-      <aside class="rs-disclaimer" aria-label="Disclaimer">
-        <p class="rs-disclaimer-title">Disclaimer</p>
-        <p>
-          The information on this page is collated from multiple third-party sources. RunSphere is not an organiser,
-          ticketing partner or affiliate of any race listed here, and does not take registrations or payments.
-          Dates, prices and entry status can change without notice. <strong>Please verify the respective links with the
-          official race organiser before making any payments or travel bookings.</strong>
-        </p>
-        <p class="rs-disclaimer-sub">Sources used:</p>
-        <ul>
-          <li><a href="https://www.ifinish.in/running" target="_blank" rel="noopener">iFinish</a>: race listings and registration windows</li>
-          <li><a href="https://www.indiarunning.com" target="_blank" rel="noopener">IndiaRunning</a>: race pages and categories</li>
-          <li><a href="https://marathonmitra.com/events" target="_blank" rel="noopener">MarathonMitra</a>: race pages, distances and some prices</li>
-          <li><a href="https://fatmarathoner.com/upcoming-marathon-calendar-india/" target="_blank" rel="noopener">FatMarathoner</a>: India race calendar</li>
-          <li>Official race and organiser websites, plus press coverage, for the hand-researched international and marquee Indian races (each race's own sources are listed under <em>Details</em>)</li>
-        </ul>
-      </aside>
-
       <div class="rs-stats">
         <div><span id="st-showing">–</span><small>Showing</small></div>
         <div><span id="st-open">–</span><small>Registrations open</small></div>
@@ -82,6 +64,24 @@ const bands = [
       <ol id="rs-list" class="rs-list" aria-live="polite"></ol>
       <p id="rs-empty" class="rs-empty" hidden>No races match these filters.</p>
       <button type="button" id="rs-more" class="btn-primary rs-more" hidden>Show more</button>
+
+      <aside class="rs-disclaimer" aria-label="Disclaimer">
+        <p class="rs-disclaimer-title">Disclaimer</p>
+        <p>
+          The information on this page is collated from multiple third-party sources. RunSphere is not an organiser,
+          ticketing partner or affiliate of any race listed here, and does not take registrations or payments.
+          Dates, prices and entry status can change without notice. <strong>Please verify the respective links with the
+          official race organiser before making any payments or travel bookings.</strong>
+        </p>
+        <p class="rs-disclaimer-sub">Sources used:</p>
+        <ul>
+          <li><a href="https://www.ifinish.in/running" target="_blank" rel="noopener">iFinish</a>: race listings and registration windows</li>
+          <li><a href="https://www.indiarunning.com" target="_blank" rel="noopener">IndiaRunning</a>: race pages and categories</li>
+          <li><a href="https://marathonmitra.com/events" target="_blank" rel="noopener">MarathonMitra</a>: race pages, distances and some prices</li>
+          <li><a href="https://fatmarathoner.com/upcoming-marathon-calendar-india/" target="_blank" rel="noopener">FatMarathoner</a>: India race calendar</li>
+          <li>Official race and organiser websites, plus press coverage, for the hand-researched international and marquee Indian races (each race's own sources are listed under <em>Details</em>)</li>
+        </ul>
+      </aside>
 
       <dialog id="dlg-detail" class="rs-dialog"><div id="detail-body"></div></dialog>
       <dialog id="dlg-compare" class="rs-dialog rs-wide"><div id="compare-body"></div></dialog>
@@ -130,7 +130,7 @@ const bands = [
     --bad: #9e3d2f;
     --paper: var(--color-ink-900);
   }
-  #stage .rs-disclaimer { border-left: 3px solid var(--warn); background: color-mix(in srgb, #9a5b12 6%, transparent); padding: 1rem 1.25rem; margin-bottom: 2rem; font-size: 14px; line-height: 1.65; color: var(--ink-muted); }
+  #stage .rs-disclaimer { border-left: 3px solid var(--warn); background: color-mix(in srgb, #9a5b12 6%, transparent); padding: 1rem 1.25rem; margin-top: 2.5rem; font-size: 14px; line-height: 1.65; color: var(--ink-muted); }
   #stage .rs-disclaimer-title { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warn); margin-bottom: 0.35rem; }
   #stage .rs-disclaimer strong { color: var(--ink); font-weight: 600; }
   #stage .rs-disclaimer-sub { margin-top: 0.75rem; font-weight: 600; color: var(--ink); }

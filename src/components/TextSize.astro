@@ -1,0 +1,32 @@
+---
+// Reader text-size control. Scales the root font size (all rem-based type and
+// measures grow together); the choice is kept per visitor in localStorage.
+// Layout.astro applies a saved choice in <head> before first paint.
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+
+const sizes = [
+  { id: 'default', label: 'Default text size', px: 13 },
+  { id: 'large', label: 'Larger text', px: 16 },
+  { id: 'xlarge', label: 'Largest text', px: 19 },
+];
+---
+
+<div class="flex items-center gap-3" role="group" aria-label="Text size">
+  {!compact && <span class="text-[13px] text-mist-400">Text size</span>}
+  <div class="flex items-end gap-1.5">
+    {sizes.map((s) => (
+      <button
+        type="button"
+        data-text-size-btn={s.id}
+        aria-label={s.label}
+        aria-pressed="false"
+        class="text-size-btn border-b-2 border-transparent px-1 pb-0.5 font-serif font-semibold leading-none text-mist-400 hover:text-fg transition-colors"
+        style={`font-size:${s.px}px`}
+      >A</button>
+    ))}
+  </div>
+</div>

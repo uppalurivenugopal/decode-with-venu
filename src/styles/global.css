@@ -25,6 +25,22 @@
 
 html {
   scroll-behavior: smooth;
+  /* 17px base on desktop: rem-based type, measures and containers scale with it. */
+  font-size: 106.25%;
+}
+
+/* Reader-chosen sizes from the text-size control (TextSize.astro). */
+html[data-text-size='large'] {
+  font-size: 115%;
+}
+
+html[data-text-size='xlarge'] {
+  font-size: 125%;
+}
+
+.text-size-btn[aria-pressed='true'] {
+  color: var(--color-fg);
+  border-color: var(--color-cyan-glow);
 }
 
 body {

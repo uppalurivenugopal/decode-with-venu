@@ -50,7 +50,7 @@ const hasRail = toc.length > 0 || Astro.slots.has('rail');
       </p>
     </header>
 
-    <div class:list={['grid gap-12 pt-10 sm:pt-12', hasRail && 'lg:grid-cols-[minmax(0,42rem)_14rem] lg:justify-between']}>
+    <div class:list={['grid gap-12 pt-10 sm:pt-12', hasRail && 'lg:grid-cols-[minmax(0,42rem)_14rem] lg:gap-16']}>
       <div class="min-w-0 max-w-[42rem]">
         <div class:list={['prose-decode endmark', dropcap && 'dropcap']}>
           <slot />
