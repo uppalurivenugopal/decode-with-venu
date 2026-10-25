@@ -92,8 +92,9 @@ the fullest example of the pattern: hero section using shared Tailwind/brand cla
 CSS variables onto the site's `--color-*` tokens (so it re-themes automatically if the brand
 palette changes) and a plain `<script>` (not `is:inline`) holding the tool's logic.
 
-**T.R.E.A.D** (Trail and Road Event Aggregated Database; renamed from RunSphere in Oct 2026; code,
-URL `/projects/runsphere` and data paths still use the old `runsphere` name) (`src/pages/projects/runsphere.astro`)
+**T.R.E.A.D** (Trail and Road Event Aggregated Database; renamed from RunSphere in Oct 2026; lives at
+`/projects/tread`, with `/projects/runsphere` redirecting there via `astro.config.mjs`; the data paths, crawler and
+workflow still use the old `runsphere` name) (`src/pages/projects/tread.astro`)
 is the one data-driven project: it loads
 `public/data/runsphere/events.json`, produced by `scripts/runsphere/crawl.py` (stdlib Python;
 hand-researched races live in `scripts/runsphere/global_events.json`, with `dateTBC: true` for

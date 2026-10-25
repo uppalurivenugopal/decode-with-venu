@@ -7,7 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://www.decodewithvenu.com',
   redirects: {
-    '/resources': '/thought-leadership'
+    '/resources': '/thought-leadership',
+    '/projects/runsphere': '/projects/tread'
   },
   vite: {
     plugins: [tailwindcss()]
