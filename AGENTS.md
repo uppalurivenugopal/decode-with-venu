@@ -92,6 +92,15 @@ the fullest example of the pattern: hero section using shared Tailwind/brand cla
 CSS variables onto the site's `--color-*` tokens (so it re-themes automatically if the brand
 palette changes) and a plain `<script>` (not `is:inline`) holding the tool's logic.
 
+**RunSphere** (`src/pages/projects/runsphere.astro`) is the one data-driven project: it loads
+`public/data/runsphere/events.json`, produced by `scripts/runsphere/crawl.py` (stdlib Python;
+hand-researched races live in `scripts/runsphere/global_events.json`, with `dateTBC: true` for
+unannounced dates). `.github/workflows/runsphere-weekly.yml` re-runs the crawl every Monday
+07:00 IST and commits the refreshed JSON as `runsphere-bot`, which auto-deploys. Expect those
+bot commits on `main` (pull before working). The crawler refuses to overwrite if the event
+count drops below 60% of the last run (a source blocking it), so a failed Action run means
+"stale but safe". Keep the page's source disclaimer in sync if a data source is added.
+
 ## Forms & analytics
 
 - Contact, Guest Lectures, and Subscribe ("Alert Me") forms all POST to
