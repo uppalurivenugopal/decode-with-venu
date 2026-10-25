@@ -107,6 +107,10 @@ Each event carries a `causes` list (philanthropic cause tags, shown as "For a ca
 `tag_causes()` in `crawl.py` matches the race *name* (and a "Charity" entry type) against `CAUSE_RULES`;
 hand-researched causes for marquee races go in `global_events.json` as `"causes": [...]` and are kept on merge.
 Don't match on aggregator descriptions (too noisy), and never tag a race without evidence.
+Two hand-edited files sit beside `events.json` (the crawler never touches them): `verified.json` lists the race ids
+Venu has personally verified (green tick beside the name; every other race shows a grey tick). Only add an id when
+Venu asks. `race-links.json` holds optional race-specific links per id (`handbook`, `map`, `media`, `results`);
+any missing one falls back to the race's official site (`regLink`), labelled as such. Nothing is hosted on the site.
 
 ## Forms & analytics
 

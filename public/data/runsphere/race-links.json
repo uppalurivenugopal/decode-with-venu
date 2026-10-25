@@ -1,0 +1,4 @@
+{
+ "_about": "Race-specific resource links, keyed by race id. Each field is optional: handbook, map, media, results. Anything missing falls back to the race's official site. Nothing here is hosted on decodewithvenu.com.",
+ "links": {}
+}

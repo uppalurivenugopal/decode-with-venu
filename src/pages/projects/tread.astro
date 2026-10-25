@@ -66,6 +66,7 @@ const bands = [
         </div>
       </div>
 
+      <p class="rs-legend"><span class="rs-tick on" aria-hidden="true"></span> Verified by T.R.E.A.D: details checked with the organiser. <span class="rs-tick" aria-hidden="true"></span> Not yet verified.</p>
       <ol id="rs-list" class="rs-list" aria-live="polite"></ol>
       <p id="rs-empty" class="rs-empty" hidden>No races match these filters.</p>
       <button type="button" id="rs-more" class="btn-primary rs-more" hidden>Show more</button>
@@ -172,6 +173,18 @@ const bands = [
   #stage .rs-row:hover { background: color-mix(in srgb, var(--color-cyan-glow) 3%, transparent); }
   #stage .rs-date b { display: block; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--ink); line-height: 1.15; }
   #stage .rs-date span { font-size: 12px; color: var(--ink-faint); }
+  #stage .rs-title { display: flex; align-items: flex-start; gap: 0.45rem; }
+  #stage .rs-tick, .rs-dialog .rs-tick { flex: none; display: inline-block; width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; background: #c8c0b2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.4l2.6 2.6L13 6.6' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; vertical-align: -3px; }
+  #stage .rs-tick.on, .rs-dialog .rs-tick.on { background-color: #2f7d4f; }
+  #stage .rs-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin: 0.25rem 0 0.75rem; font-size: 12.5px; color: var(--ink-faint); }
+  #stage .rs-legend .rs-tick { margin: 0 0 0 0.35rem; width: 15px; height: 15px; }
+  #stage .rs-legend .rs-tick:first-child { margin-left: 0; }
+  #stage .rs-res { display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; margin-top: 0.5rem; font-size: 12.5px; }
+  #stage .rs-res a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+  #stage .rs-res span { color: var(--ink-faint); opacity: 0.7; }
+  .rs-dialog .rs-resl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.35rem 1.25rem; margin-bottom: 1.25rem; font-size: 14px; }
+  .rs-dialog .rs-resl a { color: var(--color-indigo-glow); text-decoration: underline; text-underline-offset: 3px; }
+  .rs-dialog .rs-resl small { color: var(--color-mist-400); }
   #stage .rs-name { font-weight: 600; color: var(--ink); font-size: 1.02rem; text-align: left; line-height: 1.3; }
   #stage .rs-name:hover { color: var(--accent); }
   #stage .rs-sub { margin-top: 0.3rem; font-size: 12.5px; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
@@ -327,10 +340,13 @@ const bands = [
     return `<li class="rs-row">
       <div class="rs-date"><b>${esc(fmtShort(e.date))}</b><span>${e.dateTBC ? '<span class="rs-tbc">Date TBC</span>' : esc(daysUntil(e.date))} · ${parseDate(e.date).getFullYear()}</span></div>
       <div>
-        <button type="button" class="rs-name" data-open="${esc(e.id)}">${esc(e.name)}</button>
+        <div class="rs-title">${tick(e)}<button type="button" class="rs-name" data-open="${esc(e.id)}">${esc(e.name)}</button></div>
         <div class="rs-sub">${tier}<span>${esc(where)}</span><span>· ${esc(e.discipline)}</span><span class="rs-conf ${c.cls}" title="${esc(c.tip)}">· ${esc(c.label)}</span></div>
         <div class="rs-pills">${pills(e.distances || [])}</div>
         ${e.causes?.length ? `<div class="rs-cause"><b>For a cause</b>${esc(e.causes.join(' · '))}</div>` : ''}
+        <div class="rs-res">${resources(e).map((r) => r.url
+          ? `<a href="${esc(r.url)}" target="_blank" rel="noopener"${r.fallback ? ' title="Opens the official race site"' : ''}>${esc(r.label)} ↗</a>`
+          : `<span title="Not published by sources yet">${esc(r.label)}</span>`).join('')}</div>
       </div>
       <div class="rs-entry"><span class="rs-status ${statusCls(e.status)}">${esc(e.status)}</span>${priceText(e) ? `<span class="rs-price">${esc(priceText(e))}</span>` : ''}</div>
       <div class="rs-actions"><button type="button" data-open="${esc(e.id)}">Details</button><button type="button" data-ics="${esc(e.id)}">Add to calendar</button><button type="button" data-cmp="${esc(e.id)}" class="${isCmp ? 'on' : ''}">${isCmp ? '✓ Comparing' : 'Compare'}</button></div>
@@ -352,6 +368,27 @@ const bands = [
     $('cmp-n').textContent = String(compare.length);
   }
 
+  // --- trust & resources ---
+  // verified.json: ids Venu has checked himself. race-links.json: optional race-specific links.
+  // Both are edited by hand in the repo; nothing on these links is hosted here.
+  type RaceLinks = { handbook?: string; map?: string; media?: string; results?: string };
+  let verified = new Set<string>();
+  let raceLinks: Record<string, RaceLinks> = {};
+  const RESOURCES: [keyof RaceLinks, string][] = [['handbook', 'Race handbook'], ['map', 'Route map'], ['media', 'Interviews & media'], ['results', 'Results']];
+  const isVerified = (e: RaceEvent) => verified.has(e.id);
+  const tick = (e: RaceEvent) => isVerified(e)
+    ? '<span class="rs-tick on" role="img" aria-label="Verified by T.R.E.A.D" title="Verified by T.R.E.A.D: details checked with the organiser"></span>'
+    : '<span class="rs-tick" role="img" aria-label="Not yet verified" title="Not yet verified by T.R.E.A.D"></span>';
+  // Each resource uses its own link if known, else the official site (flagged as a fallback), else nothing.
+  function resources(e: RaceEvent) {
+    const own = raceLinks[e.id] || {};
+    const site = safeUrl(e.regLink);
+    return RESOURCES.map(([k, label]) => {
+      const u = safeUrl(own[k]);
+      return { label, url: u || site, fallback: !u && !!site };
+    });
+  }
+
   function fillSelect(sel: HTMLSelectElement, values: string[], label = (v: string) => v) {
     sel.insertAdjacentHTML('beforeend', values.map((v) => `<option value="${esc(v)}">${esc(label(v))}</option>`).join(''));
   }
@@ -359,13 +396,14 @@ const bands = [
   function openDetail(e: RaceEvent) {
     const np = '<span class="rs-np">Not published by sources. Check with the organiser.</span>';
     const c = confidence(e);
-    const venue = [e.venue, e.city, e.country].filter((v, i, a) => v && a.indexOf(v) === i).join(', ');
+    const venue = [e.venue, e.city, e.country].reduce<string[]>((acc, v) => (v && !acc.join(', ').includes(v) ? [...acc, v] : acc), []).join(', ');
     const reg = e.regOpens || e.regCloses ? `${e.regOpens ? fmtDate(e.regOpens) : '?'} → ${e.regCloses ? fmtDate(e.regCloses) : '?'}` : '';
     const link = safeUrl(e.regLink);
     $('detail-body').innerHTML = `
       <button type="button" class="rs-close" data-close aria-label="Close">×</button>
       <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">${esc(e.discipline)}${e.tier && e.tier !== 'community' ? ' · ' + esc(e.tier) : ''}</p>
-      <h2 class="font-serif text-3xl font-semibold text-fg mt-2 leading-tight">${esc(e.name)}</h2>
+      <h2 class="font-serif text-3xl font-semibold text-fg mt-2 leading-tight">${esc(e.name)} ${tick(e)}</h2>
+      <p class="text-xs mt-1" style="color:${isVerified(e) ? '#2f7d4f' : 'var(--color-mist-400)'}">${isVerified(e) ? 'Verified by T.R.E.A.D: details checked with the organiser.' : 'Not yet verified by T.R.E.A.D.'}</p>
       <p class="text-sm text-mist-400 mt-2">${esc(fmtDate(e.date))}${e.endDate ? ' – ' + esc(fmtDate(e.endDate)) : ''} · ${e.dateTBC ? '<span class="rs-tbc" style="color:#9a5b12">date not yet officially confirmed</span>' : esc(daysUntil(e.date))}
         · <span style="color:${c.cls === 'ok' ? '#2f6b4f' : '#9a5b12'}">${esc(c.label)}</span></p>
       <dl class="rs-specs">
@@ -381,6 +419,10 @@ const bands = [
       <div class="rs-pills" style="display:flex;flex-wrap:wrap;gap:.3rem">${(e.distances || []).map((k) => `<span style="font-size:12px;font-weight:600;padding:.1rem .5rem;border:1px solid rgba(19,40,60,.25)">${fmtKm(k)}</span>`).join('') || np}</div>
       ${e.categories?.length ? `<p class="text-sm text-mist-400 mt-2">Categories: ${esc(e.categories.join(' · '))}</p>` : ''}
       ${e.notes ? `<p class="rs-note mt-5">${esc(e.notes)}</p>` : '<div class="mb-5"></div>'}
+      <p class="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-mist-400 mb-2">Race resources</p>
+      <div class="rs-resl">${resources(e).map((r) => `<div>${r.url
+        ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.label)} ↗</a>${r.fallback ? ' <small>(official site)</small>' : ''}`
+        : `<span class="rs-np">${esc(r.label)}: not published yet</span>`}</div>`).join('')}</div>
       <p class="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-mist-400 mb-2">Where this came from</p>
       <ul class="rs-src space-y-1">${e.sources.filter((s) => safeUrl(s.url)).map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a></li>`).join('')}</ul>
       <p class="text-xs text-mist-400 mt-3">Last checked ${esc(e.lastChecked || '')}. Aid stations, medical cover, cut-offs and photo policy appear only when an organiser publishes them.</p>
@@ -493,9 +535,15 @@ const bands = [
     els.band.value = 'all'; els.virtual.checked = true; els.confirmed.checked = false; shown = PAGE; render();
   });
 
-  fetch('/data/runsphere/events.json')
-    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-    .then((data: { generatedAt: string; sources: Record<string, number>; events: RaceEvent[] }) => {
+  const optionalJson = (u: string) => fetch(u).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
+  Promise.all([
+    fetch('/data/runsphere/events.json').then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))),
+    optionalJson('/data/runsphere/verified.json'),
+    optionalJson('/data/runsphere/race-links.json'),
+  ])
+    .then(([data, v, l]: [{ generatedAt: string; sources: Record<string, number>; events: RaceEvent[] }, { verified?: string[] }, { links?: Record<string, RaceLinks> }]) => {
+      verified = new Set(v.verified || []);
+      raceLinks = l.links || {};
       all = data.events.filter((e) => { const d = parseDate(e.date); return d >= today && d < windowEnd; });
       const uniq = (a: string[]) => [...new Set(a)].sort();
       fillSelect(els.disc, uniq(all.map((e) => e.discipline)));
