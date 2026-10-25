@@ -36,6 +36,24 @@ const bands = [
 
   <section class="mx-auto max-w-6xl px-5 sm:px-8 py-10 sm:py-12">
     <div id="stage">
+      <aside class="rs-disclaimer" aria-label="Disclaimer">
+        <p class="rs-disclaimer-title">Disclaimer</p>
+        <p>
+          The information on this page is collated from multiple third-party sources. RunSphere is not an organiser,
+          ticketing partner or affiliate of any race listed here, and does not take registrations or payments.
+          Dates, prices and entry status can change without notice. <strong>Please verify the respective links with the
+          official race organiser before making any payments or travel bookings.</strong>
+        </p>
+        <p class="rs-disclaimer-sub">Sources used:</p>
+        <ul>
+          <li><a href="https://www.ifinish.in/running" target="_blank" rel="noopener">iFinish</a>: race listings and registration windows</li>
+          <li><a href="https://www.indiarunning.com" target="_blank" rel="noopener">IndiaRunning</a>: race pages and categories</li>
+          <li><a href="https://marathonmitra.com/events" target="_blank" rel="noopener">MarathonMitra</a>: race pages, distances and some prices</li>
+          <li><a href="https://fatmarathoner.com/upcoming-marathon-calendar-india/" target="_blank" rel="noopener">FatMarathoner</a>: India race calendar</li>
+          <li>Official race and organiser websites, plus press coverage, for the hand-researched international and marquee Indian races (each race's own sources are listed under <em>Details</em>)</li>
+        </ul>
+      </aside>
+
       <div class="rs-stats">
         <div><span id="st-showing">–</span><small>Showing</small></div>
         <div><span id="st-open">–</span><small>Registrations open</small></div>
@@ -91,7 +109,7 @@ const bands = [
         How this works: listings come from public pages and sitemaps the platforms publish. Races found on two or more
         platforms are marked <em>sources agree</em>. The international and marquee Indian races are researched by hand
         against official sites and press coverage, and dates not yet officially announced are marked <em>TBC</em>.
-        Always confirm with the organiser before you book travel.
+        Always verify the respective links with the organiser before making any payments.
       </p>
     </div>
   </section>
@@ -112,6 +130,12 @@ const bands = [
     --bad: #9e3d2f;
     --paper: var(--color-ink-900);
   }
+  #stage .rs-disclaimer { border-left: 3px solid var(--warn); background: color-mix(in srgb, #9a5b12 6%, transparent); padding: 1rem 1.25rem; margin-bottom: 2rem; font-size: 14px; line-height: 1.65; color: var(--ink-muted); }
+  #stage .rs-disclaimer-title { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warn); margin-bottom: 0.35rem; }
+  #stage .rs-disclaimer strong { color: var(--ink); font-weight: 600; }
+  #stage .rs-disclaimer-sub { margin-top: 0.75rem; font-weight: 600; color: var(--ink); }
+  #stage .rs-disclaimer ul { margin-top: 0.3rem; padding-left: 1.1rem; list-style: disc; }
+  #stage .rs-disclaimer a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
   #stage .rs-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line); margin-bottom: 1.75rem; }
   #stage .rs-stats div { padding: 1rem 0.75rem 0.9rem 0; }
   #stage .rs-stats span { display: block; font-family: var(--font-serif); font-size: 2rem; font-weight: 600; color: var(--ink); line-height: 1; }
@@ -337,6 +361,7 @@ const bands = [
       <p class="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-mist-400 mb-2">Where this came from</p>
       <ul class="rs-src space-y-1">${e.sources.filter((s) => safeUrl(s.url)).map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a></li>`).join('')}</ul>
       <p class="text-xs text-mist-400 mt-3">Last checked ${esc(e.lastChecked || '')}. Aid stations, medical cover, cut-offs and photo policy appear only when an organiser publishes them.</p>
+      <p class="text-xs mt-2" style="color:#9a5b12"><strong>Before you pay:</strong> collated from third-party sources. Verify this link is the official organiser's page before making any payment.</p>
       ${link ? `<a class="btn-primary rs-cta" href="${esc(link)}" target="_blank" rel="noopener">Go to registration / official page ↗</a>` : ''}`;
     $<HTMLDialogElement>('dlg-detail').showModal();
   }
