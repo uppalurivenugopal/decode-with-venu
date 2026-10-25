@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""RunSphere crawler.
+"""T.R.E.A.D crawler (Trail and Road Event Aggregated Database; formerly RunSphere).
 
 Pulls upcoming running events from public sources, normalises them into one
 schema, merges the hand-curated global races, keeps only the next 13 months,
@@ -134,6 +134,7 @@ def make_event(**kw):
         "priceFrom": None, "currency": "INR", "priceNote": None, "organizer": None,
         "regOpens": None, "regCloses": None, "status": None, "regLink": None, "entry": None,
         "sources": [], "tier": "community", "notes": None, "lastChecked": TODAY.isoformat(),
+        "causes": [],
     }
     base.update({k: v for k, v in kw.items() if v is not None})
     return base
@@ -367,11 +368,34 @@ def merge(primary, extra):
             primary["sources"] += [s for s in v if s["url"] not in urls]
         elif k in ("distances",):
             primary[k] = sorted(set(primary[k]) | set(v))
-        elif k == "categories":
-            primary[k] = list(dict.fromkeys(primary[k] + v))
+        elif k in ("categories", "causes"):
+            primary[k] = list(dict.fromkeys(primary.get(k, []) + v))
         elif primary.get(k) in (None, "", [], "India - Other", "Road") and v not in (None, "", []):
             primary[k] = v
     return primary
+
+
+# Philanthropic cause tags. Matched on the race name (and a "Charity" entry type) only:
+# aggregator descriptions are too noisy ("organ" in "organiser", "foundation" day, etc.).
+# Hand-researched causes for marquee races live in global_events.json as "causes".
+CAUSE_RULES = [
+    ("Education", r"\beducat|\bschool|literac"),
+    ("Health", r"cancer|diabet|thalass|blood donat|organ donat|kidney|autism|mental health|child health|\bhiv\b|pinkathon|\bpink 10k"),
+    ("Hunger & poverty", r"hunger|poverty|\bfeed|underprivileged"),
+    ("Environment", r"\bgreen ?(athon|marathon|run)\b|mission green|sustainab|run for (the )?(ocean|nature|planet|earth)|clean city|swachh|jal suraksha|plastic|climate"),
+    ("Armed forces welfare", r"soldier|veteran|martyr|national heroes|honou?r run"),
+    ("Empowerment", r"empower"),
+    ("Awareness", r"anti.?drug|awareness|road safety"),
+    ("Charity & fundraising", r"charit|fundrais|\bngos?\b|for a cause|rotary|\blions\b"),
+]
+
+
+def tag_causes(e):
+    name = (e.get("name") or "").lower()
+    found = [label for label, rx in CAUSE_RULES if re.search(rx, name)]
+    if re.search(r"charit", e.get("entry") or "", re.I):
+        found.append("Charity & fundraising")
+    return list(dict.fromkeys((e.get("causes") or []) + found))
 
 
 def compute_status(e):
@@ -441,6 +465,7 @@ def main():
         d = dt.date.fromisoformat(e["date"])
         if TODAY - dt.timedelta(days=7) <= d < end:
             e["status"] = compute_status(e)
+            e["causes"] = tag_causes(e)
             window.append(e)
     window.sort(key=lambda e: (e["date"], e["name"]))
 

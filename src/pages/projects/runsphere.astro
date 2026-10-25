@@ -13,7 +13,7 @@ const bands = [
 ];
 ---
 
-<Layout title="RunSphere" description="Every upcoming running event in India plus the world's marquee races, for the next 13 months. Crawled from Indian race platforms weekly, de-duplicated, with sources shown for every race.">
+<Layout title="T.R.E.A.D: Trail and Road Event Aggregated Database" description="Every upcoming running event in India plus the world's marquee races, for the next 13 months. Crawled from Indian race platforms weekly, de-duplicated, with sources shown for every race.">
   <section class="relative overflow-hidden border-b border-edge/5">
     <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 pt-14 pb-12 sm:pt-20 sm:pb-14">
       <a href="/projects" class="inline-flex items-center gap-1.5 text-xs text-mist-400 hover:text-fg transition-colors mb-6">
@@ -21,11 +21,10 @@ const bands = [
         Casual Projects
       </a>
       <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">Data aggregator &middot; refreshed weekly</p>
-      <h1 class="font-serif text-4xl sm:text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-fg">
-        RunSphere: every start line for the next 13 months
-      </h1>
-      <p class="mt-4 max-w-2xl text-mist-400">
-        Every Indian race I can find, from 5K community runs to 300K+ Himalayan ultras, plus the world's
+      <h1 class="font-serif text-5xl sm:text-6xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg">T.R.E.A.D</h1>
+      <p class="mt-3 font-serif text-xl sm:text-2xl font-medium tracking-[-0.01em] text-cyan-glow">Trail and Road Event Aggregated Database</p>
+      <p class="mt-5 max-w-2xl text-mist-400">
+        Every start line for the next 13 months. Every Indian race I can find, from 5K community runs to 300K+ Himalayan ultras, plus the world's
         marquee events: the Majors, Comrades, UTMB and the Ironman championships. A crawler collects listings from
         iFinish, IndiaRunning, MarathonMitra and the FatMarathoner calendar every Monday, merges duplicates and keeps
         a link to every source. Nothing on this page is guessed. If an organiser hasn't published a detail, it says so.
@@ -41,16 +40,18 @@ const bands = [
         <div><span id="st-open">–</span><small>Registrations open</small></div>
         <div><span id="st-abroad">–</span><small>Abroad</small></div>
         <div><span id="st-ultra">–</span><small>Ultras &amp; beyond</small></div>
+        <div><span id="st-cause">–</span><small>For a cause</small></div>
       </div>
 
       <div class="rs-filters">
-        <input id="f-q" type="search" placeholder="Search race, city (Hyderabad, Leh, Chamonix…) or organiser" aria-label="Search races" />
+        <input id="f-q" type="search" placeholder="Search race, city (Hyderabad, Leh, Chamonix…), organiser or cause (education, health…)" aria-label="Search races" />
         <div class="rs-grid">
           <label>Discipline<select id="f-disc"><option value="All">All</option></select></label>
           <label>Distance<select id="f-band">{bands.map((b) => <option value={b.id}>{b.label}</option>)}</select></label>
           <label>Region<select id="f-region"><option value="All">All regions</option></select></label>
           <label>Month<select id="f-month"><option value="All">Next 13 months</option></select></label>
           <label>Entry status<select id="f-status"><option value="All">All statuses</option></select></label>
+          <label>Cause<select id="f-cause"><option value="All">All races</option><option value="any">Any cause</option></select></label>
         </div>
         <div class="rs-toggles">
           <label><input type="checkbox" id="f-virtual" checked /> Hide virtual runs</label>
@@ -68,7 +69,7 @@ const bands = [
       <aside class="rs-disclaimer" aria-label="Disclaimer">
         <p class="rs-disclaimer-title">Disclaimer</p>
         <p>
-          The information on this page is collated from multiple third-party sources. RunSphere is not an organiser,
+          The information on this page is collated from multiple third-party sources. T.R.E.A.D is not an organiser,
           ticketing partner or affiliate of any race listed here, and does not take registrations or payments.
           Dates, prices and entry status can change without notice. <strong>Please verify the respective links with the
           official race organiser before making any payments or travel bookings.</strong>
@@ -90,7 +91,7 @@ const bands = [
         <h2 class="font-serif text-2xl font-semibold text-fg">Suggest a race</h2>
         <p class="text-sm text-mist-400 mt-1 mb-5">Missing something? Send it over. I check each one before adding it to the curated list.</p>
         <form action="https://formsubmit.co/venu@decodewithvenu.com" method="POST" class="rs-form">
-          <input type="hidden" name="_subject" value="RunSphere race suggestion" />
+          <input type="hidden" name="_subject" value="T.R.E.A.D race suggestion" />
           <input type="hidden" name="_next" value="https://www.decodewithvenu.com/thank-you" />
           <input type="hidden" name="_template" value="table" />
           <label>Race name<input name="race" required placeholder="e.g. Hyderabad Trail 25K 2027" /></label>
@@ -109,6 +110,8 @@ const bands = [
         How this works: listings come from public pages and sitemaps the platforms publish. Races found on two or more
         platforms are marked <em>sources agree</em>. The international and marquee Indian races are researched by hand
         against official sites and press coverage, and dates not yet officially announced are marked <em>TBC</em>.
+        <em>For a cause</em> tags come from the race's own name (such as "Run for Education" or a Soldierathon), a charity
+        entry route, or hand research for a few marquee races. A race without a tag may still support a cause.
         Always verify the respective links with the organiser before making any payments.
       </p>
     </div>
@@ -136,7 +139,7 @@ const bands = [
   #stage .rs-disclaimer-sub { margin-top: 0.75rem; font-weight: 600; color: var(--ink); }
   #stage .rs-disclaimer ul { margin-top: 0.3rem; padding-left: 1.1rem; list-style: disc; }
   #stage .rs-disclaimer a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
-  #stage .rs-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line); margin-bottom: 1.75rem; }
+  #stage .rs-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line); margin-bottom: 1.75rem; }
   #stage .rs-stats div { padding: 1rem 0.75rem 0.9rem 0; }
   #stage .rs-stats span { display: block; font-family: var(--font-serif); font-size: 2rem; font-weight: 600; color: var(--ink); line-height: 1; }
   #stage .rs-stats small { display: block; margin-top: 0.35rem; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
@@ -148,7 +151,8 @@ const bands = [
     padding: 0.6rem 0.75rem; font-size: 14px; color: var(--ink);
   }
   #stage input:focus, #stage select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
-  #stage .rs-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+  #stage .rs-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+  @media (max-width: 1180px) { #stage .rs-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 900px) { #stage .rs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   #stage .rs-grid label, #stage .rs-form label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; }
   #stage .rs-grid select, #stage .rs-form input { margin-top: 0.35rem; text-transform: none; letter-spacing: 0; font-weight: 400; }
@@ -168,6 +172,8 @@ const bands = [
   #stage .rs-name:hover { color: var(--accent); }
   #stage .rs-sub { margin-top: 0.3rem; font-size: 12.5px; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
   #stage .rs-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+  #stage .rs-cause { margin-top: 0.55rem; padding-left: 0.55rem; border-left: 2px solid var(--blue); font-size: 12.5px; font-weight: 600; color: var(--blue); }
+  #stage .rs-cause b { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 0.4rem; }
   #stage .rs-pill { font-size: 11px; font-weight: 600; padding: 0.1rem 0.45rem; border: 1px solid var(--line-strong); color: var(--ink-muted); }
   #stage .rs-pill.long { border-color: color-mix(in srgb, var(--accent) 45%, transparent); color: var(--accent); background: var(--accent-tint); }
   #stage .rs-tier { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
@@ -216,7 +222,7 @@ const bands = [
     country: string; region: string; discipline: string; distances: number[]; categories: string[];
     priceFrom?: number | null; currency?: string; priceNote?: string | null; organizer?: string | null;
     regOpens?: string | null; regCloses?: string | null; status: string; regLink?: string | null; entry?: string | null;
-    sources: Source[]; tier?: string; notes?: string | null; lastChecked?: string;
+    sources: Source[]; tier?: string; notes?: string | null; lastChecked?: string; causes?: string[];
   };
 
   const WINDOW_MONTHS = 13;
@@ -280,13 +286,16 @@ const bands = [
   const els = {
     q: $<HTMLInputElement>('f-q'), disc: $<HTMLSelectElement>('f-disc'), band: $<HTMLSelectElement>('f-band'),
     region: $<HTMLSelectElement>('f-region'), month: $<HTMLSelectElement>('f-month'), status: $<HTMLSelectElement>('f-status'),
+    cause: $<HTMLSelectElement>('f-cause'),
     virtual: $<HTMLInputElement>('f-virtual'), confirmed: $<HTMLInputElement>('f-confirmed'),
   };
 
   function filtered() {
     const q = els.q.value.trim().toLowerCase();
     return all.filter((e) => {
-      if (q && !`${e.name} ${e.city} ${e.venue} ${e.organizer || ''} ${e.country}`.toLowerCase().includes(q)) return false;
+      if (q && !`${e.name} ${e.city} ${e.venue} ${e.organizer || ''} ${e.country} ${(e.causes || []).join(' ')}`.toLowerCase().includes(q)) return false;
+      const cz = els.cause.value;
+      if (cz !== 'All' && !(cz === 'any' ? (e.causes || []).length > 0 : (e.causes || []).includes(cz))) return false;
       if (els.disc.value !== 'All' && e.discipline !== els.disc.value) return false;
       const r = els.region.value;
       if (r !== 'All' && !(r === 'International' ? e.region.startsWith('International') : e.region === r)) return false;
@@ -310,6 +319,7 @@ const bands = [
         <button type="button" class="rs-name" data-open="${esc(e.id)}">${esc(e.name)}</button>
         <div class="rs-sub">${tier}<span>${esc(where)}</span><span>· ${esc(e.discipline)}</span><span class="rs-conf ${c.cls}" title="${esc(c.tip)}">· ${esc(c.label)}</span></div>
         <div class="rs-pills">${pills(e.distances || [])}</div>
+        ${e.causes?.length ? `<div class="rs-cause"><b>For a cause</b>${esc(e.causes.join(' · '))}</div>` : ''}
       </div>
       <div class="rs-entry"><span class="rs-status ${statusCls(e.status)}">${esc(e.status)}</span>${priceText(e) ? `<span class="rs-price">${esc(priceText(e))}</span>` : ''}</div>
       <div class="rs-actions"><button type="button" data-open="${esc(e.id)}">Details</button><button type="button" data-cmp="${esc(e.id)}" class="${isCmp ? 'on' : ''}">${isCmp ? '✓ Comparing' : 'Compare'}</button></div>
@@ -326,6 +336,7 @@ const bands = [
     $('st-open').textContent = String(list.filter((e) => e.status === 'Registrations Open' || e.status === 'Closing Soon').length);
     $('st-abroad').textContent = String(list.filter((e) => e.region.startsWith('International')).length);
     $('st-ultra').textContent = String(list.filter((e) => (e.distances || []).some((k) => k > 42.2)).length);
+    $('st-cause').textContent = String(list.filter((e) => (e.causes || []).length > 0).length);
     $('open-compare').hidden = compare.length === 0;
     $('cmp-n').textContent = String(compare.length);
   }
@@ -353,6 +364,7 @@ const bands = [
         <div><dt>Entry type</dt><dd>${esc(e.entry || 'Open registration (per listing)')}</dd></div>
         <div><dt>Registration window</dt><dd>${reg ? esc(reg) : np}</dd></div>
         <div><dt>Price</dt><dd>${priceText(e) ? esc(priceText(e)) : e.priceNote ? esc(e.priceNote) : np}</dd></div>
+        <div><dt>Philanthropic cause</dt><dd>${e.causes?.length ? esc(e.causes.join(' · ')) : '<span class="rs-np">None identified from the listing. The organiser may still support one.</span>'}</dd></div>
       </dl>
       <p class="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-mist-400 mb-2">Distances</p>
       <div class="rs-pills" style="display:flex;flex-wrap:wrap;gap:.3rem">${(e.distances || []).map((k) => `<span style="font-size:12px;font-weight:600;padding:.1rem .5rem;border:1px solid rgba(19,40,60,.25)">${fmtKm(k)}</span>`).join('') || np}</div>
@@ -375,7 +387,7 @@ const bands = [
         <p class="font-semibold text-fg">${esc(e.name)}</p>
         <dl>${f('Date', fmtDate(e.date) + (e.dateTBC ? ' (TBC)' : ''))}${f('Where', [e.city, e.country].filter(Boolean).join(', '))}${f('Discipline', e.discipline)}
         ${f('Distances', (e.distances || []).map(fmtKm).join(' · '))}${f('Price', priceText(e) || e.priceNote || '')}${f('Entry', e.entry || e.status)}
-        ${f('Organiser', e.organizer || '')}${f('Confidence', confidence(e).label)}</dl>
+        ${f('Organiser', e.organizer || '')}${f('Cause', (e.causes || []).join(' · '))}${f('Confidence', confidence(e).label)}</dl>
         <button type="button" data-cmp="${esc(e.id)}" class="text-sm text-cyan-glow underline mt-3">Remove</button></div>`).join('')}</div>`;
     $<HTMLDialogElement>('dlg-compare').showModal();
   }
@@ -406,7 +418,7 @@ const bands = [
   $('open-compare').addEventListener('click', openCompare);
   $('open-submit').addEventListener('click', () => $<HTMLDialogElement>('dlg-submit').showModal());
   $('f-reset').addEventListener('click', () => {
-    els.q.value = ''; [els.disc, els.region, els.month, els.status].forEach((s) => (s.value = 'All'));
+    els.q.value = ''; [els.disc, els.region, els.month, els.status, els.cause].forEach((s) => (s.value = 'All'));
     els.band.value = 'all'; els.virtual.checked = true; els.confirmed.checked = false; shown = PAGE; render();
   });
 
@@ -423,6 +435,7 @@ const bands = [
       fillSelect(els.region, regions.filter((r) => r.startsWith('International')), (r) => `   ${r.replace('International - ', '')}`);
       fillSelect(els.month, uniq(all.map((e) => e.date.slice(0, 7))), (m) => fmtMonth(parseDate(`${m}-01`)));
       fillSelect(els.status, uniq(all.map((e) => e.status)));
+      fillSelect(els.cause, uniq(all.flatMap((e) => e.causes || [])));
       const when = new Date(data.generatedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
       $('rs-meta').textContent = `${fmtMonth(today)} → ${fmtMonth(windowEnd)} · last refreshed ${when} · ${Object.entries(data.sources).map(([k, v]) => `${k} ${v}`).join(' · ')}`;
       render();
