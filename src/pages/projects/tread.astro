@@ -282,6 +282,7 @@ const bands = [
   }
 
   function confidence(e: RaceEvent) {
+    if (isVerified(e)) return { label: 'Verified', cls: 'ok', tip: 'Checked with the organiser by T.R.E.A.D' };
     const n = new Set(e.sources.map((s) => s.name)).size;
     if (e.tier && e.tier !== 'community') return { label: 'Researched', cls: 'ok', tip: 'Hand-checked against official site / press coverage' };
     if (n >= 2) return { label: `${n} sources agree`, cls: 'ok', tip: 'Same race and date found on multiple platforms' };

@@ -7,7 +7,7 @@
   "IndiaRunning": 140,
   "MarathonMitra": 100,
   "FatMarathoner": 180,
-  "Curated": 40
+  "Curated": 42
  },
  "events": [
   {
@@ -4486,8 +4486,8 @@
    "causes": []
   },
   {
-   "id": "mm-kaveri-trail-marathon-2026",
-   "name": "KAVERI TRAIL MARATHON 2026",
+   "id": "kaveri-trail-2026",
+   "name": "Kaveri Trail Marathon 2026",
    "date": "2026-11-22",
    "dateTBC": false,
    "endDate": null,
@@ -14288,7 +14288,7 @@
    "causes": []
   },
   {
-   "id": "fm-tata-ultra-marathon-2027",
+   "id": "tata-ultra-2027",
    "name": "Tata Ultra Marathon 2027",
    "date": "2027-02-21",
    "dateTBC": false,
