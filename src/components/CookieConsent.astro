@@ -1,4 +1,16 @@
 ---
+// Cookie notice + Google Analytics 4 with Google Consent Mode v2 ("advanced" mode).
+//
+// How it works:
+//  • The GA tag loads for every visitor, but BEFORE it does anything we tell it
+//    the default answer is "denied" for everything. While denied, GA sets no
+//    cookies and sends only anonymous, cookieless pings (no identifiers), which
+//    Google can use to estimate traffic it can't see directly.
+//  • Click Accept  → analytics_storage becomes "granted": normal GA, with cookies.
+//  • Click Decline → it stays "denied" and any old GA cookies are deleted.
+//  • Advertising signals (ad_storage, ad_user_data, ad_personalization) are
+//    always denied — this site runs no ads.
+// The visitor's choice is remembered in localStorage under "cookie-consent".
 ---
 <div
   id="cookie-banner"
@@ -10,7 +22,7 @@
   <div class="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-4 sm:px-8 sm:flex-row sm:items-center sm:justify-between">
     <p class="max-w-3xl text-sm leading-relaxed text-mist-300">
       I'd like to use Google Analytics to understand which pages are useful and how visitors find them.
-      It sets cookies only if you accept.{' '}
+      It sets cookies only if you accept; otherwise it sends anonymous, cookieless visit counts.{' '}
       <a href="/privacy" class="font-semibold text-fg underline decoration-cyan-glow underline-offset-4">Privacy details</a>
     </p>
     <div class="flex shrink-0 gap-3">
@@ -22,26 +34,38 @@
 
 <script is:inline>
   (function () {
-    var GA_ID = 'G-JP76TKZHSB';
-    var KEY = 'cookie-consent';
+    var GA_ID = 'G-JP76TKZHSB';                 // this site's Google Analytics 4 property
+    var KEY = 'cookie-consent';                  // where the visitor's choice is remembered
     var banner = document.getElementById('cookie-banner');
 
-    function loadGA() {
-      if (window.__gaLoaded) return;
-      window.__gaLoaded = true;
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag('js', new Date());
-      window.gtag('config', GA_ID);
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      document.head.appendChild(s);
-    }
-
+    // Read / save the choice. try/catch because some browsers block localStorage.
     function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
     function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
 
+    // gtag() queues commands in dataLayer; Google's script processes them in order.
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+    // 1. Consent defaults — must come BEFORE 'config'. Everything starts denied.
+    //    wait_for_update gives the saved choice 500 ms to apply before GA sends anything.
+    var saved = get();
+    window.gtag('consent', 'default', {
+      analytics_storage: saved === 'granted' ? 'granted' : 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+
+    // 2. Load Google's tag for everyone (it respects the consent state above).
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+
+    // Remove any GA cookies (used when someone declines or resets their choice).
     function clearGACookies() {
       document.cookie.split(';').forEach(function (c) {
         var name = c.split('=')[0].trim();
@@ -52,22 +76,26 @@
       });
     }
 
+    // 3. The visitor's answer updates the consent state on the spot.
     document.getElementById('cookie-accept').addEventListener('click', function () {
-      set('granted'); banner.hidden = true; loadGA();
+      set('granted'); banner.hidden = true;
+      window.gtag('consent', 'update', { analytics_storage: 'granted' });
     });
     document.getElementById('cookie-decline').addEventListener('click', function () {
-      set('denied'); banner.hidden = true; clearGACookies();
+      set('denied'); banner.hidden = true;
+      window.gtag('consent', 'update', { analytics_storage: 'denied' });
+      clearGACookies();
     });
 
-    // Used by the "Change your choice" button on the Privacy page.
+    // Used by the "Change my cookie choice" button on the Privacy page.
     window.resetCookieChoice = function () {
       try { localStorage.removeItem(KEY); } catch (e) {}
+      window.gtag('consent', 'update', { analytics_storage: 'denied' });
       clearGACookies();
       location.reload();
     };
 
-    var choice = get();
-    if (choice === 'granted') loadGA();
-    else if (choice !== 'denied') banner.hidden = false;
+    // Show the notice until the visitor has answered.
+    if (saved !== 'granted' && saved !== 'denied') banner.hidden = false;
   })();
 </script>
