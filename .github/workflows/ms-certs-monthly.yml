@@ -1,0 +1,63 @@
+# Refreshes the Microsoft Certification Path page on the 1st of every month.
+# It re-reads Microsoft Learn (active certifications, retirements, official
+# skills outlines) into src/data/ms-certifications.refresh.json and commits
+# it to main, which Vercel deploys automatically — so the page's
+# "Last refreshed / Next refresh" dates move forward every month.
+# If anything changed (a new certification, a retirement, a revised skills
+# outline), it also opens a GitHub issue listing what needs a human look.
+name: Microsoft certifications monthly refresh
+
+on:
+  schedule:
+    - cron: "30 1 1 * *"   # 1st of every month, 01:30 UTC = 07:00 IST
+  workflow_dispatch: {}    # also runnable by hand from the Actions tab
+
+permissions:
+  contents: write          # to commit the refreshed data
+  issues: write            # to open the "please review" issue
+
+concurrency:
+  group: ms-certs-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Read Microsoft Learn
+        env:
+          MS_CERTS_REPORT: ${{ runner.temp }}/ms-certs-report.md
+        run: node scripts/ms-certs/refresh.mjs
+
+      - name: Commit refreshed data
+        run: |
+          if git diff --quiet -- src/data/ms-certifications.refresh.json; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "ms-certs-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/ms-certifications.refresh.json
+          git commit -m "Microsoft certifications: monthly refresh $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Open a review issue if the catalogue changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT: ${{ runner.temp }}/ms-certs-report.md
+        run: |
+          if [ -s "$REPORT" ]; then
+            gh issue create \
+              --title "Microsoft certifications: changes found $(date -u +%Y-%m-%d)" \
+              --body-file "$REPORT"
+          else
+            echo "Nothing new for a human to review."
+          fi

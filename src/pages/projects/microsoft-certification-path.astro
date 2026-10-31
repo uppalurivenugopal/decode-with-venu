@@ -5,7 +5,7 @@
 // certification, the 2026 retirements table and the FAQ — is rendered here at
 // build time from the same data file, so search engines can read all of it.
 import Layout from '../../layouts/Layout.astro';
-import { PAGE, CHANGES, FAQ, CERTS, SKILLS, VALUE, PARTNER, DOMAINS } from '../../data/ms-certifications.js';
+import { PAGE, CHANGES, FAQ, CERTS, SKILLS, VALUE, PARTNER, DOMAINS, isNew } from '../../data/ms-certifications.js';
 
 // ---------- helpers used while building the page ----------
 const LEARN = 'https://learn.microsoft.com/en-us';
@@ -29,6 +29,11 @@ const levelOrder = ['Fundamentals', 'Business', 'Associate', 'Specialty', 'GitHu
 const verified = new Date(PAGE.verified + 'T00:00:00Z');
 const open = CERTS.filter((c: any) => !c.retire || new Date(c.retire + 'T23:59:59Z') >= verified);
 const byCode = Object.fromEntries(CERTS.map((c: any) => [c.code, c]));
+// Refresh dates shown at the top of the page (updated by the monthly GitHub Action)
+const lastLabel = fmt(PAGE.lastRefreshed);
+const nextLabel = PAGE.nextRefresh ? fmt(PAGE.nextRefresh) : null;
+// Certifications Microsoft launched recently — highlighted under the refresh panel
+const fresh = open.filter((c: any) => isNew(c, verified));
 
 // One group per career area, ordered fundamentals → expert
 const areas = Object.entries(DOMAINS)
@@ -53,7 +58,7 @@ const jsonld = {
       applicationCategory: 'EducationalApplication', operatingSystem: 'Any (web browser)', isAccessibleForFree: true,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       author: { '@type': 'Person', name: 'Venu Uppaluri', url: 'https://www.decodewithvenu.com/about' },
-      dateModified: PAGE.verified,
+      dateModified: PAGE.lastRefreshed,
       description: 'Answer five questions about your career track and interests to get a recommended Microsoft certification, a roadmap, the official skills measured, and links to learn and book the exam.' },
     { '@type': 'ItemList', name: `Active Microsoft certifications (${PAGE.verifiedLabel})`, numberOfItems: open.length,
       itemListElement: open.map((c: any, i: number) => ({ '@type': 'ListItem', position: i + 1, item: {
@@ -84,7 +89,7 @@ const jsonldText = JSON.stringify(jsonld).replace(/<\//g, '<\\/');
         <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M9.5 6h-7M6 2.5L2.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Vibing
       </a>
-      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">Interactive roadmap &middot; Microsoft certifications {PAGE.verified.slice(0, 4)}</p>
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">Interactive roadmap &middot; Microsoft certifications {PAGE.year}</p>
       <h1 class="font-serif text-5xl sm:text-6xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg">
         Find your <span class="gradient-text">Microsoft certification</span> path.
       </h1>
@@ -92,9 +97,21 @@ const jsonldText = JSON.stringify(jsonld).replace(/<\//g, '<\\/');
         Microsoft's certification line-up changed more in 2026 than in years, and there's no single up-to-date guide to it.
         Answer up to five questions about your track and interests and get a recommended certification: the official skills
         it measures, why it matters to clients and to your own team, whether it earns Microsoft partner credit, and direct
-        links to learn and book the exam. Only active certifications, checked against Microsoft Learn
-        on{' '}<time datetime={PAGE.verified}>{PAGE.verifiedLabel}</time>.
+        links to learn and book the exam. Only active certifications.
       </p>
+
+      <!-- Refresh panel: the data is re-checked against Microsoft Learn on the 1st of every month -->
+      <dl class="cq-refresh" id="refreshPanel" data-next={PAGE.nextRefresh}>
+        <div><dt>Last refreshed</dt><dd><time datetime={PAGE.lastRefreshed}>{lastLabel}</time></dd></div>
+        {nextLabel && <div><dt>Next refresh</dt><dd><time datetime={PAGE.nextRefresh}>{nextLabel}</time></dd></div>}
+        <div><dt>Source</dt><dd>Microsoft Learn — re-checked monthly for new and retiring certifications</dd></div>
+      </dl>
+      {fresh.length > 0 && (
+        <p class="cq-fresh">
+          <span>New on Microsoft Learn:</span>
+          {fresh.map((c: any, i: number) => <>{i > 0 && ' · '}<a href={`#open-${c.code.toLowerCase()}`}>{c.code} {c.name.replace(/^GitHub Certified:\s*/, '')}</a>{c.beta && ' (beta)'}</>)}
+        </p>
+      )}
     </div>
   </section>
 
@@ -168,10 +185,11 @@ const jsonldText = JSON.stringify(jsonld).replace(/<\//g, '<\\/');
     <div class="border-t border-edge/15 pt-12">
       <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">The full roadmap</p>
       <h2 class="font-serif text-4xl sm:text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-fg">
-        Microsoft certification roadmap {PAGE.verified.slice(0, 4)}: all {open.length} active certifications
+        Microsoft certification roadmap {PAGE.year}: all {open.length} active certifications
       </h2>
       <p class="mt-4 max-w-2xl text-mist-400">
-        Every Microsoft certification you can still earn, grouped by career area. Open an area for each certification's
+        Every Microsoft certification you can still earn, grouped by career area and last refreshed from Microsoft Learn on
+        {lastLabel}. Open an area for each certification's
         official skills measured, why it matters, partner credit, and links to the learning path and exam page.
       </p>
       <ul class="rm-toc">
@@ -198,6 +216,8 @@ const jsonldText = JSON.stringify(jsonld).replace(/<\//g, '<\\/');
                   <div class="pills">
                     <span class={`pill lv-${c.level}`}>{levelLabel(c.level)}</span>
                     {c.retire && <span class="pill warn">Retires {fmt(c.retire)}</span>}
+                    {c.beta && <span class="pill beta">Beta</span>}
+                    {isNew(c, verified) && <span class="pill new">New</span>}
                     {partner && <span class="pill partner">Partner credit</span>}
                   </div>
                   {c.prereq && <p><strong>Prerequisite:</strong> {c.prereq}.</p>}
@@ -298,6 +318,21 @@ const jsonldText = JSON.stringify(jsonld).replace(/<\//g, '<\\/');
     font-family: var(--font-sans); font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--accent);
   }
+
+  /* ---------- refresh panel (hero) ---------- */
+  .cq-refresh { display: flex; flex-wrap: wrap; gap: 0; margin: 26px 0 0; border-top: 2px solid var(--color-fg); max-width: 820px; }
+  .cq-refresh > div { padding: 12px 22px 4px 0; margin-right: 22px; }
+  .cq-refresh > div + div { border-left: 1px solid color-mix(in srgb, var(--color-edge) 15%, transparent); padding-left: 22px; }
+  .cq-refresh dt { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--color-cyan-glow); }
+  .cq-refresh dd { margin: 4px 0 0; font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--color-fg); }
+  .cq-refresh > div:last-child dd { font-family: var(--font-sans); font-size: 14.5px; font-weight: 400; color: var(--color-mist-400); max-width: 300px; }
+  .cq-refresh em { font-style: normal; font-size: 13px; color: var(--color-cyan-glow); }
+  @media (max-width: 640px) { .cq-refresh > div + div { border-left: 0; padding-left: 0; } }
+  .cq-fresh { margin-top: 14px; font-size: 14.5px; color: var(--color-mist-300); }
+  .cq-fresh span { font-weight: 700; color: var(--color-cyan-glow); margin-right: 6px; }
+  .cq-fresh a { color: var(--color-indigo-glow); }
+  #cq .pill.beta, #roadmap .pill.beta { color: #6b3f7d; }
+  #cq .pill.new, #roadmap .pill.new { color: #fff; background: var(--color-cyan-glow); border-color: var(--color-cyan-glow); }
 
   /* ---------- retirement ticker ---------- */
   #cq .cq-ticker { border-top: 2px solid var(--warn); background: var(--warn-tint); color: var(--warn); padding: 10px 14px; font-size: 14px; margin-bottom: 18px; }
@@ -555,7 +590,7 @@ const jsonldText = JSON.stringify(jsonld).replace(/<\//g, '<\\/');
   // Astro bundles this <script> (it isn't is:inline), so it can import the
   // same data file the page uses at build time.
   // ===================================================================
-  import { CERTS, SKILLS, VALUE, PARTNER, PARTNER_LINKS, DOMAINS, ROLES } from "../../data/ms-certifications.js";
+  import { CERTS, SKILLS, VALUE, PARTNER, PARTNER_LINKS, DOMAINS, ROLES, PAGE, isNew } from "../../data/ms-certifications.js";
 
 /* A7. QUESTIONS — the decision tree. options(answers) returns the choices,
    so later questions can depend on earlier answers. A question with only
@@ -648,6 +683,8 @@ function pillsFor(cert) {
   let html = `<span class="pill lv-${cert.level}">${levelLabel(cert.level)}</span>`;
   const d = daysLeft(cert);
   if (d !== null && d >= 0) html += ` <span class="pill ${d <= 30 ? "danger" : "warn"}">⚠ Retires ${fmtDate(cert.retire)} · ${d} day${d === 1 ? "" : "s"} left</span>`;
+  if (cert.beta) html += ` <span class="pill beta">Beta</span>`;
+  if (isNew(cert)) html += ` <span class="pill new">New</span>`;
   if (PARTNER[cert.code]) html += ` <span class="pill partner">Partner credit</span>`;
   return html;
 }
@@ -791,6 +828,7 @@ function renderResult(pickedCode) {
   let alerts = "";
   const d = daysLeft(cert);
   if (d !== null && d >= 0) alerts += `<div class="alert ${d <= 30 ? "danger" : ""}">⚠ <b>Retiring soon:</b> this exam closes on <b>${fmtDate(cert.retire)}</b> — ${d} day${d === 1 ? "" : "s"} left. After that the certification can no longer be earned.</div>`;
+  if (cert.beta && !/beta/i.test(cert.note || "")) alerts += `<div class="alert info">ℹ This exam is in beta: results arrive a few weeks after you sit it, and the content may still change.</div>`;
   if (cert.note) alerts += `<div class="alert info">ℹ ${esc(cert.note)}</div>`;
 
   // Roadmap ladder
@@ -932,7 +970,13 @@ function renderAll() {
 
 // Open any certification directly (from the catalog or ticker)
 function openCert(code) {
-  const role = ROLES.find(r => r.ladder.includes(code));
+  let role = ROLES.find(r => r.ladder.includes(code));
+  if (!role) {                                   // e.g. a certification the monthly refresh just added
+    const c = CERT_BY_CODE[code];
+    role = { id: "auto-" + code, domain: c.domain, depth: "broad", tracks: ["technical", "functional", "business"],
+             icon: "✨", label: c.name, desc: "", ladder: [code] };
+    ROLES.push(role);
+  }
   answers = { track: role.tracks[0], domain: role.domain, depth: role.depth, role: role.id, exp: "some" };
   renderResult(code);
 }
@@ -986,6 +1030,15 @@ $("navAll").addEventListener("click", () => { renderAll(); show("scrAll"); });
 setupFilters();
 setupTicker();
 setupStats();
+
+// If the monthly refresh is more than 5 days late, say so honestly rather than show a stale date.
+(function markOverdue() {
+  const panel = document.getElementById("refreshPanel");
+  const next = panel && panel.dataset.next;
+  if (!next) return;
+  const late = (Date.now() - new Date(next + "T00:00:00Z")) / 86400000;
+  if (late > 5) panel.querySelectorAll("dd time")[1]?.insertAdjacentHTML("afterend", " <em>(running late)</em>");
+})();
 
 // Deep links: a URL ending in #open-az-104 opens that certification's result.
 // Used by the "Copy link" button and by the "Open in path finder" links in the roadmap.

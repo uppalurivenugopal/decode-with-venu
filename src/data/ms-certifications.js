@@ -16,7 +16,7 @@
 
 
 /* A0. PAGE — facts used by the SEO build (keep in sync with <head>). */
-export const PAGE = {
+const PAGE_CURATED = {
   url: "https://decodewithvenu.com/projects/microsoft-certification-path/",
   verified: "2026-10-31",              // date the catalog was last checked
   verifiedLabel: "31 October 2026",
@@ -25,7 +25,7 @@ export const PAGE = {
 /* A0b. CHANGES — 2026 retirements, from Microsoft Learn's retirement pages.
    "next" = where to go now. Where Microsoft hasn't named a direct
    replacement we say so instead of guessing.                         */
-export const CHANGES = [
+const CURATED_CHANGES = [
   { old: "MB-910 / MB-920", name: "Dynamics 365 Fundamentals (CRM / ERP)", date: "2025-12-31", next: null },
   { old: "MS-900", name: "Microsoft 365 Fundamentals", date: "2026-03-31", next: "AB-900" },
   { old: "DP-100", name: "Azure Data Scientist Associate", date: "2026-06-01", next: "AI-300" },
@@ -79,7 +79,7 @@ export const FAQ = [
      retire  scheduled retirement date "YYYY-MM-DD"
      note    any other fact worth flagging
      course  false if Microsoft has no "XXNNNT00" course page          */
-export const CERTS = [
+const CURATED_CERTS = [
   // ---- Azure infrastructure ----
   { code: "AZ-900", name: "Azure Fundamentals", level: "Fundamentals", domain: "azure", page: "azure-fundamentals/", roles: "Administrator" },
   { code: "AZ-104", name: "Azure Administrator Associate", level: "Associate", domain: "azure", page: "azure-administrator/", roles: "Administrator", renew: true },
@@ -90,6 +90,8 @@ export const CERTS = [
     prereq: "Azure Administrator Associate (AZ-104)" },
   { code: "AZ-400", name: "DevOps Engineer Expert", level: "Expert", domain: "azure", page: "exams/az-400/",
     prereq: "Azure Administrator Associate (AZ-104) — or Azure Developer Associate if you already hold it (AZ-204 retired 31 Jul 2026)" },
+  { code: "AZ-401", name: "Agentic DevOps Engineer Expert", level: "Expert", domain: "azure", page: "agentic-devops-engineer-expert/", roles: "DevOps Engineer, Developer, Platform Engineer, Solution Architect", beta: true,
+    note: "New in Oct 2026 and in beta: the DevOps expert track rebuilt around Azure DevOps, GitHub Actions and AI agents. Microsoft's page doesn't list a prerequisite yet — check it before booking." },
   { code: "AZ-120", name: "Azure for SAP Workloads Specialty", level: "Specialty", domain: "azure", page: "azure-for-sap-workloads-specialty/", roles: "Solution Architect", renew: true },
   { code: "AZ-140", name: "Azure Virtual Desktop Specialty", level: "Specialty", domain: "azure", page: "azure-virtual-desktop-specialty/", roles: "Administrator", renew: true },
 
@@ -158,6 +160,8 @@ export const CERTS = [
   { code: "AB-250", name: "Dynamics 365 Contact Center AI Engineer Associate", level: "Associate", domain: "d365", page: "d365-contact-center-ai-engineer-associate/", roles: "Administrator, Business Analyst, Functional Consultant, Platform Engineer" },
   { code: "MB-310", name: "Dynamics 365 Finance Functional Consultant Associate", level: "Associate", domain: "d365", page: "d365-functional-consultant-financials/", roles: "Functional Consultant", renew: true },
   { code: "MB-330", name: "Dynamics 365 Supply Chain Management Functional Consultant Associate", level: "Associate", domain: "d365", page: "d365-functional-consultant-supply-chain-management/", roles: "Functional Consultant", renew: true },
+  { code: "AB-330", name: "Supply Chain Management AI Consultant Associate", level: "Associate", domain: "d365", page: "supply-chain-management-ai-consultant-associate/", roles: "Functional Consultant", beta: true, course: false,
+    note: "New in Oct 2026 and in beta: Dynamics 365 Supply Chain Management organised around Microsoft's business process catalogue (source to pay, order to cash, inventory to deliver) with AI capabilities." },
   { code: "MB-500", name: "Dynamics 365: Finance and Operations Apps Developer Associate", level: "Associate", domain: "d365", page: "d365-finance-and-operations-apps-developer-associate/", roles: "Developer", renew: true },
   { code: "MB-800", name: "Dynamics 365 Business Central Functional Consultant Associate", level: "Associate", domain: "d365", page: "d365-business-central-functional-consultant-associate/", roles: "Functional Consultant", renew: true },
   { code: "MB-820", name: "Dynamics 365 Business Central Developer Associate", level: "Associate", domain: "d365", page: "d365-business-central-developer-associate/", roles: "Developer, Solution Architect", renew: true },
@@ -169,6 +173,8 @@ export const CERTS = [
   { code: "GH-100", name: "GitHub Administration", level: "GitHub", domain: "github", page: "github-administration/" },
   { code: "GH-500", name: "GitHub Advanced Security", level: "GitHub", domain: "github", page: "github-advanced-security/" },
   { code: "GH-600", name: "GitHub Certified: Agentic AI Developer", level: "GitHub", domain: "github", page: "agentic-ai-developer/", course: false },
+  { code: "GH-700", name: "GitHub Certified: Agentic AI Business Professional", level: "GitHub", domain: "github", page: "agentic-ai-business-professional/", roles: "Business Analyst, Business Leader, Business User, Functional Consultant, Technology Manager", beta: true, course: false,
+    note: "New in Oct 2026 and in beta: GitHub and GitHub Copilot for product managers, programme managers and business analysts — no coding background needed." },
 
   // ---- AI for business professionals ----
   { code: "AB-730", name: "AI Business Professional", level: "Business", domain: "aibiz", page: "ai-business-professional/", roles: "Business User, Administrator" },
@@ -180,7 +186,7 @@ export const CERTS = [
      [ domain name, "weight range %", [ sub-skills ] ]
    An empty sub-skill list means the study guide didn't break that domain
    down with headings — we leave it empty rather than invent anything.   */
-export const SKILLS = {
+const CURATED_SKILLS = {
   "AZ-900": [["Describe cloud concepts","25–30",["Describe cloud computing","Describe the benefits of using cloud services","Describe cloud service types"]],["Describe Azure architecture and services","35–40",["Describe the core architectural components of Azure","Describe Azure compute and networking services","Describe Azure storage services","Describe Azure identity, access, and security"]],["Describe Azure management and governance","30–35",["Describe cost management in Azure","Describe features and tools in Azure for governance and compliance","Describe features and tools for managing and deploying Azure resources","Describe monitoring tools in Azure"]]],
   "AZ-104": [["Manage Azure identities and governance","20–25",["Manage Microsoft Entra users and groups","Manage access to Azure resources","Manage Azure subscriptions and governance"]],["Implement and manage storage","15–20",["Configure access to storage","Configure and manage storage accounts","Configure Azure Files and Azure Blob Storage"]],["Deploy and manage Azure compute resources","20–25",["Automate deployment of resources by using ARM templates or Bicep files","Create and configure virtual machines","Provision and manage containers in the Azure portal","Create and configure Azure App Service"]],["Implement and manage virtual networking","15–20",["Configure and manage virtual networks in Azure","Configure secure access to virtual networks","Configure name resolution and load balancing"]],["Monitor and maintain Azure resources","10–15",["Monitor resources in Azure","Implement backup and recovery"]]],
   "AZ-700": [["Design and implement core networking infrastructure","25–30",["Design and implement IP addressing for Azure resources","Design and implement name resolution","Design and implement VNet connectivity and routing","Monitor networks"]],["Design, implement, and manage connectivity services","20–25",["Site-to-site VPN connections","Point-to-site VPN connections","Azure ExpressRoute","Azure Virtual WAN architecture"]],["Design and implement application delivery services","15–20",["Azure Load Balancer and Azure Traffic Manager","Azure Application Gateway","Azure Front Door"]],["Design and implement private access to Azure services","10–15",["Azure Private Link service and private endpoints","Service endpoints"]],["Design and implement Azure network security services","15–20",["Network security groups","Azure Firewall and Azure Firewall Manager","Web Application Firewall (WAF) deployment"]]],
@@ -255,6 +261,8 @@ export const VALUE = {
               team: ["Anchors solution reviews and pre-sales technical design", "A required step for Data & AI and the Advanced Azure partner metrics"] },
   "AZ-400": { client: ["Build CI/CD, infrastructure-as-code and release governance for faster, safer delivery", "Embed security and compliance checks into pipelines"],
               team: ["Standardises your own delivery engineering practices", "Earns Advanced points toward Digital & App Innovation"] },
+  "AZ-401": { client: ["Modernise delivery pipelines across Azure DevOps and GitHub with AI-agent monitoring built in", "Bring security, compliance and instrumentation into one DevOps design"],
+              team: ["Positions your engineering leads for agent-assisted DevOps", "Builds on AZ-400 skills with an AI-era refresh"] },
   "AZ-120": { client: ["Plan and run SAP migrations and RISE integrations on Azure with HA/DR built in", "Tune SAP landscapes for performance and cost"],
               team: ["Differentiates the practice on high-value SAP programmes", "Earns Advanced points toward the Infrastructure designation"] },
   "AZ-140": { client: ["Deliver secure virtual desktops for hybrid and frontline workforces", "Optimise user experience and image management at scale"],
@@ -329,6 +337,8 @@ export const VALUE = {
               team: ["Core ERP finance capability", "Earns points toward Business Applications; qualifies for AB-100"] },
   "MB-330": { client: ["Implement product, inventory, warehouse and master planning in Supply Chain Management", "Streamline procurement-to-fulfilment processes"],
               team: ["Core ERP supply-chain capability", "Earns points toward Business Applications; qualifies for AB-100"] },
+  "AB-330": { client: ["Implement end-to-end supply chain processes in Dynamics 365 aligned to Microsoft's business process catalogue", "Apply AI capabilities across source-to-pay, order-to-cash and inventory-to-deliver"],
+              team: ["Refreshes ERP supply-chain consulting skills for the AI era", "Complements MB-330 for supply-chain practices"] },
   "MB-500": { client: ["Build X++ extensions, integrations and reports for Finance and Operations apps", "Keep customisations upgrade-safe and performant"],
               team: ["Technical depth for ERP delivery", "Earns points toward Business Applications; qualifies for AB-100"] },
   "MB-800": { client: ["Implement Business Central for small and mid-size businesses end to end", "Set up finance, sales and purchasing quickly"],
@@ -347,6 +357,8 @@ export const VALUE = {
               team: ["Shifts security left in your own delivery", "Earns Advanced points toward Digital & App Innovation"] },
   "GH-600": { client: ["Build and run coding agents with tools, MCP servers, memory and guardrails", "Evaluate and tune agent behaviour in the software lifecycle"],
               team: ["Brings agentic development practices into engineering", "Earns points toward Digital & App Innovation"] },
+  "GH-700": { client: ["Run client project work in GitHub with Copilot, custom agents and agentic workflows", "Design human-in-the-loop checks so AI automations stay accountable"],
+              team: ["Gives PMs and analysts a shared, governed way to automate work with agents", "A business-side entry point into GitHub's AI tooling"] },
   "AB-730": { client: ["Use Copilot and agents well in day-to-day client work", "Model responsible AI behaviour in front of customers"],
               team: ["Raises everyday AI productivity across non-technical roles", "A practical, low-cost way to build AI fluency at scale"] },
   "AB-731": { client: ["Build the business case and adoption plan for Microsoft AI", "Advise leaders on responsible AI and value realisation"],
@@ -423,7 +435,7 @@ export const DOMAINS = {
   m365:     { icon: "💼", label: "Microsoft 365 & Copilot admin", desc: "Run Microsoft 365, Teams, devices and Copilot.", tracks: ["technical"] },
   power:    { icon: "⚡", label: "Power Platform & agents", desc: "Low-code apps, automation and Copilot Studio agents.", tracks: ["technical", "functional", "business"] },
   d365:     { icon: "🏢", label: "Dynamics 365 (CRM & ERP)", desc: "Sales, service, finance, supply chain, Business Central.", tracks: ["technical", "functional"] },
-  github:   { icon: "🐙", label: "GitHub & DevOps", desc: "Copilot, Actions, administration, security and coding agents.", tracks: ["technical"] },
+  github:   { icon: "🐙", label: "GitHub & DevOps", desc: "Copilot, Actions, administration, security and agents.", tracks: ["technical", "functional", "business"] },
   aibiz:    { icon: "🧭", label: "AI at work & AI leadership", desc: "Use AI well every day, or lead AI change.", tracks: ["functional", "business"] },
 };
 
@@ -433,6 +445,7 @@ export const DOMAINS = {
 export const ROLES = [
   { id: "az-admin", domain: "azure", depth: "broad", tracks: ["technical"], icon: "🧰", label: "Cloud administrator → architect", desc: "Run Azure day to day, then design whole solutions.", ladder: ["AZ-900", "AZ-104", "AZ-305"] },
   { id: "az-devops", domain: "azure", depth: "deep", tracks: ["technical"], icon: "🔁", label: "DevOps / platform engineer", desc: "Pipelines, infrastructure-as-code, release automation.", ladder: ["AZ-900", "AZ-104", "AZ-400"] },
+  { id: "az-agentic-devops", domain: "azure", depth: "deep", tracks: ["technical"], icon: "🤖", label: "Agentic DevOps engineer", desc: "DevOps with AI agents across Azure DevOps and GitHub.", ladder: ["AZ-900", "AZ-104", "AZ-401"] },
   { id: "az-net", domain: "azure", depth: "deep", tracks: ["technical"], icon: "🌐", label: "Network engineer", desc: "Hybrid networking, routing, private connectivity.", ladder: ["AZ-900", "AZ-104", "AZ-700"] },
   { id: "az-win", domain: "azure", depth: "deep", tracks: ["technical"], icon: "🖥️", label: "Windows Server administrator", desc: "On-prem and hybrid Windows Server estates.", ladder: ["AZ-900", "AZ-802"] },
   { id: "az-avd", domain: "azure", depth: "deep", tracks: ["technical"], icon: "🪟", label: "Virtual desktop specialist", desc: "Design and run Azure Virtual Desktop.", ladder: ["AZ-900", "AZ-104", "AZ-140"] },
@@ -467,12 +480,14 @@ export const ROLES = [
   { id: "d365-cc", domain: "d365", depth: "deep", tracks: ["technical", "functional"], icon: "☎️", label: "Contact center AI engineer", desc: "Omnichannel and AI contact-centre solutions.", ladder: ["PL-900", "AB-250", "AB-100"] },
   { id: "d365-fin", domain: "d365", depth: "deep", tracks: ["functional"], icon: "💰", label: "Finance (ERP) consultant", desc: "General ledger, budgeting, financial processes.", ladder: ["MB-310", "AB-100"] },
   { id: "d365-scm", domain: "d365", depth: "deep", tracks: ["functional"], icon: "🚚", label: "Supply chain (ERP) consultant", desc: "Inventory, warehousing, planning, procurement.", ladder: ["MB-330", "AB-100"] },
+  { id: "d365-scm-ai", domain: "d365", depth: "deep", tracks: ["functional"], icon: "🏭", label: "Supply chain AI consultant", desc: "Process-catalogue supply chain with AI in Dynamics 365.", ladder: ["AB-330"] },
   { id: "d365-fodev", domain: "d365", depth: "deep", tracks: ["technical"], icon: "🧑‍💻", label: "Finance & Operations developer", desc: "X++ development and extensions for F&O apps.", ladder: ["MB-500", "AB-100"] },
   { id: "d365-bc", domain: "d365", depth: "broad", tracks: ["functional"], icon: "🏪", label: "Business Central consultant (SMB ERP)", desc: "Implement ERP for small and mid-size firms.", ladder: ["MB-800", "AB-100"] },
   { id: "d365-bcdev", domain: "d365", depth: "broad", tracks: ["technical"], icon: "🧱", label: "Business Central developer", desc: "AL development, extensions and APIs.", ladder: ["MB-820", "AB-100"] },
 
   { id: "gh-copilot", domain: "github", depth: "broad", tracks: ["technical"], icon: "✨", label: "AI-assisted developer", desc: "Get the most from GitHub Copilot.", ladder: ["GH-900", "GH-300"] },
   { id: "gh-agents", domain: "github", depth: "deep", tracks: ["technical"], icon: "🦾", label: "Agentic AI developer", desc: "Coding agents, MCP tools, memory and guardrails.", ladder: ["GH-900", "GH-300", "GH-600"] },
+  { id: "gh-biz", domain: "github", depth: "broad", tracks: ["functional", "business"], icon: "🧑‍💼", label: "Agentic AI for business teams", desc: "GitHub and Copilot agents for PMs and analysts.", ladder: ["GH-900", "GH-700"] },
   { id: "gh-actions", domain: "github", depth: "deep", tracks: ["technical"], icon: "▶️", label: "CI/CD automation engineer", desc: "Workflows and automation with GitHub Actions.", ladder: ["GH-900", "GH-200"] },
   { id: "gh-admin", domain: "github", depth: "deep", tracks: ["technical"], icon: "🏛️", label: "GitHub enterprise administrator", desc: "Organisations, policies and access.", ladder: ["GH-900", "GH-100"] },
   { id: "gh-sec", domain: "github", depth: "deep", tracks: ["technical"], icon: "🔎", label: "Application security (DevSecOps)", desc: "Secret protection, supply chain and code security.", ladder: ["GH-900", "GH-500"] },
@@ -481,3 +496,109 @@ export const ROLES = [
   { id: "aibiz-lead", domain: "aibiz", depth: "broad", tracks: ["functional", "business"], icon: "👑", label: "AI transformation leader", desc: "Set AI strategy, value cases and adoption plans.", ladder: ["AB-731"] },
 ];
 
+
+/* =====================================================================
+   MERGE — combine the hand-written data above with the monthly refresh
+   (src/data/ms-certifications.refresh.json, rewritten on the 1st of every
+   month by scripts/ms-certs/refresh.mjs via GitHub Actions).
+
+   Rules:
+   • Microsoft Learn is the source of truth for WHAT exists: a certification
+     that's gone from Microsoft Learn is dropped; one that's new is added.
+   • Microsoft Learn also wins for facts: current name, page address, beta
+     status, retirement date and the official skills outline.
+   • The hand-written data supplies judgement: career area, decision-tree
+     roles, value notes, partner credit, prerequisites and notes.
+   ===================================================================== */
+import REFRESH from './ms-certifications.refresh.json';
+
+// Microsoft's level words → the levels this page uses
+function levelFor(live) {
+  if (/^GitHub/.test(live.title) || /^GH-/.test(live.code)) return 'GitHub';
+  if ((live.types || []).includes('Business')) return 'Business';
+  if (/Expert\b/.test(live.title)) return 'Expert';
+  if (/Specialty\b/.test(live.title)) return 'Specialty';
+  if (/Fundamentals\b/.test(live.title) || live.level === 'Beginner') return 'Fundamentals';
+  return 'Associate';
+}
+
+// Best guess at the career area for a brand-new certification (from its code and name)
+function domainFor(live) {
+  const t = live.title, c = live.code;
+  if (/^GH-/.test(c)) return 'github';
+  if (/Dynamics 365|Supply Chain|Business Central/.test(t) || /^MB-/.test(c)) return 'd365';
+  if (/Microsoft 365|Teams|Endpoint|Copilot and Agent Administration/.test(t) || /^(MS|MD)-/.test(c)) return 'm365';
+  if (/Power Platform|Copilot Studio|Agent Builder|Applications Builder|Business Solutions Architect/.test(t) || /^PL-9/.test(c)) return 'power';
+  if (/^SC-/.test(c)) return 'security';
+  if (/^DP-|^PL-3/.test(c)) return 'data';
+  if (/^AI-/.test(c)) return 'ai';
+  if (/^AB-7/.test(c)) return 'aibiz';
+  return 'azure';
+}
+
+const live = new Map((REFRESH.certs || []).map((c) => [c.code, c]));
+const hasLive = live.size >= 30;                 // never drop everything because of a bad file
+
+// The certification list the page actually uses
+export const CERTS = [
+  // 1. hand-written certifications that Microsoft still lists (or all of them, if the refresh file is unusable)
+  ...CURATED_CERTS
+    .filter((c) => !hasLive || live.has(c.code))
+    .map((c) => {
+      const l = live.get(c.code);
+      if (!l) return c;
+      return {
+        ...c,
+        name: l.title.replace(/^GitHub Certified:\s*/, '') === c.name.replace(/^GitHub Certified:\s*/, '') ? c.name : l.title,
+        page: l.slug ? `${l.slug}/` : c.page,
+        beta: l.beta,
+        retire: l.retire || c.retire || undefined,
+        firstSeen: l.firstSeen,
+      };
+    }),
+  // 2. certifications Microsoft has launched that nobody has written up yet
+  ...[...live.values()]
+    .filter((l) => !CURATED_CERTS.some((c) => c.code === l.code))
+    .map((l) => ({
+      code: l.code, name: l.title, level: levelFor(l), domain: domainFor(l),
+      page: l.slug ? `${l.slug}/` : null, roles: l.roles || undefined, beta: l.beta,
+      retire: l.retire || undefined, firstSeen: l.firstSeen, auto: true,
+      note: `Added automatically from Microsoft Learn on ${l.firstSeen}. A fuller write-up is on its way.`,
+    })),
+];
+
+// Official skills outlines: the refreshed version wins, the hand-written one is the fallback
+export const SKILLS = Object.fromEntries(
+  CERTS.map((c) => [c.code, (live.get(c.code) || {}).skills || CURATED_SKILLS[c.code]]).filter(([, v]) => v),
+);
+
+// Page facts, including the refresh dates shown at the top of the page
+const nowYear = (REFRESH.lastRefreshed || PAGE_CURATED.verified).slice(0, 4);
+export const PAGE = {
+  ...PAGE_CURATED,
+  verified: REFRESH.lastRefreshed || PAGE_CURATED.verified,
+  lastRefreshed: REFRESH.lastRefreshed || PAGE_CURATED.verified,
+  nextRefresh: REFRESH.nextRefresh || null,
+  baseline: REFRESH.baseline || null,
+  year: nowYear,
+};
+
+// A certification counts as "new" if the refresher first saw it after the
+// first run, within the last 60 days — or it's beta and was added by hand recently.
+export function isNew(c, today = new Date()) {
+  if (!c.firstSeen || !PAGE.baseline || c.firstSeen <= PAGE.baseline) return Boolean(c.beta && c.firstSeen === PAGE.baseline);
+  return (today - new Date(c.firstSeen + 'T00:00:00Z')) / 86400000 <= 60;
+}
+
+// Retirements table: the hand-written rows (which say where to go next),
+// plus any retirement Microsoft announces that isn't in them yet.
+const retired = [...(REFRESH.retirements?.scheduled || []).map((r) => ({ ...r, upcoming: true })), ...(REFRESH.retirements?.recent || [])];
+export const CHANGES = [
+  ...CURATED_CHANGES,
+  ...retired
+    .filter((r) => !CURATED_CHANGES.some((ch) => ch.old.split(' / ').includes(r.code)))
+    .map((r) => ({ old: r.code, name: r.name, date: r.date, next: null })),
+]
+  // "upcoming" is worked out from the date, so it flips by itself once the date passes
+  .map((ch) => ({ ...ch, upcoming: ch.date >= PAGE.lastRefreshed }))
+  .sort((a, b) => a.date.localeCompare(b.date));

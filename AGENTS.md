@@ -112,6 +112,18 @@ Venu has personally verified (green tick beside the name; every other race shows
 Venu asks. `race-links.json` holds optional race-specific links per id (`handbook`, `map`, `media`, `results`);
 any missing one falls back to the race's official site (`regLink`), labelled as such. Nothing is hosted on the site.
 
+**Microsoft Certification Path** (`src/pages/projects/microsoft-certification-path.astro`) is data-driven
+too. Hand-written content (career areas, decision-tree `ROLES`, `VALUE` notes, `PARTNER` credit, notes,
+FAQ) lives in `src/data/ms-certifications.js`; facts come from `src/data/ms-certifications.refresh.json`,
+rewritten by `scripts/ms-certs/refresh.mjs` (Node, no dependencies) via
+`.github/workflows/ms-certs-monthly.yml` on the 1st of every month at 07:00 IST (`ms-certs-bot` commits,
+auto-deploys). Microsoft Learn is the source of truth for what exists, names, page URLs, beta status,
+retirements and the official skills outlines; a certification Microsoft adds appears automatically
+(flagged New, auto-guessed area, no decision-tree role) and one it drops disappears. When anything
+changes the workflow opens a GitHub issue — write the new certification's `VALUE`, add it to a `ROLES`
+ladder, and check `PARTNER` (Solutions Partner pages aren't auto-refreshed). The page shows Last/Next
+refresh dates; the script refuses to overwrite if Microsoft Learn returns under 60% of last month's count.
+
 ## Forms & analytics
 
 - Contact, Guest Lectures, and Subscribe ("Alert Me") forms all POST to
@@ -122,10 +134,12 @@ any missing one falls back to the race's official site (`regLink`), labelled as 
   only, no cookies/PII). It requires "Web Analytics" to be toggled on for the project in the
   Vercel dashboard (Project → Analytics tab) — a one-time, dashboard-only setting; there's no
   CLI switch for it.
-- **Google Analytics 4** (Measurement ID `G-JP76TKZHSB`) is loaded only after the visitor clicks
-  Accept on the cookie notice — `src/components/CookieConsent.astro` (included in
-  `Layout.astro`) holds the ID, the banner, and the loader. Declined/undecided visitors get no
-  GA script and no cookies. The choice is stored in `localStorage` under `cookie-consent`.
+- **Google Analytics 4** (Measurement ID `G-JP76TKZHSB`) runs with **Google Consent Mode v2,
+  advanced mode** (since 31 Oct 2026) — `src/components/CookieConsent.astro` (included in
+  `Layout.astro`) holds the ID, the banner, and the loader. The tag loads for everyone with all
+  consent types defaulting to `denied`; declined/undecided visitors get no GA cookies and send
+  only cookieless pings (Google models from these). Accept → `analytics_storage: granted`.
+  `ad_*` signals are always denied (no ads). The choice is stored in `localStorage` under `cookie-consent`.
   `/privacy` (`src/pages/privacy.astro`) explains all data collection and has a "Change my
   cookie choice" button. If a new data-collecting tool is added, update that page too.
 - OG/social preview images: `Layout.astro` takes an `image` prop (defaults to
