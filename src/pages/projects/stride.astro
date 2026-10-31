@@ -1,0 +1,905 @@
+---
+// S.T.R.I.D.E — the strength-training companion to T.R.E.A.D.
+// Everything below the front matter is a static page; the plan itself is built in the
+// browser by the <script> at the bottom, so nothing a visitor types ever leaves their device.
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="S.T.R.I.D.E: Strength Training for Runners" description="A rule-based strength plan for runners. Pick a race from T.R.E.A.D or enter your own, tell it your age, current training, equipment and time, and it builds a phased, week-by-week strength plan that changes with every input.">
+  <section class="relative overflow-hidden border-b border-edge/5">
+    <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 pt-14 pb-12 sm:pt-20 sm:pb-14">
+      <a href="/projects" class="no-print inline-flex items-center gap-1.5 text-xs text-mist-400 hover:text-fg transition-colors mb-6">
+        <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M9.5 6h-7M6 2.5L2.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Vibing
+      </a>
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">Rule-based planner &middot; pairs with T.R.E.A.D</p>
+      <h1 class="font-serif text-5xl sm:text-6xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg">S.T.R.I.D.E</h1>
+      <p class="mt-3 font-serif text-xl sm:text-2xl font-medium tracking-[-0.01em] text-cyan-glow">Strength Training for Runners, Individually Designed for your Event</p>
+      <p class="mt-5 max-w-2xl text-mist-400">
+        <a href="/projects/tread" class="text-indigo-glow underline underline-offset-4">T.R.E.A.D</a> finds the start line.
+        S.T.R.I.D.E gets your legs ready for it. Pick a race (or type your own date), tell it where your training is
+        today, what equipment you have and how much time you can give, and it lays out a phased strength plan
+        week by week up to race
+        day, with a dated calendar of every run and strength session. Change any answer and the plan rebuilds.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 py-10 sm:py-12">
+    <div id="stage">
+      <!-- ============ INPUTS ============ -->
+      <form id="sd-form" class="sd-form no-print" onsubmit="return false">
+        <fieldset>
+          <legend><span>01</span> Your race</legend>
+          <label class="sd-full">Find a race in T.R.E.A.D
+            <input id="race-q" type="search" autocomplete="off" placeholder="Type a race or city: Hyderabad, Tata Mumbai, Kaveri…" />
+          </label>
+          <ul id="race-results" class="sd-results" hidden></ul>
+          <p id="race-picked" class="sd-picked" hidden></p>
+          <div class="sd-two">
+            <label>Race date<input id="race-date" type="date" /></label>
+            <label>Goal distance
+              <select id="goal">
+                <option value="5">5K</option>
+                <option value="10" selected>10K</option>
+                <option value="21">Half marathon (21.1K)</option>
+                <option value="42">Marathon (42.2K)</option>
+                <option value="ultra">Ultra (50K+)</option>
+              </select>
+            </label>
+          </div>
+          <div id="race-dists" class="sd-chips" hidden></div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span>02</span> About you</legend>
+          <div class="sd-two">
+            <label>Age<input id="age" type="number" min="14" max="90" value="38" /></label>
+            <label>Gender
+              <select id="gender">
+                <option value="female">Female</option>
+                <option value="male" selected>Male</option>
+                <option value="na">Prefer not to say</option>
+              </select>
+            </label>
+          </div>
+          <p class="sd-label">Any niggles right now? <small>(optional, swaps exercises)</small></p>
+          <div class="sd-checks">
+            <label><input type="checkbox" name="niggle" value="knee" /> Knee</label>
+            <label><input type="checkbox" name="niggle" value="ankle" /> Ankle / Achilles</label>
+            <label><input type="checkbox" name="niggle" value="back" /> Lower back</label>
+            <label><input type="checkbox" name="niggle" value="hip" /> Hip / glute</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span>03</span> Your training today</legend>
+          <div class="sd-range"><span>Running days a week</span><b id="runDays-out"></b><input id="runDays" type="range" min="0" max="7" value="3" /></div>
+          <div class="sd-range"><span>Average minutes per run</span><b id="runMin-out"></b><input id="runMin" type="range" min="0" max="150" step="5" value="40" /></div>
+          <div class="sd-range"><span>Strength / gym sessions a week</span><b id="strNow-out"></b><input id="strNow" type="range" min="0" max="5" value="0" /></div>
+          <div class="sd-range"><span>Walking a day</span><b id="walk-out"></b><input id="walk" type="range" min="0" max="120" step="5" value="30" /></div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span>04</span> What you can give it</legend>
+          <p class="sd-label">Equipment you have <small>(pick all that apply)</small></p>
+          <div class="sd-checks">
+            <label><input type="checkbox" name="eq" value="bw" checked disabled /> Bodyweight (always)</label>
+            <label><input type="checkbox" name="eq" value="band" /> Resistance bands</label>
+            <label><input type="checkbox" name="eq" value="db" /> Dumbbells / kettlebell</label>
+            <label><input type="checkbox" name="eq" value="gym" /> Full gym</label>
+          </div>
+          <div class="sd-two">
+            <label>Strength sessions you can do a week
+              <select id="avail"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+            </label>
+            <label>Time per session
+              <select id="len"><option value="20">20 minutes</option><option value="30" selected>30 minutes</option><option value="45">45 minutes</option></select>
+            </label>
+          </div>
+          <label>Long run day
+            <select id="longDay">
+              <option value="0">Monday</option><option value="1">Tuesday</option><option value="2">Wednesday</option>
+              <option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option>
+              <option value="6" selected>Sunday</option>
+            </select>
+          </label>
+        </fieldset>
+      </form>
+
+      <!-- ============ OUTPUT ============ -->
+      <div id="plan" aria-live="polite"></div>
+
+      <aside class="sd-disclaimer" aria-label="Disclaimer">
+        <p class="sd-disclaimer-title">Read this first</p>
+        <p>
+          S.T.R.I.D.E is a rule-based teaching tool, not a coach, physiotherapist or doctor, and it has not been
+          trained on anyone's data. The rules follow widely used strength-for-runners practice (two sessions a week,
+          heavy-and-slow work early, power work later, and less load as race day nears), but the thresholds
+          are my own illustrative choices. <strong>If you have a medical condition, are pregnant, are new to exercise
+          after a long break, are over 60, or have pain that changes how you move, speak to a doctor or physiotherapist
+          before starting.</strong> Stop any exercise that causes sharp pain.
+        </p>
+        <p class="mt-2">Nothing you enter here is stored or sent anywhere. The plan is built in your browser.</p>
+      </aside>
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+  /* Map the tool's own variables onto the site's brand tokens, the same way T.R.E.A.D does,
+     so a palette change in global.css re-themes this page automatically. */
+  #stage {
+    --ink: var(--color-fg);
+    --ink-muted: var(--color-mist-300);
+    --ink-faint: var(--color-mist-400);
+    --line: color-mix(in srgb, var(--color-edge) 12%, transparent);
+    --line-strong: color-mix(in srgb, var(--color-edge) 22%, transparent);
+    --accent: var(--color-cyan-glow);
+    --accent-tint: color-mix(in srgb, var(--color-cyan-glow) 8%, transparent);
+    --blue: var(--color-indigo-glow);
+    --good: #2f6b4f;
+    --warn: #9a5b12;
+    --paper: var(--color-ink-900);
+  }
+
+  /* ---- form ---- */
+  #stage .sd-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2.5rem; }
+  @media (max-width: 860px) { #stage .sd-form { grid-template-columns: 1fr; } }
+  #stage fieldset { border: 0; border-top: 2px solid var(--ink); padding: 1rem 0 1.75rem; margin: 0; min-width: 0; }
+  #stage legend { padding: 0; margin-bottom: 0.9rem; font-family: var(--font-serif); font-size: 1.35rem; font-weight: 600; color: var(--ink); }
+  #stage legend span { font-family: var(--font-sans); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); margin-right: 0.5rem; vertical-align: 3px; }
+  #stage .sd-form label, #stage .sd-label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; margin-bottom: 0.9rem; }
+  #stage .sd-label small, #stage .sd-checks label { text-transform: none; letter-spacing: 0; font-weight: 400; }
+  #stage .sd-label { margin-bottom: 0.45rem; }
+  #stage .sd-form input[type='search'], #stage .sd-form input[type='date'], #stage .sd-form input[type='number'], #stage .sd-form select {
+    display: block; width: 100%; margin-top: 0.35rem; background: var(--paper); border: 1px solid var(--line-strong); border-radius: 0;
+    padding: 0.55rem 0.7rem; font-size: 14px; color: var(--ink); text-transform: none; letter-spacing: 0; font-weight: 400; font-family: var(--font-sans);
+  }
+  #stage input:focus-visible, #stage select:focus-visible { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #stage .sd-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 0.9rem; }
+  #stage .sd-checks { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-bottom: 1rem; }
+  #stage .sd-checks label { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; font-size: 14px; color: var(--ink-muted); cursor: pointer; }
+  #stage .sd-checks input { accent-color: var(--accent); width: 15px; height: 15px; }
+  #stage .sd-range { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem; align-items: baseline; margin-bottom: 1.1rem; font-size: 14px; color: var(--ink-muted); }
+  #stage .sd-range b { font-family: var(--font-serif); font-size: 1.05rem; color: var(--accent); font-weight: 600; }
+  #stage .sd-range input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); }
+  #stage .sd-results { list-style: none; margin: -0.6rem 0 0.9rem; padding: 0; border: 1px solid var(--line-strong); border-top: 0; background: var(--paper); max-height: 18rem; overflow: auto; }
+  #stage .sd-results button { display: block; width: 100%; text-align: left; padding: 0.55rem 0.7rem; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink); }
+  #stage .sd-results button:hover, #stage .sd-results button:focus-visible { background: var(--accent-tint); }
+  #stage .sd-results small { display: block; color: var(--ink-faint); font-size: 12px; }
+  #stage .sd-picked { margin: -0.3rem 0 0.9rem; padding: 0.6rem 0.8rem; border-left: 3px solid var(--accent); background: var(--paper); font-size: 14px; color: var(--ink-muted); }
+  #stage .sd-picked b { color: var(--ink); }
+  #stage .sd-picked button { margin-left: 0.6rem; color: var(--ink-faint); text-decoration: underline; text-underline-offset: 3px; font-size: 12.5px; }
+  #stage .sd-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: -0.4rem 0 0.4rem; font-size: 12.5px; color: var(--ink-faint); align-items: center; }
+  #stage .sd-chips button { padding: 0.2rem 0.6rem; border: 1px solid var(--line-strong); font-weight: 600; color: var(--ink-muted); font-size: 12.5px; }
+  #stage .sd-chips button.on { border-color: var(--accent); color: var(--accent); background: var(--accent-tint); }
+
+  /* ---- plan ---- */
+  #stage #plan { margin-top: 1rem; }
+  #stage .sd-head { border-top: 3px solid var(--accent); padding-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: flex-end; justify-content: space-between; }
+  #stage .sd-head h2 { font-family: var(--font-serif); font-size: 2rem; font-weight: 600; line-height: 1.1; color: var(--ink); letter-spacing: -0.02em; }
+  #stage .sd-head p { color: var(--ink-faint); font-size: 14px; margin-top: 0.3rem; }
+  #stage .sd-print { padding: 0.55rem 1rem; font-weight: 600; font-size: 14px; }
+  #stage .sd-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line); margin: 1.25rem 0 1.5rem; }
+  #stage .sd-stats div { padding: 0.9rem 0.75rem 0.8rem 0; }
+  #stage .sd-stats span { display: block; font-family: var(--font-serif); font-size: 1.75rem; font-weight: 600; color: var(--ink); line-height: 1.05; }
+  #stage .sd-stats small { display: block; margin-top: 0.35rem; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+  @media (max-width: 640px) { #stage .sd-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  #stage .sd-flag { padding: 0.75rem 1rem; margin-bottom: 0.75rem; font-size: 14.5px; line-height: 1.6; border-left: 3px solid var(--warn); background: color-mix(in srgb, #9a5b12 7%, transparent); color: var(--ink-muted); }
+  #stage .sd-flag.info { border-color: var(--blue); background: color-mix(in srgb, var(--color-indigo-glow) 7%, transparent); }
+  #stage .sd-flag b { color: var(--ink); }
+  #stage h3.sd-h { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 600; color: var(--ink); margin: 2.25rem 0 0.35rem; }
+  #stage .sd-sub { color: var(--ink-faint); font-size: 14px; margin-bottom: 1rem; max-width: 46rem; line-height: 1.6; }
+
+  #stage .sd-phasebar { display: flex; height: 2.4rem; margin: 0.5rem 0 0.4rem; }
+  #stage .sd-phasebar div { display: flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; overflow: hidden; white-space: nowrap; min-width: 0; }
+  #stage .ph-base { background: var(--blue); } #stage .ph-build { background: var(--ink); } #stage .ph-peak { background: var(--accent); } #stage .ph-taper { background: var(--good); } #stage .ph-hold { background: #8a8378; }
+  #stage .sd-phasekey { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem 1.5rem; margin-top: 1rem; }
+  #stage .sd-phasekey div { border-top: 3px solid; padding-top: 0.6rem; font-size: 14px; color: var(--ink-muted); line-height: 1.55; }
+  #stage .sd-phasekey b { display: block; color: var(--ink); font-size: 15px; }
+  #stage .sd-phasekey small { display: block; color: var(--ink-faint); font-size: 12.5px; margin-bottom: 0.2rem; }
+
+  #stage .sd-cal-wrap { overflow-x: auto; margin-top: 0.5rem; border-top: 2px solid var(--ink); }
+  #stage table.sd-cal { width: 100%; min-width: 58rem; border-collapse: collapse; table-layout: fixed; font-size: 12.5px; }
+  #stage .sd-cal thead th { text-align: left; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 700; padding: 0.55rem 0.5rem; border-bottom: 1px solid var(--line-strong); }
+  #stage .sd-cal thead th:first-child { width: 6.5rem; }
+  #stage .sd-cal tbody th { text-align: left; vertical-align: top; padding: 0.6rem 0.5rem 0.6rem 0; border-bottom: 1px solid var(--line-strong); font-weight: 600; color: var(--ink-muted); font-size: 12px; }
+  #stage .sd-cal tbody th b { display: block; font-family: var(--font-serif); font-size: 1.35rem; color: var(--ink); line-height: 1; margin-bottom: 0.3rem; }
+  #stage .sd-cal tbody th em { display: block; font-style: normal; font-size: 10.5px; color: var(--blue); text-transform: uppercase; letter-spacing: 0.08em; }
+  #stage .sd-cal tbody th small { display: block; margin-top: 0.25rem; color: var(--ink-faint); font-weight: 400; }
+  #stage .sd-cal .dot { display: inline-block; width: 8px; height: 8px; margin-right: 0.35rem; }
+  #stage .sd-cal td { vertical-align: top; padding: 0.5rem 0.45rem 0.6rem; border-bottom: 1px solid var(--line-strong); border-left: 1px solid var(--line); }
+  #stage .sd-cal td.past { opacity: 0.4; }
+  #stage .sd-cal .dt { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.35rem; }
+  #stage .sd-cal .it { display: block; padding: 0.2rem 0 0.2rem 0.45rem; margin-bottom: 0.3rem; border-left: 3px solid var(--line-strong); font-weight: 600; color: var(--ink); line-height: 1.3; }
+  #stage .sd-cal .it small { display: block; font-weight: 400; color: var(--ink-faint); font-size: 11.5px; }
+  #stage .sd-cal .it.long { border-color: var(--accent); }
+  #stage .sd-cal .it.medium { border-color: var(--ink); }
+  #stage .sd-cal .it.easy { border-color: var(--blue); }
+  #stage .sd-cal .it.strength { border-color: var(--accent); background: var(--accent-tint); color: var(--accent); }
+  #stage .sd-cal .it.rest, #stage .sd-cal .it.stretch, #stage .sd-cal .it.past { border-color: transparent; color: var(--ink-faint); font-weight: 500; }
+  #stage .sd-cal td.race { background: var(--accent); }
+  #stage .sd-cal td.race .dt, #stage .sd-cal td.race .it { color: #fff; border-color: transparent; font-size: 13.5px; }
+
+  #stage .sd-tabs { display: flex; flex-wrap: wrap; gap: 0 1.5rem; border-bottom: 1px solid var(--line-strong); margin-top: 0.5rem; }
+  #stage .sd-tabs button { padding: 0.6rem 0; margin-bottom: -1px; font-size: 14.5px; font-weight: 500; color: var(--ink-faint); border-bottom: 2px solid transparent; }
+  #stage .sd-tabs button[aria-selected='true'] { color: var(--ink); font-weight: 600; border-color: var(--accent); }
+  #stage .sd-sessions { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1.5rem; margin-top: 1.25rem; }
+  #stage .sd-session { border-top: 2px solid var(--ink); padding-top: 0.75rem; }
+  #stage .sd-session h4 { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--ink); }
+  #stage .sd-session > p { font-size: 13px; color: var(--ink-faint); margin: 0.15rem 0 0.6rem; }
+  #stage .sd-ex { list-style: none; margin: 0; padding: 0; counter-reset: ex; }
+  #stage .sd-ex li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr) auto; gap: 0 0.6rem; padding: 0.6rem 0; border-top: 1px solid var(--line); counter-increment: ex; }
+  #stage .sd-ex li::before { content: counter(ex); font-family: var(--font-serif); font-weight: 600; color: var(--accent); font-size: 1.05rem; }
+  #stage .sd-ex li.wu { counter-increment: none; }
+  #stage .sd-ex li.wu::before { content: '–'; color: var(--ink-faint); }
+  #stage .sd-ex .n { font-weight: 600; color: var(--ink); font-size: 14.5px; line-height: 1.35; }
+  #stage .sd-ex .c { display: block; font-size: 12.5px; color: var(--ink-faint); line-height: 1.5; margin-top: 0.15rem; }
+  #stage .sd-ex .d { font-family: var(--font-serif); font-weight: 600; color: var(--ink); font-size: 14.5px; text-align: right; white-space: nowrap; }
+  #stage .sd-ex .d small { display: block; font-family: var(--font-sans); font-weight: 400; font-size: 11.5px; color: var(--ink-faint); }
+  #stage .sd-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-left: 0.35rem; vertical-align: 1px; }
+
+  #stage .sd-table-wrap { overflow-x: auto; margin-top: 0.5rem; }
+  #stage table.sd-table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 36rem; }
+  #stage .sd-table th { text-align: left; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid var(--line-strong); }
+  #stage .sd-table td { padding: 0.55rem 0.6rem 0.55rem 0; border-bottom: 1px solid var(--line); color: var(--ink-muted); vertical-align: top; }
+  #stage .sd-table td:first-child { font-family: var(--font-serif); font-weight: 600; color: var(--ink); }
+  #stage .sd-table .dot { display: inline-block; width: 9px; height: 9px; margin-right: 0.4rem; vertical-align: 0; }
+  #stage .sd-table tr.dl td { background: color-mix(in srgb, var(--color-indigo-glow) 5%, transparent); }
+  #stage .sd-table tr.race td { color: var(--accent); font-weight: 700; }
+
+  #stage .sd-why { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0 2rem; }
+  #stage .sd-why li { padding: 0.7rem 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-muted); line-height: 1.55; }
+  #stage .sd-why b { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.15rem; }
+
+  #stage .sd-disclaimer { border-left: 3px solid var(--warn); background: color-mix(in srgb, #9a5b12 6%, transparent); padding: 1rem 1.25rem; margin-top: 3rem; font-size: 14px; line-height: 1.65; color: var(--ink-muted); }
+  #stage .sd-disclaimer-title { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warn); margin-bottom: 0.35rem; }
+  #stage .sd-disclaimer strong { color: var(--ink); font-weight: 600; }
+
+  @media print {
+    nav, header, footer, .no-print, #cookie-consent { display: none !important; }
+    #stage .sd-session { break-inside: avoid; }
+    #stage .sd-tabs { display: none; }
+    #stage .sd-phase-panel[hidden] { display: block !important; }
+    #stage .sd-phase-panel { break-before: page; }
+  }
+</style>
+
+<script>
+  // =====================================================================================
+  // S.T.R.I.D.E — how the plan is built
+  // 1. Read the form into one "profile" object.
+  // 2. Work out the athlete's levels (running, strength, age band) from that profile.
+  // 3. Count the weeks to race day and split them into phases, counting back from the race.
+  // 4. For each phase, pick exercises from the library that fit the equipment, level and niggles,
+  //    and give each one sets, reps and rest that suit the phase.
+  // 5. Render: summary, flags, phase bar, weekly layout, sessions, week-by-week table, and
+  //    a "why this plan" list that shows which inputs changed what.
+  // Every rule is a plain, readable threshold — no randomness — so the same inputs always
+  // give the same plan, and any change to an input visibly changes the output.
+  // =====================================================================================
+
+  // ---------- Types ----------
+  type Eq = 'bw' | 'band' | 'db' | 'gym';
+  type Pattern = 'squat' | 'hinge' | 'single' | 'calf' | 'hip' | 'core' | 'upper' | 'plyo' | 'balance';
+  type Niggle = 'knee' | 'ankle' | 'back' | 'hip';
+  type Goal = '5' | '10' | '21' | '42' | 'ultra';
+  type PhaseId = 'base' | 'build' | 'peak' | 'taper' | 'hold';
+  type Exercise = { name: string; p: Pattern; eq: Eq; lvl: 1 | 2 | 3; avoid?: Niggle[]; cue: string; time?: boolean; side?: boolean };
+  type RaceEvent = { id: string; name: string; date: string; dateTBC?: boolean; city: string; country: string; distances: number[]; discipline: string };
+
+  // ---------- Exercise library ----------
+  // p = movement pattern, eq = least equipment needed, lvl = 1 easy … 3 demanding,
+  // avoid = niggles this exercise tends to aggravate, time = held for seconds, side = per leg/side.
+  const LIB: Exercise[] = [
+    // Squat pattern: quads and glutes, the "absorb the landing" muscles.
+    { name: 'Box squat to a chair', p: 'squat', eq: 'bw', lvl: 1, cue: 'Sit back until you touch the chair, stand tall without rocking.' },
+    { name: 'Wall sit', p: 'squat', eq: 'bw', lvl: 1, time: true, avoid: ['knee'], cue: 'Thighs near parallel, back flat on the wall.' },
+    { name: 'Tempo bodyweight squat', p: 'squat', eq: 'bw', lvl: 2, cue: '3 seconds down, 1 second pause, stand up fast.' },
+    { name: 'Banded squat', p: 'squat', eq: 'band', lvl: 1, cue: 'Band under feet, ends at shoulders, knees track over toes.' },
+    { name: 'Goblet squat', p: 'squat', eq: 'db', lvl: 2, cue: 'Hold the weight at your chest, elbows inside the knees at the bottom.' },
+    { name: 'Leg press', p: 'squat', eq: 'gym', lvl: 2, cue: 'Lower until knees reach about 90°, keep your lower back on the pad.' },
+    { name: 'Barbell back squat', p: 'squat', eq: 'gym', lvl: 3, avoid: ['back'], cue: 'Brace before each rep, depth you can control.' },
+
+    // Hinge pattern: hamstrings and glutes, the "push the ground away" muscles.
+    { name: 'Glute bridge', p: 'hinge', eq: 'bw', lvl: 1, cue: 'Squeeze glutes to lift, ribs down, 2-second hold at the top.' },
+    { name: 'Single-leg glute bridge', p: 'hinge', eq: 'bw', lvl: 2, side: true, cue: 'Hips level; if one side drops, shorten the range.' },
+    { name: 'Banded good morning', p: 'hinge', eq: 'band', lvl: 1, avoid: ['back'], cue: 'Soft knees, push hips back, flat back throughout.' },
+    { name: 'Dumbbell Romanian deadlift', p: 'hinge', eq: 'db', lvl: 2, avoid: ['back'], cue: 'Weights slide down the thighs, stop when hamstrings are tight.' },
+    { name: 'Kettlebell / dumbbell swing', p: 'hinge', eq: 'db', lvl: 3, avoid: ['back'], cue: 'Snap the hips; arms only guide the weight.' },
+    { name: 'Hip thrust', p: 'hinge', eq: 'gym', lvl: 2, cue: 'Upper back on a bench, chin tucked, full lockout.' },
+    { name: 'Trap-bar deadlift', p: 'hinge', eq: 'gym', lvl: 3, avoid: ['back'], cue: 'Push the floor away, bar close, lock out with glutes.' },
+
+    // Single-leg strength: running is a series of single-leg landings.
+    { name: 'Low step-up', p: 'single', eq: 'bw', lvl: 1, side: true, cue: 'Whole foot on a step, drive through the heel, slow step down.' },
+    { name: 'Reverse lunge', p: 'single', eq: 'bw', lvl: 1, side: true, avoid: ['knee'], cue: 'Step back, front shin vertical, push up through the front heel.' },
+    { name: 'Single-leg Romanian deadlift', p: 'single', eq: 'bw', lvl: 2, side: true, avoid: ['back'], cue: 'Hips square to the floor, reach long through the back heel.' },
+    { name: 'Bulgarian split squat', p: 'single', eq: 'bw', lvl: 2, side: true, avoid: ['knee'], cue: 'Back foot on a bench, most weight on the front leg.' },
+    { name: 'Dumbbell step-up (knee-height box)', p: 'single', eq: 'db', lvl: 2, side: true, cue: 'Do not push off the back foot. Make the top leg do the work.' },
+    { name: 'Weighted Bulgarian split squat', p: 'single', eq: 'db', lvl: 3, side: true, avoid: ['knee'], cue: 'Heavy enough that the last 2 reps are hard but clean.' },
+
+    // Calf & foot: the calf–Achilles complex takes several times bodyweight per stride.
+    { name: 'Double-leg calf raise', p: 'calf', eq: 'bw', lvl: 1, cue: 'Full height, 3 seconds down.' },
+    { name: 'Single-leg calf raise (off a step)', p: 'calf', eq: 'bw', lvl: 2, side: true, cue: 'Heel drops below the step, 3 seconds down. Good for Achilles health.' },
+    { name: 'Bent-knee calf raise', p: 'calf', eq: 'bw', lvl: 1, side: true, cue: 'Knee bent ~30° to target the soleus, the deeper calf muscle.' },
+    { name: 'Weighted single-leg calf raise', p: 'calf', eq: 'db', lvl: 3, side: true, cue: 'Dumbbell in the same-side hand, hold a wall for balance.' },
+    { name: 'Seated calf raise machine', p: 'calf', eq: 'gym', lvl: 2, cue: 'Heavy, slow lowering, pause at the bottom.' },
+
+    // Hip stability: keeps the knee from collapsing inward when you are tired.
+    { name: 'Side-lying leg raise', p: 'hip', eq: 'bw', lvl: 1, side: true, cue: 'Toes point forward, lift from the side of the hip.' },
+    { name: 'Banded lateral walk', p: 'hip', eq: 'band', lvl: 1, cue: 'Band above knees, half squat, small steps, no foot dragging.' },
+    { name: 'Banded clamshell', p: 'hip', eq: 'band', lvl: 1, side: true, cue: 'Heels together, open the knee without rolling the hips back.' },
+    { name: 'Copenhagen plank (short lever)', p: 'hip', eq: 'bw', lvl: 3, time: true, side: true, avoid: ['hip'], cue: 'Knee on a bench, lift hips in line. Inner thigh strength.' },
+    { name: 'Cable hip abduction', p: 'hip', eq: 'gym', lvl: 2, side: true, cue: 'Stand tall, slow return.' },
+
+    // Core: anti-rotation and bracing, so the trunk doesn't leak energy late in a race.
+    { name: 'Dead bug', p: 'core', eq: 'bw', lvl: 1, side: true, cue: 'Lower back stays pressed into the floor.' },
+    { name: 'Side plank', p: 'core', eq: 'bw', lvl: 1, time: true, side: true, cue: 'Straight line from head to heels.' },
+    { name: 'Bird dog', p: 'core', eq: 'bw', lvl: 1, side: true, cue: 'Reach long, no hip rotation; hold 2 seconds.' },
+    { name: 'Pallof press', p: 'core', eq: 'band', lvl: 2, side: true, cue: 'Band anchored to the side, press out and resist the twist.' },
+    { name: 'Suitcase carry', p: 'core', eq: 'db', lvl: 2, time: true, side: true, cue: 'Heavy weight in one hand, walk tall without leaning.' },
+    { name: 'Cable wood chop', p: 'core', eq: 'gym', lvl: 2, side: true, cue: 'Rotate through hips and trunk together, controlled.' },
+
+    // Upper body: arm drive and posture for the final kilometres.
+    { name: 'Incline push-up', p: 'upper', eq: 'bw', lvl: 1, cue: 'Hands on a table or wall, body in one line.' },
+    { name: 'Push-up', p: 'upper', eq: 'bw', lvl: 2, cue: 'Chest to a fist-height above the floor.' },
+    { name: 'Band row', p: 'upper', eq: 'band', lvl: 1, cue: 'Squeeze shoulder blades together, 1-second hold.' },
+    { name: 'One-arm dumbbell row', p: 'upper', eq: 'db', lvl: 2, side: true, cue: 'Pull elbow toward the hip, no twisting.' },
+    { name: 'Lat pulldown', p: 'upper', eq: 'gym', lvl: 2, cue: 'Bar to upper chest, slow return.' },
+
+    // Plyometrics: teach tendons to store and return energy (running economy).
+    { name: 'Ankle pogo hops', p: 'plyo', eq: 'bw', lvl: 1, avoid: ['ankle'], cue: 'Small, quick, bouncy hops on the balls of the feet.' },
+    { name: 'A-skips', p: 'plyo', eq: 'bw', lvl: 1, cue: 'Tall posture, knee up, quick foot strike under the hip.' },
+    { name: 'Squat jump (stick the landing)', p: 'plyo', eq: 'bw', lvl: 2, avoid: ['knee', 'ankle'], cue: 'Land softly and hold 2 seconds before the next jump.' },
+    { name: 'Single-leg hops in place', p: 'plyo', eq: 'bw', lvl: 3, side: true, avoid: ['knee', 'ankle'], cue: 'Quiet landings; stop when they get loud.' },
+    { name: 'Bounding', p: 'plyo', eq: 'bw', lvl: 3, avoid: ['knee', 'ankle', 'hip'], cue: 'Exaggerated running strides for distance, on grass if possible.' },
+
+    // Balance: replaces jumping for 65+ runners.
+    { name: 'Single-leg balance (eyes open → closed)', p: 'balance', eq: 'bw', lvl: 1, time: true, side: true, cue: 'Near a wall. Progress by closing your eyes.' },
+    { name: 'Single-leg reach (clock taps)', p: 'balance', eq: 'bw', lvl: 2, side: true, cue: 'Stand on one leg, tap the other foot forward, side and back.' },
+  ];
+
+  const EQ_RANK: Record<Eq, number> = { bw: 0, band: 1, db: 2, gym: 3 };
+  const EQ_LABEL: Record<Eq, string> = { bw: 'Bodyweight', band: 'Band', db: 'Dumbbell', gym: 'Gym' };
+  const GOAL_LABEL: Record<Goal, string> = { '5': '5K', '10': '10K', '21': 'Half marathon', '42': 'Marathon', ultra: 'Ultra' };
+  const DAY = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  // Phase definitions: what the phase is for, and its colour class.
+  const PHASES: Record<PhaseId, { label: string; cls: string; aim: string }> = {
+    base: { label: 'Base', cls: 'ph-base', aim: 'Learn the movements, build tendon and muscle tolerance. Moderate loads, higher reps.' },
+    build: { label: 'Build', cls: 'ph-build', aim: 'Get genuinely stronger. Heavier, fewer reps, longer rests. This is where running economy improves.' },
+    peak: { label: 'Peak', cls: 'ph-peak', aim: 'Turn strength into springiness. Keep a little heavy work, add faster, explosive moves, cut total volume.' },
+    taper: { label: 'Taper', cls: 'ph-taper', aim: 'Stay sharp, arrive fresh. Short, light sessions, nothing that leaves you sore.' },
+    hold: { label: 'Maintain', cls: 'ph-hold', aim: 'Race is close. Keep moving well without adding fatigue.' },
+  };
+
+  // ---------- Small helpers ----------
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const num = (id: string) => parseFloat($<HTMLInputElement>(id).value) || 0;
+  const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+  const checked = (name: string) => Array.from(document.querySelectorAll<HTMLInputElement>(`input[name="${name}"]:checked`)).map((i) => i.value);
+  const parseDate = (s: string) => new Date(`${s}T00:00:00`);
+  const fmtDate = (d: Date) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const fmtShort = (d: Date) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const addDays = (d: Date, n: number) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+  // yyyy-mm-dd in local time (toISOString would shift to UTC and can land on the previous day in India).
+  const isoLocal = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+  // Turn a race distance in km into one of the five goal buckets.
+  function goalFromKm(k: number): Goal {
+    if (k <= 5) return '5';
+    if (k <= 12) return '10';
+    if (k <= 25) return '21';
+    if (k <= 42.2) return '42';
+    return 'ultra';
+  }
+
+  // ---------- 1. Read the form ----------
+  function readProfile() {
+    const eq = checked('eq') as Eq[];
+    return {
+      age: Math.min(90, Math.max(14, num('age') || 30)),
+      gender: $<HTMLSelectElement>('gender').value,
+      niggles: checked('niggle') as Niggle[],
+      runDays: num('runDays'),
+      runMin: num('runMin'),
+      strNow: num('strNow'),
+      walk: num('walk'),
+      eq: Array.from(new Set<Eq>(['bw', ...eq])), // bodyweight moves are always available
+      avail: num('avail'),
+      len: num('len'),
+      longDay: num('longDay'),
+      goal: $<HTMLSelectElement>('goal').value as Goal,
+      raceDate: $<HTMLInputElement>('race-date').value,
+    };
+  }
+  type Profile = ReturnType<typeof readProfile>;
+
+  // ---------- 2. Levels ----------
+  function levels(p: Profile) {
+    const weeklyRunH = (p.runDays * p.runMin) / 60;
+    // Running level: 0 = new, 1 = developing, 2 = established, 3 = high volume
+    const run = p.runDays < 2 || weeklyRunH < 1 ? 0 : weeklyRunH < 3 ? 1 : weeklyRunH < 6 ? 2 : 3;
+    // Strength level drives which exercise difficulty is unlocked (1–3)
+    const str: 1 | 2 | 3 = p.strNow === 0 ? 1 : p.strNow <= 2 ? 2 : 3;
+    const ageBand = p.age < 18 ? 'youth' : p.age < 40 ? 'adult' : p.age < 55 ? '40s' : p.age < 65 ? '55' : '65';
+    const sedentary = run === 0 && p.strNow === 0 && p.walk < 30;
+    return { weeklyRunH, run, str, ageBand, sedentary };
+  }
+  type Levels = ReturnType<typeof levels>;
+
+  // ---------- 3. Weeks and phases ----------
+  const TAPER_W: Record<Goal, number> = { '5': 1, '10': 1, '21': 2, '42': 3, ultra: 3 };
+  const LAST_SESSION_DAYS: Record<Goal, number> = { '5': 4, '10': 4, '21': 6, '42': 9, ultra: 9 };
+  // Illustrative minimums for a runner starting from a "developing" base.
+  const MIN_WEEKS: Record<Goal, number> = { '5': 6, '10': 8, '21': 12, '42': 18, ultra: 24 };
+  const MIN_RUN_H: Record<Goal, number> = { '5': 1.5, '10': 2.5, '21': 3.5, '42': 5, ultra: 6 };
+
+  function buildPhases(weeks: number, goal: Goal): PhaseId[] {
+    // Returns one phase id per week, week 1 first.
+    if (weeks <= 0) return [];
+    const taper = TAPER_W[goal];
+    if (weeks <= taper + 1) return Array(weeks).fill('hold');
+    const peak = weeks >= 10 ? (goal === '21' || goal === '42' || goal === 'ultra' ? 3 : 2) : 1;
+    const rest = weeks - taper - peak;
+    const build = Math.max(1, Math.round(rest * 0.45));
+    const base = Math.max(0, rest - build);
+    return [...Array(base).fill('base'), ...Array(build).fill('build'), ...Array(peak).fill('peak'), ...Array(taper).fill('taper')];
+  }
+
+  // Sessions per week for a phase, capped by what the user can give.
+  function sessionsFor(ph: PhaseId, p: Profile, L: Levels) {
+    let n = ph === 'base' ? 3 : ph === 'build' || ph === 'peak' ? 2 : 1;
+    if (L.run === 3) n = Math.min(n, 2); // high running volume: two is plenty
+    if (L.ageBand === 'youth' || L.ageBand === '65') n = Math.min(n, 2);
+    return Math.max(1, Math.min(n, p.avail));
+  }
+
+  // ---------- 4. Exercise choice and dosing ----------
+  // Which patterns each session uses, in priority order. Shorter sessions take the first N.
+  const TEMPLATES: Record<PhaseId, Pattern[][]> = {
+    base: [
+      ['squat', 'hinge', 'calf', 'core', 'hip', 'upper', 'single', 'plyo'],
+      ['single', 'hinge', 'calf', 'hip', 'core', 'upper', 'squat', 'plyo'],
+      ['single', 'squat', 'calf', 'core', 'hip', 'hinge', 'upper', 'plyo'],
+    ],
+    build: [
+      ['squat', 'hinge', 'plyo', 'calf', 'core', 'single', 'upper', 'hip'],
+      ['single', 'hinge', 'plyo', 'calf', 'hip', 'core', 'upper', 'squat'],
+      ['single', 'squat', 'plyo', 'calf', 'core', 'hinge', 'hip', 'upper'],
+    ],
+    peak: [
+      ['plyo', 'squat', 'hinge', 'calf', 'core', 'single', 'hip', 'upper'],
+      ['plyo', 'single', 'hinge', 'calf', 'core', 'hip', 'upper', 'squat'],
+      ['plyo', 'single', 'squat', 'calf', 'core', 'hinge', 'hip', 'upper'],
+    ],
+    taper: [['plyo', 'single', 'calf', 'core', 'hip', 'hinge', 'squat', 'upper']],
+    hold: [['single', 'calf', 'core', 'hip', 'hinge', 'squat', 'upper', 'plyo']],
+  };
+  const SLOTS: Record<number, number> = { 20: 4, 30: 6, 45: 8 };
+
+  // Should this athlete do jumps in this phase? Returns 'plyo', 'balance' or null (skip).
+  function plyoMode(ph: PhaseId, p: Profile, L: Levels): Pattern | null {
+    if (L.ageBand === '65') return 'balance';
+    const sore = p.niggles.includes('ankle') || p.niggles.includes('knee');
+    if (ph === 'base' && (L.run === 0 || sore || L.sedentary)) return 'balance';
+    return 'plyo';
+  }
+
+  // Highest exercise difficulty allowed in a phase.
+  function levelCap(ph: PhaseId, L: Levels): number {
+    let cap: number = ph === 'build' || ph === 'peak' ? Math.min(3, L.str + 1) : L.str;
+    if (L.ageBand === '65') cap = Math.min(cap, 2);
+    if (L.ageBand === 'youth') cap = Math.min(cap, 2);
+    return cap;
+  }
+
+  function pick(pattern: Pattern, ph: PhaseId, p: Profile, L: Levels, variant: number, used: Set<string>): Exercise | null {
+    const cap = levelCap(ph, L);
+    const pool = LIB.filter((e) => e.p === pattern && p.eq.includes(e.eq) && e.lvl <= cap && !(e.avoid || []).some((a) => p.niggles.includes(a)) && !used.has(e.name));
+    // Fallback: if equipment rules everything out, allow bodyweight versions.
+    const list = pool.length ? pool : LIB.filter((e) => e.p === pattern && e.eq === 'bw' && e.lvl <= cap && !(e.avoid || []).some((a) => p.niggles.includes(a)) && !used.has(e.name));
+    if (!list.length) return null;
+    // Rank: harder first, then (in build/peak) heavier equipment first, because load matters most there.
+    const heavyPhase = ph === 'build' || ph === 'peak';
+    list.sort((a, b) => b.lvl - a.lvl || (heavyPhase ? EQ_RANK[b.eq] - EQ_RANK[a.eq] : EQ_RANK[a.eq] - EQ_RANK[b.eq]) || a.name.localeCompare(b.name));
+    // Session A takes the top choice, B the second, C the third (if they exist), so sessions differ.
+    return list[Math.min(variant, list.length - 1)];
+  }
+
+  type Dose = { sets: number; reps: string; rest: string; effort: string };
+  function dose(e: Exercise, ph: PhaseId, p: Profile, L: Levels, deload: boolean): Dose {
+    const loaded = e.eq === 'db' || e.eq === 'gym';
+    const main = e.p === 'squat' || e.p === 'hinge' || e.p === 'single';
+    const side = e.side ? ' each' : '';
+    let d: Dose;
+    if (e.p === 'plyo') {
+      const r = ph === 'base' ? '10' : ph === 'build' ? '6–8' : ph === 'peak' ? '5' : '5';
+      d = { sets: ph === 'build' || ph === 'peak' ? 3 : 2, reps: (e.name.includes('Bounding') || e.name.includes('skip') ? '20 m' : r) + side, rest: '60–90 s', effort: 'Quality over quantity' };
+    } else if (e.time) {
+      const s = ph === 'base' ? '30 s' : ph === 'taper' || ph === 'hold' ? '20 s' : '40 s';
+      d = { sets: ph === 'peak' || ph === 'taper' || ph === 'hold' ? 2 : 3, reps: s + side, rest: '45 s', effort: 'Steady' };
+    } else if (e.p === 'calf') {
+      d = { sets: ph === 'taper' || ph === 'hold' ? 2 : 3, reps: (ph === 'base' ? '15' : '10–12') + side, rest: '45 s', effort: 'Slow lowering' };
+    } else if (e.p === 'core' || e.p === 'hip' || e.p === 'upper' || e.p === 'balance') {
+      d = { sets: ph === 'taper' || ph === 'hold' || ph === 'peak' ? 2 : 3, reps: '10–12' + side, rest: '45 s', effort: 'Controlled' };
+    } else if (ph === 'base') {
+      d = { sets: L.str === 1 ? 2 : 3, reps: '10–12' + side, rest: '60 s', effort: '3 reps in reserve' };
+    } else if (ph === 'build') {
+      d = loaded && main
+        ? { sets: L.str >= 2 ? 4 : 3, reps: '5–6' + side, rest: '2 min', effort: 'Heavy: 2 reps in reserve' }
+        : { sets: 3, reps: '8–10' + side, rest: '90 s', effort: '3 s lowering, hard last reps' };
+    } else if (ph === 'peak') {
+      d = loaded && main
+        ? { sets: 3, reps: '3–5' + side, rest: '2 min', effort: 'Heavy, lift fast' }
+        : { sets: 2, reps: '6–8' + side, rest: '90 s', effort: 'Explosive up, controlled down' };
+    } else {
+      d = { sets: 2, reps: '5–6' + side, rest: '90 s', effort: 'Light: ~60% effort' };
+    }
+    // Under-18s: no heavy low-rep loading, technique first.
+    if (L.ageBand === 'youth' && main && /^\d/.test(d.reps) && parseInt(d.reps) < 8) { d.reps = '8–10' + side; d.effort = 'Moderate load, perfect technique'; }
+    // Older runners recover more slowly between sets.
+    if ((L.ageBand === '55' || L.ageBand === '65') && main) d.rest = ({ '60 s': '90 s', '90 s': '2 min', '2 min': '2–3 min' } as Record<string, string>)[d.rest] || d.rest;
+    if (deload) { d.sets = Math.max(1, d.sets - 1); d.effort = 'Deload: lighter, ' + d.effort.toLowerCase(); }
+    return d;
+  }
+
+  function sessionsForPhase(ph: PhaseId, p: Profile, L: Levels) {
+    const count = sessionsFor(ph, p, L);
+    const slots = SLOTS[p.len] || 6;
+    const pm = plyoMode(ph, p, L);
+    const out: { title: string; items: { e: Exercise; d: Dose }[] }[] = [];
+    for (let s = 0; s < count; s++) {
+      const tpl = TEMPLATES[ph][Math.min(s, TEMPLATES[ph].length - 1)];
+      const used = new Set<string>();
+      const items: { e: Exercise; d: Dose }[] = [];
+      for (const pat0 of tpl) {
+        if (items.length >= slots) break;
+        const pat = pat0 === 'plyo' ? pm : pat0;
+        if (!pat) continue;
+        const e = pick(pat, ph, p, L, s, used);
+        if (!e) continue;
+        used.add(e.name);
+        items.push({ e, d: dose(e, ph, p, L, false) });
+      }
+      out.push({ title: `Session ${String.fromCharCode(65 + s)}`, items });
+    }
+    return out;
+  }
+
+  // ---------- Weekly layout ----------
+  // Every day is described by its "offset" from the long-run day: 0 = long-run day,
+  // 1 = the day after it, … 6 = the day before it. With a Sunday long run, offset 1 is Monday.
+  // Strength offsets follow the Mon-rest / Wed-strength / Fri-strength rhythm of a classic
+  // marathon week: never on the long-run day (0) or the day before it (6).
+  function strengthOffsets(n: number) {
+    return n === 1 ? [3] : n === 2 ? [3, 5] : [1, 3, 5];
+  }
+
+  // ---------- Running engine ----------
+  // Longest run each goal builds towards, and the easy pace (min/km) used to turn
+  // "minutes per run" into a starting distance. Both are illustrative.
+  const PEAK_LONG: Record<Goal, number> = { '5': 8, '10': 14, '21': 21, '42': 32, ultra: 35 };
+  const PACE = 7;
+  // Which days become run days, in priority order (offsets from the long-run day):
+  // long run, medium run, easy + strides, short easy + stretching, second medium, easy.
+  const RUN_SLOTS = [0, 2, 4, 6, 5, 3];
+
+  function isDeload(phases: PhaseId[], i: number, every: number) {
+    const ph = phases[i];
+    const inPhase = phases.slice(0, i + 1).filter((x) => x === ph).length; // week number within its phase
+    return (ph === 'base' || ph === 'build') && inPhase % every === 0;
+  }
+
+  // One long-run distance (km) per week. Grows from where you are now towards the goal's
+  // peak, never by more than max(5 km, 25%) in a week, drops 25% in deload weeks, then tapers.
+  function longRuns(phases: PhaseId[], p: Profile, every: number) {
+    const peak = PEAK_LONG[p.goal];
+    const start = p.runDays === 0 ? 3 : Math.min(peak, Math.max(3, Math.round((p.runMin * 1.5) / PACE)));
+    const taperN = phases.filter((x) => x === 'taper' || x === 'hold').length;
+    const M = phases.length - taperN; // weeks before the taper
+    const out: number[] = [];
+    let top = start; // longest run reached so far
+    for (let i = 0; i < M; i++) {
+      const target = M === 1 ? peak : start + ((peak - start) * i) / (M - 1);
+      const allowed = i === 0 ? start : Math.min(target, top + Math.max(5, top * 0.25));
+      if (isDeload(phases, i, every)) { out.push(Math.max(3, Math.round(allowed * 0.75))); continue; }
+      top = Math.max(top, allowed);
+      out.push(Math.round(allowed));
+    }
+    for (let j = 0; j < taperN; j++) out.push(Math.max(3, Math.round(top * (0.8 - 0.2 * j)))); // 80%, 60%, 40% …
+    return { series: out, reached: Math.round(top), peak };
+  }
+
+  type DayItem = { k: 'long' | 'medium' | 'easy' | 'rest' | 'stretch' | 'strength' | 'race' | 'past'; t: string; sub?: string; km?: number };
+
+  // ---------- 5. Render ----------
+  let raceName = '';
+  let raceInfo = '';
+
+  function render() {
+    const p = readProfile();
+    const L = levels(p);
+    // Live labels next to the sliders
+    $('runDays-out').textContent = `${p.runDays} day${p.runDays === 1 ? '' : 's'}`;
+    $('runMin-out').textContent = `${p.runMin} min`;
+    $('strNow-out').textContent = p.strNow === 0 ? 'None' : String(p.strNow);
+    $('walk-out').textContent = `${p.walk} min`;
+
+    const plan = $('plan');
+    if (!p.raceDate) {
+      plan.innerHTML = `<div class="sd-flag info"><b>Pick a race or a date to see your plan.</b> Search T.R.E.A.D above, or enter any race date by hand.</div>`;
+      return;
+    }
+    const race = parseDate(p.raceDate);
+    const daysOut = Math.round((race.getTime() - today.getTime()) / 86400000);
+    if (daysOut < 0) {
+      plan.innerHTML = `<div class="sd-flag"><b>That date has passed.</b> Pick an upcoming race to build a plan.</div>`;
+      return;
+    }
+    // Weeks run backwards from race day, so the race is always the last day of the last week
+    // (exactly like a printed marathon chart). The first row may start a few days before today.
+    const weeks = Math.max(1, Math.ceil((daysOut + 1) / 7));
+    const weekStart = (i: number) => addDays(race, -(weeks - i) * 7 + 1);
+    const phases = buildPhases(weeks, p.goal);
+    const deloadEvery = L.ageBand === '55' || L.ageBand === '65' || L.ageBand === '40s' ? 3 : 4;
+    const lastSession = addDays(race, -LAST_SESSION_DAYS[p.goal]);
+
+    // ----- flags: honest warnings -----
+    const flags: string[] = [];
+    if (daysOut < 10) flags.push(`<b>${daysOut === 0 ? 'Race day is today.' : `Race day is ${daysOut} day${daysOut === 1 ? '' : 's'} away.`}</b> This is too close to start new strength work; anything new now risks soreness on the start line. The plan below is mobility and light activation only.`);
+    else if (weeks < MIN_WEEKS[p.goal] && L.weeklyRunH < MIN_RUN_H[p.goal]) flags.push(`<b>The timeline is tight.</b> ${weeks} weeks to a ${GOAL_LABEL[p.goal].toLowerCase()} on about ${L.weeklyRunH.toFixed(1)} hours of running a week is less than the illustrative ${MIN_WEEKS[p.goal]} weeks / ${MIN_RUN_H[p.goal]} hours this tool assumes. Strength work will help, but consider a shorter distance or a later race, and prioritise easy running.`);
+    if (L.sedentary) flags.push(`<b>You're starting from a low activity base.</b> The first two weeks use the easiest options only. If you have any heart, blood-pressure or joint condition, get a medical check before starting.`);
+    if (L.ageBand === 'youth') flags.push(`<b>Under 18:</b> the plan avoids heavy, low-rep lifting and keeps everything technique-first. Train with an adult or coach who can watch your form.`);
+    if (L.ageBand === '65') flags.push(`<b>65+:</b> jumping is replaced by balance work and difficulty is capped. Check with your doctor before starting a new programme.`);
+    if (p.niggles.length) flags.push(`<b>Niggles noted (${p.niggles.join(', ')}):</b> exercises that commonly aggravate these have been swapped out. Pain that lasts beyond a day or changes how you run is a reason to see a physiotherapist, not to push on.`);
+    if (p.gender === 'female' && p.age >= 40) flags.push(`<b>For women 40+:</b> falling oestrogen speeds up bone and muscle loss, which makes heavier lifting and some impact work more valuable, not less. If you're comfortable, build towards the heavier options in the Build phase.`);
+
+    // ----- weekly grid -----
+    const counts = Array.from(new Set(phases.map((ph) => sessionsFor(ph, p, L))));
+    const mainCount = sessionsFor(phases[0] || 'hold', p, L);
+
+    // ----- day-by-day calendar (runs + strength) -----
+    const hrMax = 220 - p.age;
+    const slowBpm = Math.round(hrMax * 0.6);
+    const medPct = L.run === 0 ? 0.7 : 0.8; // newer runners keep "medium" runs a notch easier
+    const medBpm = Math.round(hrMax * medPct);
+    const planRunDays = Math.min(6, Math.max(3, p.runDays)); // at least 3 runs, at most 6
+    const runSlots = RUN_SLOTS.slice(0, planRunDays);
+    const LR = longRuns(phases, p, deloadEvery);
+    const raceDow = (race.getDay() + 6) % 7; // 0 = Monday
+    const cols = Array.from({ length: 7 }, (_, k) => (raceDow + 1 + k) % 7); // last column = race weekday
+
+    function dayPlan(i: number, date: Date): DayItem[] {
+      if (date < today) return [{ k: 'past', t: '—' }];
+      const toRace = Math.round((race.getTime() - date.getTime()) / 86400000);
+      if (toRace === 0) return [{ k: 'race', t: `Race day · ${GOAL_LABEL[p.goal]}` }];
+      const dow = (date.getDay() + 6) % 7;
+      const o = (dow - p.longDay + 7) % 7;
+      const ph = phases[i];
+      const long = LR.series[i];
+      const med = Math.min(16, Math.max(3, Math.round(long * 0.45)));
+      const easy = Math.min(12, Math.max(3, Math.round(long * 0.3)));
+      const raceWeek = i === weeks - 1;
+      const items: DayItem[] = [];
+      const run = runSlots.includes(o);
+      const walkRun = L.run === 0 ? ' run/walk' : ' jog';
+      if (raceWeek) {
+        if (toRace === 1) items.push({ k: 'rest', t: 'Rest', sub: 'or a 2K shakeout jog' });
+        else if (toRace === 2) items.push({ k: 'easy', t: `Easy 3K${walkRun}`, sub: '+ stretching', km: 3 });
+        else if (run) items.push({ k: 'easy', t: `Easy ${Math.min(easy, 6)}K${walkRun}`, sub: o === 4 ? '+ strides 6 × 100 m' : undefined, km: Math.min(easy, 6) });
+        else items.push({ k: 'rest', t: 'Rest day' });
+      } else if (o === 0) {
+        items.push({ k: 'long', t: `Slow ${long}K`, sub: `HR ≤ ${slowBpm} bpm (60% of 220−age)`, km: long });
+      } else if (run && (o === 2 || o === 5)) {
+        items.push({ k: 'medium', t: `Medium ${med}K`, sub: `HR ≤ ${medBpm} bpm (${Math.round(medPct * 100)}% of 220−age)`, km: med });
+      } else if (run && o === 4) {
+        const strides = ph === 'base' && L.run === 0 ? undefined : `+ strides ${ph === 'taper' ? 6 : 10} × 100 m`;
+        items.push({ k: 'easy', t: `Easy ${easy}K${walkRun}`, sub: strides, km: easy });
+      } else if (run && o === 6) {
+        const e = Math.max(3, Math.round(easy * 0.7));
+        items.push({ k: 'easy', t: `Easy ${e}K${walkRun}`, sub: '+ stretching', km: e });
+      } else if (run) {
+        items.push({ k: 'easy', t: `Easy ${easy}K${walkRun}`, km: easy });
+      } else if (o === 1) {
+        items.push({ k: 'rest', t: 'Rest day', sub: 'optional 3K recovery walk/jog' });
+      } else if (o === 6) {
+        items.push({ k: 'stretch', t: 'Stretching', sub: '15 min mobility' });
+      }
+      // Strength: race week gets one light session, only if it falls on or before the cut-off date.
+      const n = raceWeek ? (ph === 'hold' ? 0 : 1) : sessionsFor(ph, p, L);
+      const so = strengthOffsets(n);
+      if (n && so.includes(o) && !(raceWeek && date > lastSession)) {
+        items.push({ k: 'strength', t: `Strength ${String.fromCharCode(65 + so.indexOf(o))}`, sub: `${PHASES[ph].label} session · ${p.len} min` });
+      }
+      if (!items.length) items.push({ k: 'rest', t: 'Rest' });
+      return items;
+    }
+
+    let calRows = '';
+    for (let i = 0; i < weeks; i++) {
+      const days = cols.map((_, k) => addDays(weekStart(i), k));
+      const plans = days.map((d) => dayPlan(i, d));
+      const km = plans.flat().reduce((a, x) => a + (x.km || 0), 0);
+      const dl = isDeload(phases, i, deloadEvery);
+      calRows += `<tr><th scope="row"><b>${i + 1}</b><span class="dot ${PHASES[phases[i]].cls}"></span>${PHASES[phases[i]].label}${dl ? '<em>deload</em>' : ''}<small>${km ? `${km} km` : ''}</small></th>${days
+        .map((d, k) => `<td class="${plans[k].some((x) => x.k === 'race') ? 'race' : ''}${plans[k][0].k === 'past' ? ' past' : ''}"><span class="dt">${fmtShort(d)}</span>${plans[k]
+          .map((x) => `<span class="it ${x.k}">${esc(x.t)}${x.sub ? `<small>${esc(x.sub)}</small>` : ''}</span>`).join('')}</td>`)
+        .join('')}</tr>`;
+    }
+    const calendar = `<div class="sd-cal-wrap"><table class="sd-cal"><thead><tr><th>Week</th>${cols.map((c) => `<th>${DAY[c]}</th>`).join('')}</tr></thead><tbody>${calRows}</tbody></table></div>`;
+    if ((p.goal === '21' || p.goal === '42' || p.goal === 'ultra') && LR.reached < LR.peak - 2 && daysOut >= 10) {
+      flags.push(`<b>Your longest run only reaches ${LR.reached}K.</b> For a ${GOAL_LABEL[p.goal].toLowerCase()} the plan aims for about ${LR.peak}K at least once, but it won't raise the long run by more than ~5 km (or 25%) a week from where you are now. A later race, or a shorter distance, would give it room.`);
+    }
+
+    // ----- phase bar and key -----
+    const segs: { ph: PhaseId; n: number; start: number }[] = [];
+    phases.forEach((ph, i) => { const last = segs[segs.length - 1]; if (last && last.ph === ph) last.n++; else segs.push({ ph, n: 1, start: i + 1 }); });
+    const bar = segs.map((s) => `<div class="${PHASES[s.ph].cls}" style="flex:${s.n}" title="${PHASES[s.ph].label}: ${s.n} wk">${s.n >= 2 || weeks < 6 ? PHASES[s.ph].label : ''}</div>`).join('');
+    const key = segs.map((s) => {
+      const ws = weekStart(s.start - 1);
+      const from = ws < today ? today : ws;
+      const to = addDays(weekStart(s.start - 1 + s.n - 1), 6);
+      return `<div style="border-color:var(--${({ base: 'blue', build: 'ink', peak: 'accent', taper: 'good', hold: 'ink-faint' } as Record<PhaseId, string>)[s.ph]})"><small>${s.n === 1 ? `Week ${s.start}` : `Weeks ${s.start}–${s.start + s.n - 1}`} · ${fmtShort(from)} – ${fmtShort(to)}</small><b>${PHASES[s.ph].label} · ${sessionsFor(s.ph, p, L)}×/week</b>${PHASES[s.ph].aim}</div>`;
+    }).join('');
+
+    // ----- sessions per phase (tabbed) -----
+    const uniquePh = segs.map((s) => s.ph).filter((ph, i, a) => a.indexOf(ph) === i);
+    const tabs = uniquePh.map((ph, i) => `<button type="button" role="tab" data-tab="${ph}" aria-selected="${i === 0}">${PHASES[ph].label}</button>`).join('');
+    const panels = uniquePh.map((ph, i) => {
+      const ss = sessionsForPhase(ph, p, L);
+      const wu = `<li class="wu"><span><span class="n">Warm-up, 5 min</span><span class="c">Brisk walk or easy jog, then leg swings, hip circles and 10 bodyweight squats.</span></span><span></span></li>`;
+      const cards = ss.map((s) => `<div class="sd-session"><h4>${s.title}</h4><p>${PHASES[ph].label} · about ${p.len} min</p><ol class="sd-ex">${wu}${s.items.map(({ e, d }) => `<li><span><span class="n">${esc(e.name)}<span class="sd-tag">${EQ_LABEL[e.eq]}</span></span><span class="c">${esc(e.cue)}</span></span><span class="d">${d.sets} × ${esc(d.reps)}<small>${esc(d.effort)} · rest ${d.rest}</small></span></li>`).join('')}</ol></div>`).join('');
+      const extra = ph === 'taper' || ph === 'hold' ? `<p class="sd-sub" style="margin-top:1rem">Last strength session no later than <b>${fmtDate(lastSession)}</b> (${LAST_SESSION_DAYS[p.goal]} days before race day).</p>` : '';
+      return `<div class="sd-phase-panel" data-panel="${ph}" ${i === 0 ? '' : 'hidden'}><h3 class="sd-h" style="margin-top:1.5rem">${PHASES[ph].label} phase</h3><p class="sd-sub">${PHASES[ph].aim}</p><div class="sd-sessions">${cards}</div>${extra}</div>`;
+    }).join('');
+
+    // ----- week-by-week table -----
+    const rows = phases.map((ph, i) => {
+      const wk = i + 1;
+      const start = weekStart(i) < today ? today : weekStart(i);
+      const inPhase = phases.slice(0, i + 1).filter((x) => x === ph).length; // week number within phase
+      const deload = isDeload(phases, i, deloadEvery);
+      const isRaceWeek = wk === weeks;
+      const n = sessionsFor(ph, p, L);
+      const focus = isRaceWeek ? `Race week: ${ph === 'hold' ? 'mobility only' : `one light session, done by ${fmtShort(lastSession)}`}` : deload ? 'Deload: one set fewer on every exercise' : ph === 'base' ? (inPhase <= 2 ? 'Learn the movements, easiest options' : 'Add reps or a little load') : ph === 'build' ? 'Add load when all sets feel clean' : ph === 'peak' ? 'Fewer sets, move fast' : 'Light and short';
+      return `<tr class="${deload ? 'dl' : ''}${isRaceWeek ? ' race' : ''}"><td>${wk}</td><td>${fmtShort(start)}</td><td><span class="dot ${PHASES[ph].cls}"></span>${PHASES[ph].label}</td><td>${isRaceWeek && ph !== 'hold' ? 1 : n}</td><td>${focus}</td></tr>`;
+    }).join('') + `<tr class="race"><td>🏁</td><td>${fmtShort(race)}</td><td colspan="3">Race day${raceName ? `: ${esc(raceName)}` : ''}</td></tr>`;
+
+    // ----- why this plan -----
+    const runLabel = ['new to running', 'a developing runner', 'an established runner', 'a high-volume runner'][L.run];
+    const why = [
+      ['Timeline', `${weeks} week${weeks === 1 ? '' : 's'} to race day, split back from the race: ${segs.map((s) => `${s.n} ${PHASES[s.ph].label.toLowerCase()}`).join(', ')}. A ${GOAL_LABEL[p.goal].toLowerCase()} gets a ${TAPER_W[p.goal]}-week taper.`],
+      ['Running load', `${p.runDays} runs × ${p.runMin} min ≈ ${L.weeklyRunH.toFixed(1)} h/week, so you're treated as ${runLabel}.${L.run === 3 ? ' Strength is capped at 2 sessions so it does not eat into run recovery.' : ''}${L.run === 0 ? ' Jumps are held back until the Build phase.' : ''}`],
+      ['Strength history', p.strNow === 0 ? 'No current strength training, so you start with the easiest version of each movement and unlock harder ones in Build.' : `${p.strNow} session${p.strNow === 1 ? '' : 's'} a week now, so level-${L.str} exercises are open from week 1.`],
+      ['Age', L.ageBand === 'youth' ? 'Under 18: no heavy low-rep work.' : L.ageBand === 'adult' ? 'Under 40: standard recovery, a deload every 4th week.' : L.ageBand === '40s' ? '40–54: a deload every 3rd week to match slower recovery.' : L.ageBand === '55' ? '55–64: deload every 3rd week and longer rests on the big lifts.' : '65+: balance replaces jumping, difficulty capped, deload every 3rd week.'],
+      ['Equipment', `${p.eq.map((e) => EQ_LABEL[e]).join(', ')}. ${p.eq.includes('gym') || p.eq.includes('db') ? 'In Build and Peak the plan picks loaded versions, because heavy work is what changes running economy.' : 'With no weights, the plan makes exercises harder through single-leg versions and slow lowering instead of load.'}`],
+      ['Time', `${p.avail} session${p.avail === 1 ? '' : 's'} a week available, ${p.len} minutes each → ${SLOTS[p.len]} exercises per session. Sessions per week by phase: ${counts.join(' / ')}.`],
+      ['Week layout', `Long run on ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][p.longDay]}, so strength goes on ${strengthOffsets(mainCount).map((o) => DAY[(p.longDay + o) % 7]).join(', ')}: never on the long-run day or the day before it. The day after the long run is a rest day.`],
+      ['Running', `You run ${p.runDays} day${p.runDays === 1 ? '' : 's'} a week now, so the calendar uses ${planRunDays} (never fewer than 3). Your long run starts at ${LR.series[0]}K (≈ ${p.runMin} min × 1.5 at ${PACE} min/km) and builds to ${LR.reached}K. Medium runs are ~45% of that week's long run, easy runs ~30%.`],
+      ['What does not change it', `Gender only adds a note for women 40+. Walking time only feeds the "low activity base" check. Everything else above moves the plan directly.`],
+    ];
+
+    plan.innerHTML = `
+      <div class="sd-head">
+        <div><h2>${raceName ? esc(raceName) : `Your ${p.goal === '5' || p.goal === '10' ? GOAL_LABEL[p.goal] : GOAL_LABEL[p.goal].toLowerCase()} plan`}</h2><p>${raceInfo ? esc(raceInfo) + ' · ' : ''}${GOAL_LABEL[p.goal]} · race day ${fmtDate(race)}</p></div>
+        <button type="button" class="btn-primary sd-print no-print" id="sd-print">Print / save as PDF</button>
+      </div>
+      <div class="sd-stats">
+        <div><span>${weeks}</span><small>Weeks to race</small></div>
+        <div><span>${mainCount}×</span><small>Strength / week now</small></div>
+        <div><span>${p.len}′</span><small>Per session</small></div>
+        <div><span>${fmtShort(lastSession)}</span><small>Last strength session</small></div>
+      </div>
+      ${flags.map((f) => `<div class="sd-flag">${f}</div>`).join('')}
+
+      <h3 class="sd-h">The phases</h3>
+      <div class="sd-phasebar">${bar}</div>
+      <div class="sd-phasekey">${key}</div>
+
+      <h3 class="sd-h">Your day-by-day calendar</h3>
+      <p class="sd-sub">Runs and strength sessions together, dated up to race day. Heart-rate caps use the simple 220 − age estimate of your maximum (${hrMax} bpm for you), which can be off by 10–15 beats either way. On days with a run and a strength session, run first and lift later, ideally 6+ hours apart.</p>
+      ${calendar}
+
+      <h3 class="sd-h">Your sessions</h3>
+      <div class="sd-tabs no-print" role="tablist">${tabs}</div>
+      ${panels}
+
+      <h3 class="sd-h">Week by week</h3>
+      <p class="sd-sub">Shaded rows are deload weeks. Progress rule: when every set of an exercise feels clean, add 1–2 reps or a little weight the next week.</p>
+      <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th>Wk</th><th>Starts</th><th>Phase</th><th>Sessions</th><th>Focus</th></tr></thead><tbody>${rows}</tbody></table></div>
+
+      <h3 class="sd-h">Why this plan looks like this</h3>
+      <p class="sd-sub">Every line below is an input you gave and the rule it triggered. Change one and watch the plan move.</p>
+      <ul class="sd-why">${why.map(([h, t]) => `<li><b>${h}</b>${t}</li>`).join('')}</ul>
+    `;
+
+    // Tab switching
+    plan.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((b) => b.addEventListener('click', () => {
+      plan.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+      plan.querySelectorAll<HTMLElement>('[data-panel]').forEach((x) => (x.hidden = x.dataset.panel !== b.dataset.tab));
+    }));
+    $('sd-print').addEventListener('click', () => window.print());
+  }
+
+  // ---------- T.R.E.A.D race picker ----------
+  let races: RaceEvent[] = [];
+  const q = $<HTMLInputElement>('race-q');
+  const results = $<HTMLUListElement>('race-results');
+
+  function chooseRace(e: RaceEvent) {
+    raceName = e.name;
+    raceInfo = [e.city, e.country !== 'India' ? e.country : ''].filter(Boolean).join(', ');
+    $<HTMLInputElement>('race-date').value = e.date;
+    const picked = $('race-picked');
+    picked.hidden = false;
+    picked.innerHTML = `<b>${esc(e.name)}</b> · ${esc(raceInfo)} · ${fmtDate(parseDate(e.date))}${e.dateTBC ? ' (date TBC)' : ''} <button type="button" id="race-clear">Clear</button>`;
+    $('race-clear').addEventListener('click', clearRace);
+    // Distance chips from the race's own categories
+    const dists = (e.distances || []).filter((k) => k >= 3).sort((a, b) => a - b);
+    const box = $('race-dists');
+    if (dists.length) {
+      box.hidden = false;
+      // Default to the longest distance that matches the chosen goal, else the race's longest distance.
+      const best = [...dists].reverse().find((k) => goalFromKm(k) === $<HTMLSelectElement>('goal').value) ?? dists[dists.length - 1];
+      box.innerHTML = 'Your distance: ' + dists.map((k) => `<button type="button" data-km="${k}" class="${k === best ? 'on' : ''}">${k}K</button>`).join('');
+      $<HTMLSelectElement>('goal').value = goalFromKm(best);
+      box.querySelectorAll<HTMLButtonElement>('button').forEach((b) => b.addEventListener('click', () => {
+        box.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
+        $<HTMLSelectElement>('goal').value = goalFromKm(parseFloat(b.dataset.km!));
+        render();
+      }));
+    } else box.hidden = true;
+    results.hidden = true;
+    q.value = '';
+    render();
+  }
+
+  function clearRace() {
+    raceName = ''; raceInfo = '';
+    $('race-picked').hidden = true;
+    $('race-dists').hidden = true;
+    render();
+  }
+
+  function search() {
+    const t = q.value.trim().toLowerCase().replace(/bangalore/g, 'bengaluru');
+    if (t.length < 2 || !races.length) { results.hidden = true; return; }
+    const norm = (x: string) => x.toLowerCase().replace(/bangalore/g, 'bengaluru');
+    // Races whose name matches come first (typing "mumbai" should surface "Tata Mumbai Marathon"
+    // ahead of every small run held in Mumbai), then races matched by city; each group by date.
+    const hits = races
+      .filter((e) => norm(`${e.name} ${e.city} ${e.country}`).includes(t))
+      .sort((a, b) => Number(!norm(a.name).includes(t)) - Number(!norm(b.name).includes(t)) || Math.max(0, ...(b.distances || [])) - Math.max(0, ...(a.distances || [])) || a.date.localeCompare(b.date))
+      .slice(0, 8);
+    results.hidden = false;
+    results.innerHTML = hits.length
+      ? hits.map((e, i) => `<li><button type="button" data-i="${i}">${esc(e.name)}<small>${fmtDate(parseDate(e.date))} · ${esc(e.city)} · ${(e.distances || []).map((k) => k + 'K').join(', ') || 'distances on race page'}</small></button></li>`).join('')
+      : `<li><button type="button" disabled>No upcoming race matches. Enter the date by hand below.</button></li>`;
+    results.querySelectorAll<HTMLButtonElement>('button[data-i]').forEach((b) => b.addEventListener('click', () => chooseRace(hits[+b.dataset.i!])));
+  }
+
+  fetch('/data/runsphere/events.json')
+    .then((r) => r.json())
+    .then((d) => {
+      races = (d.events as RaceEvent[]).filter((e) => e.discipline !== 'Virtual' && parseDate(e.date) > today).sort((a, b) => a.date.localeCompare(b.date));
+      // Arriving from T.R.E.A.D with ?race=<id> preselects that race.
+      const id = new URLSearchParams(location.search).get('race');
+      const hit = id && races.find((e) => e.id === id);
+      if (hit) chooseRace(hit);
+    })
+    .catch(() => { q.placeholder = 'Race list unavailable right now. Enter your race date below.'; });
+
+  q.addEventListener('input', search);
+  $('race-date').addEventListener('input', () => { if (raceName) clearRace(); });
+
+  // Rebuild on every change to the form
+  $('sd-form').addEventListener('input', (ev) => { if ((ev.target as HTMLElement).id !== 'race-q') render(); });
+  $('sd-form').addEventListener('change', (ev) => { if ((ev.target as HTMLElement).id !== 'race-q') render(); });
+
+  // Default date: 12 weeks out, so the page shows a plan straight away.
+  if (!$<HTMLInputElement>('race-date').value) $<HTMLInputElement>('race-date').value = isoLocal(addDays(today, 84));
+  render();
+</script>

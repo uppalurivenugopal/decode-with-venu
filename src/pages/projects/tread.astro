@@ -229,6 +229,7 @@ const bands = [
   .rs-dialog .rs-cta { display: block; text-align: center; margin-top: 1.25rem; padding: 0.75rem 1rem; font-weight: 600; }
   .rs-dialog .rs-ics { display: block; width: 100%; margin-top: 0.6rem; padding: 0.7rem 1rem; font-weight: 600; font-size: 14px; color: var(--color-fg); border: 1px solid color-mix(in srgb, var(--color-edge) 35%, transparent); }
   .rs-dialog .rs-ics:hover { border-color: var(--color-cyan-glow); color: var(--color-cyan-glow); }
+  .rs-dialog a.rs-plan { text-align: center; }
   .rs-dialog .rs-cmp { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.25rem; margin-top: 1rem; }
   .rs-dialog .rs-cmp > div { border-top: 2px solid var(--color-fg); padding-top: 0.75rem; font-size: 13.5px; }
   .rs-dialog .rs-cmp dt { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-mist-400); font-weight: 600; margin-top: 0.7rem; }
@@ -429,7 +430,8 @@ const bands = [
       <p class="text-xs text-mist-400 mt-3">Last checked ${esc(e.lastChecked || '')}. Aid stations, medical cover, cut-offs and photo policy appear only when an organiser publishes them.</p>
       <p class="text-xs mt-2" style="color:#9a5b12"><strong>Before you pay:</strong> collated from third-party sources. Verify this link is the official organiser's page before making any payment.</p>
       ${link ? `<a class="btn-primary rs-cta" href="${esc(link)}" target="_blank" rel="noopener">Go to registration / official page ↗</a>` : ''}
-      <button type="button" class="rs-ics" data-ics="${esc(e.id)}">Add to calendar (.ics)</button>`;
+      <button type="button" class="rs-ics" data-ics="${esc(e.id)}">Add to calendar (.ics)</button>
+      <a class="rs-ics rs-plan" href="/projects/stride?race=${encodeURIComponent(e.id)}">Build a strength plan for this race (S.T.R.I.D.E) →</a>`;
     $<HTMLDialogElement>('dlg-detail').showModal();
   }
 
