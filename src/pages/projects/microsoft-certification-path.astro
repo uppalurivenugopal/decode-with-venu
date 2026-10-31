@@ -1,0 +1,1025 @@
+---
+// Microsoft Certification Path Finder — a Casual Projects tool.
+// The top half is an interactive path finder (built in the browser by the
+// <script> at the bottom). The bottom half — the roadmap of every active
+// certification, the 2026 retirements table and the FAQ — is rendered here at
+// build time from the same data file, so search engines can read all of it.
+import Layout from '../../layouts/Layout.astro';
+import { PAGE, CHANGES, FAQ, CERTS, SKILLS, VALUE, PARTNER, DOMAINS } from '../../data/ms-certifications.js';
+
+// ---------- helpers used while building the page ----------
+const LEARN = 'https://learn.microsoft.com/en-us';
+// "2026-06-30" → "30 Jun 2026"
+const fmt = (iso: string) =>
+  new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+// Official links for one certification (same rules as the browser script)
+const linksFor = (c: any) => {
+  const lc = c.code.toLowerCase();
+  const study = `${LEARN}/credentials/certifications/resources/study-guides/${lc}`;
+  return {
+    learn: c.course === false ? `${LEARN}/training/browse/?terms=${encodeURIComponent(c.code)}` : `${LEARN}/training/courses/${lc}t00`,
+    exam: c.page ? `${LEARN}/credentials/certifications/${c.page}` : study,
+    study,
+  };
+};
+const levelLabel = (l: string) => (l === 'Business' ? 'Business pro' : l);
+const levelOrder = ['Fundamentals', 'Business', 'Associate', 'Specialty', 'GitHub', 'Expert'];
+
+// Certifications still open on the date the catalog was verified
+const verified = new Date(PAGE.verified + 'T00:00:00Z');
+const open = CERTS.filter((c: any) => !c.retire || new Date(c.retire + 'T23:59:59Z') >= verified);
+const byCode = Object.fromEntries(CERTS.map((c: any) => [c.code, c]));
+
+// One group per career area, ordered fundamentals → expert
+const areas = Object.entries(DOMAINS)
+  .map(([key, d]: [string, any]) => ({
+    key, ...d,
+    certs: open.filter((c: any) => c.domain === key).sort((a: any, b: any) => levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level)),
+  }))
+  .filter((a) => a.certs.length);
+
+// ---------- structured data (JSON-LD) for search engines ----------
+const url = PAGE.url;
+const fullName = (c: any) =>
+  c.domain === 'github' ? c.name : (c.domain === 'm365' ? 'Microsoft 365 Certified: ' : 'Microsoft Certified: ') + c.name;
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.decodewithvenu.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Casual Projects', item: 'https://www.decodewithvenu.com/projects' },
+      { '@type': 'ListItem', position: 3, name: 'Microsoft Certification Path Finder', item: url } ] },
+    { '@type': 'WebApplication', name: 'Microsoft Certification Path Finder', url,
+      applicationCategory: 'EducationalApplication', operatingSystem: 'Any (web browser)', isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      author: { '@type': 'Person', name: 'Venu Uppaluri', url: 'https://www.decodewithvenu.com/about' },
+      dateModified: PAGE.verified,
+      description: 'Answer five questions about your career track and interests to get a recommended Microsoft certification, a roadmap, the official skills measured, and links to learn and book the exam.' },
+    { '@type': 'ItemList', name: `Active Microsoft certifications (${PAGE.verifiedLabel})`, numberOfItems: open.length,
+      itemListElement: open.map((c: any, i: number) => ({ '@type': 'ListItem', position: i + 1, item: {
+        '@type': 'EducationalOccupationalCredential', name: fullName(c), url: `${url}#${c.code.toLowerCase()}`,
+        identifier: c.code, credentialCategory: 'Professional certification', educationalLevel: c.level,
+        recognizedBy: { '@type': 'Organization', name: 'Microsoft', url: 'https://learn.microsoft.com/credentials/' },
+        ...(SKILLS[c.code] ? { competencyRequired: SKILLS[c.code].map(([n]: [string]) => n) } : {}),
+        ...(c.retire ? { validUntil: c.retire } : {}) } })) },
+    { '@type': 'FAQPage', mainEntity: FAQ.map((f: any) => ({
+      '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
+};
+// "<\/" stops any "</script>" inside the text from closing the tag early
+const jsonldText = JSON.stringify(jsonld).replace(/<\//g, '<\\/');
+---
+
+<Layout
+  title="Microsoft Certification Path 2026: Interactive Roadmap"
+  description={`Find the right Microsoft certification in 5 questions. All ${open.length} active certifications, official skills measured, 2026 retirements and replacements, and exam booking links.`}
+  image="/images/og/microsoft-certification-path-2026.png"
+>
+  <script type="application/ld+json" set:html={jsonldText} />
+
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden border-b border-edge/5">
+    <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 pt-14 pb-12 sm:pt-20 sm:pb-14">
+      <a href="/projects" class="inline-flex items-center gap-1.5 text-xs text-mist-400 hover:text-fg transition-colors mb-6">
+        <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M9.5 6h-7M6 2.5L2.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Casual Projects
+      </a>
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">Interactive roadmap &middot; Microsoft certifications {PAGE.verified.slice(0, 4)}</p>
+      <h1 class="font-serif text-5xl sm:text-6xl font-semibold leading-[0.98] tracking-[-0.045em] text-fg">
+        Find your <span class="gradient-text">Microsoft certification</span> path.
+      </h1>
+      <p class="mt-5 max-w-2xl text-mist-400">
+        Microsoft's certification line-up changed more in 2026 than in years, and there's no single up-to-date guide to it.
+        Answer up to five questions about your track and interests and get a recommended certification: the official skills
+        it measures, why it matters to clients and to your own team, whether it earns Microsoft partner credit, and direct
+        links to learn and book the exam. Only active certifications, checked against Microsoft Learn
+        on{' '}<time datetime={PAGE.verified}>{PAGE.verifiedLabel}</time>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ THE TOOL ============ -->
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 py-10 sm:py-12">
+    <div id="cq">
+      <div class="cq-ticker" id="ticker" hidden></div>
+
+      <div class="cq-bar">
+        <div class="cq-xp" title="Earn XP as you answer">
+          <span class="cq-lvl" id="xpLevel">LVL 1</span>
+          <div class="cq-track"><div class="cq-fill" id="xpFill"></div></div>
+          <span class="cq-pts" id="xpPts">0 XP</span>
+        </div>
+        <nav class="cq-nav" aria-label="Path finder">
+          <button id="navQuest" class="on" type="button">Find my path</button>
+          <button id="navAll" type="button">Browse all</button>
+          <a href="#roadmap">Roadmap</a>
+        </nav>
+      </div>
+
+      <!-- Screen 1: start -->
+      <div class="screen active" id="scrHome">
+        <p class="eyebrow">Five questions · one recommendation</p>
+        <h2 class="cq-h">Technical or functional, specialist or generalist — start here.</h2>
+        <p class="cq-lead">You'll unlock a certification badge and a quest map of what comes next.</p>
+        <button class="btn" id="startBtn" type="button">Start the quest →</button>
+        <div class="stats" id="homeStats"></div>
+        <div class="features">
+          <div class="feature"><b>Official skills measured</b><span>Exam domains and weightings from Microsoft's study guides.</span></div>
+          <div class="feature"><b>Value for clients</b><span>What the certification lets you deliver on engagements.</span></div>
+          <div class="feature"><b>Value for internal teams</b><span>How it strengthens your own team and practice.</span></div>
+          <div class="feature"><b>Partner credit</b><span>Whether it counts toward a Solutions Partner designation.</span></div>
+        </div>
+      </div>
+
+      <!-- Screen 2: the decision tree -->
+      <div class="screen" id="scrQuiz">
+        <div class="qhead">
+          <button class="back" id="backBtn" type="button">← Back</button>
+          <div class="steps" id="steps"></div>
+        </div>
+        <h2 class="qtitle" id="qTitle"></h2>
+        <p class="qsub" id="qSub"></p>
+        <div class="options" id="qOptions"></div>
+      </div>
+
+      <!-- Screen 3: the result (filled in by the script) -->
+      <div class="screen" id="scrResult"></div>
+
+      <!-- Screen 4: browse every certification -->
+      <div class="screen" id="scrAll">
+        <h2 class="cq-h">All active certifications</h2>
+        <p class="cq-lead">Every certification here is open for exams today. Ones with a scheduled retirement are flagged.</p>
+        <div class="filters">
+          <input id="fSearch" type="search" placeholder="Search code, name or skill — e.g. AZ-104, Fabric, Copilot, DLP" />
+          <select id="fDomain"></select>
+          <select id="fLevel"></select>
+          <select id="fPartner"></select>
+          <label><input type="checkbox" id="fRetiring" /> Only retiring</label>
+        </div>
+        <div class="count" id="fCount"></div>
+        <div class="grid" id="allGrid"></div>
+      </div>
+    </div>
+    <canvas id="confetti" aria-hidden="true"></canvas>
+  </section>
+
+  <!-- ============ ROADMAP (built at build time — readable by search engines) ============ -->
+  <section id="roadmap" class="mx-auto max-w-6xl px-5 sm:px-8 pb-16">
+    <div class="border-t border-edge/15 pt-12">
+      <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow mb-4">The full roadmap</p>
+      <h2 class="font-serif text-4xl sm:text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-fg">
+        Microsoft certification roadmap {PAGE.verified.slice(0, 4)}: all {open.length} active certifications
+      </h2>
+      <p class="mt-4 max-w-2xl text-mist-400">
+        Every Microsoft certification you can still earn, grouped by career area. Open an area for each certification's
+        official skills measured, why it matters, partner credit, and links to the learning path and exam page.
+      </p>
+      <ul class="rm-toc">
+        {areas.map((a) => <li><a href={`#area-${a.key}`}>{a.label}</a></li>)}
+        <li><a href="#changes-2026">2026 retirements</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+
+      {areas.map((a) => (
+        <details class="rm-area" id={`area-${a.key}`}>
+          <summary>
+            <h3>{a.label} certifications <span class="rm-count">{a.certs.length}</span></h3>
+            <span class="rm-desc">{a.desc}</span>
+          </summary>
+          <div class="rm-grid">
+            {a.certs.map((c: any) => {
+              const L = linksFor(c);
+              const skills = SKILLS[c.code] || [];
+              const value = VALUE[c.code];
+              const partner = PARTNER[c.code];
+              return (
+                <article class:list={['rm', c.retire && 'retiring']} id={c.code.toLowerCase()}>
+                  <h4><span class="c">{c.code}</span> · {c.name}</h4>
+                  <div class="pills">
+                    <span class={`pill lv-${c.level}`}>{levelLabel(c.level)}</span>
+                    {c.retire && <span class="pill warn">Retires {fmt(c.retire)}</span>}
+                    {partner && <span class="pill partner">Partner credit</span>}
+                  </div>
+                  {c.prereq && <p><strong>Prerequisite:</strong> {c.prereq}.</p>}
+                  {c.note && <p>{c.note}</p>}
+                  {skills.length > 0 && (
+                    <>
+                      <p><strong>Skills measured:</strong></p>
+                      <ul>{skills.map(([n, w]: [string, string]) => <li>{n} ({w}%)</li>)}</ul>
+                    </>
+                  )}
+                  {value && <p><strong>Why it matters:</strong> {value.client[0]}.</p>}
+                  {partner && <p><strong>Partner credit:</strong> {partner.map((p: any) => `Solutions Partner for ${p.d} (${p.m})`).join('; ')}.</p>}
+                  <div class="links">
+                    <a href={L.learn} target="_blank" rel="noopener">Learning path</a>
+                    <a href={L.exam} target="_blank" rel="noopener">{c.page ? 'Exam page' : 'Study guide (no exam page yet)'}</a>
+                    <a href={`#open-${c.code.toLowerCase()}`}>Open in path finder</a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </details>
+      ))}
+
+      <h3 class="rm-h" id="changes-2026">Microsoft certification retirements and replacements in 2026</h3>
+      <p class="text-mist-400 max-w-2xl">From Microsoft Learn's retirement schedule. “Where to go now” is the closest active certification; where Microsoft hasn't named one, we say so.</p>
+      <div class="rm-table-wrap">
+        <table class="rm-table">
+          <thead><tr><th>Exam</th><th>Certification</th><th>Retires / retired</th><th>Where to go now</th></tr></thead>
+          <tbody>
+            {CHANGES.map((ch: any) => (
+              <tr>
+                <td>{ch.old}</td>
+                <td>{ch.name}</td>
+                <td>{ch.upcoming ? '⚠ ' : ''}{fmt(ch.date)}</td>
+                <td>{ch.next && byCode[ch.next]
+                  ? <a href={`#${ch.next.toLowerCase()}`}>{ch.next} · {byCode[ch.next].name}</a>
+                  : 'No direct replacement named'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="rm-h" id="faq">Frequently asked questions</h3>
+      <div class="rm-faq">
+        {FAQ.map((f: any) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+
+      <p class="rm-note">
+        Sources: certification and exam pages, study guides and the retirement schedule on
+        <a href="https://learn.microsoft.com/en-us/credentials/" target="_blank" rel="noopener">Microsoft Learn</a>, and the
+        <a href="https://learn.microsoft.com/en-us/partner-center/membership/solutions-partner" target="_blank" rel="noopener">Solutions Partner</a>
+        pages in Microsoft Partner Center. “Value” notes are practitioner perspective, not Microsoft statements.
+        Always confirm on the official exam page before booking. Not affiliated with Microsoft.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+  /* =====================================================================
+     Styles for the path finder (#cq) and the roadmap (#roadmap).
+     Every colour maps onto the site's --color-* tokens (global.css), so a
+     brand palette change re-themes this page automatically. House rules from
+     AGENTS.md: flat, square corners, top-border cards, no gradients.
+     ===================================================================== */
+  #cq, #roadmap {
+    --ink: var(--color-fg);
+    --text: var(--color-mist-200);
+    --muted: var(--color-mist-400);
+    --muted-2: var(--color-mist-300);
+    --rule: color-mix(in srgb, var(--color-edge) 15%, transparent);
+    --rule-strong: color-mix(in srgb, var(--color-edge) 30%, transparent);
+    --tint: color-mix(in srgb, var(--color-edge) 4%, transparent);
+    --accent: var(--color-cyan-glow);          /* brick/rust */
+    --steel: var(--color-indigo-glow);         /* muted slate blue */
+    /* Certification-level colours: deep tones that read on cream */
+    --lv-fund: #2f7d5b;
+    --lv-assoc: var(--color-indigo-glow);
+    --lv-expert: #6b3f7d;
+    --lv-spec: #a65a1c;
+    --lv-biz: #1f6f6b;
+    --lv-gh: #4b4a8a;
+    --warn: #8a5a00;
+    --warn-tint: color-mix(in srgb, #b0780a 10%, transparent);
+    font-family: var(--font-sans);
+    color: var(--text);
+  }
+  #cq *, #roadmap * { box-sizing: border-box; }
+  #cq h2, #cq h3, #cq h4, #roadmap h3, #roadmap h4 { font-family: var(--font-serif); color: var(--ink); font-weight: 600; letter-spacing: -0.02em; }
+  #cq a, #roadmap a { color: var(--steel); text-underline-offset: 3px; }
+  /* Tailwind's reset removes list bullets; put them back inside the tool */
+  #cq ul, #roadmap ul:not(.rm-toc) { list-style: disc; }
+
+  /* Small rust uppercase labels — the site's eyebrow style */
+  #cq .eyebrow, #cq .action .tag, #cq .here-tag, #cq .fact small {
+    font-family: var(--font-sans); font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+  }
+
+  /* ---------- retirement ticker ---------- */
+  #cq .cq-ticker { border-top: 2px solid var(--warn); background: var(--warn-tint); color: var(--warn); padding: 10px 14px; font-size: 14px; margin-bottom: 18px; }
+  #cq .cq-ticker b { color: #6b4a00; }
+  #cq .cq-ticker button { background: none; border: 0; color: #6b4a00; text-decoration: underline; cursor: pointer; font: inherit; padding: 0 0 0 6px; }
+
+  /* ---------- top bar: XP + screen buttons ---------- */
+  #cq .cq-bar { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--rule); margin-bottom: 28px; }
+  #cq .cq-xp { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px; max-width: 360px; }
+  #cq .cq-lvl { font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #fff; background: var(--ink); padding: 4px 8px; white-space: nowrap; }
+  #cq .cq-track { flex: 1; height: 6px; background: var(--rule); overflow: hidden; }
+  #cq .cq-fill { height: 100%; width: 0%; background: var(--accent); transition: width .6s ease; }
+  #cq .cq-pts { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  #cq .cq-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+  #cq .cq-nav button, #cq .cq-nav a {
+    background: transparent; color: var(--ink); border: 1px solid var(--rule-strong); padding: 7px 14px;
+    font: 600 14px var(--font-sans); cursor: pointer; text-decoration: none; transition: border-color .2s, background-color .2s;
+  }
+  #cq .cq-nav button:hover, #cq .cq-nav a:hover { border-color: var(--accent); }
+  #cq .cq-nav button.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  /* ---------- screens ---------- */
+  #cq .screen { display: none; animation: cq-rise .4s ease; }
+  #cq .screen.active { display: block; }
+  @keyframes cq-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  #cq .cq-h { font-size: clamp(26px, 3.4vw, 34px); line-height: 1.12; margin: 10px 0 8px; max-width: 760px; }
+  #cq .cq-lead { color: var(--muted); margin: 0 0 22px; max-width: 680px; }
+
+  /* Primary and outline buttons (site's .btn-primary look) */
+  #cq .btn {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none;
+    background: var(--ink); color: #fff; border: 1px solid var(--ink); font: 600 15px var(--font-sans); padding: 13px 22px;
+    transition: background-color .2s, border-color .2s;
+  }
+  #cq .btn:hover { background: var(--accent); border-color: var(--accent); }
+  #cq .btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule-strong); }
+  #cq .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Stats + feature row on the start screen */
+  #cq .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0 24px; margin-top: 34px; }
+  #cq .stat { border-top: 1px solid var(--rule); padding: 14px 0; }
+  #cq .stat b { display: block; font: 600 30px var(--font-serif); color: var(--ink); line-height: 1.1; }
+  #cq .stat span { color: var(--muted); font-size: 13.5px; }
+  #cq .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0 24px; margin-top: 18px; }
+  #cq .feature { border-top: 1px solid var(--rule); padding: 14px 0; }
+  #cq .feature b { display: block; font: 600 16px var(--font-serif); color: var(--ink); margin-bottom: 2px; }
+  #cq .feature span { color: var(--muted); font-size: 14px; }
+
+  /* ---------- questions ---------- */
+  #cq .qhead { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+  #cq .steps { display: flex; gap: 5px; }
+  #cq .steps i { width: 30px; height: 3px; background: var(--rule); display: block; }
+  #cq .steps i.done { background: var(--accent); }
+  #cq .qtitle { font-size: clamp(24px, 3.2vw, 32px); margin: 8px 0 4px; }
+  #cq .qsub { color: var(--muted); margin: 0 0 22px; }
+  #cq .back { background: none; border: 0; color: var(--muted); cursor: pointer; font: 500 14px var(--font-sans); padding: 4px 0; }
+  #cq .back:hover { color: var(--ink); }
+  #cq .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 24px; }
+  #cq .opt {
+    text-align: left; background: transparent; color: var(--text); border: 0; border-top: 1px solid var(--rule);
+    padding: 18px 8px 20px; cursor: pointer; font: inherit; display: flex; gap: 14px; align-items: flex-start;
+    transition: border-color .2s, background-color .2s;
+  }
+  #cq .opt:hover, #cq .opt:focus-visible { border-top-color: var(--accent); background: color-mix(in srgb, var(--accent) 4%, transparent); outline: none; }
+  #cq .opt .ico { font-size: 24px; line-height: 1.1; }
+  #cq .opt h4 { margin: 0 0 4px; font-size: 18px; }
+  #cq .opt:hover h4 { color: var(--accent); }
+  #cq .opt p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  #cq .xp-pop, .xp-pop { position: fixed; pointer-events: none; font: 700 16px var(--font-sans); color: var(--color-cyan-glow); animation: cq-pop .9s ease forwards; z-index: 50; }
+  @keyframes cq-pop { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-46px); } }
+
+  /* ---------- pills ---------- */
+  #cq .pill, #roadmap .pill {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; letter-spacing: .04em;
+    padding: 2px 8px; border: 1px solid currentColor; white-space: nowrap;
+  }
+  #cq .pills, #roadmap .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .lv-Fundamentals { color: var(--lv-fund); }
+  .lv-Associate { color: var(--lv-assoc); }
+  .lv-Expert { color: var(--lv-expert); }
+  .lv-Specialty { color: var(--lv-spec); }
+  .lv-Business { color: var(--lv-biz); }
+  .lv-GitHub { color: var(--lv-gh); }
+  #cq .pill.warn, #roadmap .pill.warn { color: var(--warn); background: var(--warn-tint); }
+  #cq .pill.danger { color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  #cq .pill.info { color: var(--muted); }
+  #cq .pill.partner, #roadmap .pill.partner { color: var(--accent); }
+
+  /* ---------- result ---------- */
+  #cq .result-top { display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: center; }
+  @media (max-width: 720px) { #cq .result-top { grid-template-columns: 1fr; } }
+  #cq .badge-wrap { display: flex; justify-content: center; }
+  #cq .badge {
+    width: 170px; height: 192px; position: relative; display: grid; place-items: center;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    background: var(--lvcol, var(--ink)); animation: cq-unlock .8s cubic-bezier(.2,1.4,.4,1) both;
+  }
+  #cq .badge::after { content: ""; position: absolute; inset: 5px; background: var(--color-ink-900); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+  #cq .badge .inner { position: relative; z-index: 1; text-align: center; }
+  #cq .badge .code { font: 600 32px var(--font-serif); color: var(--ink); letter-spacing: -0.02em; }
+  #cq .badge .lvl { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--lvcol); font-weight: 700; }
+  @keyframes cq-unlock { from { transform: scale(.4) rotate(-20deg); opacity: 0; } to { transform: none; opacity: 1; } }
+  #cq .result-top h2 { font-size: clamp(26px, 3.4vw, 36px); line-height: 1.1; margin: 8px 0 8px; }
+  #cq .why { color: var(--muted); margin: 0 0 12px; }
+
+  #cq .alert { margin-top: 12px; border-top: 2px solid var(--warn); background: var(--warn-tint); color: #6b4a00; padding: 10px 14px; font-size: 14.5px; }
+  #cq .alert.danger { border-top-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, transparent); color: #7a2e23; }
+  #cq .alert.info { border-top-color: var(--steel); background: color-mix(in srgb, var(--steel) 7%, transparent); color: #23435a; }
+
+  #cq .jump { display: flex; gap: 6px 18px; flex-wrap: wrap; margin: 30px 0 0; padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  #cq .jump a { color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 600; }
+  #cq .jump a:hover { color: var(--accent); }
+
+  #cq h3.sec { font-size: 24px; margin: 40px 0 4px; scroll-margin-top: 24px; }
+  #cq .sec-sub { color: var(--muted); margin: 0 0 14px; font-size: 15px; }
+  #cq .src { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+  #cq .src a { color: var(--muted); }
+
+  #cq .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 24px; margin-top: 10px; }
+  #cq .action { display: block; text-decoration: none; color: var(--text); border-top: 2px solid var(--ink); padding: 16px 4px 18px; transition: border-color .2s, background-color .2s; }
+  #cq .action:hover { border-top-color: var(--accent); background: color-mix(in srgb, var(--accent) 3%, transparent); }
+  #cq .action h4 { margin: 6px 0 4px; font-size: 20px; }
+  #cq .action p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  #cq .action .go { margin-top: 10px; font-weight: 600; font-size: 14.5px; color: var(--accent); }
+  #cq .minor-links { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  #cq .minor-links a { margin-right: 14px; }
+
+  #cq .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 24px; }
+  #cq .fact { border-top: 1px solid var(--rule); padding: 12px 0; }
+  #cq .fact small { display: block; margin-bottom: 4px; font-size: 11px; }
+  #cq .fact span { font-size: 15px; }
+
+  #cq .skill { border-top: 1px solid var(--rule); }
+  #cq .skill:last-of-type { border-bottom: 1px solid var(--rule); }
+  #cq .skill summary { list-style: none; cursor: pointer; padding: 13px 4px; display: grid; grid-template-columns: 1fr 150px; gap: 14px; align-items: center; }
+  #cq .skill summary::-webkit-details-marker { display: none; }
+  #cq .skill summary .nm { font-weight: 600; color: var(--ink); }
+  #cq .skill summary .nm::before { content: "+ "; color: var(--accent); }
+  #cq .skill[open] summary .nm::before { content: "– "; }
+  #cq .wbar { display: flex; align-items: center; gap: 8px; }
+  #cq .wbar .track, #cq .wbar .w { display: block; }
+  #cq .wbar .track { flex: 1; height: 6px; background: var(--rule); overflow: hidden; }
+  #cq .wbar .w { height: 100%; background: var(--ink); }
+  #cq .wbar em { font-style: normal; font-size: 13px; color: var(--muted); white-space: nowrap; min-width: 54px; text-align: right; }
+  #cq .skill ul { margin: 0; padding: 0 16px 14px 34px; color: var(--muted-2); font-size: 14.5px; }
+  #cq .skill li { margin: 3px 0; }
+  @media (max-width: 560px) { #cq .skill summary { grid-template-columns: 1fr; } }
+
+  #cq .value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0 24px; }
+  #cq .value { border-top: 2px solid var(--vcol); padding: 14px 4px; }
+  #cq .value.client { --vcol: var(--steel); }
+  #cq .value.team { --vcol: var(--accent); }
+  #cq .value h4 { margin: 0 0 8px; font-size: 19px; }
+  #cq .value ul { margin: 0; padding-left: 20px; }
+  #cq .value li { margin: 6px 0; font-size: 15px; }
+
+  #cq .partner-box { border-top: 2px solid var(--accent); padding: 4px 4px 0; }
+  #cq .partner-row { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  #cq .partner-row b { display: block; font-size: 15.5px; }
+  #cq .partner-row b a { color: var(--ink) !important; }
+  #cq .partner-row span { color: var(--muted); font-size: 14px; }
+  #cq .ptype { flex: 0 0 auto; font-size: 11px; font-weight: 700; letter-spacing: .08em; padding: 3px 7px; margin-top: 2px; }
+  #cq .ptype.points { background: color-mix(in srgb, var(--lv-fund) 12%, transparent); color: var(--lv-fund); }
+  #cq .ptype.gate { background: color-mix(in srgb, var(--steel) 12%, transparent); color: var(--steel); }
+  #cq .partner-none { color: var(--muted); margin: 10px 0; }
+
+  #cq .road { display: flex; overflow-x: auto; padding: 4px 0 12px; }
+  #cq .node { display: flex; align-items: center; flex: 0 0 auto; }
+  #cq .node .card {
+    width: 210px; background: transparent; border: 0; border-top: 2px solid var(--rule-strong); padding: 12px 8px 14px;
+    cursor: pointer; text-align: left; color: var(--text); font: inherit; transition: border-color .2s, background-color .2s;
+  }
+  #cq .node .card:hover { border-top-color: var(--accent); }
+  #cq .node .card.here { border-top: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 5%, transparent); }
+  #cq .node .card b { font: 600 19px var(--font-serif); color: var(--ink); display: block; }
+  #cq .node .card span.n { display: block; font-size: 13.5px; color: var(--muted); margin: 4px 0 8px; min-height: 38px; }
+  #cq .node .card .pill { white-space: normal; }
+  #cq .node .arrow { width: 30px; text-align: center; color: var(--muted); }
+  #cq .here-tag { display: block; margin-bottom: 4px; font-size: 11px; }
+
+  #cq .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0 24px; }
+  #cq .cert {
+    background: transparent; border: 0; border-top: 1px solid var(--rule); padding: 16px 4px 18px; cursor: pointer;
+    text-align: left; color: var(--text); font: inherit; display: flex; flex-direction: column; gap: 6px;
+    transition: border-color .2s, background-color .2s;
+  }
+  #cq .cert:hover { border-top-color: var(--accent); background: color-mix(in srgb, var(--accent) 3%, transparent); }
+  #cq .cert.retiring { border-top: 2px solid var(--warn); }
+  #cq .cert .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  #cq .cert b { font: 600 20px var(--font-serif); color: var(--ink); }
+  #cq .cert .n { font-size: 14.5px; color: var(--muted); }
+
+  #cq .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 18px; align-items: center; }
+  #cq .filters input[type=search], #cq .filters select {
+    background: var(--color-ink-900); color: var(--text); border: 1px solid var(--rule-strong); border-radius: 0;
+    padding: 9px 11px; font: 15px var(--font-sans);
+  }
+  #cq .filters input[type=search] { flex: 1; min-width: 220px; }
+  #cq .filters input:focus, #cq .filters select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #cq .filters label { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; cursor: pointer; }
+  #cq .count { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+
+  #confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 40; }
+
+  /* ---------- roadmap ---------- */
+  #roadmap .rm-toc { list-style: none; padding: 0; margin: 26px 0 26px; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  #roadmap .rm-toc a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14.5px; border-bottom: 1px solid var(--rule-strong); }
+  #roadmap .rm-toc a:hover { color: var(--accent); border-color: var(--accent); }
+  #roadmap .rm-area { border-top: 1px solid var(--rule); scroll-margin-top: 20px; }
+  #roadmap .rm-area:last-of-type { border-bottom: 1px solid var(--rule); }
+  #roadmap .rm-area > summary { list-style: none; cursor: pointer; padding: 18px 4px; }
+  #roadmap .rm-area > summary::-webkit-details-marker { display: none; }
+  #roadmap .rm-area > summary h3 { margin: 0; font-size: 22px; display: flex; align-items: center; gap: 10px; }
+  #roadmap .rm-area > summary h3::after { content: "+"; margin-left: auto; font: 400 26px var(--font-sans); color: var(--accent); }
+  #roadmap .rm-area[open] > summary h3::after { content: "–"; }
+  #roadmap .rm-area > summary:hover h3 { color: var(--accent); }
+  #roadmap .rm-desc { display: block; color: var(--muted); font-size: 14.5px; margin-top: 3px; }
+  #roadmap .rm-count { font: 700 12px var(--font-sans); color: var(--accent); border: 1px solid currentColor; padding: 1px 7px; letter-spacing: .04em; }
+  #roadmap .rm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 28px; padding-bottom: 18px; }
+  #roadmap .rm { border-top: 1px solid var(--rule); padding: 16px 4px; scroll-margin-top: 20px; }
+  #roadmap .rm.retiring { border-top: 2px solid var(--warn); }
+  #roadmap .rm h4 { margin: 0 0 8px; font-size: 18px; }
+  #roadmap .rm h4 .c { color: var(--accent); }
+  #roadmap .rm p { margin: 8px 0; font-size: 14.5px; color: var(--muted-2); }
+  #roadmap .rm ul { margin: 4px 0 8px; padding-left: 18px; font-size: 14px; color: var(--muted-2); }
+  #roadmap .rm li { margin: 2px 0; }
+  #roadmap .rm .links { display: flex; gap: 6px 14px; flex-wrap: wrap; font-size: 14px; margin-top: 10px; }
+  #roadmap .rm-h { font-size: 28px; margin: 54px 0 8px; scroll-margin-top: 20px; }
+  #roadmap .rm-table-wrap { overflow-x: auto; margin-top: 18px; }
+  #roadmap .rm-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  #roadmap .rm-table th, #roadmap .rm-table td { text-align: left; padding: 11px 10px; border-top: 1px solid var(--rule); vertical-align: top; }
+  #roadmap .rm-table th { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); border-top: 2px solid var(--ink); }
+  #roadmap .rm-faq details { border-top: 1px solid var(--rule); }
+  #roadmap .rm-faq details:last-child { border-bottom: 1px solid var(--rule); }
+  #roadmap .rm-faq summary { cursor: pointer; padding: 14px 4px; font-weight: 600; color: var(--ink); list-style: none; }
+  #roadmap .rm-faq summary::-webkit-details-marker { display: none; }
+  #roadmap .rm-faq summary::before { content: "+ "; color: var(--accent); }
+  #roadmap .rm-faq details[open] summary::before { content: "– "; }
+  #roadmap .rm-faq p { margin: 0 4px 16px; color: var(--muted-2); max-width: 760px; }
+  #roadmap .rm-note { margin-top: 34px; font-size: 13.5px; color: var(--muted); max-width: 760px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #cq *, #roadmap * { animation: none !important; transition: none !important; }
+  }
+  /* Printing gives a clean poster of the roadmap only */
+  @media print {
+    #cq, #confetti, #roadmap .rm-toc, #roadmap .rm .links { display: none !important; }
+    #roadmap .rm, #roadmap .rm-table tr { break-inside: avoid; }
+  }
+</style>
+
+<script>
+  // ===================================================================
+  // Microsoft Certification Path Finder — browser logic.
+  // Astro bundles this <script> (it isn't is:inline), so it can import the
+  // same data file the page uses at build time.
+  // ===================================================================
+  import { CERTS, SKILLS, VALUE, PARTNER, PARTNER_LINKS, DOMAINS, ROLES } from "../../data/ms-certifications.js";
+
+/* A7. QUESTIONS — the decision tree. options(answers) returns the choices,
+   so later questions can depend on earlier answers. A question with only
+   one possible option is answered automatically and skipped.           */
+const QUESTIONS = [
+  { key: "track", title: "Which track describes you best?", sub: "This shapes everything that follows.",
+    options: () => [
+      { value: "technical",  icon: "🛠️", label: "Technical", desc: "I build, configure, code, secure or administer systems." },
+      { value: "functional", icon: "🧩", label: "Functional", desc: "I translate business processes into solutions — consultant, analyst, product owner." },
+      { value: "business",   icon: "📣", label: "Business / leadership", desc: "I use technology or lead teams and strategy rather than implement it." },
+    ] },
+  { key: "domain", title: "Which area excites you most?", sub: "Pick the world you want to be known for.",
+    options: (a) => Object.entries(DOMAINS).filter(([, d]) => d.tracks.includes(a.track))
+      .map(([value, d]) => ({ value, icon: d.icon, label: d.label, desc: d.desc })) },
+  { key: "depth", title: "Go broad or go deep?", sub: "Generalists cover the whole area; specialists own one niche.",
+    options: (a) => {
+      const depths = new Set(rolesFor(a.track, a.domain).map(r => r.depth));   // depths that exist here
+      return [
+        { value: "broad", icon: "🌍", label: "Broad — generalist", desc: "A widely recognised path that covers the whole area." },
+        { value: "deep",  icon: "🎯", label: "Deep — specialist", desc: "A focused niche that sets you apart." },
+      ].filter(o => depths.has(o.value));
+    } },
+  { key: "role", title: "Which role do you see yourself in?", sub: "Your recommended certification comes from this choice.",
+    options: (a) => {
+      let list = rolesFor(a.track, a.domain);
+      const narrowed = list.filter(r => r.depth === a.depth);
+      if (narrowed.length) list = narrowed;
+      return list.map(r => ({ value: r.id, icon: r.icon, label: r.label, desc: r.desc, ladder: r.ladder }));
+    } },
+  { key: "exp", title: "How much hands-on experience do you have here?", sub: "We'll pick the right rung of the ladder for you.",
+    options: (a) => {
+      const role = ROLES.find(r => r.id === a.role);
+      if (!role || role.ladder.length < 2) return [{ value: "new", label: "—" }];
+      return [
+        { value: "new",  icon: "🌱", label: "New to it", desc: "Under a year, or switching careers." },
+        { value: "some", icon: "🌿", label: "Some experience", desc: "1–3 years of hands-on work." },
+        { value: "pro",  icon: "🌳", label: "Seasoned", desc: "3+ years; I lead or design solutions." },
+      ];
+    } },
+];
+
+
+
+
+/* =====================================================================
+   PART B — THE LOGIC
+   ===================================================================== */
+
+const TODAY = new Date();          // used to count down to retirements
+const DAY_MS = 86400000;           // milliseconds in one day
+const LEARN = "https://learn.microsoft.com/en-us";
+const CERT_BY_CODE = Object.fromEntries(CERTS.map(c => [c.code, c]));   // quick lookup by code
+
+let answers = {};     // the person's answers so far
+let qIndex = 0;       // which question we're on
+let trail = [];       // past answers, for the Back button (not "history": that name is the browser's)
+let xp = 0;           // gamification points
+
+/* ---------- Helpers ---------- */
+function $(id) { return document.getElementById(id); }
+function rolesFor(track, domain) { return ROLES.filter(r => r.domain === domain && r.tracks.includes(track)); }
+
+// Whole days until retirement (null if none). The retirement day itself still counts as open.
+function daysLeft(cert) {
+  if (!cert.retire) return null;
+  return Math.ceil((new Date(cert.retire + "T23:59:59") - TODAY) / DAY_MS);
+}
+function isOpen(cert) { const d = daysLeft(cert); return d === null || d >= 0; }
+function fmtDate(iso) { return new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); }
+function esc(s) { return String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch])); }
+function levelLabel(l) { return l === "Business" ? "Business pro" : l; }
+
+// Build all links for one certification
+function linksFor(cert) {
+  const lc = cert.code.toLowerCase();
+  const study = `${LEARN}/credentials/certifications/resources/study-guides/${lc}`;
+  return {
+    // Official course page (holds the self-paced learning paths); search page as fallback
+    learn: cert.course === false ? `${LEARN}/training/browse/?terms=${encodeURIComponent(cert.code)}` : `${LEARN}/training/courses/${lc}t00`,
+    // Official page with the "Schedule exam" button; study guide if no page exists yet
+    exam: cert.page ? `${LEARN}/credentials/certifications/${cert.page}` : study,
+    study,
+    practice: `${LEARN}/credentials/certifications/practice-assessments-for-microsoft-certifications`,
+    pearson: "https://home.pearsonvue.com/microsoft",
+  };
+}
+
+// Status pills: level, retirement countdown, partner credit
+function pillsFor(cert) {
+  let html = `<span class="pill lv-${cert.level}">${levelLabel(cert.level)}</span>`;
+  const d = daysLeft(cert);
+  if (d !== null && d >= 0) html += ` <span class="pill ${d <= 30 ? "danger" : "warn"}">⚠ Retires ${fmtDate(cert.retire)} · ${d} day${d === 1 ? "" : "s"} left</span>`;
+  if (PARTNER[cert.code]) html += ` <span class="pill partner">Partner credit</span>`;
+  return html;
+}
+
+// Middle of a range like "25–30" → 27.5 (used for bar length)
+function midWeight(range) { const [a, b] = range.split("–").map(Number); return (a + b) / 2; }
+
+/* ---------- Screens ---------- */
+function show(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.toggle("active", s.id === id));
+  $("navQuest").classList.toggle("on", id !== "scrAll");
+  $("navAll").classList.toggle("on", id === "scrAll");
+  const top = $("cq").getBoundingClientRect().top + window.scrollY - 16;
+  if (window.scrollY > top) window.scrollTo({ top });   // only scroll up to the tool if we're below it
+}
+
+/* ---------- XP ---------- */
+function addXP(amount, x, y) {
+  xp += amount;
+  $("xpLevel").textContent = `LVL ${Math.floor(xp / 100) + 1}`;   // 100 XP per level
+  $("xpFill").style.width = (xp % 100) + "%";
+  $("xpPts").textContent = `${xp} XP`;
+  if (x !== undefined) {
+    const pop = document.createElement("div");
+    pop.className = "xp-pop"; pop.textContent = `+${amount} XP`;
+    pop.style.left = x + "px"; pop.style.top = y + "px";
+    document.body.appendChild(pop);
+    setTimeout(() => pop.remove(), 900);
+  }
+}
+
+/* ---------- Decision tree ---------- */
+function startQuest() { answers = {}; qIndex = 0; trail = []; show("scrQuiz"); renderQuestion(); }
+
+function renderQuestion() {
+  if (qIndex >= QUESTIONS.length) { renderResult(); return; }
+  const q = QUESTIONS[qIndex];
+  const opts = q.options(answers);
+  if (opts.length === 1) { answers[q.key] = opts[0].value; qIndex++; renderQuestion(); return; }   // auto-skip
+
+  $("steps").innerHTML = QUESTIONS.map((_, i) => `<i class="${i < qIndex ? "done" : ""}"></i>`).join("");
+  $("backBtn").style.visibility = trail.length ? "visible" : "hidden";
+  $("qTitle").textContent = q.title;
+  $("qSub").textContent = q.sub;
+  $("qOptions").innerHTML = opts.map(o => {
+    const hint = o.ladder ? `<div class="pill info" style="margin-top:8px;white-space:normal">Path: ${o.ladder.join(" → ")}</div>` : "";
+    return `<button class="opt" type="button" data-v="${esc(o.value)}">
+              <span class="ico">${o.icon || ""}</span>
+              <span><h4>${esc(o.label)}</h4><p>${esc(o.desc || "")}</p>${hint}</span>
+            </button>`;
+  }).join("");
+  $("qOptions").querySelectorAll(".opt").forEach(btn => btn.addEventListener("click", (e) => {
+    trail.push({ qIndex, answers: { ...answers } });     // remember for Back
+    answers[q.key] = btn.dataset.v;
+    addXP(20, e.clientX, e.clientY);
+    qIndex++;
+    renderQuestion();
+  }));
+}
+function goBack() { const prev = trail.pop(); if (!prev) return; qIndex = prev.qIndex; answers = prev.answers; renderQuestion(); }
+
+// Pick the ladder rung by experience (skipping anything already retired)
+function pickFromLadder(ladder, exp) {
+  const open = ladder.filter(code => CERT_BY_CODE[code] && isOpen(CERT_BY_CODE[code]));
+  if (!open.length) return null;
+  let i = 0;
+  if (exp === "some") i = Math.min(1, open.length - 1);
+  if (exp === "pro") i = open.length - 1;
+  return open[i];
+}
+
+/* ---------- Result sections (each returns HTML) ---------- */
+
+// Quick facts: job roles, renewal, prerequisite, exam weighting summary
+function factsHtml(cert) {
+  const facts = [];
+  facts.push(["Job roles (Microsoft)", cert.roles ? esc(cert.roles) : "Not listed on the certification page"]);
+  // Microsoft's study guides state: associate, expert and specialty certifications
+  // expire annually and renew via a free online assessment.
+  const annual = cert.renew || ["Associate", "Expert", "Specialty"].includes(cert.level);
+  facts.push(["Renewal", annual ? "Every 12 months — free online renewal assessment" :
+    (cert.level === "Fundamentals" ? "Fundamentals certifications don't expire" : "See the certification page")]);
+  facts.push(["Prerequisite", cert.prereq ? esc(cert.prereq) : "None required"]);
+  return `<div class="facts">${facts.map(([k, v]) => `<div class="fact"><small>${k}</small><span>${v}</span></div>`).join("")}</div>`;
+}
+
+// Skills you'll gain: one expandable row per official exam domain
+function skillsHtml(cert, L) {
+  const s = SKILLS[cert.code];
+  if (!s) return `<p class="partner-none">Skills outline not available yet — see the study guide.</p>`;
+  const max = Math.max(...s.map(([, w]) => midWeight(w)));          // scale bars to the biggest domain
+  const rows = s.map(([name, w, subs], i) => `
+    <details class="skill"${i === 0 ? " open" : ""}>
+      <summary>
+        <span class="nm">${esc(name)}</span>
+        <span class="wbar"><span class="track"><span class="w" style="width:${(midWeight(w) / max * 100).toFixed(0)}%"></span></span><em>${w}%</em></span>
+      </summary>
+      ${subs.length ? `<ul>${subs.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : `<ul><li>See the study guide for detailed tasks.</li></ul>`}
+    </details>`).join("");
+  return rows + `<div class="src">Source: <a href="${L.study}" target="_blank" rel="noopener">Microsoft Learn study guide for ${cert.code}</a> · % = share of exam questions.</div>`;
+}
+
+// Value for clients and for internal teams
+function valueHtml(cert) {
+  const v = VALUE[cert.code];
+  if (!v) return "";
+  const list = (arr) => `<ul>${arr.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  return `<div class="value-grid">
+      <div class="value client"><h4>For clients</h4>${list(v.client)}</div>
+      <div class="value team"><h4>For internal teams</h4>${list(v.team)}</div>
+    </div>
+    <div class="src">Practitioner perspective based on the skills measured — not a Microsoft statement.</div>`;
+}
+
+// Partner & practice value
+function partnerHtml(cert) {
+  const p = PARTNER[cert.code];
+  if (!p) return `<div class="partner-box"><p class="partner-none">Not currently listed in the skilling requirements of Microsoft's six Solutions Partner designations (checked Oct 2026). It still builds capability — it just doesn't add partner points today.</p></div>`;
+  const rows = p.map(x => `
+    <div class="partner-row">
+      <span class="ptype ${x.t}">${x.t === "points" ? "EARNS POINTS" : "REQUIRED STEP"}</span>
+      <div><b><a href="${PARTNER_LINKS[x.d]}" target="_blank" rel="noopener" style="color:inherit">Solutions Partner for ${esc(x.d)}</a></b><span>${esc(x.m)}</span></div>
+    </div>`).join("");
+  return `<div class="partner-box">${rows}</div>
+    <div class="src">“Required step” certifications don't score on their own but must be in place before other certifications earn points. Each person counts once per metric. Source: Microsoft Partner Center Solutions Partner pages.</div>`;
+}
+
+/* ---------- The result screen ---------- */
+function renderResult(pickedCode) {
+  const role = ROLES.find(r => r.id === answers.role);
+  const code = pickedCode || pickFromLadder(role.ladder, answers.exp);
+  const cert = CERT_BY_CODE[code];
+  const L = linksFor(cert);
+  const lvcol = { Fundamentals: "var(--good)", Associate: "var(--assoc)", Expert: "var(--expert)", Specialty: "var(--spec)", Business: "var(--biz)", GitHub: "var(--gh)" }[cert.level];
+
+  const expText = role.ladder.length < 2 ? "it is the core certification for that role"
+    : ({ new: "you're starting out", some: "you already have hands-on experience", pro: "you're seasoned in this area" }[answers.exp] || "it fits your goal");
+  const why = pickedCode ? "You chose this step from your roadmap." : `Because you picked <b>${esc(role.label)}</b> and ${expText}, this is your best next step.`;
+
+  // Alerts: retirement, notes
+  let alerts = "";
+  const d = daysLeft(cert);
+  if (d !== null && d >= 0) alerts += `<div class="alert ${d <= 30 ? "danger" : ""}">⚠ <b>Retiring soon:</b> this exam closes on <b>${fmtDate(cert.retire)}</b> — ${d} day${d === 1 ? "" : "s"} left. After that the certification can no longer be earned.</div>`;
+  if (cert.note) alerts += `<div class="alert info">ℹ ${esc(cert.note)}</div>`;
+
+  // Roadmap ladder
+  const road = role.ladder.map((c, i) => {
+    const ct = CERT_BY_CODE[c];
+    return `<div class="node">
+              <button class="card ${c === code ? "here" : ""}" type="button" data-code="${c}">
+                <span class="here-tag" ${c === code ? "" : `style="color:var(--muted)"`}>${c === code ? "★ YOUR NEXT STEP" : `STEP ${i + 1}`}</span>
+                <b>${c}</b><span class="n">${esc(ct.name)}</span>
+                <div class="pills">${pillsFor(ct)}</div>
+              </button>
+            </div>${i < role.ladder.length - 1 ? `<div class="arrow">→</div>` : ""}`;
+  }).join("");
+
+  // Side quests: other roles in the same area that fit this track
+  const alts = ROLES.filter(r => r.domain === role.domain && r.id !== role.id && r.tracks.includes(answers.track))
+    .map(r => pickFromLadder(r.ladder, answers.exp))
+    .filter((c, i, arr) => c && c !== code && arr.indexOf(c) === i).slice(0, 6);
+
+  $("scrResult").innerHTML = `
+    <div class="result-top">
+      <div class="badge-wrap"><div class="badge" style="--lvcol:${lvcol}">
+        <div class="inner"><div class="lvl">${levelLabel(cert.level)}</div><div class="code">${code}</div><div class="lvl" style="color:var(--muted)">Unlocked</div></div>
+      </div></div>
+      <div>
+        <div class="eyebrow">Badge unlocked · Your recommended certification</div>
+        <h2>${esc(cert.name)}</h2>
+        <p class="why">${why}</p>
+        <div class="pills">${pillsFor(cert)}</div>
+        ${alerts}
+      </div>
+    </div>
+
+    <nav class="jump" aria-label="Jump to section">
+      <a href="#s-go">Learn & book</a><a href="#s-skills">Skills</a><a href="#s-value">Value</a><a href="#s-partner">Partner credit</a><a href="#s-map">Quest map</a>
+    </nav>
+
+    <h3 class="sec" id="s-go">Learn & book</h3>
+    <div class="actions">
+      <a class="action" href="${L.learn}" target="_blank" rel="noopener">
+        <div class="tag">STEP A · LEARN</div><h4>Learning path</h4>
+        <p>${cert.course === false ? `Microsoft Learn training matching ${code}.` : `Official ${code} course page with its free self-paced learning paths.`}</p>
+        <div class="go">Open learning path ↗</div>
+      </a>
+      <a class="action" href="${L.exam}" target="_blank" rel="noopener">
+        <div class="tag">STEP B · BOOK</div><h4>Schedule the exam</h4>
+        <p>${cert.page ? "Official page — choose “Schedule exam” to book online or at a test centre via Pearson VUE." : "No booking page yet — the official study guide shows exam details as they're published."}</p>
+        <div class="go">${cert.page ? "Go to exam page ↗" : "Open study guide ↗"}</div>
+      </a>
+    </div>
+    <div class="minor-links">Also useful: <a href="${L.study}" target="_blank" rel="noopener">Study guide</a>
+      <a href="${L.practice}" target="_blank" rel="noopener">Free practice assessments</a>
+      <a href="${L.pearson}" target="_blank" rel="noopener">Pearson VUE for Microsoft</a></div>
+    <div style="margin-top:14px">${factsHtml(cert)}</div>
+
+    <h3 class="sec" id="s-skills">Skills you'll gain</h3>
+    <p class="sec-sub">The official skills measured on the exam. Tap a domain to see the tasks inside it.</p>
+    ${skillsHtml(cert, L)}
+
+    <h3 class="sec" id="s-value">Why it matters</h3>
+    <p class="sec-sub">What this certification lets you do for clients — and for your own organisation.</p>
+    ${valueHtml(cert)}
+
+    <h3 class="sec" id="s-partner">Partner & practice value</h3>
+    <p class="sec-sub">Does it count toward a Microsoft Solutions Partner designation? Useful for practice leads planning team skilling.</p>
+    ${partnerHtml(cert)}
+
+    <h3 class="sec" id="s-map">Your quest map</h3>
+    <p class="sec-sub">The full ladder for <b>${esc(role.label)}</b>. Tap any step to switch your target.</p>
+    <div class="road">${road}</div>
+
+    ${alts.length ? `<h3 class="sec">Side quests in the same area</h3><p class="sec-sub">Other active certifications that suit your track.</p>
+      <div class="grid">${alts.map(certCard).join("")}</div>` : ""}
+
+    <div style="margin-top:34px;display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn" type="button" id="againBtn">↺ Start a new quest</button>
+      <button class="btn ghost" type="button" id="shareBtn">🔗 Copy link to this result</button>
+      <button class="btn ghost" type="button" id="browseBtn">Browse all certifications</button>
+    </div>`;
+
+  // Wire up buttons inside the result
+  $("scrResult").querySelectorAll("[data-code]").forEach(b => b.addEventListener("click", () => {
+    const c = b.dataset.code;
+    if (!role.ladder.includes(c)) {                       // side quest → switch to its own role
+      const other = ROLES.find(r => r.domain === role.domain && r.ladder.includes(c));
+      if (other) answers.role = other.id;
+    }
+    renderResult(c);
+  }));
+  $("againBtn").addEventListener("click", startQuest);
+  $("browseBtn").addEventListener("click", () => { renderAll(); show("scrAll"); });
+
+  // Put the result in the address bar (e.g. …#open-az-104) so it can be shared.
+  // replaceState changes the URL without reloading or adding a Back step.
+  const shareUrl = location.href.split("#")[0] + "#open-" + code.toLowerCase();
+  try { history.replaceState(null, "", shareUrl); } catch (e) { /* some preview frames block this */ }
+  $("shareBtn").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(shareUrl); $("shareBtn").textContent = "✓ Link copied"; }
+    catch (e) { prompt("Copy this link:", shareUrl); }          // fallback if clipboard is blocked
+  });
+
+  show("scrResult");
+  if (!pickedCode) { addXP(100); launchConfetti(); }   // reward the first unlock only
+}
+
+function certCard(code) {
+  const c = CERT_BY_CODE[code];
+  return `<button class="cert ${daysLeft(c) !== null ? "retiring" : ""}" type="button" data-code="${code}">
+            <div class="row"><b>${code}</b><span style="font-size:18px">${DOMAINS[c.domain].icon}</span></div>
+            <div class="n">${esc(c.name)}</div>
+            <div class="pills">${pillsFor(c)}</div>
+          </button>`;
+}
+
+/* ---------- Catalog ---------- */
+function setupFilters() {
+  $("fDomain").innerHTML = `<option value="">All areas</option>` + Object.entries(DOMAINS).map(([k, d]) => `<option value="${k}">${d.label}</option>`).join("");
+  $("fLevel").innerHTML = `<option value="">All levels</option>` + ["Fundamentals", "Associate", "Expert", "Specialty", "Business", "GitHub"].map(l => `<option value="${l}">${levelLabel(l)}</option>`).join("");
+  const designations = Object.keys(PARTNER_LINKS);
+  $("fPartner").innerHTML = `<option value="">Any partner credit</option>` + designations.map(d => `<option value="${d}">${d}</option>`).join("");
+  ["fSearch", "fDomain", "fLevel", "fPartner", "fRetiring"].forEach(id => $(id).addEventListener("input", renderAll));
+}
+
+function renderAll() {
+  const term = $("fSearch").value.trim().toLowerCase();
+  const dom = $("fDomain").value, lvl = $("fLevel").value, par = $("fPartner").value, onlyRet = $("fRetiring").checked;
+  // The search also looks inside the official skill domains and sub-skills
+  const haystack = (c) => (c.code + " " + c.name + " " + JSON.stringify(SKILLS[c.code] || "")).toLowerCase();
+  const list = CERTS.filter(isOpen)
+    .filter(c => !term || haystack(c).includes(term))
+    .filter(c => !dom || c.domain === dom)
+    .filter(c => !lvl || c.level === lvl)
+    .filter(c => !par || (PARTNER[c.code] || []).some(x => x.d === par))
+    .filter(c => !onlyRet || daysLeft(c) !== null);
+  $("fCount").textContent = `${list.length} certification${list.length === 1 ? "" : "s"}`;
+  $("allGrid").innerHTML = list.map(c => certCard(c.code)).join("");
+  $("allGrid").querySelectorAll("[data-code]").forEach(b => b.addEventListener("click", () => openCert(b.dataset.code)));
+}
+
+// Open any certification directly (from the catalog or ticker)
+function openCert(code) {
+  const role = ROLES.find(r => r.ladder.includes(code));
+  answers = { track: role.tracks[0], domain: role.domain, depth: role.depth, role: role.id, exp: "some" };
+  renderResult(code);
+}
+
+/* ---------- Ticker + home stats ---------- */
+function setupTicker() {
+  const soon = CERTS.filter(c => { const d = daysLeft(c); return d !== null && d >= 0; }).sort((a, b) => daysLeft(a) - daysLeft(b));
+  if (!soon.length) return;
+  const first = soon[0];
+  $("ticker").innerHTML = `⚠ Retiring soon: <b>${first.code} · ${esc(first.name)}</b> closes ${fmtDate(first.retire)} (${daysLeft(first)} days left)` +
+    (soon.length > 1 ? ` + ${soon.length - 1} more` : "") + `<button type="button" id="tickBtn">See details</button>`;
+  $("ticker").hidden = false;
+  $("tickBtn").addEventListener("click", () => openCert(first.code));
+}
+function setupStats() {
+  const open = CERTS.filter(isOpen);
+  const stats = [
+    [open.length, "active certifications"],
+    [ROLES.length, "role paths"],
+    [open.filter(c => PARTNER[c.code]).length, "earn partner credit"],
+    [open.filter(c => daysLeft(c) !== null).length, "retiring soon"],
+  ];
+  $("homeStats").innerHTML = stats.map(([n, t]) => `<div class="stat"><b>${n}</b><span>${t}</span></div>`).join("");
+}
+
+/* ---------- Confetti (pure canvas) ---------- */
+function launchConfetti() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = $("confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const colors = ["#9e3d2f", "#13283c", "#355f7d", "#c8c0b2", "#2f7d5b"];   // site palette
+  const bits = Array.from({ length: 140 }, () => ({
+    x: innerWidth / 2, y: innerHeight / 3, vx: (Math.random() - 0.5) * 14, vy: Math.random() * -12 - 4,
+    r: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.3,
+    c: colors[Math.floor(Math.random() * colors.length)], w: 6 + Math.random() * 6, h: 4 + Math.random() * 4,
+  }));
+  let frames = 0;
+  (function tick() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    bits.forEach(b => { b.vy += 0.35; b.x += b.vx; b.y += b.vy; b.r += b.vr;
+      ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r); ctx.fillStyle = b.c; ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h); ctx.restore(); });
+    if (++frames < 150) requestAnimationFrame(tick); else ctx.clearRect(0, 0, cv.width, cv.height);
+  })();
+}
+
+/* ---------- Start-up ---------- */
+$("startBtn").addEventListener("click", startQuest);
+$("backBtn").addEventListener("click", goBack);
+$("navQuest").addEventListener("click", () => { show("scrHome"); try { history.replaceState(null, "", location.pathname); } catch (e) {} });
+$("navAll").addEventListener("click", () => { renderAll(); show("scrAll"); });
+setupFilters();
+setupTicker();
+setupStats();
+
+// Deep links: a URL ending in #open-az-104 opens that certification's result.
+// Used by the "Copy link" button and by the "Open in path finder" links in the roadmap.
+function openFromHash() {
+  const m = location.hash.match(/^#open-([a-z]{2}-\d{3})$/i);   // e.g. "#open-az-104"
+  if (!m) return false;
+  const code = m[1].toUpperCase();
+  if (!CERT_BY_CODE[code]) return false;
+  openCert(code);
+  return true;
+}
+// Roadmap areas are collapsed. When a link points inside one (e.g. #az-104
+// from the retirements table, or #area-data from the contents chips),
+// open that area first so the browser can scroll to it.
+function revealTarget() {
+  const id = location.hash.slice(1);
+  if (!id || id.startsWith("open-")) return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  const area = el.matches("details.rm-area") ? el : el.closest("details.rm-area");
+  if (area && !area.open) { area.open = true; el.scrollIntoView(); }
+}
+function onHash() { if (!openFromHash()) revealTarget(); }
+
+onHash();                                       // on first load
+window.addEventListener("hashchange", onHash);  // when a link is clicked
+
+// Printing: open every area so the printed poster shows everything,
+// then put them back the way they were.
+let openedForPrint = [];
+window.addEventListener("beforeprint", () => {
+  openedForPrint = [...document.querySelectorAll("details.rm-area:not([open])")];
+  openedForPrint.forEach(d => d.open = true);
+});
+window.addEventListener("afterprint", () => openedForPrint.forEach(d => d.open = false));
+
+</script>
