@@ -1,7 +1,7 @@
 ## What this project is
 
 Source for **decodewithvenu.com** — Venu Uppaluri's personal site (strategy, analytics, AI
-articles, plus a couple of interactive "Casual Projects" tools). Built with Astro + Tailwind,
+articles, plus a couple of interactive "Vibing" tools — the section was called "Casual Projects" until Oct 2026; its URL is still `/projects`). Built with Astro + Tailwind,
 deployed on Vercel. This file is the standing brief — read it before doing anything else, so
 you don't have to be re-taught the setup from scratch in a new conversation.
 
@@ -85,7 +85,7 @@ one when adding a new section, don't invent a new structure:
 - `concepts` also supports a `series`/`seriesIndex` field for multi-part series (see
   `src/pages/concepts/index.astro` and `[slug].astro`).
 
-`src/pages/projects/` (Casual Projects) is different — each is a bespoke interactive tool
+`src/pages/projects/` (Vibing, formerly Casual Projects) is different — each is a bespoke interactive tool
 (vanilla JS state machine), not a content-collection article. `governance-passport.astro` is
 the fullest example of the pattern: hero section using shared Tailwind/brand classes, then a
 `<div id="stage">`-scoped tool with its own `<style is:global>` block that maps the tool's own
