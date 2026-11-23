@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/prysm.js": { "maxDuration": 60, "memory": 1024, "includeFiles": "api/_prysm/**" }
+  }
+}

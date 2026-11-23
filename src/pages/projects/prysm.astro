@@ -1,0 +1,824 @@
+---
+// PRYSM — multi-agent account intelligence for presales.
+// The live engine (Python + FastAPI + LangGraph) runs as an internal tool; this page is a showcase
+// with a working, read-only sample built from two real reports (public/data/prysm/*.json).
+// Dark "prism stage" bands use the logo's own palette and are scoped to #prysm; everything
+// else follows the site's cream editorial system.
+import Layout from '../../layouts/Layout.astro';
+
+const bands = [
+  { key: 'find', name: 'Find the opportunity', colour: 'var(--p-violet)', lenses: [
+    ['Opportunity Brief', 'Ranked sales plays for your services: why now, pains, talking points, who to target, what to ask'],
+    ['Buying Signals', 'Leadership changes, M&A, restructuring, earnings misses and engineering-hiring spikes'],
+  ] },
+  { key: 'understand', name: 'Understand the company', colour: 'var(--p-indigo)', lenses: [
+    ['About the company', 'What it does, where it operates, scale, listing'],
+    ['Business Model Canvas', 'The nine blocks of how it creates and captures value'],
+    ['Value Chain & Footprint', 'Where it plays in its industry chain, by region and segment'],
+    ['Capability Map', 'The industry capability map with its evidenced areas lit up'],
+    ['Financials & Drivers', 'Every line item, what moved it, and where you can help'],
+    ['Leadership Strategy', 'What management says it is prioritising and funding'],
+  ] },
+  { key: 'market', name: 'Read the market', colour: 'var(--p-blue)', lenses: [
+    ['Industry View & AI', 'Industry-wide shifts, AI use cases in the field and their measured impact'],
+    ['Peer Deep-Dive', 'Competitors’ moves and what each one means for this account'],
+    ['Analyst Outlook', 'Consensus, price targets, estimates and rating changes'],
+    ['Risks & Challenges', 'Official risk factors and negative news'],
+  ] },
+  { key: 'account', name: 'Map the account', colour: 'var(--p-teal)', lenses: [
+    ['Tech Stack', 'Technologies on its website and in its job ads'],
+    ['Vendor Ecosystem', 'Partners, deals, renewals and vendor case studies'],
+    ['Key Personas', 'Directors and VPs beyond the C-suite (public metadata only)'],
+  ] },
+];
+
+const checks = [
+  ['Retrieve', 'Every fact starts life as an evidence card: the exact text, its section, the link and the dates.'],
+  ['Ground', 'When AI is switched on it sees only those cards. If the answer isn’t there, it must say “Data Unavailable in Public Sources”.'],
+  ['Cite', 'Every sentence, number, table cell and highlight carries numbered source badges.'],
+  ['Verify', 'Each number must match its source, each ratio is recomputed from raw SEC data, and anything that fails is dropped and logged.'],
+  ['Synthesise', 'Only then are sales plays built, and only from facts that passed.'],
+];
+
+const sources = ['SEC EDGAR XBRL financials', '10-K business, risk & MD&A text', '8-K event filings', 'Yahoo Finance profile & market data',
+  'Analyst consensus & estimates', 'Wikipedia', 'Company websites', 'Google News', 'Bing News + full articles',
+  'Greenhouse · Lever · Ashby job boards', 'Website technology fingerprints', 'Vendor sites & case studies'];
+const stack = ['Python · FastAPI', 'LangGraph orchestration', 'DuckDB evidence store', 'React · TypeScript · Tailwind',
+  'PptxGenJS deck export', 'Claude, in grounded mode (optional)'];
+---
+
+<Layout title="PRYSM: account intelligence for presales"
+  description="PRYSM splits a company into fifteen lenses a presales lead needs: business model, financial drivers, peers, analysts, industry AI trends and ranked sales plays, with a public source behind every line.">
+<div id="prysm">
+
+  <!-- =========================== HERO =========================== -->
+  <section class="p-dark p-hero">
+    <div class="p-gridlines" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-12 pb-16 sm:pt-16 sm:pb-20">
+      <a href="/projects" class="p-back no-print">
+        <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M9.5 6h-7M6 2.5L2.5 6 6 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Vibing
+      </a>
+      <div class="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+        <div>
+          <p class="p-eyebrow">Multi-agent research &middot; built for presales</p>
+          <h1 class="p-h1">One company.<br /><span class="p-spectrum-text">Every angle.</span></h1>
+          <p class="p-lede">
+            A prism splits one beam of light into a spectrum. PRYSM does the same to a company name:
+            fifteen research agents turn it into the views a presales lead needs, and show the public source behind every line.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#sample" class="p-btn p-btn-solid">Run a live deep dive
+              <svg class="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none"><path d="M6 2.5v7M2.5 6L6 9.5 9.5 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#honest" class="p-btn p-btn-ghost">How it stays honest</a>
+          </div>
+          <dl class="p-stats">
+            <div><dt>15</dt><dd>lenses on one account</dd></div>
+            <div><dt>12</dt><dd>public source types</dd></div>
+            <div><dt id="stat-verified">100%</dt><dd>of numbers checked against source</dd></div>
+            <div><dt>0</dt><dd>guesses</dd></div>
+          </dl>
+        </div>
+        <div class="p-logo-wrap">
+          <img src="/images/projects/prysm/prysm-logo.png" alt="PRYSM logo: a geometric prism in violet-to-teal light inside three silver chevrons, above the PRYSM wordmark" width="646" height="648" class="p-logo" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== PROBLEM =========================== -->
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+    <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Why it exists</p>
+    <h2 class="mt-4 max-w-3xl font-serif text-4xl sm:text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-fg">Account prep shouldn&rsquo;t be guesswork.</h2>
+    <div class="mt-10 grid gap-x-8 sm:grid-cols-3">
+      <div class="card py-6">
+        <p class="font-serif text-2xl font-semibold text-fg">Twenty tabs, four hours</p>
+        <p class="mt-3 leading-relaxed text-mist-300">Annual reports, earnings calls, job boards, news, analyst notes. The picture exists, but assembling it eats the day before every meeting.</p>
+      </div>
+      <div class="card py-6">
+        <p class="font-serif text-2xl font-semibold text-fg">Fluent, but unsourced</p>
+        <p class="mt-3 leading-relaxed text-mist-300">AI will write the brief in seconds, and some of it will be invented. In front of a CFO, one wrong number costs the room.</p>
+      </div>
+      <div class="card py-6">
+        <p class="font-serif text-2xl font-semibold text-fg">Facts with no so-what</p>
+        <p class="mt-3 leading-relaxed text-mist-300">Knowing revenue grew 4% doesn&rsquo;t tell you what to pitch. Presales needs the driver behind the number, and the opening it creates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== REFRACTION =========================== -->
+  <section class="p-dark p-refract">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+      <p class="p-eyebrow">One input, fifteen lenses</p>
+      <h2 class="p-h2">Type a company. PRYSM refracts it.</h2>
+      <svg class="p-prism" viewBox="0 0 960 340" role="img" aria-labelledby="prism-t">
+        <title id="prism-t">A company name enters as a beam of light, passes through a prism and splits into four coloured rays: find the opportunity, understand the company, read the market, map the account.</title>
+        <defs>
+          <linearGradient id="pz-stroke" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b3fb0"/><stop offset=".55" stop-color="#4a7fc1"/><stop offset="1" stop-color="#5fc7da"/></linearGradient>
+          <linearGradient id="pz-beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8fbfc" stop-opacity=".15"/><stop offset="1" stop-color="#e8fbfc"/></linearGradient>
+          {bands.map((b, i) => (
+            <linearGradient id={`pz-ray-${i}`} x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color={['#8b5cd6', '#6474dd', '#4a96d8', '#5fc7da'][i]} stop-opacity=".95" />
+              <stop offset="1" stop-color={['#8b5cd6', '#6474dd', '#4a96d8', '#5fc7da'][i]} stop-opacity=".08" />
+            </linearGradient>
+          ))}
+        </defs>
+        <g class="pz-input">
+          <rect x="16" y="150" width="190" height="44" rx="22" fill="#0c2026" stroke="rgba(95,199,218,.35)" />
+          <circle cx="42" cy="172" r="7" fill="none" stroke="#9db5bb" stroke-width="2"/><path d="M47 177l6 6" stroke="#9db5bb" stroke-width="2" stroke-linecap="round"/>
+          <text id="pz-name" x="62" y="177" fill="#e8fbfc" font-size="15" font-weight="600">Caterpillar</text>
+        </g>
+        <line x1="206" y1="172" x2="428" y2="190" stroke="url(#pz-beam)" stroke-width="4" class="pz-beam"/>
+        {bands.map((b, i) => {
+          const y = [46, 128, 212, 296][i];
+          return (
+            <g class="pz-ray" data-band={b.key}>
+              <polygon points={`524,${186 + i * 6} 526,${192 + i * 6} 930,${y + 14} 930,${y - 14}`} fill={`url(#pz-ray-${i})`} opacity=".55" />
+              <line x1="525" y1={189 + i * 6} x2="930" y2={y} stroke={['#8b5cd6', '#6474dd', '#4a96d8', '#5fc7da'][i]} stroke-width="2.5" class="pz-flow" />
+              <text x="940" y={y - 22} text-anchor="end" fill={['#b79cf0', '#9aa6f0', '#86bdf0', '#8fe0ee'][i]} font-size="15" font-weight="700">{b.name}</text>
+            </g>
+          );
+        })}
+        <g class="pz-prism">
+          <polygon points="476,62 386,300 566,300" fill="rgba(7,22,26,.85)" stroke="url(#pz-stroke)" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M476 62 V226 M476 226 L386 300 M476 226 L566 300 M431 181 L476 226 M521 181 L476 226 M431 181 L476 62 M521 181 L476 62" stroke="url(#pz-stroke)" stroke-width="2.5" opacity=".85" fill="none"/>
+        </g>
+      </svg>
+
+      <div class="p-bands">
+        {bands.map((b) => (
+          <div class="p-band" data-band={b.key} style={`--band:${b.colour}`} tabindex="0">
+            <p class="p-band-name">{b.name}</p>
+            <ul>
+              {b.lenses.map(([t, d]) => (<li><span>{t}</span>{d}</li>))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== LIVE SAMPLE =========================== -->
+  <section id="sample" class="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Try it live</p>
+        <h2 class="mt-4 max-w-3xl font-serif text-4xl sm:text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-fg">Search a company. Click any number. See where it came from.</h2>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-mist-300">Run a live deep dive on any US-listed company, or explore the two ready-made samples. Move through the tabs, open any numbered badge to see the exact source, and download the report as Word or PDF.</p>
+      </div>
+      <div class="p-brand-tile" aria-hidden="true">
+        <img src="/images/projects/prysm/prysm-logo.png" alt="" width="646" height="648" />
+      </div>
+    </div>
+
+    <div class="p-disclaimer" role="note">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l9.5 16.5h-19L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4.5M12 17.2v.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <p><strong>AI-generated content. It may contain errors.</strong> PRYSM's reports are produced automatically by AI research agents
+        from public sources and can be incomplete, wrong or out of date. Check important facts against the cited sources before you rely on them.
+        Not financial, investment or legal advice, and no affiliation with the companies shown.</p>
+    </div>
+
+    <form class="p-search" id="p-search" autocomplete="off">
+      <label class="p-search-box">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input id="p-q" name="q" maxlength="80" placeholder="Company name or ticker, e.g. Nvidia or WMT" aria-label="Company name or stock ticker" />
+        <button type="submit" id="p-go">Deep dive</button>
+      </label>
+      <label class="p-ack" id="p-ack-wrap">
+        <input type="checkbox" id="p-ack" />
+        <span>I understand this is AI-generated content that may contain errors, and I'll verify important facts against the cited sources.</span>
+      </label>
+      <p class="p-search-msg" id="p-msg" role="status"></p>
+    </form>
+
+    <div class="mt-6 flex flex-wrap items-center gap-3">
+      <span class="text-sm text-mist-400">Reports:</span>
+      <div class="p-switch" role="tablist" aria-label="Report" id="p-switch">
+        <button type="button" role="tab" data-co="caterpillar" aria-selected="true">Caterpillar <small>sample</small></button>
+        <button type="button" role="tab" data-co="datadog" aria-selected="false">Datadog <small>sample</small></button>
+      </div>
+    </div>
+
+    <div class="p-app" id="p-app">
+      <div class="p-app-bar">
+        <span class="p-app-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <img src="/images/projects/prysm/prysm-logo.png" alt="" width="28" height="28" class="p-app-logo" />
+        <span class="p-app-brand">PRYSM</span>
+        <span class="p-app-co" id="p-co-name">Loading…</span>
+        <span class="p-app-meta" id="p-co-meta"></span>
+        <span class="p-app-dl">
+          <button type="button" id="p-dl-word" title="Download as a Word document">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.5v8M4.5 7.5L8 11l3.5-3.5M3 13.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Word</button>
+          <button type="button" id="p-dl-pdf" title="Download as PDF (opens the print dialog: choose Save as PDF)">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.5v8M4.5 7.5L8 11l3.5-3.5M3 13.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</button>
+        </span>
+      </div>
+      <div class="p-tabs" role="tablist" aria-label="Report sections">
+        <button type="button" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+        <button type="button" role="tab" data-tab="plays" aria-selected="false">Sales plays</button>
+        <button type="button" role="tab" data-tab="drivers" aria-selected="false">Financial drivers</button>
+        <button type="button" role="tab" data-tab="market" aria-selected="false">Market</button>
+        <button type="button" role="tab" data-tab="signals" aria-selected="false">Signals</button>
+      </div>
+      <div class="p-body" id="p-body" aria-live="polite"></div>
+      <div class="p-app-foot">AI-generated by PRYSM from public sources · may contain errors · verify important facts with the cited sources</div>
+    </div>
+    <p class="mt-4 text-sm leading-relaxed text-mist-400" id="p-note"></p>
+  </section>
+
+  <!-- =========================== HONESTY =========================== -->
+  <section id="honest" class="p-dark">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+      <p class="p-eyebrow">Zero guesswork</p>
+      <h2 class="p-h2">Five checks before anything reaches the screen.</h2>
+      <ol class="p-checks">
+        {checks.map(([t, d], i) => (
+          <li><span class="p-check-n">{String(i + 1).padStart(2, '0')}</span><p class="p-check-t">{t}</p><p class="p-check-d">{d}</p></li>
+        ))}
+      </ol>
+      <div class="p-proof" id="p-proof"></div>
+    </div>
+  </section>
+
+  <!-- =========================== UNDER THE HOOD =========================== -->
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+    <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-cyan-glow">Under the hood</p>
+    <h2 class="mt-4 max-w-3xl font-serif text-4xl sm:text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-fg">Fourteen agents, one synthesis.</h2>
+    <p class="mt-4 max-w-2xl text-lg leading-relaxed text-mist-300">
+      A fixed workflow sends fourteen research agents out in parallel, verifies everything they bring back,
+      and only then lets a fifteenth agent turn the verified findings into sales plays for the services your firm actually sells.
+    </p>
+    <div class="mt-10 grid gap-10 lg:grid-cols-2">
+      <div class="card pt-6">
+        <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-indigo-glow">Sources it reads</p>
+        <div class="p-chips">{sources.map((s) => <span>{s}</span>)}</div>
+      </div>
+      <div class="card pt-6">
+        <p class="text-[13px] font-bold uppercase tracking-[0.14em] text-indigo-glow">Built with</p>
+        <div class="p-chips">{stack.map((s) => <span>{s}</span>)}</div>
+        <p class="mt-5 leading-relaxed text-mist-300">
+          Two modes: <strong class="text-fg">extractive</strong>, where every sentence is a verbatim source excerpt, and
+          <strong class="text-fg">grounded AI</strong>, where Claude condenses the evidence but is checked line by line against it.
+          The financial maths is always done in code. Export any set of sections to a slide deck with the source numbers intact.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="p-dark p-close">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-6 px-5 sm:px-8 py-10">
+      <img src="/images/projects/prysm/prysm-logo.png" alt="" width="72" height="72" class="h-[72px] w-[72px] rounded-sm" />
+      <p class="max-w-2xl leading-relaxed text-[#9db5bb]">
+        The full PRYSM engine runs as an internal tool for presales teams. This page runs PRYSM Live, a lighter public version for US-listed companies, built entirely on public sources.
+      </p>
+      <a href="/projects" class="p-btn p-btn-ghost ml-auto">More Vibing builds</a>
+    </div>
+  </section>
+
+  <!-- Citation drawer -->
+  <div class="p-scrim" id="p-scrim" hidden></div>
+  <aside class="p-drawer" id="p-drawer" role="dialog" aria-modal="true" aria-labelledby="p-dr-title" hidden>
+    <button type="button" class="p-dr-close" id="p-dr-close" aria-label="Close source">&times;</button>
+    <div id="p-dr-body"></div>
+  </aside>
+</div>
+</Layout>
+
+<style is:global>
+  #prysm {
+    --p-bg: #07161a; --p-bg2: #0c2026; --p-line: rgba(95, 199, 218, 0.16);
+    --p-ink: #e8fbfc; --p-mute: #9db5bb; --p-silver: #d6d6d6;
+    --p-violet: #8b5cd6; --p-indigo: #6474dd; --p-blue: #4a96d8; --p-teal: #5fc7da;
+    --a-accent: #0e8297; --a-violet: #6a3fb5; --a-ink: var(--color-fg); --a-line: color-mix(in srgb, var(--color-edge) 12%, transparent);
+  }
+  /* ---------- dark prism stage ---------- */
+  #prysm .p-dark { position: relative; background: var(--p-bg); color: var(--p-ink); overflow: hidden; }
+  #prysm .p-gridlines { position: absolute; inset: 0; background-image: linear-gradient(var(--p-line) 1px, transparent 1px), linear-gradient(90deg, var(--p-line) 1px, transparent 1px); background-size: 46px 46px; opacity: .35; mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 70%); }
+  #prysm .p-back { display: inline-flex; align-items: center; gap: .4rem; font-size: 12px; color: var(--p-mute); margin-bottom: 1.75rem; }
+  #prysm .p-back:hover { color: var(--p-ink); }
+  #prysm .p-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--p-teal); }
+  #prysm .p-h1 { margin-top: 1.1rem; font-family: var(--font-serif); font-weight: 600; font-size: clamp(3rem, 7vw, 5.4rem); line-height: .95; letter-spacing: -.045em; }
+  #prysm .p-h2 { margin-top: 1rem; max-width: 48rem; font-family: var(--font-serif); font-weight: 600; font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: 1.02; letter-spacing: -.035em; }
+  #prysm .p-spectrum-text { background: linear-gradient(90deg, var(--p-violet), var(--p-indigo) 35%, var(--p-blue) 65%, var(--p-teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #prysm .p-lede { margin-top: 1.5rem; max-width: 36rem; font-size: 1.15rem; line-height: 1.65; color: var(--p-mute); }
+  #prysm .p-btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.25rem; font-size: 15px; font-weight: 600; border: 1px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+  #prysm .p-btn-solid { background: var(--p-teal); color: var(--p-bg); }
+  #prysm .p-btn-solid:hover { background: var(--p-ink); }
+  #prysm .p-btn-ghost { border-color: rgba(232, 251, 252, .3); color: var(--p-ink); }
+  #prysm .p-btn-ghost:hover { border-color: var(--p-teal); color: var(--p-teal); }
+  #prysm .p-stats { margin-top: 2.75rem; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; border-top: 1px solid var(--p-line); padding-top: 1.25rem; }
+  #prysm .p-stats dt { font-family: var(--font-serif); font-size: 2rem; font-weight: 600; letter-spacing: -.03em; color: var(--p-ink); }
+  #prysm .p-stats dd { font-size: 13px; line-height: 1.35; color: var(--p-mute); }
+  @media (max-width: 640px) { #prysm .p-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  #prysm .p-logo-wrap { display: flex; justify-content: center; }
+  #prysm .p-logo { width: min(100%, 420px); height: auto; animation: p-rise 1s ease-out both; }
+  @keyframes p-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+
+  /* ---------- refraction ---------- */
+  #prysm .p-prism { display: block; width: 100%; height: auto; margin-top: 2.5rem; overflow: visible; font-family: var(--font-sans); }
+  #prysm .pz-beam { stroke-dasharray: 10 10; animation: p-flow 1.1s linear infinite; }
+  #prysm .pz-flow { stroke-dasharray: 8 12; animation: p-flow 1.3s linear infinite; }
+  @keyframes p-flow { to { stroke-dashoffset: -40; } }
+  #prysm .pz-ray { transition: opacity .25s; }
+  #prysm .p-refract[data-hot] .pz-ray { opacity: .18; }
+  #prysm .p-refract[data-hot] .pz-ray.is-hot { opacity: 1; }
+  #prysm .p-bands { margin-top: 2.5rem; display: grid; gap: 1.25rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 960px) { #prysm .p-bands { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { #prysm .p-bands { grid-template-columns: 1fr; } }
+  #prysm .p-band { border-top: 3px solid var(--band); padding-top: 1rem; outline: none; transition: transform .2s; }
+  #prysm .p-band:hover, #prysm .p-band:focus-visible { transform: translateY(-3px); }
+  #prysm .p-band-name { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 600; color: var(--p-ink); }
+  #prysm .p-band ul { margin-top: .75rem; display: grid; gap: .65rem; }
+  #prysm .p-band li { font-size: 13.5px; line-height: 1.45; color: var(--p-mute); }
+  #prysm .p-band li span { display: block; font-weight: 700; color: var(--band); font-size: 14px; }
+
+  /* PRYSM brand tile beside the "Try it live" heading */
+  #prysm .p-brand-tile { flex: none; width: 210px; height: 210px; background: var(--p-bg); display: grid; place-items: center; box-shadow: 0 24px 50px -28px rgba(7, 22, 26, .6); }
+  #prysm .p-brand-tile img { width: 92%; height: auto; }
+  @media (max-width: 860px) { #prysm .p-brand-tile { display: none; } }
+
+  /* ---------- disclaimer + live search ---------- */
+  #prysm .p-disclaimer { margin-top: 2rem; display: flex; gap: .85rem; align-items: flex-start; border: 1px solid rgba(214, 140, 20, .45); border-left: 4px solid #d68c14; background: #fff7ea; padding: .9rem 1.1rem; color: #5c4006; font-size: 14.5px; line-height: 1.55; }
+  #prysm .p-disclaimer svg { flex: none; width: 22px; height: 22px; color: #c47d0e; margin-top: .1rem; }
+  #prysm .p-disclaimer strong { color: #3f2c04; }
+  #prysm .p-search { margin-top: 1.25rem; }
+  #prysm .p-search-box { display: flex; align-items: center; gap: .6rem; border: 2px solid var(--color-fg); background: #fff; padding: .35rem .35rem .35rem .9rem; }
+  #prysm .p-search-box:focus-within { border-color: var(--a-accent); box-shadow: 0 0 0 4px rgba(14, 130, 151, .12); }
+  #prysm .p-search-box svg { flex: none; width: 20px; height: 20px; color: var(--color-mist-400); }
+  #prysm .p-search-box input { flex: 1; min-width: 0; height: 2.75rem; font-size: 17px; background: transparent; outline: none; color: var(--color-fg); }
+  #prysm .p-search-box button { flex: none; height: 2.75rem; padding: 0 1.4rem; background: var(--p-bg); color: var(--p-ink); font-weight: 700; font-size: 15px; transition: background .15s; }
+  #prysm .p-search-box button:hover:not(:disabled) { background: var(--a-accent); }
+  #prysm .p-search-box button:disabled { opacity: .45; cursor: not-allowed; }
+  #prysm .p-ack { margin-top: .75rem; display: flex; gap: .6rem; align-items: flex-start; font-size: 14px; line-height: 1.5; color: var(--color-mist-300); cursor: pointer; }
+  #prysm .p-ack input { margin-top: .25rem; width: 1.05rem; height: 1.05rem; accent-color: #0e8297; flex: none; }
+  #prysm .p-search-msg { margin-top: .5rem; min-height: 1.3em; font-size: 14px; color: #a3392a; }
+  #prysm .p-progress { display: grid; gap: .55rem; max-width: 34rem; margin: 2rem auto; }
+  #prysm .p-progress li { display: flex; align-items: center; gap: .65rem; font-size: 14.5px; color: var(--color-mist-400); transition: color .3s; }
+  #prysm .p-progress li::before { content: ''; flex: none; width: 10px; height: 10px; border: 2px solid var(--a-line); }
+  #prysm .p-progress li.on { color: var(--color-fg); }
+  #prysm .p-progress li.on::before { border-color: var(--a-accent); background: var(--a-accent); animation: p-pulse 1s ease-in-out infinite; }
+  #prysm .p-progress li.done::before { animation: none; background: var(--a-accent); border-color: var(--a-accent); }
+  @keyframes p-pulse { 50% { opacity: .35; } }
+  #prysm .p-app-dl { display: inline-flex; gap: .35rem; margin-left: .75rem; }
+  #prysm .p-app-dl button { display: inline-flex; align-items: center; gap: .3rem; padding: .3rem .6rem; font-size: 12.5px; font-weight: 700; color: var(--p-ink); border: 1px solid rgba(232, 251, 252, .3); }
+  #prysm .p-app-dl button:hover { border-color: var(--p-teal); color: var(--p-teal); }
+  #prysm .p-app-dl svg { width: 13px; height: 13px; }
+  #prysm .p-app-foot { border-top: 1px solid var(--a-line); background: #fff7ea; color: #6b4a06; font-size: 12.5px; padding: .55rem 1.1rem; }
+  #prysm .p-switch small { font-weight: 500; opacity: .7; margin-left: .2rem; }
+
+  /* ---------- sample app (light) ---------- */
+  #prysm .p-switch { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--a-line); background: var(--color-ink-900); }
+  #prysm .p-switch button { padding: .55rem 1.1rem; font-size: 14px; font-weight: 600; color: var(--color-mist-400); }
+  #prysm .p-switch button[aria-selected='true'] { background: var(--p-bg); color: var(--p-ink); }
+  #prysm .p-app { margin-top: 2rem; background: #fff; border: 1px solid var(--a-line); box-shadow: 0 30px 60px -30px rgba(7, 22, 26, .35); }
+  #prysm .p-app-bar { display: flex; align-items: center; gap: .65rem; padding: .6rem 1rem; background: var(--p-bg); color: var(--p-ink); flex-wrap: wrap; }
+  #prysm .p-app-dots { display: inline-flex; gap: 5px; margin-right: .35rem; }
+  #prysm .p-app-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(232, 251, 252, .18); }
+  #prysm .p-app-logo { width: 28px; height: 28px; object-fit: cover; object-position: 50% 28%; }
+  #prysm .p-app-brand { font-weight: 800; letter-spacing: .18em; font-size: 13px; }
+  #prysm .p-app-co { margin-left: .5rem; font-weight: 600; color: var(--p-teal); }
+  #prysm .p-app-meta { margin-left: auto; font-size: 12px; color: var(--p-mute); }
+  #prysm .p-tabs { display: flex; gap: .25rem; overflow-x: auto; border-bottom: 1px solid var(--a-line); padding: 0 .75rem; }
+  #prysm .p-tabs button { position: relative; padding: .85rem .9rem; font-size: 14px; font-weight: 600; color: var(--color-mist-400); white-space: nowrap; }
+  #prysm .p-tabs button[aria-selected='true'] { color: var(--a-ink); }
+  #prysm .p-tabs button[aria-selected='true']::after { content: ''; position: absolute; left: .6rem; right: .6rem; bottom: -1px; height: 3px; background: linear-gradient(90deg, var(--p-violet), var(--p-teal)); }
+  #prysm .p-body { padding: 1.5rem; min-height: 420px; color: var(--a-ink); }
+  @media (max-width: 640px) { #prysm .p-body { padding: 1rem; } }
+  #prysm .a-grid2 { display: grid; gap: 1.5rem; grid-template-columns: 1.5fr 1fr; }
+  @media (max-width: 860px) { #prysm .a-grid2 { grid-template-columns: 1fr; } }
+  #prysm .a-h { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--color-mist-400); margin-bottom: .6rem; }
+  #prysm .a-title { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; letter-spacing: -.02em; margin-bottom: .75rem; }
+  #prysm .a-claims { display: grid; gap: .6rem; }
+  #prysm .a-claims li { display: flex; gap: .55rem; font-size: 14.5px; line-height: 1.55; }
+  #prysm .a-claims li::before { content: ''; flex: none; width: 6px; height: 6px; margin-top: .6em; background: var(--a-accent); }
+  #prysm .a-claims li.inf::before { background: var(--a-violet); transform: rotate(45deg); }
+  #prysm .a-inf { display: inline-block; margin-right: .35rem; padding: 0 .35rem; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--a-violet); background: rgba(106, 63, 181, .1); vertical-align: 1px; }
+  #prysm .a-facts { display: grid; gap: .5rem; }
+  #prysm .a-fact { border: 1px solid var(--a-line); padding: .55rem .75rem; }
+  #prysm .a-fact dt { font-size: 11px; color: var(--color-mist-400); }
+  #prysm .a-fact dd { font-weight: 600; font-size: 14px; }
+  #prysm .a-chipset { display: flex; flex-wrap: wrap; gap: .4rem; }
+  #prysm .a-chip { display: inline-flex; align-items: center; gap: .3rem; border: 1px solid var(--a-line); padding: .25rem .55rem; font-size: 12.5px; }
+  #prysm .a-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
+  @media (max-width: 640px) { #prysm .a-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  #prysm .a-kpi { border: 1px solid var(--a-line); padding: .8rem; border-top: 3px solid var(--a-accent); }
+  #prysm .a-kpi:nth-child(n+4) { border-top-color: var(--a-violet); }
+  #prysm .a-kpi b { display: block; font-family: var(--font-serif); font-size: 1.55rem; font-weight: 600; letter-spacing: -.02em; }
+  #prysm .a-kpi span { font-size: 12px; color: var(--color-mist-400); }
+  #prysm .a-play { border: 1px solid var(--a-line); padding: 1rem 1.1rem; display: grid; gap: .75rem; }
+  #prysm .a-play-head { display: flex; gap: .75rem; align-items: flex-start; }
+  #prysm .a-rank { flex: none; width: 34px; height: 34px; display: grid; place-items: center; background: var(--p-bg); color: var(--p-teal); font-weight: 800; font-family: var(--font-serif); font-size: 1.1rem; }
+  #prysm .a-play-t { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; line-height: 1.2; }
+  #prysm .a-cat { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-mist-400); }
+  #prysm .a-conf { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: .15rem .45rem; }
+  #prysm .a-conf.high { background: rgba(16, 150, 110, .12); color: #0c7a5a; }
+  #prysm .a-conf.medium { background: rgba(214, 140, 20, .14); color: #9a5b04; }
+  #prysm .a-conf.low { background: var(--color-ink-800); color: var(--color-mist-400); }
+  #prysm .a-plays { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 900px) { #prysm .a-plays { grid-template-columns: 1fr; } }
+  #prysm .a-q { font-size: 13.5px; line-height: 1.5; color: var(--color-mist-300); padding-left: 1.1rem; list-style: decimal; }
+  #prysm .a-table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 760px; }
+  #prysm .a-table th { text-align: left; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-mist-400); padding: .6rem .65rem; border-bottom: 2px solid var(--a-ink); }
+  #prysm .a-table td { padding: .6rem .65rem; border-bottom: 1px solid var(--a-line); vertical-align: top; font-variant-numeric: tabular-nums; }
+  #prysm .a-table tr.a-row { cursor: pointer; }
+  #prysm .a-table tr.a-row:hover td { background: rgba(14, 130, 151, .05); }
+  #prysm .a-table tr.a-group td { background: var(--color-ink-950); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--a-accent); }
+  #prysm .a-scroll { overflow-x: auto; }
+  #prysm .a-read { font-size: 11.5px; font-weight: 700; text-transform: capitalize; padding: .1rem .45rem; }
+  #prysm .a-read.headwind { background: rgba(190, 60, 45, .1); color: #a3392a; }
+  #prysm .a-read.tailwind { background: rgba(16, 150, 110, .12); color: #0c7a5a; }
+  #prysm .a-read.neutral { background: var(--color-ink-800); color: var(--color-mist-400); }
+  #prysm .a-angle { color: var(--a-violet); font-weight: 600; font-size: 12.5px; }
+  #prysm .a-detail td { background: #fbfaf7; }
+  #prysm .a-detail-grid { display: grid; gap: 1rem; grid-template-columns: 1.4fr 1fr; padding: .25rem 0 .5rem; }
+  @media (max-width: 760px) { #prysm .a-detail-grid { grid-template-columns: 1fr; } }
+  #prysm .a-anglebox { border-left: 3px solid var(--a-violet); background: rgba(106, 63, 181, .06); padding: .7rem .85rem; font-size: 13.5px; line-height: 1.5; }
+  #prysm .a-threat { font-size: 11px; font-weight: 700; text-transform: uppercase; padding: .1rem .45rem; }
+  #prysm .a-threat.high { background: rgba(190, 60, 45, .12); color: #a3392a; }
+  #prysm .a-threat.medium { background: rgba(214, 140, 20, .14); color: #9a5b04; }
+  #prysm .a-threat.low { background: var(--color-ink-800); color: var(--color-mist-400); }
+  #prysm .a-peerbtns { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0; }
+  #prysm .a-peerbtns button { border: 1px solid var(--a-line); padding: .3rem .75rem; font-size: 13px; font-weight: 600; }
+  #prysm .a-peerbtns button[aria-pressed='true'] { background: var(--p-bg); color: var(--p-ink); border-color: var(--p-bg); }
+  #prysm .a-impact { border: 1px solid rgba(106, 63, 181, .25); background: rgba(106, 63, 181, .04); padding: 1rem; }
+  #prysm .a-moves { display: grid; gap: .7rem; border-left: 2px solid var(--a-line); padding-left: 1rem; }
+  #prysm .a-moves li { font-size: 13.5px; line-height: 1.5; }
+  #prysm .a-moves b { display: block; font-size: 11.5px; color: var(--a-accent); letter-spacing: .04em; }
+  #prysm .a-trends { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: .5rem; }
+  @media (max-width: 860px) { #prysm .a-trends { grid-template-columns: 1fr; } }
+  #prysm .a-trend { border: 1px solid var(--a-line); padding: 1rem; display: grid; gap: .6rem; }
+  #prysm .a-kind { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--a-violet); }
+  #prysm .a-quote { border-left: 3px solid var(--p-teal); background: rgba(95, 199, 218, .08); padding: .6rem .75rem; font-size: 13.5px; line-height: 1.5; }
+  #prysm .a-sig { display: grid; gap: .75rem; }
+  #prysm .a-sig li { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; border-bottom: 1px solid var(--a-line); padding-bottom: .75rem; font-size: 14px; line-height: 1.5; }
+  #prysm .a-sig time { font-size: 12.5px; color: var(--color-mist-400); font-variant-numeric: tabular-nums; }
+  #prysm .a-sig b { display: block; color: var(--a-accent); font-size: 12.5px; }
+  @media (max-width: 560px) { #prysm .a-sig li { grid-template-columns: 1fr; gap: .2rem; } }
+  #prysm .a-sec + .a-sec { margin-top: 1.75rem; }
+  /* citation badges */
+  #prysm .cite { display: inline-flex; align-items: center; justify-content: center; min-width: 1.35rem; height: 1.2rem; margin: 0 .1rem; padding: 0 .3rem; font-size: 10.5px; font-weight: 700; font-family: var(--font-sans); color: var(--a-accent); background: rgba(14, 130, 151, .09); border: 1px solid rgba(14, 130, 151, .3); vertical-align: 1px; cursor: pointer; transition: background .15s, color .15s; }
+  #prysm .cite:hover, #prysm .cite:focus-visible { background: var(--a-accent); color: #fff; outline: none; }
+  /* drawer */
+  #prysm .p-scrim { position: fixed; inset: 0; background: rgba(7, 22, 26, .45); z-index: 60; }
+  #prysm .p-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100vw); background: #fff; z-index: 61; box-shadow: -20px 0 50px -20px rgba(7, 22, 26, .4); overflow-y: auto; animation: p-slide .22s ease-out; color: var(--a-ink); }
+  @keyframes p-slide { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  #prysm .p-dr-close { position: absolute; top: .9rem; right: 1rem; width: 2rem; height: 2rem; font-size: 1.5rem; line-height: 1; color: var(--color-mist-400); }
+  #prysm .p-dr-close:hover { color: var(--a-ink); }
+  #prysm .dr-head { background: var(--p-bg); color: var(--p-ink); padding: 1.4rem 1.5rem 1.2rem; }
+  #prysm .dr-head small { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--p-teal); }
+  #prysm .dr-head h3 { margin-top: .4rem; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; padding-right: 2rem; }
+  #prysm .dr-head p { color: var(--p-mute); font-size: 13.5px; margin-top: .2rem; }
+  #prysm .dr-body { padding: 1.4rem 1.5rem 2rem; display: grid; gap: 1.2rem; }
+  #prysm .dr-quote { border-left: 4px solid var(--p-teal); background: #f4fbfc; padding: 1rem 1.1rem; font-size: 14.5px; line-height: 1.65; white-space: pre-wrap; }
+  #prysm .dr-meta { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  #prysm .dr-meta div { border: 1px solid var(--a-line); padding: .55rem .7rem; }
+  #prysm .dr-meta dt { font-size: 11px; color: var(--color-mist-400); }
+  #prysm .dr-meta dd { font-size: 13.5px; font-weight: 600; word-break: break-word; }
+  #prysm .dr-link { display: block; border: 1px solid var(--a-line); padding: .7rem .85rem; color: var(--a-accent); font-size: 13.5px; word-break: break-all; }
+  #prysm .dr-link:hover { background: #f4fbfc; }
+
+  /* ---------- checks ---------- */
+  #prysm .p-checks { margin-top: 2.75rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.25rem; counter-reset: c; }
+  @media (max-width: 960px) { #prysm .p-checks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { #prysm .p-checks { grid-template-columns: 1fr; } }
+  #prysm .p-checks li { position: relative; border-top: 1px solid var(--p-line); padding-top: 1rem; }
+  #prysm .p-checks li::before { content: ''; position: absolute; top: -1px; left: 0; width: 42px; height: 3px; background: linear-gradient(90deg, var(--p-violet), var(--p-teal)); }
+  #prysm .p-check-n { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--p-teal); }
+  #prysm .p-check-t { margin-top: .35rem; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; }
+  #prysm .p-check-d { margin-top: .5rem; font-size: 14px; line-height: 1.55; color: var(--p-mute); }
+  #prysm .p-proof { margin-top: 2.75rem; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; background: var(--p-bg2); border: 1px solid var(--p-line); padding: 1.25rem 1.5rem; }
+  @media (max-width: 760px) { #prysm .p-proof { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  #prysm .p-proof b { display: block; font-family: var(--font-serif); font-size: 2rem; font-weight: 600; color: var(--p-ink); }
+  #prysm .p-proof span { font-size: 13px; color: var(--p-mute); }
+  #prysm .p-proof p { grid-column: 1 / -1; font-size: 12.5px; color: var(--p-mute); }
+
+  #prysm .p-chips { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+  #prysm .p-chips span { border: 1px solid color-mix(in srgb, var(--color-edge) 18%, transparent); padding: .35rem .7rem; font-size: 13.5px; color: var(--color-fg); }
+
+  @media (prefers-reduced-motion: reduce) {
+    #prysm .pz-beam, #prysm .pz-flow, #prysm .p-logo, #prysm .p-drawer { animation: none; }
+  }
+  @media print { #prysm .p-dark { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+
+<script>
+  import { exportPdf, exportWord } from '../../scripts/prysm-export';
+  type Cl = { t: string; c: string[]; i?: number };
+  type Met = { l: string; d: string; p: string; c: string[]; f?: string };
+  type Ev = { s: string; ty: string; sec: string; q: string; u: string; pd: string | null; fd: string; b: string };
+  type Sample = {
+    company: { name: string; ticker: string; cik: string; domain: string; industry: string };
+    generated: string; mode: string;
+    verification: { numbers_checked: number; numbers_verified: number; metrics_checked: number; metrics_verified: number; claims_dropped: number };
+    about: { claims: Cl[]; facts: { l: string; v: string; c: string[] }[]; regions: { n: string; d: string; c: string[] }[] };
+    kpis: Met[];
+    plays: { o: string; cat: string; conf: string; score: number; why: Cl[]; pain: Cl[]; talk: Cl[]; roles: string[]; q: string[]; mods: string[] }[];
+    lines: { l: string; g: string; v: Met; yoy: Met | null; share: Met | null; shift: Met | null; a: string; drv: Cl[]; angle: { o: string; r: Cl } | null }[];
+    peers: { n: string; t: string; rel: string; threat: string; m: { v: string; c: string[] }[]; moves: { k: string; d: string; dt: string; u: string; c: string[] }[]; imp: Cl[] }[];
+    trends: { t: string; k: string; mom: string; def: string; imp: Cl[]; use: Cl[]; rel: Cl[] }[];
+    signals: { k: string; d: string; dt: string; c: string[] }[];
+    evidence: Record<string, Ev>;
+  };
+
+  const root = document.getElementById('prysm')!;
+  const body = document.getElementById('p-body')!;
+  const cache: Record<string, Sample> = {};
+  let data: Sample | null = null;
+  let tab = 'overview';
+  let peerIdx = 0;
+  let numbers = new Map<string, number>();
+  const openRows = new Set<number>();
+
+  const esc = (s: string) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]!));
+
+  /** Number every cited source once, in a fixed reading order, so a source keeps its number across tabs. */
+  function numberAll(d: Sample) {
+    const m = new Map<string, number>();
+    const add = (ids: string[] = []) => ids.forEach((id) => { if (!m.has(id) && d.evidence[id]) m.set(id, m.size + 1); });
+    d.about.claims.forEach((c) => add(c.c)); d.about.facts.forEach((f) => add(f.c)); d.about.regions.forEach((r) => add(r.c));
+    d.kpis.forEach((k) => add(k.c));
+    d.plays.forEach((p) => [...p.why, ...p.pain, ...p.talk].forEach((c) => add(c.c)));
+    d.lines.forEach((l) => { [l.v, l.yoy, l.share, l.shift].forEach((x) => x && add(x.c)); l.drv.forEach((c) => add(c.c)); if (l.angle) add(l.angle.r.c); });
+    d.peers.forEach((p) => { p.m.forEach((c) => add(c.c)); p.moves.forEach((mv) => add(mv.c)); p.imp.forEach((c) => add(c.c)); });
+    d.trends.forEach((t) => [...t.imp, ...t.use, ...t.rel].forEach((c) => add(c.c)));
+    d.signals.forEach((s) => add(s.c));
+    return m;
+  }
+
+  const cites = (ids: string[] = []) => [...new Set(ids)].filter((id) => numbers.has(id))
+    .map((id) => `<button type="button" class="cite" data-ev="${id}" aria-label="Source ${numbers.get(id)}">${numbers.get(id)}</button>`).join('');
+  const claim = (c: Cl) => `<li class="${c.i ? 'inf' : ''}"><span>${c.i ? '<span class="a-inf">Inference</span>' : ''}${esc(c.t)} ${cites(c.c)}</span></li>`;
+  const claims = (cs: Cl[]) => cs.length ? `<ul class="a-claims">${cs.map(claim).join('')}</ul>` : '<p class="text-sm italic text-mist-400">Data Unavailable in Public Sources</p>';
+
+  function overview(d: Sample) {
+    const a = d.about;
+    return `
+      <div class="a-grid2">
+        <div>
+          <p class="a-h">About the company</p>
+          <p class="a-title">${esc(d.company.name)}</p>
+          ${claims(a.claims)}
+          ${a.regions.length ? `<p class="a-h" style="margin-top:1.25rem">Where it operates</p>
+            <div class="a-chipset">${a.regions.map((r) => `<span class="a-chip">${esc(r.n)} <span style="color:var(--color-mist-400)">· ${esc(r.d)}</span>${cites(r.c)}</span>`).join('')}</div>` : ''}
+        </div>
+        <dl class="a-facts">${a.facts.map((f) => `<div class="a-fact"><dt>${esc(f.l)}</dt><dd>${esc(f.v)} ${cites(f.c)}</dd></div>`).join('')}</dl>
+      </div>
+      <div class="a-sec" style="margin-top:2rem">
+        <p class="a-h">Key numbers</p>
+        <div class="a-kpis">${d.kpis.map((k) => `<div class="a-kpi" title="${esc(k.f || '')}"><span>${esc(k.l)}</span><b>${esc(k.d)}</b><span>${esc(k.p)} ${cites(k.c)}</span></div>`).join('')}</div>
+      </div>
+      <div class="a-sec">
+        <p class="a-h">Top sales plays</p>
+        <div class="a-chipset">${d.plays.map((p, i) => `<button type="button" class="a-chip" data-go="plays"><b>${i + 1}</b> ${esc(p.o)} <span class="a-conf ${p.conf}">${p.conf}</span></button>`).join('')}</div>
+      </div>`;
+  }
+
+  function plays(d: Sample) {
+    return `<div class="a-plays">${d.plays.map((p, i) => `
+      <article class="a-play">
+        <div class="a-play-head">
+          <span class="a-rank">${i + 1}</span>
+          <div><p class="a-cat">${esc(p.cat)}</p><p class="a-play-t">${esc(p.o)}</p>
+            <p style="margin-top:.35rem"><span class="a-conf ${p.conf}">${p.conf} confidence</span>
+            <span style="font-size:12px;color:var(--color-mist-400)"> · evidence from ${p.mods.length} sections</span></p></div>
+        </div>
+        <div><p class="a-h">Why now</p>${claims(p.why)}</div>
+        ${p.pain.length ? `<div><p class="a-h">Pain point</p>${claims(p.pain)}</div>` : ''}
+        <div><p class="a-h">Talking point</p>${claims(p.talk)}</div>
+        <div><p class="a-h">Who to target</p><div class="a-chipset">${p.roles.map((r) => `<span class="a-chip">${esc(r)}</span>`).join('')}</div></div>
+        <div><p class="a-h">Ask in discovery</p><ol class="a-q">${p.q.map((q) => `<li>${esc(q)}</li>`).join('')}</ol></div>
+      </article>`).join('')}</div>`;
+  }
+
+  function drivers(d: Sample) {
+    let lastG = '';
+    const rows = d.lines.map((l, i) => {
+      const g = l.g !== lastG ? `<tr class="a-group"><td colspan="7">${esc(l.g)}</td></tr>` : '';
+      lastG = l.g;
+      const open = openRows.has(i);
+      const detail = open ? `<tr class="a-detail"><td colspan="7"><div class="a-detail-grid">
+          <div><p class="a-h">Driver, in management's words</p>${l.drv.length ? claims(l.drv) : '<p class="text-sm italic text-mist-400">The filing does not explain this change.</p>'}</div>
+          ${l.angle ? `<div class="a-anglebox"><p class="a-h" style="color:var(--a-violet)">Sales angle · ${esc(l.angle.o)}</p>${esc(l.angle.r.t)} ${cites(l.angle.r.c)}</div>` : '<div></div>'}
+        </div></td></tr>` : '';
+      return `${g}<tr class="a-row" data-row="${i}" aria-expanded="${open}">
+        <td><b>${open ? '▾' : '▸'}</b> ${esc(l.l)}</td>
+        <td>${esc(l.v.d)} ${cites(l.v.c)}</td>
+        <td>${l.yoy ? esc(l.yoy.d) : '—'}</td>
+        <td>${l.share ? esc(l.share.d) : '—'}</td>
+        <td>${l.shift ? esc(l.shift.d) : '—'}</td>
+        <td><span class="a-read ${l.a}">${esc(l.a)}</span></td>
+        <td>${l.angle ? `<span class="a-angle">${esc(l.angle.o)}</span>` : '—'}</td></tr>${detail}`;
+    }).join('');
+    return `<p class="a-h">What moved, why, and where you can help <span style="text-transform:none;letter-spacing:0;font-weight:500">· click a row</span></p>
+      <div class="a-scroll"><table class="a-table"><thead><tr><th>Line item</th><th>FY value</th><th>YoY</th><th>% of revenue</th><th>Shift</th><th>Read</th><th>Sales angle</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <p style="margin-top:.75rem;font-size:12.5px;color:var(--color-mist-400)">Every figure is recomputed from raw SEC XBRL data before it is shown.</p>`;
+  }
+
+  function market(d: Sample) {
+    const p = d.peers[Math.min(peerIdx, d.peers.length - 1)];
+    const cols = ['Revenue (FY)', 'Growth', 'Op. margin', 'R&D %', 'Employees', 'Market cap'];
+    return `
+      <p class="a-h">Competitive landscape</p>
+      <div class="a-scroll"><table class="a-table"><thead><tr><th>Peer</th><th>Relationship</th>${cols.map((c) => `<th>${c}</th>`).join('')}<th>Threat</th></tr></thead><tbody>
+        ${d.peers.map((x, i) => `<tr class="a-row" data-peer="${i}"><td><b>${esc(x.n)}</b> <span style="color:var(--color-mist-400)">${esc(x.t)}</span></td>
+          <td style="font-size:12.5px;color:var(--color-mist-400)">${esc(x.rel.replace(' (Yahoo Finance)', ''))}</td>
+          ${x.m.map((c) => `<td>${esc(c.v)} ${cites(c.c)}</td>`).join('')}<td><span class="a-threat ${x.threat}">${esc(x.threat)}</span></td></tr>`).join('')}
+      </tbody></table></div>
+      ${p ? `<div class="a-peerbtns">${d.peers.map((x, i) => `<button type="button" data-peer="${i}" aria-pressed="${i === peerIdx}">${esc(x.n)}</button>`).join('')}</div>
+      <div class="a-grid2">
+        <div><p class="a-h">${esc(p.n)}: recent moves</p>
+          ${p.moves.length ? `<ol class="a-moves">${p.moves.map((m) => `<li><b>${esc(m.k)} · ${esc(m.dt)}</b>${esc(m.d)} ${cites(m.c)}</li>`).join('')}</ol>` : '<p class="text-sm italic text-mist-400">No recent moves found in news.</p>'}</div>
+        <div class="a-impact"><p class="a-h" style="color:var(--a-violet)">Impact on ${esc(d.company.name.replace(/,? Inc\.?$/, ''))} → what to do</p>${claims(p.imp)}</div>
+      </div>` : ''}
+      <div class="a-sec">
+        <p class="a-h">Industry shifts, beyond this company</p>
+        <div class="a-trends">${d.trends.map((t) => `<div class="a-trend">
+          <span class="a-kind">${t.k === 'AI' ? 'AI shift' : 'Market shift'} · ${esc(t.mom)} momentum</span>
+          <p class="a-play-t">${esc(t.t)}</p>
+          ${t.imp.map((c) => `<div class="a-quote">${esc(c.t)} ${cites(c.c)}</div>`).join('')}
+          ${t.use.length ? `<div><p class="a-h">Use cases in the field</p>${claims(t.use)}</div>` : ''}
+          ${t.rel.length ? `<div><p class="a-h">Relevance to this account</p>${claims(t.rel)}</div>` : ''}
+        </div>`).join('')}</div>
+      </div>`;
+  }
+
+  function signals(d: Sample) {
+    return `<p class="a-h">Buying signals & triggers, newest first</p>
+      <ul class="a-sig">${d.signals.map((s) => `<li><time>${esc(s.dt)}</time><div><b>${esc(s.k)}</b>${esc(s.d)} ${cites(s.c)}</div></li>`).join('')}</ul>`;
+  }
+
+  function render() {
+    if (!data) return;
+    const d = data;
+    body.innerHTML = ({ overview, plays, drivers, market, signals } as Record<string, (d: Sample) => string>)[tab](d);
+    root.querySelectorAll<HTMLButtonElement>('.p-tabs [data-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+  }
+
+  function setHeader(d: Sample) {
+    document.getElementById('p-co-name')!.textContent = d.company.name;
+    document.getElementById('p-co-meta')!.textContent = [d.company.ticker, d.company.industry].filter(Boolean).join(' · ');
+    const v = d.verification;
+    const when = new Date(d.generated).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    document.getElementById('p-note')!.textContent = d.mode === 'live'
+      ? `Live result generated on ${when} by PRYSM Live, a lighter public version of the engine: SEC filings and financials, company news, peers and industry headlines. Analyst views, tech stack and capability maps are in the full internal engine. AI-generated; may contain errors.`
+      : `Sample generated on ${when} by the full PRYSM engine from public sources (extractive mode: every sentence is a verbatim excerpt). AI-generated; may contain errors.`;
+    document.getElementById('p-proof')!.innerHTML = `
+      <div><b>${v.numbers_verified}/${v.numbers_checked}</b><span>numbers in sentences matched to their source</span></div>
+      <div><b>${v.metrics_verified}/${v.metrics_checked}</b><span>financial metrics recomputed from raw data</span></div>
+      <div><b>${Object.keys(d.evidence).length}</b><span>sources cited in this sample</span></div>
+      <div><b>${v.claims_dropped}</b><span>claims dropped by the guardrail</span></div>
+      <p>Live figures from the ${esc(d.company.name)} sample above.</p>`;
+    const pz = document.getElementById('pz-name'); if (pz) pz.textContent = d.company.name.replace(/,? Inc\.?$/, '');
+  }
+
+  async function load(slug: string) {
+    try {
+      if (!cache[slug] && slug.startsWith('live:')) throw new Error('missing');
+      if (!cache[slug]) {
+        const r = await fetch(`/data/prysm/${slug}.json`);
+        if (!r.ok) throw new Error(String(r.status));
+        cache[slug] = await r.json();
+      }
+      data = cache[slug]; numbers = numberAll(data); peerIdx = 0; openRows.clear();
+      data.lines.forEach((l, i) => { if (l.angle) openRows.add(i); });
+      setHeader(data); render();
+    } catch {
+      body.innerHTML = '<p class="text-mist-400">The sample could not be loaded. Please refresh the page.</p>';
+    }
+  }
+
+  // ---- drawer
+  const drawer = document.getElementById('p-drawer')!;
+  const scrim = document.getElementById('p-scrim')!;
+  let lastFocus: HTMLElement | null = null;
+  function openSource(id: string) {
+    if (!data) return;
+    const e = data.evidence[id];
+    if (!e) return;
+    lastFocus = document.activeElement as HTMLElement;
+    document.getElementById('p-dr-body')!.innerHTML = `
+      <div class="dr-head"><small>Source ${numbers.get(id)} · ${esc(e.ty)}</small><h3 id="p-dr-title">${esc(e.s)}</h3><p>${esc(e.sec || e.b)}</p></div>
+      <div class="dr-body">
+        <div><p class="a-h">Raw context snippet</p><blockquote class="dr-quote">${esc(e.q)}</blockquote></div>
+        <dl class="dr-meta">
+          <div><dt>Document date</dt><dd>${esc(e.pd || 'Not stated')}</dd></div>
+          <div><dt>Fetched</dt><dd>${esc(e.fd)} UTC</dd></div>
+          <div><dt>Citation label</dt><dd>${esc(e.b)}</dd></div>
+          <div><dt>Evidence ID</dt><dd style="font-family:ui-monospace,monospace;font-size:12px">${esc(id)}</dd></div>
+        </dl>
+        ${e.u ? `<div><p class="a-h">Source reference</p><a class="dr-link" href="${esc(e.u)}" target="_blank" rel="noopener noreferrer">${esc(e.u)} ↗</a></div>` : ''}
+      </div>`;
+    drawer.hidden = false; scrim.hidden = false;
+    (document.getElementById('p-dr-close') as HTMLButtonElement).focus();
+  }
+  function closeSource() { drawer.hidden = true; scrim.hidden = true; lastFocus?.focus(); }
+  document.getElementById('p-dr-close')!.addEventListener('click', closeSource);
+  scrim.addEventListener('click', closeSource);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) closeSource(); });
+
+  // ---- events
+  root.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const cite = t.closest<HTMLElement>('.cite');
+    if (cite) { e.stopPropagation(); openSource(cite.dataset.ev!); return; }
+    const tabBtn = t.closest<HTMLElement>('.p-tabs [data-tab]');
+    if (tabBtn) { tab = tabBtn.dataset.tab!; render(); return; }
+    const go = t.closest<HTMLElement>('[data-go]');
+    if (go) { tab = go.dataset.go!; render(); return; }
+    const co = t.closest<HTMLElement>('.p-switch [data-co]');
+    if (co) {
+      root.querySelectorAll('.p-switch [data-co]').forEach((b) => b.setAttribute('aria-selected', String(b === co)));
+      load(co.dataset.co!); return;
+    }
+    const peer = t.closest<HTMLElement>('[data-peer]');
+    if (peer) { peerIdx = Number(peer.dataset.peer); render(); return; }
+    const row = t.closest<HTMLElement>('[data-row]');
+    if (row) { const i = Number(row.dataset.row); openRows.has(i) ? openRows.delete(i) : openRows.add(i); render(); }
+  });
+
+  // ---- prism: hovering a band lights its ray
+  const refract = root.querySelector<HTMLElement>('.p-refract')!;
+  root.querySelectorAll<HTMLElement>('.p-band').forEach((b) => {
+    const on = () => { refract.dataset.hot = b.dataset.band!; root.querySelectorAll('.pz-ray').forEach((r) => r.classList.toggle('is-hot', (r as HTMLElement).dataset.band === b.dataset.band)); };
+    const off = () => { delete refract.dataset.hot; };
+    b.addEventListener('mouseenter', on); b.addEventListener('focus', on);
+    b.addEventListener('mouseleave', off); b.addEventListener('blur', off);
+  });
+
+  // ---- anonymous usage events (Google Analytics via the site's consent-mode gtag; sent as cookieless
+  // signals when a visitor has declined cookies). Only the company and format are recorded, nothing personal.
+  const track = (name: string, params: Record<string, string>) => {
+    try { (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.('event', name, params); } catch { /* ignore */ }
+  };
+
+  // ---- live search
+  const form = document.getElementById('p-search') as HTMLFormElement;
+  const qInput = document.getElementById('p-q') as HTMLInputElement;
+  const goBtn = document.getElementById('p-go') as HTMLButtonElement;
+  const ack = document.getElementById('p-ack') as HTMLInputElement;
+  const msg = document.getElementById('p-msg')!;
+  const switchEl = document.getElementById('p-switch')!;
+  try { if (localStorage.getItem('prysm-ack') === '1') ack.checked = true; } catch { /* storage unavailable */ }
+  const syncGo = () => { goBtn.disabled = !ack.checked || !qInput.value.trim(); };
+  ack.addEventListener('change', () => { syncGo(); try { localStorage.setItem('prysm-ack', ack.checked ? '1' : '0'); } catch { /* ignore */ } });
+  qInput.addEventListener('input', syncGo);
+  syncGo();
+
+  const STEPS = ['Finding the company in SEC EDGAR', 'Reading financials (XBRL) and the latest 10-K', 'Scanning news, 8-K filings and buying signals',
+    'Profiling peers and their recent moves', 'Checking industry shifts', 'Building sales plays and verifying every number'];
+  let busy = false;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const q = qInput.value.trim();
+    if (!q || busy) return;
+    if (!ack.checked) { msg.textContent = 'Please confirm you understand the content is AI-generated and may contain errors.'; ack.focus(); return; }
+    busy = true; goBtn.disabled = true; msg.textContent = '';
+    document.getElementById('p-co-name')!.textContent = q;
+    document.getElementById('p-co-meta')!.textContent = 'Researching…';
+    body.innerHTML = `<ol class="p-progress">${STEPS.map((s) => `<li>${s}</li>`).join('')}</ol>`;
+    const lis = [...body.querySelectorAll('li')];
+    let i = 0;
+    const tick = setInterval(() => { if (i > 0) lis[i - 1]?.classList.replace('on', 'done'); lis[i]?.classList.add('on'); i = Math.min(i + 1, lis.length); }, 900);
+    try {
+      const r = await fetch(`/api/prysm?q=${encodeURIComponent(q)}`);
+      const j = await r.json().catch(() => ({ error: 'upstream' }));
+      if (!r.ok || j.error) {
+        msg.textContent = j.error === 'not_found'
+          ? `No SEC-registered company matched “${q}”. PRYSM Live covers US-listed companies: try the exact name or the stock ticker.`
+          : j.error === 'no_financials' ? `${j.name || q} files with the SEC but has no annual financial data yet, so a deep dive isn't possible.`
+          : j.error === 'bad_query' ? 'Please use letters, numbers and basic punctuation only.'
+          : 'The public data sources didn’t respond in time. Please try again in a minute.';
+        track('prysm_search', { company: q.slice(0, 40), result: String(j.error || 'error') });
+        if (data) { setHeader(data); render(); }
+        return;
+      }
+      track('prysm_search', { company: j.company.ticker, result: 'ok' });
+      const key = `live:${j.company.ticker}`;
+      cache[key] = j;
+      let chip = switchEl.querySelector<HTMLButtonElement>(`[data-co="${key}"]`);
+      if (!chip) {
+        chip = document.createElement('button');
+        chip.type = 'button'; chip.setAttribute('role', 'tab'); chip.dataset.co = key;
+        chip.innerHTML = `${j.company.name.replace(/,? Inc\.?$/, '').replace(/[&<>]/g, '')} <small>live</small>`;
+        switchEl.appendChild(chip);
+      }
+      switchEl.querySelectorAll('[data-co]').forEach((b) => b.setAttribute('aria-selected', String(b === chip)));
+      tab = 'overview';
+      await load(key);
+    } finally {
+      clearInterval(tick); busy = false; syncGo();
+    }
+  });
+
+  // ---- downloads (Word / PDF) of whichever report is on screen
+  const num = (id: string) => numbers.get(id) ?? 0;
+  document.getElementById('p-dl-word')!.addEventListener('click', async () => {
+    if (!data) return; track('prysm_download', { format: 'word', company: data.company.ticker }); await exportWord(data as never, num);
+  });
+  document.getElementById('p-dl-pdf')!.addEventListener('click', () => {
+    if (!data) return; track('prysm_download', { format: 'pdf', company: data.company.ticker }); exportPdf(data as never, num);
+  });
+
+  load('caterpillar');
+</script>

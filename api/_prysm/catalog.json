@@ -1,0 +1,688 @@
+{
+"offerings": [
+{
+"id": "cloud",
+"name": "Cloud migration & modernisation",
+"category": "Cloud & infrastructure",
+"pattern": "\\bcloud\\b|data cent(?:er|re)|migrat|hybrid|infrastructure|\\baws\\b|azure|google cloud|kubernetes|on-premises",
+"roles": [
+"CIO",
+"VP Infrastructure",
+"Head of Cloud Platform"
+],
+"questions": [
+"Which workloads are still on-premises, and what is driving the timeline to move them?",
+"How are you balancing capacity expansion against infrastructure cost?",
+"Who owns the landing-zone and platform-engineering roadmap?"
+],
+"pitch": "help {company} scale infrastructure faster without growing run-cost at the same pace",
+"signals": [
+"Expansion / new investment"
+]
+},
+{
+"id": "finops",
+"name": "Cloud cost optimisation (FinOps)",
+"category": "Cloud & infrastructure",
+"pattern": "cost of revenue|hosting|third-party cloud|cloud (?:costs?|spend)|data cent(?:er|re) costs?|gross margin|infrastructure costs?",
+"roles": [
+"CFO",
+"CIO",
+"VP Cloud Operations"
+],
+"questions": [
+"How much of cost of revenue is cloud/hosting, and who is accountable for unit cost?",
+"Do you have showback/chargeback by product or customer?",
+"What gross-margin target has the board set for the next two years?"
+],
+"pitch": "protect {company}'s gross margin by bringing unit cloud cost under control",
+"signals": []
+},
+{
+"id": "data_ai",
+"name": "Data platform & AI / GenAI",
+"category": "Data & AI",
+"pattern": "artificial intelligence|\\bai\\b|machine learning|generative|\\bllm|data platform|analytics|snowflake|databricks|data (?:and|&) ai",
+"roles": [
+"Chief Data Officer",
+"VP Data & Analytics",
+"CTO"
+],
+"questions": [
+"Which AI use cases have moved past pilot, and what blocked the others?",
+"How trusted and accessible is enterprise data for those use cases today?",
+"How are you governing model risk and cost?"
+],
+"pitch": "turn {company}'s stated AI ambitions into production use cases on a governed data foundation",
+"signals": [
+"Digital / AI initiative"
+]
+},
+{
+"id": "erp",
+"name": "ERP modernisation (SAP S/4HANA, Oracle, Workday)",
+"category": "Enterprise applications",
+"pattern": "\\berp\\b|s/?4 ?hana|\\bsap\\b|oracle|netsuite|workday|enterprise resource planning|finance systems?|legacy systems?",
+"roles": [
+"CFO",
+"CIO",
+"Head of Enterprise Applications"
+],
+"questions": [
+"Where are you on the ERP roadmap, and which modules are still on legacy versions?",
+"How much manual reconciliation happens at month-end close?",
+"What would a faster close or a single finance data model be worth?"
+],
+"pitch": "simplify {company}'s core finance and operations platform to support its next phase of growth",
+"signals": []
+},
+{
+"id": "crm",
+"name": "CRM, revenue operations & CX",
+"category": "Enterprise applications",
+"pattern": "salesforce|dynamics 365|\\bcrm\\b|customer experience|sales and marketing|go-to-market|sales productivity|customer success|churn|retention",
+"roles": [
+"CRO",
+"CMO",
+"VP Sales Operations"
+],
+"questions": [
+"How much of sales and marketing spend goes to rep time vs. selling?",
+"Where does the pipeline-to-cash process break today?",
+"How are you using AI in the front office?"
+],
+"pitch": "lift {company}'s sales productivity so revenue grows faster than go-to-market cost",
+"signals": []
+},
+{
+"id": "automation",
+"name": "Intelligent automation (RPA + AI agents)",
+"category": "Operations",
+"pattern": "automat|manual process|operational efficienc|general and administrative|back[- ]office|shared services|cost (?:discipline|reduction|savings)",
+"roles": [
+"CFO",
+"COO",
+"VP Shared Services"
+],
+"questions": [
+"Which finance, HR or operations processes are the most manual today?",
+"What is the target for G&A as a share of revenue?",
+"Have you piloted AI agents in back-office workflows?"
+],
+"pitch": "take cost out of {company}'s back office so G&A scales slower than revenue",
+"signals": []
+},
+{
+"id": "security",
+"name": "Cybersecurity & resilience services",
+"category": "Security",
+"pattern": "cyber|security breach|ransomware|unauthori[sz]ed access|data privacy|information security|outage|resilien|vulnerab",
+"roles": [
+"CISO",
+"CIO",
+"Head of Information Security"
+],
+"questions": [
+"Which risk from your 10-K worries the board most this year?",
+"How are you testing incident response and recovery for critical platforms?",
+"Where are the gaps in identity, cloud security posture and third-party risk?"
+],
+"pitch": "reduce the cyber and resilience risks {company} itself flags to investors",
+"signals": []
+},
+{
+"id": "app_mod",
+"name": "Application modernisation & product engineering",
+"category": "Engineering",
+"pattern": "research and development|engineering|product development|new products|platform|legacy|technical debt|roadmap|developer",
+"roles": [
+"CTO",
+"VP Engineering",
+"Head of Product"
+],
+"questions": [
+"Which roadmap items are slipping for lack of engineering capacity?",
+"How much of R&D goes to maintaining legacy vs. building new?",
+"Are you using AI-assisted development, and with what governance?"
+],
+"pitch": "speed up {company}'s product roadmap without a matching rise in R&D cost",
+"signals": []
+},
+{
+"id": "managed",
+"name": "IT managed services & cost takeout",
+"category": "Operations",
+"pattern": "restructuring|cost reduction|layoff|workforce reduction|margin pressure|cost takeout|outsourc|vendor consolidation|run[- ]cost",
+"roles": [
+"CIO",
+"CFO",
+"VP IT Operations"
+],
+"questions": [
+"Which IT run costs are you being asked to reduce this year?",
+"How many vendors run your applications and infrastructure today?",
+"What service levels must be protected while cost comes down?"
+],
+"pitch": "lower {company}'s IT run-cost so savings can fund transformation",
+"signals": [
+"Restructuring / layoffs",
+"Restructuring / exit costs (8-K Item 2.05)"
+]
+},
+{
+"id": "supply_chain",
+"name": "Supply chain & operations digitalisation",
+"category": "Operations",
+"pattern": "supply chain|supplier|inventory|logistics|manufactur|procure|sourcing|tariff|component shortage",
+"roles": [
+"COO",
+"VP Supply Chain",
+"CPO"
+],
+"questions": [
+"Where did supply volatility hit margin or service levels last year?",
+"How accurate is demand forecasting today?",
+"How exposed are you to tariff or single-source supplier risk?"
+],
+"pitch": "make {company}'s supply chain more resilient and less working-capital heavy",
+"signals": []
+},
+{
+"id": "ma_integration",
+"name": "M&A integration & separation (IT)",
+"category": "Transformation",
+"pattern": "acqui|merger|divest|integrat|spin[- ]?off|carve[- ]?out",
+"roles": [
+"CFO",
+"CIO",
+"Head of Corporate Development"
+],
+"questions": [
+"Which acquired businesses are not yet on common platforms?",
+"What synergy targets depend on IT integration?",
+"What is the playbook for the next deal?"
+],
+"pitch": "capture the synergies from {company}'s deals faster by integrating platforms and data",
+"signals": [
+"M&A announcement",
+"M&A / asset deal completed (8-K Item 2.01)",
+"Material agreement (8-K Item 1.01)"
+]
+},
+{
+"id": "talent",
+"name": "Talent & capacity (staff augmentation, GCC setup)",
+"category": "Engineering",
+"pattern": "hiring|talent|key personnel|attract and retain|skilled|workforce|headcount",
+"roles": [
+"CHRO",
+"CTO",
+"VP Engineering"
+],
+"questions": [
+"Which skills are hardest to hire for right now?",
+"Have you considered a global capability centre or a nearshore pod?",
+"How long does it take to staff a new product team?"
+],
+"pitch": "give {company} engineering capacity faster than its hiring market allows",
+"signals": [
+"Engineering hiring spike",
+"Active engineering hiring"
+]
+}
+],
+"line_rules": {
+"cogs_up": "finops",
+"ga_up": "automation",
+"sm_up": "crm",
+"rnd_up": "app_mod",
+"capex_up": "cloud",
+"restructuring": "managed",
+"dso_up": "automation",
+"dio_up": "supply_chain",
+"margin_down": "managed",
+"ocf_lag": "automation",
+"growth_slowing": "crm"
+},
+"themes": {
+"technology": [
+{
+"id": "ai_coding",
+"title": "AI-assisted software engineering",
+"kind": "AI",
+"def": "Coding assistants and autonomous coding agents writing, reviewing and testing code, changing team size and delivery speed.",
+"query": "AI coding assistants developer productivity enterprise",
+"rel": "developer|software engineering|coding|code",
+"offering": "app_mod"
+},
+{
+"id": "agentic_itops",
+"title": "Agentic AI in IT operations (AIOps)",
+"kind": "AI",
+"def": "AI agents that detect, diagnose and fix incidents, cutting alert noise and mean time to resolve.",
+"query": "agentic AI IT operations AIOps incident",
+"rel": "incident|observability|it operations|monitoring|reliability",
+"offering": "managed"
+},
+{
+"id": "ai_saas_pricing",
+"title": "AI agents reshaping SaaS products and pricing",
+"kind": "AI",
+"def": "Vendors embedding agents into products and moving from per-seat to usage- or outcome-based pricing.",
+"query": "SaaS AI agents outcome-based pricing per seat",
+"rel": "pricing|subscription|seat|usage-based|consumption",
+"offering": "crm"
+},
+{
+"id": "ai_infra",
+"title": "AI infrastructure & data-centre build-out",
+"kind": "Market",
+"def": "Capex surge in GPUs, data centres and power to serve AI workloads; capacity and energy are new constraints.",
+"query": "AI data center capex GPU capacity hyperscaler",
+"rel": "data cent|gpu|capacity|infrastructure|capital expenditure",
+"offering": "cloud"
+},
+{
+"id": "finops",
+"title": "Cloud cost pressure & FinOps",
+"kind": "Market",
+"def": "AI workloads push cloud bills up; firms adopt FinOps to manage unit cost and gross margin.",
+"query": "FinOps cloud costs AI workloads spending",
+"rel": "cloud cost|hosting|cost of revenue|gross margin",
+"offering": "finops"
+},
+{
+"id": "ai_security",
+"title": "AI-driven security threats and defence",
+"kind": "AI",
+"def": "Attackers use AI for phishing and exploits while defenders deploy AI copilots and autonomous SOC agents.",
+"query": "AI cybersecurity SOC agents threat",
+"rel": "security|cyber|threat|breach",
+"offering": "security"
+}
+],
+"manufacturing": [
+{
+"id": "pred_maint",
+"title": "AI predictive maintenance",
+"kind": "AI",
+"def": "Sensor data and ML predict equipment failures, reducing unplanned downtime and maintenance cost.",
+"query": "AI predictive maintenance manufacturing downtime reduction",
+"rel": "maintenance|downtime|equipment|asset",
+"offering": "supply_chain"
+},
+{
+"id": "vision_qa",
+"title": "Computer-vision quality inspection",
+"kind": "AI",
+"def": "Cameras and vision models inspect parts in-line, cutting defects, scrap and manual inspection.",
+"query": "computer vision quality inspection manufacturing AI defects",
+"rel": "quality|defect|inspection|scrap",
+"offering": "data_ai"
+},
+{
+"id": "digital_twin",
+"title": "Digital twins & smart factories",
+"kind": "AI",
+"def": "Virtual replicas of plants and lines to simulate changes, optimise throughput and energy use.",
+"query": "digital twin factory manufacturing AI throughput",
+"rel": "digital twin|smart factory|automation|plant",
+"offering": "data_ai"
+},
+{
+"id": "genai_engineering",
+"title": "GenAI in engineering & design",
+"kind": "AI",
+"def": "Generative design and engineering copilots shorten design cycles and documentation work.",
+"query": "generative AI product design engineering manufacturing",
+"rel": "design|engineering|r&d|product development",
+"offering": "app_mod"
+},
+{
+"id": "reshoring",
+"title": "Reshoring, tariffs & supply-chain resilience",
+"kind": "Market",
+"def": "Tariffs and geopolitics drive dual sourcing, nearshoring and supply-chain visibility investment.",
+"query": "manufacturers reshoring tariffs supply chain resilience",
+"rel": "tariff|supply chain|supplier|sourcing",
+"offering": "supply_chain"
+},
+{
+"id": "servitization",
+"title": "Servitisation & connected products",
+"kind": "Market",
+"def": "Shift from selling equipment to selling outcomes and services using connected-product data.",
+"query": "manufacturers as-a-service connected products recurring revenue",
+"rel": "service|aftermarket|connected|subscription",
+"offering": "data_ai"
+}
+],
+"consumer": [
+{
+"id": "ai_personal",
+"title": "AI personalisation & recommendation",
+"kind": "AI",
+"def": "Real-time AI personalising offers, search and content, lifting conversion and basket size.",
+"query": "retail AI personalization conversion results",
+"rel": "personali|recommendation|customer data|loyalty",
+"offering": "data_ai"
+},
+{
+"id": "agentic_commerce",
+"title": "Agentic commerce & AI shopping assistants",
+"kind": "AI",
+"def": "Shoppers delegating search and purchase to AI agents; retailers adapt catalogues and checkout.",
+"query": "agentic commerce AI shopping assistant retailers",
+"rel": "e-commerce|online|digital|checkout",
+"offering": "crm"
+},
+{
+"id": "ai_demand",
+"title": "AI demand forecasting & inventory",
+"kind": "AI",
+"def": "ML forecasting and replenishment reduce stock-outs, markdowns and excess inventory.",
+"query": "AI demand forecasting retail inventory reduction",
+"rel": "inventory|forecast|demand|replenish",
+"offering": "supply_chain"
+},
+{
+"id": "genai_content",
+"title": "GenAI for marketing content",
+"kind": "AI",
+"def": "Generative AI producing product descriptions, imagery and campaigns at scale.",
+"query": "generative AI marketing content retail brands",
+"rel": "marketing|brand|advertising|content",
+"offering": "crm"
+},
+{
+"id": "store_ops",
+"title": "Store operations automation",
+"kind": "Market",
+"def": "Computer vision, robotics and frictionless checkout reshaping store labour and shrink.",
+"query": "retail store automation computer vision checkout shrink",
+"rel": "store|labor|shrink|checkout",
+"offering": "automation"
+},
+{
+"id": "retail_media",
+"title": "Retail media networks",
+"kind": "Market",
+"def": "Retailers monetising first-party data through advertising businesses.",
+"query": "retail media network growth advertising",
+"rel": "advertising|media|first-party data",
+"offering": "data_ai"
+}
+],
+"financial": [
+{
+"id": "ai_fraud",
+"title": "AI fraud detection & financial crime",
+"kind": "AI",
+"def": "ML and graph models catch fraud and money laundering faster with fewer false positives.",
+"query": "bank AI fraud detection false positives reduction",
+"rel": "fraud|anti-money|aml|financial crime",
+"offering": "security"
+},
+{
+"id": "genai_banker",
+"title": "GenAI copilots for advisors & bankers",
+"kind": "AI",
+"def": "Assistants summarising research, drafting client communications and answering policy questions.",
+"query": "bank generative AI copilot advisors employees productivity",
+"rel": "advisor|wealth|relationship|employees",
+"offering": "data_ai"
+},
+{
+"id": "ai_ops_banking",
+"title": "AI in operations: KYC, claims, underwriting",
+"kind": "AI",
+"def": "Document AI and agents automating onboarding, KYC, claims and underwriting decisions.",
+"query": "AI underwriting claims KYC automation insurance bank",
+"rel": "underwriting|claims|onboarding|kyc",
+"offering": "automation"
+},
+{
+"id": "core_mod",
+"title": "Core banking & legacy modernisation",
+"kind": "Market",
+"def": "Moving off mainframe cores to cloud-native platforms to ship products faster.",
+"query": "core banking modernization cloud migration",
+"rel": "core banking|legacy|mainframe|modernization",
+"offering": "app_mod"
+},
+{
+"id": "real_time_pay",
+"title": "Real-time payments & embedded finance",
+"kind": "Market",
+"def": "Instant payments, open banking and finance embedded in non-financial platforms.",
+"query": "real-time payments embedded finance banks",
+"rel": "payment|open banking|embedded",
+"offering": "app_mod"
+},
+{
+"id": "ai_regulation",
+"title": "AI governance & regulation",
+"kind": "AI",
+"def": "Model risk management and new AI rules shaping how fast firms can deploy AI.",
+"query": "AI regulation financial services model risk governance",
+"rel": "regulat|compliance|model risk|governance",
+"offering": "security"
+}
+],
+"healthcare": [
+{
+"id": "ai_discovery",
+"title": "AI in drug discovery",
+"kind": "AI",
+"def": "AI models designing molecules and predicting targets, compressing early discovery timelines.",
+"query": "AI drug discovery timeline reduction pharma",
+"rel": "discovery|pipeline|research and development|molecule",
+"offering": "data_ai"
+},
+{
+"id": "ai_trials",
+"title": "AI in clinical trials",
+"kind": "AI",
+"def": "AI for site selection, patient recruitment and data review, shortening trials.",
+"query": "AI clinical trials patient recruitment faster",
+"rel": "clinical trial|patient|recruitment|study",
+"offering": "data_ai"
+},
+{
+"id": "ambient_ai",
+"title": "Ambient AI clinical documentation",
+"kind": "AI",
+"def": "AI scribes drafting clinical notes, cutting documentation time and burnout.",
+"query": "ambient AI scribe clinicians documentation time",
+"rel": "clinician|physician|documentation|hospital",
+"offering": "automation"
+},
+{
+"id": "rev_cycle",
+"title": "AI in revenue cycle & claims",
+"kind": "AI",
+"def": "Automation and AI in coding, prior authorisation and denials management.",
+"query": "AI prior authorization revenue cycle denials hospitals",
+"rel": "claims|reimbursement|payer|billing",
+"offering": "automation"
+},
+{
+"id": "mfg_quality",
+"title": "Pharma manufacturing digitalisation",
+"kind": "Market",
+"def": "Continuous manufacturing, digital batch records and AI quality control.",
+"query": "pharmaceutical manufacturing digital AI quality",
+"rel": "manufactur|quality|gmp|batch",
+"offering": "supply_chain"
+},
+{
+"id": "pricing_pressure",
+"title": "Drug pricing & policy pressure",
+"kind": "Market",
+"def": "Pricing negotiations and policy changes squeezing margins and forcing efficiency.",
+"query": "drug pricing pressure pharma cost cutting",
+"rel": "pricing|reimbursement|policy|margin",
+"offering": "managed"
+}
+],
+"energy": [
+{
+"id": "ai_grid",
+"title": "AI for grid optimisation",
+"kind": "AI",
+"def": "AI forecasting load and renewables, balancing grids and deferring capex.",
+"query": "AI grid optimization utilities forecasting",
+"rel": "grid|transmission|load|utility",
+"offering": "data_ai"
+},
+{
+"id": "ai_power_demand",
+"title": "AI data-centre power demand",
+"kind": "Market",
+"def": "Data-centre growth driving record electricity demand and new generation deals.",
+"query": "data center power demand utilities AI electricity",
+"rel": "demand|generation|capacity|data cent",
+"offering": "cloud"
+},
+{
+"id": "asset_ai",
+"title": "AI asset inspection & maintenance",
+"kind": "AI",
+"def": "Drones, vision and predictive models inspecting assets and preventing failures.",
+"query": "AI drone inspection predictive maintenance energy utilities",
+"rel": "maintenance|inspection|asset|outage",
+"offering": "supply_chain"
+},
+{
+"id": "subsurface_ai",
+"title": "AI in exploration & production",
+"kind": "AI",
+"def": "AI interpreting seismic data and optimising drilling and production.",
+"query": "AI oil gas exploration production optimization",
+"rel": "exploration|production|drilling|reservoir",
+"offering": "data_ai"
+},
+{
+"id": "transition",
+"title": "Energy transition & decarbonisation",
+"kind": "Market",
+"def": "Investment in renewables, hydrogen and carbon capture, with emissions reporting pressure.",
+"query": "energy transition investment renewables decarbonization utilities",
+"rel": "renewable|emission|decarboni|climate",
+"offering": "data_ai"
+},
+{
+"id": "customer_digital",
+"title": "Digital customer experience in utilities",
+"kind": "Market",
+"def": "Smart meters, digital self-service and AI agents for customer service.",
+"query": "utilities customer experience AI smart meter",
+"rel": "customer|meter|billing",
+"offering": "crm"
+}
+],
+"telecom": [
+{
+"id": "ai_network",
+"title": "AI-native network operations",
+"kind": "AI",
+"def": "AI and agents automating network planning, fault detection and self-healing.",
+"query": "telecom AI network operations automation self-healing",
+"rel": "network|outage|operations|5g",
+"offering": "managed"
+},
+{
+"id": "ai_care",
+"title": "AI customer care & churn prediction",
+"kind": "AI",
+"def": "AI agents handling care interactions and models predicting churn.",
+"query": "telecom AI customer service agents churn",
+"rel": "churn|customer care|customer service|retention",
+"offering": "crm"
+},
+{
+"id": "genai_content",
+"title": "GenAI in content production",
+"kind": "AI",
+"def": "Generative AI in dubbing, localisation, post-production and ad creative.",
+"query": "generative AI media production localization studios",
+"rel": "content|studio|production|advertising",
+"offering": "data_ai"
+},
+{
+"id": "edge_ai",
+"title": "Edge AI & monetising 5G",
+"kind": "Market",
+"def": "Using edge compute and network APIs to sell AI services to enterprises.",
+"query": "telecom edge AI 5G monetization enterprise",
+"rel": "edge|5g|enterprise|api",
+"offering": "cloud"
+},
+{
+"id": "streaming",
+"title": "Streaming economics & bundling",
+"kind": "Market",
+"def": "Consolidation, ad tiers and bundles as streaming shifts to profitability.",
+"query": "streaming bundling ad tier profitability",
+"rel": "streaming|subscriber|bundle|advertising",
+"offering": "data_ai"
+},
+{
+"id": "infra_sharing",
+"title": "Infrastructure sharing & tower/fibre deals",
+"kind": "Market",
+"def": "Selling or sharing towers and fibre to fund network investment.",
+"query": "telecom tower fiber sale infrastructure sharing",
+"rel": "tower|fiber|infrastructure|spectrum",
+"offering": "ma_integration"
+}
+],
+"generic": [
+{
+"id": "agentic_backoffice",
+"title": "AI agents in back-office operations",
+"kind": "AI",
+"def": "AI agents automating finance, HR and procurement workflows end to end.",
+"query": "AI agents back office finance automation results",
+"rel": "finance|procurement|back office|automation",
+"offering": "automation"
+},
+{
+"id": "genai_workforce",
+"title": "GenAI copilots for knowledge workers",
+"kind": "AI",
+"def": "Copilots for drafting, research and analysis across functions.",
+"query": "generative AI copilot employee productivity enterprise study",
+"rel": "employees|productivity|workforce",
+"offering": "data_ai"
+},
+{
+"id": "ai_customer",
+"title": "AI in customer service",
+"kind": "AI",
+"def": "Conversational AI and agents resolving customer requests.",
+"query": "AI customer service agents resolution enterprise",
+"rel": "customer|service|support",
+"offering": "crm"
+},
+{
+"id": "cost_pressure",
+"title": "Cost pressure & operating-model redesign",
+"kind": "Market",
+"def": "Firms redesigning operating models and consolidating vendors to protect margins.",
+"query": "companies cost cutting operating model AI efficiency",
+"rel": "cost|efficien|margin|restructur",
+"offering": "managed"
+},
+{
+"id": "cyber",
+"title": "Cyber risk escalation",
+"kind": "Market",
+"def": "Rising ransomware and third-party breaches push security up board agendas.",
+"query": "ransomware attacks companies 2026 cybersecurity",
+"rel": "cyber|security|breach",
+"offering": "security"
+}
+]
+}
+}
