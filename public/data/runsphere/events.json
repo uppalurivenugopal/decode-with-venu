@@ -1,384 +1,15 @@
 {
- "generatedAt": "2026-11-16T08:12:34+00:00",
- "windowStart": "2026-11-16",
- "windowEnd": "2027-12-16",
+ "generatedAt": "2026-11-23T09:22:04+00:00",
+ "windowStart": "2026-11-23",
+ "windowEnd": "2027-12-23",
  "sources": {
-  "iFinish": 76,
-  "IndiaRunning": 120,
+  "iFinish": 78,
+  "IndiaRunning": 127,
   "MarathonMitra": 100,
   "FatMarathoner": 180,
   "Curated": 42
  },
  "events": [
-  {
-   "id": "fm-adr-ravine-run-2026",
-   "name": "ADR Ravine Run 2026",
-   "date": "2026-11-09",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Gandhinagar",
-   "venue": "Gandhinagar, Gujarat",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Trail",
-   "distances": [
-    10.0,
-    21.1,
-    32.0
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-the-coffee-trails-2026",
-   "name": "The Coffee Trails 2026",
-   "date": "2026-11-09",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Coorg",
-   "venue": "Coorg, Karnataka",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Trail",
-   "distances": [
-    11.0,
-    35.0,
-    65.0
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-bigfoot-backyard-ultra-chandigarh-chapter-2026-2026",
-   "name": "Bigfoot Backyard Ultra – Chandigarh Chapter 2026",
-   "date": "2026-11-14",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Chandigarh",
-   "venue": "Chandigarh, Chandigarh",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Trail",
-   "distances": [
-    6.7
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-ahmedabad-marathon-adani-2026",
-   "name": "Ahmedabad Marathon (Adani) 2026",
-   "date": "2026-11-15",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Ahmedabad",
-   "venue": "Ahmedabad, Gujarat",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1,
-    42.2
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-lucknow-half-marathon-2026",
-   "name": "Lucknow Half Marathon 2026",
-   "date": "2026-11-15",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Lucknow",
-   "venue": "Lucknow, Uttar Pradesh",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-panaji-half-marathon-2026",
-   "name": "Panaji Half Marathon 2026",
-   "date": "2026-11-15",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Panaji",
-   "venue": "Panaji, Goa",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-shillong-marathon-2026",
-   "name": "Shillong Marathon 2026",
-   "date": "2026-11-15",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Shillong",
-   "venue": "Shillong, Meghalaya",
-   "country": "India",
-   "region": "India - East & North-East",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1,
-    42.2
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-the-great-majha-run-2026-2026",
-   "name": "The Great Majha Run 2026",
-   "date": "2026-11-15",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Pahu",
-   "venue": "Pahu, Punjab",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-trailblazeher-women-only-adventure-race-2026-2026",
-   "name": "TrailblazeHER Women Only Adventure Race 2026",
-   "date": "2026-11-15",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Lonavala",
-   "venue": "Lonavala, Maharashtra",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    10.0,
-    25.0
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "fm-ust-trivandrum-marathon-2026-2026",
-   "name": "UST Trivandrum Marathon 2026",
-   "date": "2026-11-15",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Thiruvananthapuram",
-   "venue": "Thiruvananthapuram, Kerala",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1,
-    42.2
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Concluded",
-   "regLink": null,
-   "entry": null,
-   "sources": [
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
   {
    "id": "fm-lokmat-mahamarathon-kolhapur-2026-2026",
    "name": "Lokmat MahaMarathon Kolhapur 2026",
@@ -403,7 +34,7 @@
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": null,
    "entry": null,
    "sources": [
@@ -414,85 +45,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ir-cubbon_run_and_coffee_rave_with_pacex_26282",
-   "name": "Cubbon Run and Coffee Rave with PaceX",
-   "date": "2026-11-21",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Ambedkar Veedhi",
-   "venue": "Raj Bhavan Rd, Ambedkar Veedhi, Bengaluru, Karnataka 560001, India, Karnataka",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    2.5,
-    5.0,
-    7.5,
-    10.0
-   ],
-   "categories": [
-    "7.5K Fun Run",
-    "5K Fun Run",
-    "2.5K Fun Run",
-    "10K Fun Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/cubbon_run_and_coffee_rave_with_pacex_26282",
-   "entry": null,
-   "sources": [
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/cubbon_run_and_coffee_rave_with_pacex_26282"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-iimc-run-the-campus-run-2026",
-   "name": "IIMC RUN - The Campus Run 2026",
-   "date": "2026-11-21",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Kolkata",
-   "venue": "Indian Institute of Management Calcutta (IIMC), Joka, Kolkata, West Bengal",
-   "country": "India",
-   "region": "India - East & North-East",
-   "discipline": "Road",
-   "distances": [
-    5.0
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Run Club, IIM Calcutta",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://marathonmitra.com/events/iimc-run-the-campus-run-2026",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/iimc-run-the-campus-run-2026"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -518,7 +71,7 @@
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": null,
    "entry": null,
    "sources": [
@@ -529,44 +82,36 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "mm-assam-rifles-half-marathon-2026",
-   "name": "ASSAM RIFLES HALF MARATHON 2026",
+   "id": "fm-bengaluru-half-marathon-2026",
+   "name": "Bengaluru Half Marathon 2026",
    "date": "2026-11-22",
    "dateTBC": false,
    "endDate": null,
-   "city": "Shillong",
-   "venue": "HQ DGAR, Laitkor, Shillong",
+   "city": "Bengaluru",
+   "venue": "Bengaluru, Karnataka",
    "country": "India",
-   "region": "India - East & North-East",
+   "region": "India - South",
    "discipline": "Road",
    "distances": [
     5.0,
     10.0,
     21.1
    ],
-   "categories": [
-    "5km Run",
-    "10km Run",
-    "21.1km Run"
-   ],
+   "categories": [],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": "Innovative Sports & Leisure LLP (ISL)",
+   "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/assam_rifles_half_marathon_2026_56508",
+   "status": "Concluded",
+   "regLink": null,
    "entry": null,
    "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/assam-rifles-half-marathon-2026"
-    },
     {
      "name": "FatMarathoner calendar",
      "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
@@ -574,95 +119,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ir-aspire_bee_run_5k_25498",
-   "name": "Aspire Bee Run 5k",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "East",
-   "venue": "Sy No 36/3, 37/5, 39/7 Sulikunte, Chokkasandra Dommasandra Road, off Sarjapur Road, East, Sulikunte Colony, Karnataka 562125, India, Karnataka",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    5.0
-   ],
-   "categories": [
-    "Aspire Bee Run 5k"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/aspire_bee_run_5k_25498",
-   "entry": null,
-   "sources": [
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/aspire_bee_run_5k_25498"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-bilaspur-marathon-2026-3rd-edition",
-   "name": "BILASPUR MARATHON 2026 – 3RD EDITION",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Bilaspur",
-   "venue": "Bilaspur",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21.1km Run",
-    "10km Run",
-    "5km Run",
-    "3km Run",
-    "3KM - Fun Run",
-    "5KM - Test Your Speed",
-    "10km - Test Your Speed and Endurance",
-    "21.1K - Half Marathon for the Legends"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Bilaspur Marathon 3.0",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/bilaspur_marathon_30_31977",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/bilaspur-marathon-2026-3rd-edition"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/bilaspur_marathon_30_31977"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -688,7 +145,7 @@
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": null,
    "entry": null,
    "sources": [
@@ -699,92 +156,12 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "mm-canara-bank-marathon-2026",
-   "name": "CANARA BANK MARATHON 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Bengaluru",
-   "venue": "Sree Kanteerava Stadium, Bengaluru",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0
-   ],
-   "categories": [
-    "10km Run",
-    "5km Run",
-    "3km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Canara Bank",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://www.canarabankmarathon.com/",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/canara-bank-marathon-2026"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-daringbadi-hill-marathon-2026-1",
-   "name": "Daringbadi Hill Marathon 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Daringbadi",
-   "venue": "Daringbadi, Odisha",
-   "country": "India",
-   "region": "India - East & North-East",
-   "discipline": "Trail",
-   "distances": [
-    5.0,
-    10.0
-   ],
-   "categories": [
-    "5km Run",
-    "10km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Sportive",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/daringbadi_hm_73848",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/daringbadi-hill-marathon-2026-1"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-erode-marathon-2026-5th-edition",
-   "name": "ERODE MARATHON 2026 – 5TH EDITION",
+   "id": "fm-erode-marathon-5th-edition-2026",
+   "name": "Erode Marathon 5th Edition 2026",
    "date": "2026-11-22",
    "dateTBC": false,
    "endDate": null,
@@ -796,339 +173,65 @@
    "distances": [
     5.0,
     10.0,
-    21.1,
-    32.2
-   ],
-   "categories": [
-    "32.18km Run",
-    "21.1km Run",
-    "10km Run",
-    "5km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Erode Runners Club",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://reg.myraceindia.com/form/erodemarathon2026",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/erode-marathon-2026-5th-edition"
-    },
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ifinish-EktaDiwas26",
-   "name": "Ekta Diwas Run 2026 - Run for Unity",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Hyderabad",
-   "venue": "Anywhere In India",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Virtual",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
     21.1
    ],
-   "categories": [
-    "3Km Run",
-    "5Km Run",
-    "10Km Run",
-    "21 KM HALF MARATHON RUN"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Sports Zone Events",
-   "regOpens": "2026-11-12",
-   "regCloses": "2026-11-19",
-   "status": "Closing Soon",
-   "regLink": "https://www.ifinish.in/running/EktaDiwas26",
-   "entry": null,
-   "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/EktaDiwas26"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/ektadiwasrun2026runforunity-48640"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-federal-bank-pune-marathon-2026",
-   "name": "Federal Bank Pune Marathon 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Pune",
-   "venue": "Pune",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1,
-    42.2
-   ],
-   "categories": [
-    "42km Run",
-    "21km Run",
-    "10km Run",
-    "5km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Federal Bank",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://stridersevents.in/events/info?FederalBankPuneMarathon2026=",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/federal-bank-pune-marathon-2026"
-    },
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-healthon-lucknow-2026",
-   "name": "HEALTHON LUCKNOW 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Lucknow",
-   "venue": "Janeshwar Mishra Park, Lucknow, Uttar Pradesh",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
-   "distances": [
-    2.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21km Run",
-    "10km Run",
-    "5km Run",
-    "2km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Jagran Prakashan Ltd.",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://inexthealthon.com/lucknow.php",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/healthon-lucknow-2026"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-hubballi-half-marathon-2026-12th-edition",
-   "name": "HUBBALLI HALF MARATHON 2026 – 12TH EDITION",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "",
-   "venue": "KLE Institute of Technology (KLEIT), Airport Road, Hubballi, Karnataka",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21.1km Run",
-    "10km Run",
-    "5km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Hubballi Fitness Club",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://hubballifitnessclub.com/marathon-registration-copy-2/",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/hubballi-half-marathon-2026-12th-edition"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ifinish-IITHHM_2026",
-   "name": "IIT Hyderabad Half Marathon 2026 - 3rd Edition",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Hyderabad",
-   "venue": "IIT Hyderabad Sports and Cultural Complex",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1,
-    42.2
-   ],
-   "categories": [
-    "21.1km Run",
-    "10km Run",
-    "5km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "IIT HYDERABAD RUNNERS SOCIETY",
-   "regOpens": "2026-07-03",
-   "regCloses": "2026-11-16",
-   "status": "Closing Soon",
-   "regLink": "https://www.ifinish.in/running/IITHHM_2026",
-   "entry": null,
-   "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/IITHHM_2026"
-    },
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/iit-hyderabad-half-marathon-2026-3rd-edition"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-indianoil-wnc-navy-half-marathon-2026",
-   "name": "INDIANOIL WNC NAVY HALF MARATHON 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Mumbai",
-   "venue": "South Mumbai, Maharashtra",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "5km Run",
-    "10km Run",
-    "21.1km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Western Naval Command, Indian Navy",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://wncnavyhalfmarathon.com/#race-categories",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/indianoil-wnc-navy-half-marathon-2026"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ir-janapav_hill_5km_run_31848",
-   "name": "Janapav Hill 5KM Run",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Anwaliya",
-   "venue": "FMF5+W3G, Janapav Kuti, Anwaliya, Madhya Pradesh 453661, India, Madhya Pradesh",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Trail",
-   "distances": [
-    5.0
-   ],
-   "categories": [
-    "5km Run"
-   ],
+   "categories": [],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/janapav_hill_5km_run_31848",
+   "status": "Concluded",
+   "regLink": null,
    "entry": null,
    "sources": [
     {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/janapav_hill_5km_run_31848"
+     "name": "FatMarathoner calendar",
+     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "fm-federal-bank-pune-marathon-2026-2026",
+   "name": "Federal Bank Pune Marathon 2026",
+   "date": "2026-11-22",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Pune",
+   "venue": "Pune, Maharashtra",
+   "country": "India",
+   "region": "India - West",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1,
+    42.2
+   ],
+   "categories": [],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Concluded",
+   "regLink": null,
+   "entry": null,
+   "sources": [
+    {
+     "name": "FatMarathoner calendar",
+     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -1155,7 +258,7 @@
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": null,
    "entry": null,
    "sources": [
@@ -1166,7 +269,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -1198,7 +301,7 @@
    "organizer": "NEB Sports",
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": "https://mysamay.in/public/event/info/425ed83a-c1a7-42af-88a9-40a86791e0e7%3Fcmeta%3D5X9k1Xe6JV",
    "entry": null,
    "sources": [
@@ -1213,90 +316,32 @@
    "causes": []
   },
   {
-   "id": "mm-khadakwasla-ultra-2026",
-   "name": "Khadakwasla Ultra 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Pune",
-   "venue": "Krushnai Water Park & Resort, Donje Gaon-Sinhagad Road, Donaje, Maharashtra, India",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Ultra (Road)",
-   "distances": [
-    25.0,
-    35.0,
-    55.0,
-    75.0,
-    100.0
-   ],
-   "categories": [
-    "25km Run",
-    "35km Run",
-    "55km Run",
-    "75km Run",
-    "100km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Bavdhan Brigade",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://konfhub.com/khadakwasla-ultra-2026",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/khadakwasla-ultra-2026"
-    },
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-ludhiana-10k-run-2026-6th-edition-1",
-   "name": "LUDHIANA 10K RUN 2026 – 6TH EDITION",
+   "id": "fm-ludhiana-half-marathon-2026",
+   "name": "Ludhiana Half Marathon 2026",
    "date": "2026-11-22",
    "dateTBC": false,
    "endDate": null,
    "city": "Ludhiana",
-   "venue": "Punjab Agricultural University, Ludhiana, Punjab",
+   "venue": "Ludhiana, Punjab",
    "country": "India",
    "region": "India - North",
    "discipline": "Road",
    "distances": [
-    3.0,
     5.0,
     10.0,
     21.1
    ],
-   "categories": [
-    "10km Run",
-    "5km Run",
-    "3km Run"
-   ],
+   "categories": [],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": "Ludhiana Runners",
+   "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://www.citywoofer.com/ticket/ludhiana-10k-run-2026-6th-edition#checkoutForm",
+   "status": "Concluded",
+   "regLink": null,
    "entry": null,
    "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/ludhiana-10k-run-2026-6th-edition-1"
-    },
     {
      "name": "FatMarathoner calendar",
      "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
@@ -1304,56 +349,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-mumbai-10-km-run-2026-ghatkopar-east",
-   "name": "MUMBAI 10 KM RUN 2026 – GHATKOPAR EAST",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Mumbai",
-   "venue": "Godrej Mangroves Area, Ghatkopar East, Mumbai, Maharashtra",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0
-   ],
-   "categories": [
-    "10km Run",
-    "5km Run",
-    "3km Run",
-    "3 KM Fun Run",
-    "5 KM Fun Run",
-    "5 KM Timed Run",
-    "10 KM Timed Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Event Team",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/mumbai_10_km_run__ghatkopar_east_75740",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/mumbai-10-km-run-2026-ghatkopar-east"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/mumbai_10_km_run__ghatkopar_east_75740"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -1378,7 +374,7 @@
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": null,
    "entry": null,
    "sources": [
@@ -1389,57 +385,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-mayfair-purnea-marathon-2026",
-   "name": "Mayfair Purnea Marathon 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Purnia",
-   "venue": "Mayfair,Gulabbagh,Purnia, Bihar",
-   "country": "India",
-   "region": "India - East & North-East",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "5km Run",
-    "10km Run",
-    "21.1km Run",
-    "3K Fun Run",
-    "5K",
-    "10K",
-    "21.1K- Half Marathon"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "AAVYA Sports Foundation & Unique Planner",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/mayfair_purnea_marathon_20_22007?",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/mayfair-purnea-marathon-2026"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/mayfair_purnea_marathon_20_22007"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -1466,7 +412,7 @@
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": null,
    "entry": null,
    "sources": [
@@ -1477,17 +423,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "mm-namma-run-coimbatore-2026",
-   "name": "NAMMA RUN COIMBATORE – 2026",
+   "id": "fm-namma-run-coimbatore-2026-2026",
+   "name": "Namma Run Coimbatore 2026",
    "date": "2026-11-22",
    "dateTBC": false,
    "endDate": null,
    "city": "Coimbatore",
-   "venue": "Karthipuram, Neelambur, Coimbatore",
+   "venue": "Coimbatore, Tamil Nadu",
    "country": "India",
    "region": "India - South",
    "discipline": "Road",
@@ -1498,156 +444,17 @@
     5.0,
     10.0
    ],
-   "categories": [
-    "1km Run",
-    "2km Run",
-    "3km Run",
-    "5km Run",
-    "10km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Network18",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://www.tesports.in/event-details/namma-run-coimbatore-2026.php",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/namma-run-coimbatore-2026"
-    },
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-namma-otta-2026",
-   "name": "Namma Otta 2026",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Bengaluru",
-   "venue": "Vijaya Bank Layout Playground, IIBM, Bengaluru, Karnataka, 560076",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0
-   ],
-   "categories": [
-    "10km Run",
-    "5km Run",
-    "3km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "C J EVENT",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://www.citywoofer.com/e/namma-otta-run-2026",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/namma-otta-2026"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ir-pacex_run__play_lake_runs_and_frisbee_edition_25688",
-   "name": "PaceX Run & Play, Lake Runs and Frisbee Edition",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Kadubeesanahalli",
-   "venue": "Panathur Lake, Panathur Main Rd, Kadubeesanahalli, Panathur, Bengaluru, Karnataka 560087, India, Karnataka",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    2.5,
-    5.0,
-    7.5
-   ],
-   "categories": [
-    "2.5K Fun Run",
-    "5K Fun Run",
-    "7.5K Fun Run"
-   ],
+   "categories": [],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/pacex_run__play_lake_runs_and_frisbee_edition_25688",
+   "status": "Concluded",
+   "regLink": null,
    "entry": null,
    "sources": [
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/pacex_run__play_lake_runs_and_frisbee_edition_25688"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-pink-10k-challenge-bangalore-season-5",
-   "name": "Pink 10K Challenge Bangalore – Season 5",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Bengaluru",
-   "venue": "NICE Road, Nayandahalli Toll Gate, Bengaluru",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "3km Run",
-    "5km Run",
-    "10km Run",
-    "21km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Assist Help Foundation (AHF)",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://www.assisthelp.org/event-details/pink-10k-challenge-bangalore-1",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/pink-10k-challenge-bangalore-season-5"
-    },
     {
      "name": "FatMarathoner calendar",
      "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
@@ -1655,56 +462,49 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": [
-    "Health"
-   ]
+   "lastChecked": "2026-11-23",
+   "causes": []
   },
   {
-   "id": "mm-rohtak-marathon-2026-15th-edition",
-   "name": "ROHTAK MARATHON 2026 – 15TH EDITION",
+   "id": "ifinish-NCAD26",
+   "name": "National Cancer Awareness Day Run 2026",
    "date": "2026-11-22",
    "dateTBC": false,
-   "endDate": null,
-   "city": "Rohtak",
-   "venue": "Jat College Ground, Rohtak, Haryana",
+   "endDate": "2026-11-29",
+   "city": "Hyderabad",
+   "venue": "Anywhere In India",
    "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
+   "region": "India - South",
+   "discipline": "Virtual",
    "distances": [
+    3.0,
     5.0,
-    11.0,
+    10.0,
     21.1
    ],
-   "categories": [
-    "21.1km Run",
-    "11km Run",
-    "5km Run",
-    "Half Marathon"
-   ],
-   "priceFrom": null,
+   "categories": [],
+   "priceFrom": 699,
    "currency": "INR",
    "priceNote": null,
-   "organizer": "Event Team",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://racesregistrations.com/checkout/513",
+   "organizer": "Sports Zone Events",
+   "regOpens": "2026-11-19",
+   "regCloses": "2026-11-28",
+   "status": "Concluded",
+   "regLink": "https://www.ifinish.in/running/NCAD26",
    "entry": null,
    "sources": [
     {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/rohtak-marathon-2026-15th-edition"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/rohtak_arathon_12123"
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/NCAD26"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
+   "lastChecked": "2026-11-23",
+   "causes": [
+    "Health",
+    "Awareness"
+   ]
   },
   {
    "id": "fm-rourkela-half-marathon-2026",
@@ -1729,7 +529,7 @@
    "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
+   "status": "Concluded",
    "regLink": null,
    "entry": null,
    "sources": [
@@ -1740,146 +540,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "mm-sbi-green-marathon-vizag-2026-season-7",
-   "name": "SBI GREEN MARATHON VIZAG 2026 – SEASON 7",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Visakhapatnam",
-   "venue": "VMRDA Park, Ramakrishna Beach, Visakhapatnam",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21.1km Run",
-    "10km Run",
-    "5km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "SBI and Mirchi",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://www.citywoofer.com/e/sbi-green-marathon-s7-visakhapatnam",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/sbi-green-marathon-vizag-2026-season-7"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": [
-    "Environment"
-   ]
-  },
-  {
-   "id": "mm-surya-half-marathon-2026-4th-edition",
-   "name": "SURYA HALF MARATHON 2026 – 4TH EDITION",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Jabalpur",
-   "venue": "Cobra Ground, South Civil Lines, Jabalpur, Madhya Pradesh",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21.1km Run",
-    "10km Run",
-    "5km Run",
-    "3km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Under the aegis of the Indian Army",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/suyra_half_marathon_2026_22540",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/surya-half-marathon-2026-4th-edition"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-shalimars-wellness-run-season-2",
-   "name": "Shalimar's Wellness Run (Season 2)​",
-   "date": "2026-11-22",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Kolkata",
-   "venue": "Godrej Waterside, Sector V, Kolkata",
-   "country": "India",
-   "region": "India - East & North-East",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    16.0
-   ],
-   "categories": [
-    "3km Run",
-    "5km Run",
-    "10km Run",
-    "16km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Event Team",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://athlenic.com/wellnessrun26",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/shalimars-wellness-run-season-2"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-yashoda-half-marathon-40",
-   "name": "YASHODA HALF MARATHON 4.0",
+   "id": "fm-yashoda-half-marathon-4-0-2026",
+   "name": "Yashoda Half Marathon 4.0 2026",
    "date": "2026-11-22",
    "dateTBC": false,
    "endDate": null,
    "city": "Ghaziabad",
-   "venue": "Yashoda Medicity, Indirapuram, Ghaziabad, Uttar Pradesh",
+   "venue": "Ghaziabad, Uttar Pradesh",
    "country": "India",
    "region": "India - North",
    "discipline": "Road",
@@ -1889,26 +560,17 @@
     10.0,
     21.1
    ],
-   "categories": [
-    "21.1km Run",
-    "10km Run",
-    "5km Run",
-    "3km Run"
-   ],
+   "categories": [],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": "Yashoda Medicity / Marathon Sports Hub",
+   "organizer": null,
    "regOpens": null,
    "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://www.indiarunning.com/events/yashoda_medicity_presents__yashoda_half_marathon_40_45823",
+   "status": "Concluded",
+   "regLink": null,
    "entry": null,
    "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/yashoda-half-marathon-40"
-    },
     {
      "name": "FatMarathoner calendar",
      "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
@@ -1916,7 +578,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -1959,17 +621,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ir-seniorcitizenwellnessprogramthane13thnovember2026-40016",
-   "name": "Senior citizen wellness program - Ahmedabad- 27th November 2026",
+   "id": "ir-seniorcitizenwellnessprogramnavimumbai27thnovember2026-19350",
+   "name": "Senior citizen wellness program - Navi Mumbai- 27th November 2026",
    "date": "2026-11-27",
    "dateTBC": false,
    "endDate": null,
-   "city": "Usmanpura",
-   "venue": "2HVC+2P8 Usmanpura Sabarmati River Front Park, Usmanpura, Ahmedabad, Gujarat 380009, India, Gujarat",
+   "city": "Jewel of Navi Mumbai, Sector 26",
+   "venue": "Jewel of Navi Mumbai (JNM), Sector 26, Nerul, Navi Mumbai, Maharashtra 400706, India, Maharashtra",
    "country": "India",
    "region": "India - West",
    "discipline": "Road",
@@ -1984,9 +646,13 @@
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/seniorcitizenwellnessprogramthane13thnovember2026-40016",
+   "regLink": "https://indiarunning.com/events/seniorcitizenwellnessprogramnavimumbai27thnovember2026-19350",
    "entry": null,
    "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/seniorcitizenwellnessprogramnavimumbai27thnovember2026-19350"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/seniorcitizenwellnessprogramthane13thnovember2026-40016"
@@ -1994,7 +660,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2031,7 +697,46 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-run_and_kickboxing_at_indiranagar_32579",
+   "name": "Run and Kickboxing at Indiranagar",
+   "date": "2026-11-28",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "HAL 2nd Stage",
+   "venue": "2nd Floor, 764, 100 Feet Rd, HAL 2nd Stage, Domlur, Indiranagar, Bengaluru, Karnataka 560008, India, Karnataka",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    2.5,
+    5.0
+   ],
+   "categories": [
+    "2.5K Fun Run",
+    "5K Fun Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/run_and_kickboxing_at_indiranagar_32579",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/run_and_kickboxing_at_indiranagar_32579"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2066,7 +771,44 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-wesnessrun2mingleblr-24866",
+   "name": "WESNESS RUN2MINGLE BLR",
+   "date": "2026-11-28",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Sector 4",
+   "venue": "V Plaza, 14th Main Rd, opp. BDA Complex, Sector 4, HSR Layout, Bengaluru, Karnataka 560102, India, Karnataka",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    3.0
+   ],
+   "categories": [
+    "WESNESS RUN2MINGLE- 3k"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/wesnessrun2mingleblr-24866",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/wesnessrun2mingleblr-24866"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2107,7 +849,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2148,7 +890,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2191,7 +933,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2238,7 +980,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2274,7 +1016,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2312,7 +1054,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2353,50 +1095,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-conscient-gurugram-half-marathon-30-2026",
-   "name": "CONSCIENT GURUGRAM HALF MARATHON 3.0 – 2026",
-   "date": "2026-11-29",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "gurgaon",
-   "venue": "Sector 79, Gurugram, Haryana",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21km Run",
-    "10km Run",
-    "5km Run",
-    "3km Run"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "FTC Foundation",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/conscient_gurugram_half_marathon_30_57887",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/conscient-gurugram-half-marathon-30-2026"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2439,7 +1138,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2475,7 +1174,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2512,7 +1211,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2548,7 +1247,7 @@
    "organizer": "Splash International Group",
    "regOpens": "2026-09-29",
    "regCloses": "2026-11-27",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/Neonrun26",
    "entry": null,
    "sources": [
@@ -2567,7 +1266,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2610,7 +1309,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2636,7 +1335,7 @@
    "organizer": "sujatha suravae",
    "regOpens": "2026-10-09",
    "regCloses": "2026-11-27",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/ERun26",
    "entry": null,
    "sources": [
@@ -2647,7 +1346,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2686,44 +1385,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ifinish-FIN26AMR",
-   "name": "FinRun 2026 – Run Against Cyber Crime",
-   "date": "2026-11-29",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Vijayawada",
-   "venue": "Indira Gandhi Municipal Stadium (IGMC Stadium",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Dfairs Communications Pvt Ltd",
-   "regOpens": "2026-07-15",
-   "regCloses": "2026-11-28",
-   "status": "Registrations Open",
-   "regLink": "https://www.ifinish.in/running/FIN26AMR",
-   "entry": null,
-   "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/FIN26AMR"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2765,7 +1427,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2781,19 +1443,13 @@
    "discipline": "Road",
    "distances": [
     5.0,
-    10.0,
-    21.1,
-    42.2
+    10.0
    ],
    "categories": [
     "42.195km Run",
     "21.097km Run",
     "10km Run",
-    "5km Run",
-    "Joy Walk / Run",
-    "City Run",
-    "Half Marathon",
-    "Full Marathon"
+    "5km Run"
    ],
    "priceFrom": null,
    "currency": "INR",
@@ -2808,15 +1464,11 @@
     {
      "name": "MarathonMitra",
      "url": "https://marathonmitra.com/events/guwahati-marathon-2026"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/the_guwahati_marathon_26840"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2859,7 +1511,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2937,7 +1589,50 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-internationalmensdayhealthrun2026-49269",
+   "name": "International Mens Day Health Run 2026",
+   "date": "2026-11-29",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Anywhere",
+   "venue": "",
+   "country": "India",
+   "region": "India - Other",
+   "discipline": "Virtual",
+   "distances": [
+    3.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "5Km Run",
+    "3Km Run",
+    "10Km Run",
+    "21 KM HALF MARATHON RUN"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/internationalmensdayhealthrun2026-49269",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/internationalmensdayhealthrun2026-49269"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -2981,7 +1676,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3026,48 +1721,8 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
-  },
-  {
-   "id": "ifinish-JAI_26",
-   "name": "Jal Suraksha Navi Mumbai Half Marathon 2026",
-   "date": "2026-11-29",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Mumbai",
-   "venue": "Palm Beach Road Corridor, Opp. NMMC Headquart",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Synergynexus Foundation",
-   "regOpens": "2026-07-07",
-   "regCloses": "2026-11-26",
-   "status": "Closing Soon",
-   "regLink": "https://www.ifinish.in/running/JAI_26",
-   "entry": null,
-   "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/JAI_26"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": [
-    "Environment"
-   ]
   },
   {
    "id": "fm-kochi-half-marathon-2026",
@@ -3103,7 +1758,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3146,7 +1801,47 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-lake_run_and_coffee_rave__hsr_28436",
+   "name": "Lake Run and Coffee Rave - HSR",
+   "date": "2026-11-29",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Agara Village",
+   "venue": "3, Agara Lake Trail, near Cafe Coffee Day - Ramesh Plaza, HSR Layout, Agara Village, 1st Sector, HSR Layout, Bengaluru, Karnataka 560102, India, Karnataka",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    2.5,
+    10.0
+   ],
+   "categories": [
+    "2.5K Fun Run",
+    "5KFun Run",
+    "10K Fun Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/lake_run_and_coffee_rave__hsr_28436",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/lake_run_and_coffee_rave__hsr_28436"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3185,7 +1880,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3212,14 +1907,7 @@
     "10km Run",
     "21.1km Run",
     "42.2km Run",
-    "50km Run",
-    "50 KM Ultra - Timed Run",
-    "42.2 KM - Full Marathon",
-    "21.1 KM Half Marathon - Timed Run",
-    "10 KM - Timed Run",
-    "5 KM - Timed Run",
-    "Fun Run and Walk- 5 KM (Non-Timed)",
-    "Fun Run and Walk- 3 KM (Non-Timed)"
+    "50km Run"
    ],
    "priceFrom": null,
    "currency": "INR",
@@ -3236,18 +1924,60 @@
      "url": "https://marathonmitra.com/events/mussoorie-ultra-2nd-edition-2026"
     },
     {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/mussoorieultra2ndedition-19483"
-    },
-    {
      "name": "FatMarathoner calendar",
      "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
+  },
+  {
+   "id": "ir-nationalcancerawarenessdayrun2026-49299",
+   "name": "National Cancer Awareness Day Run 2026",
+   "date": "2026-11-29",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Anywhere",
+   "venue": "",
+   "country": "India",
+   "region": "India - Other",
+   "discipline": "Virtual",
+   "distances": [
+    3.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "3Km Run",
+    "5Km Run",
+    "21 KM HALF MARATHON RUN",
+    "10Km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/nationalcancerawarenessdayrun2026-49299",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/nationalcancerawarenessdayrun2026-49299"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": [
+    "Health",
+    "Awareness"
+   ]
   },
   {
    "id": "ifinish-Nashik_2026",
@@ -3299,7 +2029,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3354,7 +2084,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3395,7 +2125,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Health"
    ]
@@ -3434,7 +2164,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
@@ -3479,7 +2209,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3524,9 +2254,54 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
+   ]
+  },
+  {
+   "id": "mm-sikkim-manipal-university-sikkim-soldierathon-30-2026",
+   "name": "SIKKIM MANIPAL UNIVERSITY SIKKIM SOLDIERATHON 3.0 – 2026",
+   "date": "2026-11-29",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Gangtok",
+   "venue": "Paljor Stadium, Gangtok, Sikkim",
+   "country": "India",
+   "region": "India - East & North-East",
+   "discipline": "Road",
+   "distances": [
+    1.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21km Run",
+    "10km Run",
+    "5km Run",
+    "1km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Indian Army",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://www.fitistan.com/events/e/sikkim-soldierathon-3-2026",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/sikkim-manipal-university-sikkim-soldierathon-30-2026"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": [
+    "Armed forces welfare"
    ]
   },
   {
@@ -3567,7 +2342,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3577,7 +2352,7 @@
    "dateTBC": false,
    "endDate": null,
    "city": "Pune",
-   "venue": "Vantagio, Shankar Kalat Nagar, Wakad, Pune",
+   "venue": "Shankar Kalat Nagar, Wakad, Pune, Pimpri-Chinchwad, India,",
    "country": "India",
    "region": "India - West",
    "discipline": "Road",
@@ -3608,70 +2383,8 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
-  },
-  {
-   "id": "ifinish-SIKKIM3",
-   "name": "Sikkim Manipal University Sikkim Soldierathon 3.0, Gangtok, Sunday, 29th November, 2026",
-   "date": "2026-11-29",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Gangtok",
-   "venue": "Paljor Stadium, Gangtok, Sikkim, 737101",
-   "country": "India",
-   "region": "India - East & North-East",
-   "discipline": "Trail",
-   "distances": [
-    1.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21km Run",
-    "10km Run",
-    "5km Run",
-    "1km Run",
-    "Cheer Buddy (Accompanying Partner of Runner)",
-    "1 KM Run/Walk Non Timed For Defence Personnel - Honour Walk",
-    "5 KM Run/Walk Non Timed For Defence Personnel",
-    "1 KM Run/Walk Non Timed For Civil Citizens - Honour Walk",
-    "10 KM Timed Run For Defence Personnel",
-    "5 KM Run/Walk Non Timed For Civil Citizens",
-    "Half Marathon 21 KM For Defence Personnel",
-    "10 KM Timed Run For Civil Citizens",
-    "Half Marathon 21 KM For Civil Citizens"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "KYROGENIUS FITNESS TECHNOLOGY",
-   "regOpens": "2026-10-14",
-   "regCloses": "2026-11-20",
-   "status": "Closing Soon",
-   "regLink": "https://www.ifinish.in/running/SIKKIM3",
-   "entry": null,
-   "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/SIKKIM3"
-    },
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/sikkim-manipal-university-sikkim-soldierathon-30-2026"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/sikkim_manipal_university_sikkim_soldierathon_30_gangtok_sunday_29th_november_2026_54762"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": [
-    "Armed forces welfare"
-   ]
   },
   {
    "id": "fm-tcs-noida-10k-2026",
@@ -3706,7 +2419,44 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-the_next_big__2k_family_walk_14566",
+   "name": "THE NEXT BIG - 2K FAMILY WALK",
+   "date": "2026-11-29",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "SIDCO",
+   "venue": "5th Cross St, SIDCO, Urbanrise, Thirumazhisai, Chennai, Tamil Nadu 600124, India, Tamil Nadu",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Walk",
+   "distances": [
+    2.0
+   ],
+   "categories": [
+    "2KM FAMILY WALK"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/the_next_big__2k_family_walk_14566",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/the_next_big__2k_family_walk_14566"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3744,7 +2494,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3781,7 +2531,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3822,7 +2572,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3863,7 +2613,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3906,7 +2656,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3944,7 +2694,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -3982,7 +2732,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4037,7 +2787,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4075,7 +2825,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4104,7 +2854,7 @@
    "organizer": "stepout2play",
    "regOpens": "2026-11-03",
    "regCloses": "2026-11-27",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/stride_as_one",
    "entry": null,
    "sources": [
@@ -4115,7 +2865,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4150,7 +2900,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4186,7 +2936,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4221,7 +2971,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4258,7 +3008,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4277,9 +3027,11 @@
     5.0,
     10.0,
     15.0,
+    25.0,
     30.0,
     50.0,
-    100.0
+    100.0,
+    110.0
    ],
    "categories": [
     "160.934km Run",
@@ -4289,7 +3041,9 @@
     "15km Run",
     "10km Run",
     "5km Run",
-    "3km Run"
+    "3km Run",
+    "25km Run",
+    "110km Run"
    ],
    "priceFrom": null,
    "currency": "INR",
@@ -4304,11 +3058,15 @@
     {
      "name": "MarathonMitra",
      "url": "https://marathonmitra.com/events/anjaneri-ultra-trail-6th-edition"
+    },
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/ultribe-paderu-2026-the-ultimate-eastern-ghats-trail-ultra"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4352,7 +3110,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4378,7 +3136,7 @@
    "organizer": "BHOPAL RUNNERS",
    "regOpens": "2026-09-17",
    "regCloses": "2026-12-02",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/RBR_Junior",
    "entry": null,
    "sources": [
@@ -4389,7 +3147,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4435,17 +3193,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ifinish-Paderu26",
-   "name": "The Ultribe Paderu 2026",
+   "id": "ir-the_ultribe_paderu_47328",
+   "name": "The Ultribe Paderu",
    "date": "2026-12-05",
    "dateTBC": false,
-   "endDate": "2026-12-06",
-   "city": "Visakhapatnam",
-   "venue": "Karakaputtu",
+   "endDate": null,
+   "city": "Vanjangi",
+   "venue": "Vanjangi, Thotagunnalu, Andhra Pradesh 531024, India, Andhra Pradesh",
    "country": "India",
    "region": "India - South",
    "discipline": "Trail / Ultra",
@@ -4453,14 +3211,9 @@
     10.0,
     25.0,
     50.0,
-    100.0,
     110.0
    ],
    "categories": [
-    "10km Run",
-    "25km Run",
-    "50km Run",
-    "110km Run",
     "10 K - Vanajangi Challenge",
     "25 K - Debut Trail",
     "50 K - Tame the Trail",
@@ -4469,21 +3222,13 @@
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": "Visakha Trail Running Association",
-   "regOpens": "2026-06-12",
-   "regCloses": "2026-12-03",
-   "status": "Registrations Open",
-   "regLink": "https://www.ifinish.in/running/Paderu26",
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/the_ultribe_paderu_47328",
    "entry": null,
    "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/Paderu26"
-    },
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/ultribe-paderu-2026-the-ultimate-eastern-ghats-trail-ultra"
-    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/the_ultribe_paderu_47328"
@@ -4491,7 +3236,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4527,7 +3272,48 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-apr-run-2026-bengaluru",
+   "name": "APR RUN 2026 – BENGALURU",
+   "date": "2026-12-06",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Bengaluru",
+   "venue": "Phase 3 Villa Gate, Adarsh Palm Retreat, Devarabisanahalli, Bengaluru",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [
+    "10km Run",
+    "5km Run",
+    "3km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "APR Charitable Trust",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://www.aprcharitabletrust.org/events/apr-run-2026/register/tickets/",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/apr-run-2026-bengaluru"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4555,7 +3341,7 @@
    "organizer": "Hyderabad Runners",
    "regOpens": "2026-10-29",
    "regCloses": "2026-12-03",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/WINTERHALF_2026",
    "entry": null,
    "sources": [
@@ -4566,7 +3352,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4605,7 +3391,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4661,7 +3447,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4698,7 +3484,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4739,7 +3525,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4773,7 +3559,7 @@
    "organizer": "Playfree Sports India",
    "regOpens": "2026-08-19",
    "regCloses": "2026-12-01",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/Dosti_2026",
    "entry": null,
    "sources": [
@@ -4792,7 +3578,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4833,7 +3619,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4890,7 +3676,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4934,7 +3720,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -4977,7 +3763,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5032,7 +3818,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5075,7 +3861,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5118,7 +3904,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5167,7 +3953,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5204,7 +3990,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5241,7 +4027,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5306,7 +4092,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5350,7 +4136,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5387,7 +4173,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5417,7 +4203,7 @@
    "organizer": "BHOPAL RUNNERS",
    "regOpens": "2026-04-16",
    "regCloses": "2026-12-01",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/RBR26",
    "entry": null,
    "sources": [
@@ -5436,7 +4222,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5477,7 +4263,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
@@ -5509,7 +4295,7 @@
    "organizer": "Sankalp For a Good Cause",
    "regOpens": "2026-08-19",
    "regCloses": "2026-12-01",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/SSR26",
    "entry": null,
    "sources": [
@@ -5524,7 +4310,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5600,7 +4386,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5672,7 +4458,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5707,7 +4493,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5748,7 +4534,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5783,7 +4569,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Armed forces welfare"
    ]
@@ -5821,7 +4607,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5872,7 +4658,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5909,7 +4695,44 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ifinish-AOC26",
+   "name": "Akshayakalpa Organic Circuit - Edition 3",
+   "date": "2026-12-13",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Hyderabad",
+   "venue": "Akshayakalpa Regenerative Farming, Shadnagar",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Akshayakala Organic Farms and Foods",
+   "regOpens": "2026-11-16",
+   "regCloses": "2026-12-12",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/AOC26",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/AOC26"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -5933,11 +4756,7 @@
     "5km Run",
     "10km Run",
     "21km Run",
-    "42km Run",
-    "Full Marathon",
-    "Half Marathon",
-    "10K Timed Run",
-    "5K Timed Run"
+    "42km Run"
    ],
    "priceFrom": null,
    "currency": "INR",
@@ -5952,15 +4771,11 @@
     {
      "name": "MarathonMitra",
      "url": "https://marathonmitra.com/events/bajaj-pune-marathon-2026"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/bajajpunemarathon2026-48091"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6003,7 +4818,59 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-conscient-gurugram-half-marathon-30-2026",
+   "name": "CONSCIENT GURUGRAM HALF MARATHON 3.0 – 2026",
+   "date": "2026-12-13",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "gurgaon",
+   "venue": "Sector 79, Gurugram, Haryana",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21km Run",
+    "10km Run",
+    "5km Run",
+    "3km Run",
+    "3KM NATURE WALK",
+    "3KM",
+    "5KM",
+    "10KM",
+    "21KM"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "FTC Foundation",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://registrations.indiarunning.com/conscient_gurugram_half_marathon_30_57887",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/conscient-gurugram-half-marathon-30-2026"
+    },
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/conscient_gurugram_half_marathon_30_57887"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6044,7 +4911,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6082,101 +4949,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ir-conscient_gurugram_half_marathon_30_57887",
-   "name": "Conscient Gurugram Half marathon 3.0",
-   "date": "2026-12-13",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Sector 79",
-   "venue": "Sector 79, Gurugram, Haryana 122012, India, Haryana",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
-   "distances": [
-    3.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "3KM",
-    "5KM",
-    "10KM",
-    "21KM"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/conscient_gurugram_half_marathon_30_57887",
-   "entry": null,
-   "sources": [
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/conscient_gurugram_half_marathon_30_57887"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "mm-dwarka-legends-half-marathon-2026",
-   "name": "DWARKA LEGENDS HALF MARATHON 2026",
-   "date": "2026-12-13",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "New Delhi",
-   "venue": "The Omaxe State, Sector 19B, Dwarka, New Delhi",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
-   "distances": [
-    2.0,
-    5.0,
-    10.0,
-    21.1
-   ],
-   "categories": [
-    "21.1km Run",
-    "10km Run",
-    "5km Run",
-    "2km Run",
-    "2KM RUN – FUN RUN(Non-Timed Run)",
-    "5KM RUN – FITNESS RUN(Timed Run)",
-    "10KM RUN – EMPOWER RUN(Timed Run)",
-    "21.1KM RUN – LEGENDS RUN(Timed Run)"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Splash International Group",
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://registrations.indiarunning.com/dwarka_legends_half_marathon_71360",
-   "entry": null,
-   "sources": [
-    {
-     "name": "MarathonMitra",
-     "url": "https://marathonmitra.com/events/dwarka-legends-half-marathon-2026"
-    },
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/dwarka_legends_half_marathon_71360"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6215,7 +4988,62 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ifinish-DwarkaLegendsHM",
+   "name": "Dwarka Legends Half Marathon 2026",
+   "date": "2026-12-13",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Delhi",
+   "venue": "The Omaxe State, Sector 19B, Dwarka, New Delh",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    2.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21.1km Run",
+    "10km Run",
+    "5km Run",
+    "2km Run",
+    "2KM RUN – FUN RUN(Non-Timed Run)",
+    "5KM RUN – FITNESS RUN(Timed Run)",
+    "10KM RUN – EMPOWER RUN(Timed Run)",
+    "21.1KM RUN – LEGENDS RUN(Timed Run)"
+   ],
+   "priceFrom": 699,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Splash International Group",
+   "regOpens": "2026-11-19",
+   "regCloses": "2026-12-10",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/DwarkaLegendsHM",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/DwarkaLegendsHM"
+    },
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/dwarka-legends-half-marathon-2026"
+    },
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/dwarka_legends_half_marathon_71360"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6246,7 +5074,7 @@
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://www.citywoofer.com/e/freshathon-winter-rush-paint-the-city-red-hyderabad-edition",
+   "regLink": "https://registrations.indiarunning.com/freshathon_winter_rush__paint_the_city_red_hyderabad_edition_61824",
    "entry": null,
    "sources": [
     {
@@ -6256,7 +5084,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6299,7 +5127,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6352,7 +5180,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Armed forces welfare"
    ]
@@ -6441,7 +5269,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6482,7 +5310,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6525,7 +5353,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6562,7 +5390,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6607,7 +5435,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
@@ -6646,7 +5474,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6699,7 +5527,86 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-one_earth_one_heart_5k_bengaluru_8890",
+   "name": "One Earth One Heart 5K Bengaluru",
+   "date": "2026-12-13",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "BEML Layout",
+   "venue": "6th Main Road, Gokhale Rd, BEML Layout, BEML Layout 3rd Stage, Rajarajeshwari Nagar, Bengaluru, Karnataka 560098, India, Karnataka",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    5.0
+   ],
+   "categories": [
+    "Student Offer",
+    "5k run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/one_earth_one_heart_5k_bengaluru_8890",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/one_earth_one_heart_5k_bengaluru_8890"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-phaltan-heritage-marathon-2026-phaltan",
+   "name": "PHALTAN HERITAGE MARATHON 2026 – PHALTAN",
+   "date": "2026-12-13",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "",
+   "venue": "Sajai Garden, Phaltan, Maharashtra",
+   "country": "India",
+   "region": "India - West",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21km Run",
+    "10km Run",
+    "5km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Phaltan Runners Foundation",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://alpharacingsolution.com/e/phaltan-heritage-2025",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/phaltan-heritage-marathon-2026-phaltan"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6737,7 +5644,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6784,7 +5691,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6842,7 +5749,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Armed forces welfare"
    ]
@@ -6885,7 +5792,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -6926,7 +5833,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
@@ -6969,7 +5876,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7006,7 +5913,7 @@
    "organizer": "VASCO SPORTS CLUB",
    "regOpens": "2026-01-01",
    "regCloses": "2026-12-01",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/SKF_2026",
    "entry": null,
    "sources": [
@@ -7025,7 +5932,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7063,7 +5970,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7106,7 +6013,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Armed forces welfare"
    ]
@@ -7156,7 +6063,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7197,7 +6104,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7235,7 +6142,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7276,7 +6183,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7402,7 +6309,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7438,17 +6345,52 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ir-asa_greenathon_2026_27988",
-   "name": "ASA GREENATHON 2026",
+   "id": "fm-assam-rifles-vijay-diwas-half-marathon-2026",
+   "name": "Assam Rifles Vijay Diwas Half Marathon 2026",
+   "date": "2026-12-15",
+   "dateTBC": true,
+   "endDate": null,
+   "city": "Agartala",
+   "venue": "Agartala, Tripura",
+   "country": "India",
+   "region": "India - East & North-East",
+   "discipline": "Road",
+   "distances": [
+    21.1
+   ],
+   "categories": [],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": null,
+   "entry": null,
+   "sources": [
+    {
+     "name": "FatMarathoner calendar",
+     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-asa-greenathon-2026-1",
+   "name": "ASA Greenathon 2026",
    "date": "2026-12-20",
    "dateTBC": false,
    "endDate": null,
-   "city": "Gothivali Village",
-   "venue": "107, Gothivali Village, Sector 8A, Airoli, Navi Mumbai, Maharashtra 400701, India, Maharashtra",
+   "city": "Navi Mumbai",
+   "venue": "Airoli Sports Association,Airoli,Navi mumbai",
    "country": "India",
    "region": "India - West",
    "discipline": "Road",
@@ -7459,6 +6401,10 @@
     21.1
    ],
    "categories": [
+    "21.1km Run",
+    "10km Run",
+    "5km Run",
+    "3km Run",
     "3 KM Green Fun Run",
     "5 KM Green Sprint",
     "10 KM Green Stride",
@@ -7467,13 +6413,17 @@
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
+   "organizer": "Airoli Sports Association",
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/asa_greenathon_2026_27988",
+   "regLink": "https://registrations.indiarunning.com/asa_greenathon_2026_27988",
    "entry": null,
    "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/asa-greenathon-2026-1"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/asa_greenathon_2026_27988"
@@ -7481,7 +6431,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
@@ -7522,7 +6472,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7559,17 +6509,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ir-garwarewaihalfmarathon2026-66696",
+   "id": "mm-garware-wai-half-marathon-2026",
    "name": "Garware Wai Half Marathon 2026",
    "date": "2026-12-20",
    "dateTBC": false,
    "endDate": null,
-   "city": "Maharashtra",
-   "venue": "Songirwadi, Wai, Maharashtra 412803, Maharashtra",
+   "city": "Satara",
+   "venue": "Dravid High School Ground, Wai, Satara, Maharashtra",
    "country": "India",
    "region": "India - West",
    "discipline": "Trail",
@@ -7579,6 +6529,9 @@
     21.1
    ],
    "categories": [
+    "21km Run",
+    "10km Run",
+    "3km Run",
     "3KM",
     "10KM",
     "21KM"
@@ -7586,13 +6539,17 @@
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
+   "organizer": "Team Wai Marathon",
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/garwarewaihalfmarathon2026-66696",
+   "regLink": "https://registrations.indiarunning.com/garwarewaihalfmarathon2026-66696",
    "entry": null,
    "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/garware-wai-half-marathon-2026"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/garwarewaihalfmarathon2026-66696"
@@ -7600,7 +6557,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7637,7 +6594,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7675,17 +6632,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ir-haribol_run_51770",
-   "name": "HariBol Run",
+   "id": "mm-haribol-run-marathon-for-health-30-2026",
+   "name": "HARIBOL RUN – MARATHON FOR HEALTH 3.0 – 2026",
    "date": "2026-12-20",
    "dateTBC": false,
    "endDate": null,
-   "city": "Wave City",
-   "venue": "Wave City, Ghaziabad, Uttar Pradesh, India, Uttar Pradesh",
+   "city": "Ghaziabad",
+   "venue": "Iskcon Temple, Wave City, Ghaziabad, Uttar Pradesh",
    "country": "India",
    "region": "India - North",
    "discipline": "Road",
@@ -7696,29 +6653,72 @@
     21.1
    ],
    "categories": [
-    "3 Km Fun Run",
-    "5 Km Timed Run",
-    "10km Timed Run",
-    "Half Marathon 21 km"
+    "21km Run",
+    "10km Run",
+    "5km Run",
+    "3km Run"
    ],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
+   "organizer": "Nayi Umang Samajik Sanstha and Nayi Pragati Nayi Pahal",
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/haribol_run_51770",
+   "regLink": "https://registrations.indiarunning.com/haribol_run_51770",
    "entry": null,
    "sources": [
     {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/haribol_run_51770"
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/haribol-run-marathon-for-health-30-2026"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-healthon-half-marathon-2026-kanpur",
+   "name": "HEALTHON HALF MARATHON 2026 – KANPUR",
+   "date": "2026-12-20",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Kanpur",
+   "venue": "Green Park Stadium,Civil Lines, Kanpur, Uttar Pradesh",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    2.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21km Run",
+    "10km Run",
+    "5km Run",
+    "2km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Jagran Prakashan Limited",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://inexthealthon.com/index.php#register-section",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/healthon-half-marathon-2026-kanpur"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7755,7 +6755,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7777,9 +6777,14 @@
     10.0
    ],
    "categories": [
-    "2K Freestyle Costume Run",
+    "1km Run",
+    "2km Run",
+    "3km Run",
+    "5km Run",
+    "10km Run",
     "1K Kids Run",
     "2K Kids Run",
+    "2K Freestyle Costume Run",
     "5K Fun Run",
     "3KM Walkathon",
     "10K Fun Run",
@@ -7801,6 +6806,10 @@
      "url": "https://www.ifinish.in/running/MANGALORE"
     },
     {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/namma-run-mangalore-2026"
+    },
+    {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/namma_run_mangalore_27808"
     },
@@ -7811,7 +6820,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7831,6 +6840,9 @@
     10.0
    ],
    "categories": [
+    "10km Run",
+    "5km Run",
+    "2km Run",
     "2KM Run",
     "5KM Fun Run",
     "5K Timed Run",
@@ -7851,13 +6863,108 @@
      "url": "https://www.ifinish.in/running/Amdavadrun26"
     },
     {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/news18-run-amdavad-run-2026"
+    },
+    {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/news18_run__amdavad_61363"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-pune-junior-marathon-2026",
+   "name": "PUNE JUNIOR MARATHON 2026",
+   "date": "2026-12-20",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Pune",
+   "venue": "Savitribai Phule Pune University, Pune",
+   "country": "India",
+   "region": "India - West",
+   "discipline": "Road",
+   "distances": [
+    1.0,
+    2.0,
+    3.0,
+    5.0
+   ],
+   "categories": [
+    "1km Run",
+    "2km Run",
+    "3km Run",
+    "5km Run",
+    "1KM - 4 to 7 Yrs - Early Bird Offer",
+    "2KM _ 8 to 10 Yrs - Early Bird Offer",
+    "3KM_11 to 13 Yrs - Early Bird Offer",
+    "5KM_14 to 16 Yrs - Early Bird Offer"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "ASHVA Sports & Fitness",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://registrations.indiarunning.com/pune_junior_marathon_30414",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/pune-junior-marathon-2026"
+    },
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/pune_junior_marathon_30414"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-puwj-pune-run-quarter-marathon-2026",
+   "name": "PUWJ Pune Run Quarter Marathon 2026",
+   "date": "2026-12-20",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Pune",
+   "venue": "Lt. Baburao Sanas Ground near Saras Baug, Pune",
+   "country": "India",
+   "region": "India - West",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0
+   ],
+   "categories": [
+    "10.549km Run",
+    "5km Run",
+    "3km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Pune Union of Working Journalists (PUWJ)",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://www.indiarunning.com/events/puwjs_pune_run_quarter_marathon_10549km_5km_3km_68509",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/puwj-pune-run-quarter-marathon-2026"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7894,48 +7001,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ir-pune_junior_marathon_30414",
-   "name": "Pune Junior Marathon",
-   "date": "2026-12-20",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Pune University",
-   "venue": "HR4F+25R, Vidyapeeth Rd, Pune University, Ganeshkhind, Pune, Maharashtra 411007, India, Maharashtra",
-   "country": "India",
-   "region": "India - West",
-   "discipline": "Road",
-   "distances": [
-    1.0,
-    2.0
-   ],
-   "categories": [
-    "1KM - 4 to 7 Yrs - Early Bird Offer",
-    "2KM _ 8 to 10 Yrs - Early Bird Offer",
-    "3KM_11 to 13 Yrs - Early Bird Offer",
-    "5KM_14 to 16 Yrs - Early Bird Offer"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/pune_junior_marathon_30414",
-   "entry": null,
-   "sources": [
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/pune_junior_marathon_30414"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -7972,7 +7038,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8011,7 +7077,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Charity & fundraising"
    ]
@@ -8034,6 +7100,10 @@
     21.1
    ],
    "categories": [
+    "2.5km Run",
+    "5km Run",
+    "10km Run",
+    "21.1km Run",
     "2 and Half KM x Untimed",
     "5 KM x Timed",
     "10 KM x Timed",
@@ -8054,15 +7124,62 @@
      "url": "https://www.ifinish.in/running/Queen_2026"
     },
     {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/rotary-queen-city-half-marathon-2026"
+    },
+    {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/rotaryqueencityhalfmarathon2026-38601"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Charity & fundraising"
+   ]
+  },
+  {
+   "id": "mm-sbi-green-marathon-hyderabad-2026-season-7",
+   "name": "SBI GREEN MARATHON HYDERABAD 2026 – SEASON 7",
+   "date": "2026-12-20",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Hyderabad",
+   "venue": "HMDA Ground, Near Prasads IMAX, Necklace Road / Tank Bund junction, Khairtabad, Hyderabad, Telangana 500004",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21.1km Run",
+    "10km Run",
+    "5km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "SBI and Mirchi",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://www.citywoofer.com/e/sbi-green-marathon-s7-hyderabad",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/sbi-green-marathon-hyderabad-2026-season-7"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": [
+    "Environment"
    ]
   },
   {
@@ -8099,7 +7216,62 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-thump-celebration-bengaluru-2026-1",
+   "name": "THUMP! CELEBRATION BENGALURU 2026",
+   "date": "2026-12-20",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Bengaluru",
+   "venue": "NICE Road Check Post / NICE Tollgate, Hosakerehalli, Bengaluru",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1,
+    32.0
+   ],
+   "categories": [
+    "32km Run",
+    "21.1km Run",
+    "10km Run",
+    "5km Run",
+    "Thump! 5K RUN",
+    "Thump! 10K RUN",
+    "Thump! Half Marathon",
+    "20 Miler (32 KMs) RUN"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Life is Calling Sports",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://www.eventzalley.com/event-details/thump-2026",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/thump-celebration-bengaluru-2026-1"
+    },
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/thump_celebration_bengaluru_12_marathon_and_10k_run_2026_38459"
+    },
+    {
+     "name": "FatMarathoner calendar",
+     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8178,6 +7350,11 @@
     50.0
    ],
    "categories": [
+    "50km Run",
+    "42.2km Run",
+    "21.1km Run",
+    "10km Run",
+    "5km Run",
     "5K RUN",
     "10K RUN",
     "HALF MARATHON",
@@ -8190,7 +7367,7 @@
    "organizer": "GiggleMug Events",
    "regOpens": "2026-09-25",
    "regCloses": "2026-11-30",
-   "status": "Registrations Open",
+   "status": "Closing Soon",
    "regLink": "https://www.ifinish.in/running/TUM26",
    "entry": null,
    "sources": [
@@ -8199,60 +7376,17 @@
      "url": "https://www.ifinish.in/running/TUM26"
     },
     {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/telangana-ultra-marathon-20-2026"
+    },
+    {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/telangana_ultra_marathon_02_23708"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ir-thump_celebration_bengaluru_12_marathon_and_10k_run_2026_38459",
-   "name": "Thump Celebration Bengaluru 1/2 Marathon and 10K RUN 2026",
-   "date": "2026-12-20",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Dwaraka Nagar",
-   "venue": "WGPJ+JFW, Dwaraka Nagar, Hosakerehalli, Bengaluru, Karnataka 560026, India, Karnataka",
-   "country": "India",
-   "region": "India - South",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0,
-    21.1,
-    32.0
-   ],
-   "categories": [
-    "Thump! 5K RUN",
-    "Thump! 10K RUN",
-    "Thump! Half Marathon",
-    "20 Miler (32 KMs) RUN"
-   ],
-   "priceFrom": null,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/thump_celebration_bengaluru_12_marathon_and_10k_run_2026_38459",
-   "entry": null,
-   "sources": [
-    {
-     "name": "IndiaRunning",
-     "url": "https://indiarunning.com/events/thump_celebration_bengaluru_12_marathon_and_10k_run_2026_38459"
-    },
-    {
-     "name": "FatMarathoner calendar",
-     "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8307,7 +7441,93 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-udupi-full-marathon-2026",
+   "name": "UDUPI FULL MARATHON 2026",
+   "date": "2026-12-20",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Udupi",
+   "venue": "Mahatma Gandhi District Stadium, Udupi",
+   "country": "India",
+   "region": "India - Other",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1,
+    42.2
+   ],
+   "categories": [
+    "5km Run",
+    "10km Run",
+    "21.1km Run",
+    "42.2km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "NEB Sports",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://mysamay.in/public/event/info/8879ecfd-812d-4c7b-b8d5-51fdf229b704%3Fcmeta%3Dnc3clrECgS",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/udupi-full-marathon-2026"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-union-bank-shaurya-marathon-2026",
+   "name": "UNION BANK SHAURYA MARATHON 2026",
+   "date": "2026-12-20",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Bhubaneswar",
+   "venue": "Kalinga Stadium, Bhubaneswar, Odisha",
+   "country": "India",
+   "region": "India - East & North-East",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21.1km Run",
+    "10km Run",
+    "5km Run",
+    "3km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Odisha Juba Prashikshyan Trust (OJPT)",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://ironmonk.fit/reg3155.php",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/union-bank-shaurya-marathon-2026"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8344,7 +7564,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8381,7 +7601,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8431,7 +7651,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8470,7 +7690,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8507,7 +7727,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8544,7 +7764,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8556,13 +7776,16 @@
    "city": "Kannur",
    "venue": "Jimmy George Sports Academy, Peravoor, Kannur",
    "country": "India",
-   "region": "India - Other",
+   "region": "India - South",
    "discipline": "Road",
    "distances": [
     4.0,
     10.5
    ],
-   "categories": [],
+   "categories": [
+    "10.5km Run",
+    "4km Run"
+   ],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
@@ -8576,11 +7799,15 @@
     {
      "name": "iFinish",
      "url": "https://www.ifinish.in/running/peravoor_26"
+    },
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/peravoor-marathon-2026"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8599,7 +7826,11 @@
     5.0,
     10.0
    ],
-   "categories": [],
+   "categories": [
+    "10km Run",
+    "5km Run",
+    "3km Run"
+   ],
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
@@ -8613,11 +7844,58 @@
     {
      "name": "iFinish",
      "url": "https://www.ifinish.in/running/Christmasrun26"
+    },
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/christmas-jingle-run-2026-7th-edition"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-christmas-kids-marathon-malad-2026",
+   "name": "CHRISTMAS KIDS MARATHON – MALAD 2026",
+   "date": "2026-12-25",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Mumbai",
+   "venue": "Decathlon Store, Malad, Mumbai",
+   "country": "India",
+   "region": "India - West",
+   "discipline": "Road",
+   "distances": [
+    0.5,
+    1.0,
+    2.0,
+    3.0
+   ],
+   "categories": [
+    "0.5km Run",
+    "1km Run",
+    "2km Run",
+    "3km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Event Team",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://in.bookmyshow.com/sports/christmas-kids-marathon-malad/ET00522295",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/christmas-kids-marathon-malad-2026"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8657,7 +7935,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8692,17 +7970,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ir-chiplun_half_marathon_2026_44091",
-   "name": "CHIPLUN HALF MARATHON 2026",
+   "id": "mm-chiplun-half-marathon-2026",
+   "name": "Chiplun Half Marathon 2026",
    "date": "2026-12-27",
    "dateTBC": false,
    "endDate": null,
    "city": "Chiplun",
-   "venue": "Chiplun, Maharashtra 415605, India, Maharashtra",
+   "venue": "Krupasindhu, Radhakrushna Nagar, Bahadurshaikh, Chiplun, District Ratnagiri, Maharashtra 415605",
    "country": "India",
    "region": "India - West",
    "discipline": "Virtual",
@@ -8712,6 +7990,9 @@
     21.1
    ],
    "categories": [
+    "21.1km Run",
+    "10km Run",
+    "5km Run",
     "Virtual Half Marathon (21.097 km)",
     "Virtual 10 K Run",
     "Virtual 5 K Run",
@@ -8722,13 +8003,17 @@
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
+   "organizer": "Sangharsha Krida Mandal",
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/chiplun_half_marathon_2026_44091",
+   "regLink": "https://alpharacingsolution.com/e/Chiplun-Half-Marathon",
    "entry": null,
    "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/chiplun-half-marathon-2026"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/chiplun_half_marathon_2026_44091"
@@ -8736,7 +8021,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8778,7 +8063,46 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ifinish-Dharamshala2",
+   "name": "Dharamshala Marathon 2.0",
+   "date": "2026-12-27",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Dharamsala",
+   "venue": "Sai Stadium, Dharamshala, Himachal Pradesh",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0,
+    21.1,
+    42.2
+   ],
+   "categories": [],
+   "priceFrom": 560,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Innovative Learning Systems",
+   "regOpens": "2026-11-18",
+   "regCloses": "2026-12-24",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/Dharamshala2",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/Dharamshala2"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8814,17 +8138,60 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ir-kolkata_half_marathon_66641",
-   "name": "Kolkata Half Marathon",
+   "id": "mm-healthon-half-marathon-2026-agra",
+   "name": "HEALTHON HALF MARATHON 2026 – AGRA",
    "date": "2026-12-27",
    "dateTBC": false,
    "endDate": null,
-   "city": "Mollapara",
-   "venue": "3 77, Mollapara, Baghajatin Colony, Kolkata, West Bengal 700032, India, West Bengal",
+   "city": "Agra",
+   "venue": "Eklavya Stadium, Agra, Uttar Pradesh",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    2.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "21km Run",
+    "10km Run",
+    "5km Run",
+    "2km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Jagran Prakashan Limited",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://inexthealthon.com/index.php#register-section",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/healthon-half-marathon-2026-agra"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-kolkata-half-marathon-2026",
+   "name": "KOLKATA HALF MARATHON 2026",
+   "date": "2026-12-27",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Kolkata",
+   "venue": "Jyoti Sangha Club - BAGHAJATIN (JADAVPUR), KOLKATA, INDIA",
    "country": "India",
    "region": "India - East & North-East",
    "discipline": "Road",
@@ -8835,6 +8202,10 @@
     21.1
    ],
    "categories": [
+    "2km Run",
+    "5km Run",
+    "10km Run",
+    "21km Run",
     "KHM2K",
     "KHM5K",
     "KHM10K",
@@ -8843,13 +8214,17 @@
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
+   "organizer": "SPORTIVE (Jyoti Sangha Club)",
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/kolkata_half_marathon_66641",
+   "regLink": "https://marathonmitra.com/events/kolkata-half-marathon-2026",
    "entry": null,
    "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/kolkata-half-marathon-2026"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/kolkata_half_marathon_66641"
@@ -8857,7 +8232,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8895,7 +8270,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8937,7 +8312,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -8979,17 +8354,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ir-she_run_2026_38410",
+   "id": "mm-pcc-sherun-2026",
    "name": "PCC SHERUN 2026",
    "date": "2026-12-27",
    "dateTBC": false,
    "endDate": null,
-   "city": "Sector 23",
-   "venue": "Central Park Kharghar, Sector 23, Kharghar, Panvel, Maharashtra 410210, India, Maharashtra",
+   "city": "Navi Mumbai",
+   "venue": "Central Park, Kharghar, Navi Mumbai",
    "country": "India",
    "region": "India - West",
    "discipline": "Road",
@@ -9000,6 +8375,10 @@
     21.1
    ],
    "categories": [
+    "21km Run",
+    "10km Run",
+    "5km Run",
+    "3km Run",
     "Junior fun run",
     "3K FUN RUN",
     "5K Non-Timed Run",
@@ -9011,13 +8390,17 @@
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
+   "organizer": "Oncourage Cancer Care Foundation",
    "regOpens": null,
    "regCloses": null,
    "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/she_run_2026_38410",
+   "regLink": "https://registrations.indiarunning.com/she_run_2026_38410?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAae8-iX6o7X-8sGGy4KcNRH3kx0WdLypSAFcE4_K2nWJwxDYSoe03QHhF9WboA_aem_8KQXec-8yGCStVwn9NfBMw",
    "entry": null,
    "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/pcc-sherun-2026"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/she_run_2026_38410"
@@ -9025,7 +8408,48 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "mm-run-durga-run-2026-chitradurga",
+   "name": "RUN DURGA RUN 2026 – CHITRADURGA",
+   "date": "2026-12-27",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Chitradurga",
+   "venue": "Onake Obavva Stadium, near Buddha circle, Chitradurga, Karnataka - 577501",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [
+    "10km Run",
+    "5km Run",
+    "3km Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Durga Runners",
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://www.eventzalley.com/booking-details/run-durga-run-2026",
+   "entry": null,
+   "sources": [
+    {
+     "name": "MarathonMitra",
+     "url": "https://marathonmitra.com/events/run-durga-run-2026-chitradurga"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9062,7 +8486,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9099,7 +8523,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9143,7 +8567,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9227,7 +8651,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9270,7 +8694,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9285,9 +8709,13 @@
    "region": "India - West",
    "discipline": "Road",
    "distances": [
+    3.0,
+    5.0,
     10.0
    ],
    "categories": [
+    "3KM RUN",
+    "5KM RUN",
     "10Km"
    ],
    "priceFrom": null,
@@ -9307,7 +8735,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9351,7 +8779,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Education"
    ]
@@ -9390,7 +8818,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Charity & fundraising"
    ]
@@ -9427,7 +8855,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9463,7 +8891,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9502,10 +8930,53 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Empowerment"
    ]
+  },
+  {
+   "id": "ir-beathlitlakerunjanuary2027edition-29214",
+   "name": "BeAthlit Lake Run - January 2027 Edition",
+   "date": "2027-01-10",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Bengaluru",
+   "venue": "Bengaluru, Karnataka, India, Karnataka",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    1.6,
+    3.0,
+    5.0
+   ],
+   "categories": [
+    "Run Only Pass",
+    "3k Walk/Run",
+    "1.6K Walk/Run",
+    "5k Run/Walk",
+    "10 Run/Walk"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/beathlitlakerunjanuary2027edition-29214",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/beathlitlakerunjanuary2027edition-29214"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
   },
   {
    "id": "ir-bengaluru_corporate_wellness_run_2026_27940",
@@ -9545,7 +9016,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9555,7 +9026,7 @@
    "dateTBC": false,
    "endDate": null,
    "city": "Mumbai",
-   "venue": "To be announced soon",
+   "venue": "BKC, Mumbai",
    "country": "India",
    "region": "India - West",
    "discipline": "Walk",
@@ -9590,7 +9061,43 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ifinish-Delhi-Dwarka-1-0",
+   "name": "Delhi Dwarka 1.0 Run",
+   "date": "2027-01-10",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Delhi",
+   "venue": "Paramount International School",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0
+   ],
+   "categories": [],
+   "priceFrom": 599,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Glitters Group",
+   "regOpens": "2026-11-05",
+   "regCloses": "2027-01-01",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/Delhi-Dwarka-1-0",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/Delhi-Dwarka-1-0"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9633,7 +9140,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9683,7 +9190,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9720,43 +9227,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
-   "causes": []
-  },
-  {
-   "id": "ifinish-Delhi-Dwarka-1-0",
-   "name": "Mood of Delhi Dwarka 1.0 Run",
-   "date": "2027-01-10",
-   "dateTBC": false,
-   "endDate": null,
-   "city": "Delhi",
-   "venue": "Paramount International School",
-   "country": "India",
-   "region": "India - North",
-   "discipline": "Road",
-   "distances": [
-    5.0,
-    10.0
-   ],
-   "categories": [],
-   "priceFrom": 599,
-   "currency": "INR",
-   "priceNote": null,
-   "organizer": "Glitters Group",
-   "regOpens": "2026-11-05",
-   "regCloses": "2027-01-01",
-   "status": "Registrations Open",
-   "regLink": "https://www.ifinish.in/running/Delhi-Dwarka-1-0",
-   "entry": null,
-   "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/Delhi-Dwarka-1-0"
-    }
-   ],
-   "tier": "community",
-   "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9798,7 +9269,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9844,7 +9315,50 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-pcmc_grand_marathon_43021",
+   "name": "PCMC Grand Marathon",
+   "date": "2027-01-10",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Shinde Vasti",
+   "venue": "JQW5+XFW, Shinde Vasti, Ravet, Pimpri-Chinchwad, Maharashtra 412101, India, Maharashtra",
+   "country": "India",
+   "region": "India - West",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1,
+    42.2
+   ],
+   "categories": [
+    "10K Run",
+    "5K Fun Run",
+    "Half Marathon 21KM",
+    "Full Marathon 42KM"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/pcmc_grand_marathon_43021",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/pcmc_grand_marathon_43021"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9883,7 +9397,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -9966,7 +9480,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10002,7 +9516,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
@@ -10042,19 +9556,19 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Armed forces welfare"
    ]
   },
   {
-   "id": "ir-climate_awareness_run_india_2027__kochi_24753",
-   "name": "CLIMATE AWARENESS RUN INDIA 2027 - KOCHI",
+   "id": "ifinish-ClimateAwarenessRun",
+   "name": "Climate Awareness Run India 2027 - Kochi Edition",
    "date": "2027-01-17",
    "dateTBC": false,
    "endDate": null,
-   "city": "North Kalamassery",
-   "venue": "966A, National Highway, North Kalamassery, Kalamassery, Ernakulam, Kochi, Keralam 683104, India, Keralam",
+   "city": "Kalamassery",
+   "venue": "Decathlon Sports, Kalamassery, Kochi",
    "country": "India",
    "region": "India - South",
    "discipline": "Road",
@@ -10068,16 +9582,20 @@
     "5K RUN OPEN TO ALL ( TIMING CHIP )",
     "10K RUN OPEN TO ALL ( TIMING CHIP )"
    ],
-   "priceFrom": null,
+   "priceFrom": 649,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/climate_awareness_run_india_2027__kochi_24753",
+   "organizer": "Gagner Business Sollutions",
+   "regOpens": "2026-11-18",
+   "regCloses": "2027-01-14",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/ClimateAwarenessRun",
    "entry": null,
    "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/ClimateAwarenessRun"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/climate_awareness_run_india_2027__kochi_24753"
@@ -10085,7 +9603,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment",
     "Awareness"
@@ -10126,6 +9644,87 @@
    "tier": "Iconic",
    "notes": "26th edition.",
    "lastChecked": "2026-10-25",
+   "causes": []
+  },
+  {
+   "id": "ifinish-HBR26",
+   "name": "Hari Bol Run – Marathon for Health 3.0",
+   "date": "2027-01-17",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Ghaziabad",
+   "venue": "Wave City",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [],
+   "priceFrom": 700,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Nai Umang Samazik Sanstha",
+   "regOpens": "2026-11-18",
+   "regCloses": "2027-01-14",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/HBR26",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/HBR26"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-haribol_run_51770",
+   "name": "HariBol Run",
+   "date": "2027-01-17",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Wave City",
+   "venue": "Wave City, Ghaziabad, Uttar Pradesh, India, Uttar Pradesh",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "3 Km Fun Run",
+    "5 Km Timed Run",
+    "10km Timed Run",
+    "Half Marathon 21 km"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/haribol_run_51770",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/haribol_run_51770"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10172,7 +9771,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10213,7 +9812,50 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-news18_run_ranchi__mera_run_ranchi_21977",
+   "name": "News18 RUN Ranchi - Mera Run Ranchi",
+   "date": "2027-01-17",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Ranchi",
+   "venue": "Ranchi, Jharkhand, India, Jharkhand",
+   "country": "India",
+   "region": "India - East & North-East",
+   "discipline": "Road",
+   "distances": [
+    2.0,
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [
+    "2K Fun Run",
+    "3K Fun Run",
+    "5K Timed Run",
+    "10K Timed Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/news18_run_ranchi__mera_run_ranchi_21977",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/news18_run_ranchi__mera_run_ranchi_21977"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10299,7 +9941,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10338,7 +9980,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10386,7 +10028,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10424,7 +10066,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10446,7 +10088,10 @@
    "categories": [
     "3 KM Run",
     "5 KM Timed Run",
-    "10 KM Timed Run"
+    "10 KM Timed Run",
+    "3K FUN RUN OPEN",
+    "5K TIMED OPEN",
+    "10K TIMED OPEN"
    ],
    "priceFrom": null,
    "currency": "INR",
@@ -10461,11 +10106,15 @@
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/mumbairepublicdayrunghatkopar-71572"
+    },
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/republic_day_run_2026_8246"
     }
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10509,7 +10158,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10551,7 +10200,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10597,7 +10246,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10647,7 +10296,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10684,7 +10333,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10724,10 +10373,51 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Health"
    ]
+  },
+  {
+   "id": "ifinish-INDIA26",
+   "name": "India Virtual Marathon Run",
+   "date": "2027-01-26",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Hyderabad",
+   "venue": "Anywhere In India",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Virtual",
+   "distances": [
+    1.0,
+    5.0,
+    10.0,
+    16.0,
+    21.1,
+    42.2,
+    100.0
+   ],
+   "categories": [],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Kakatiya Marathon Association",
+   "regOpens": "2026-10-02",
+   "regCloses": "2027-01-25",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/INDIA26",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/INDIA26"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
   },
   {
    "id": "ir-nitrrothon_thane_2027_32451",
@@ -10763,7 +10453,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10799,7 +10489,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10836,7 +10526,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10877,7 +10567,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10921,7 +10611,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -10970,7 +10660,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11011,7 +10701,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11052,19 +10742,19 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
   },
   {
-   "id": "ir-jawai_trail_run_53909",
-   "name": "JAWAI TRAIL RUN",
+   "id": "ifinish-JawaiTrailRun",
+   "name": "Jawai Trail Run",
    "date": "2027-01-31",
    "dateTBC": false,
    "endDate": null,
    "city": "Bali",
-   "venue": "Khasra No-341/336, Village-Kotra Boya, Bali, Rajasthan 306707, India, Rajasthan",
+   "venue": "Bali, Rajasthan",
    "country": "India",
    "region": "India - North",
    "discipline": "Trail",
@@ -11079,13 +10769,17 @@
    "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": null,
-   "regOpens": null,
-   "regCloses": null,
-   "status": "Check Organiser",
-   "regLink": "https://indiarunning.com/events/jawai_trail_run_53909",
+   "organizer": "SurpreetSingh Khalsa",
+   "regOpens": "2026-11-18",
+   "regCloses": "2027-01-28",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/JawaiTrailRun",
    "entry": null,
    "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/JawaiTrailRun"
+    },
     {
      "name": "IndiaRunning",
      "url": "https://indiarunning.com/events/jawai_trail_run_53909"
@@ -11093,7 +10787,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11128,7 +10822,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11171,7 +10865,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11209,7 +10903,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11250,7 +10944,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11285,7 +10979,50 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-news18runranchimerarunpatna-21454",
+   "name": "News18 RUN Patna - Mera Run Patna",
+   "date": "2027-01-31",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Muradpur",
+   "venue": "Gandhi Maidan, North -West Area of, Gandhi Maidan Rd, Muradpur, Patna, Bihar 800001, India, Bihar",
+   "country": "India",
+   "region": "India - East & North-East",
+   "discipline": "Road",
+   "distances": [
+    2.0,
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [
+    "2K Fun Run",
+    "3K Fun Run",
+    "5K Timed Run",
+    "10K Timed Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/news18runranchimerarunpatna-21454",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/news18runranchimerarunpatna-21454"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11327,7 +11064,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11371,7 +11108,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11410,7 +11147,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Charity & fundraising"
    ]
@@ -11449,7 +11186,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11486,7 +11223,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11525,7 +11262,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Health",
     "Awareness"
@@ -11565,7 +11302,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11603,7 +11340,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11648,7 +11385,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11698,7 +11435,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11742,7 +11479,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11751,11 +11488,11 @@
    "date": "2027-02-07",
    "dateTBC": false,
    "endDate": null,
-   "city": "Kalina University",
-   "venue": "Chatrapati Shivaji Maharaj Terminus, Road, Kolivery Village, Vidya Nagari, Kalina, Santacruz East, Mumbai, Maharashtra 400098, India, Maharashtra",
+   "city": "Mount Mary",
+   "venue": "2RR9+R9F Bandra Fort Garden, Mount Mary, Bandra West, Mumbai, Maharashtra 400050, India, Maharashtra",
    "country": "India",
    "region": "India - West",
-   "discipline": "Trail",
+   "discipline": "Road",
    "distances": [
     3.0,
     5.0,
@@ -11783,7 +11520,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11823,7 +11560,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11861,7 +11598,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11900,7 +11637,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11933,7 +11670,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -11975,7 +11712,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12016,7 +11753,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12070,7 +11807,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12109,7 +11846,51 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-bagmane_run_20_22923",
+   "name": "Bagmane Run 2.0",
+   "date": "2027-02-14",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Doddanakhundi Village",
+   "venue": "Survey No 34, 2, Marathalli, 1 to 37, Outer Ring Rd, Doddanakhundi Village, Mahadevapura, Bengaluru, Karnataka 560048, India, Karnataka",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [
+    "3K Run - Early Bird",
+    "5K Run - Early Bird",
+    "3K Run - Regular",
+    "5K Run - Regular",
+    "10K Run - Early Bird",
+    "10K Run - Regular"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/bagmane_run_20_22923",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/bagmane_run_20_22923"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12155,7 +11936,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12193,7 +11974,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12231,8 +12012,52 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
+  },
+  {
+   "id": "ir-mumbaigreenmarathon14thfebruary2027-79230",
+   "name": "Mumbai Green Marathon - 14th February 2027",
+   "date": "2027-02-14",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Godrej Mangroves Area",
+   "venue": "Godrej Mangroves Area, Mankur, Mumbai, Maharashtra, India, Maharashtra",
+   "country": "India",
+   "region": "India - West",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "5 KM Fun Run",
+    "Mumbai 5 KM Timed Run",
+    "Mumbai 10K Timed Run",
+    "Half Marathon Timed Run (21.097 km)"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/mumbaigreenmarathon14thfebruary2027-79230",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/mumbaigreenmarathon14thfebruary2027-79230"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": [
+    "Environment"
+   ]
   },
   {
    "id": "ifinish-Navimumbairun",
@@ -12277,7 +12102,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12325,7 +12150,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12372,7 +12197,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12409,7 +12234,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12446,7 +12271,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12495,7 +12320,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12530,7 +12355,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12567,7 +12392,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12603,7 +12428,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12641,7 +12466,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12682,7 +12507,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12723,7 +12548,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12768,7 +12593,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12808,6 +12633,49 @@
    "causes": []
   },
   {
+   "id": "ir-azurapstnmarathon20276theditionrunforahealthiertomorrow-46068",
+   "name": "Azuraps TN Marathon 2027 - 6th Edition - Run for a Healthier Tomorrow",
+   "date": "2027-02-28",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Sai Ram Colony",
+   "venue": "New No.2, III Avenue Road, Sai Ram Colony, Besant Nagar, Chennai, Tamil Nadu 600020, India, Tamil Nadu",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [
+    "3KM FUN RUN Non Timed",
+    "5KM TIMED RUN-50 above",
+    "5KM TIMED RUN-16yrs to 49yrs",
+    "10K TIMED - Age 16-49",
+    "10KM TIMED RUN-50yrs above"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/azurapstnmarathon20276theditionrunforahealthiertomorrow-46068",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/azurapstnmarathon20276theditionrunforahealthiertomorrow-46068"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
    "id": "fm-carysil-bhavnagar-marathon-2027-2027",
    "name": "CARYSIL Bhavnagar Marathon 2027",
    "date": "2027-02-28",
@@ -12842,7 +12710,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12891,7 +12759,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -12973,7 +12841,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13025,7 +12893,49 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-punjab_half_marathon_2027__17th_edition_34726",
+   "name": "PUNJAB HALF MARATHON 2027 - 17TH EDITION",
+   "date": "2027-02-28",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Sector 1",
+   "venue": "near CM House, Sector 1, Chandigarh, 160001, India, Chandigarh",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "5 KM - Fun Run",
+    "5 KM - Timed Run",
+    "10 KM - Timed Run",
+    "21.097 KM - Half Marathon"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/punjab_half_marathon_2027__17th_edition_34726",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/punjab_half_marathon_2027__17th_edition_34726"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13064,7 +12974,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13099,7 +13009,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13140,7 +13050,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13191,17 +13101,17 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
-   "id": "ifinish-TFIR",
-   "name": "The Feed India Run",
+   "id": "fm-the-feed-india-run-2027-2027",
+   "name": "The Feed India Run 2027",
    "date": "2027-03-07",
    "dateTBC": false,
    "endDate": null,
-   "city": "Bangalore Rural",
-   "venue": "NICE Toll Plaza",
+   "city": "Bengaluru",
+   "venue": "Bengaluru, Karnataka",
    "country": "India",
    "region": "India - South",
    "discipline": "Road",
@@ -13211,20 +13121,16 @@
     10.0
    ],
    "categories": [],
-   "priceFrom": 299,
+   "priceFrom": null,
    "currency": "INR",
    "priceNote": null,
-   "organizer": "Sandmedia",
-   "regOpens": "2026-11-03",
-   "regCloses": "2027-03-03",
-   "status": "Registrations Open",
-   "regLink": "https://www.ifinish.in/running/TFIR",
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": null,
    "entry": null,
    "sources": [
-    {
-     "name": "iFinish",
-     "url": "https://www.ifinish.in/running/TFIR"
-    },
     {
      "name": "FatMarathoner calendar",
      "url": "https://fatmarathoner.com/upcoming-marathon-calendar-india/"
@@ -13232,7 +13138,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Hunger & poverty"
    ]
@@ -13303,7 +13209,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13343,7 +13249,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13383,7 +13289,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13428,7 +13334,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13443,7 +13349,6 @@
    "region": "India - North",
    "discipline": "Road",
    "distances": [
-    2.0,
     3.0,
     5.0,
     10.0,
@@ -13467,7 +13372,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13514,7 +13419,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13557,7 +13462,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13594,8 +13499,47 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
+  },
+  {
+   "id": "ifinish-TFIR",
+   "name": "The Feed India Run",
+   "date": "2027-03-21",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Bangalore Rural",
+   "venue": "NICE Toll Plaza",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    3.0,
+    5.0,
+    10.0
+   ],
+   "categories": [],
+   "priceFrom": 299,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Sandmedia",
+   "regOpens": "2026-11-03",
+   "regCloses": "2027-03-18",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/TFIR",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/TFIR"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": [
+    "Hunger & poverty"
+   ]
   },
   {
    "id": "ifinish-WWD_26",
@@ -13645,7 +13589,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13683,6 +13627,42 @@
    "tier": "Marquee India",
    "notes": "Stadium ultra with 24-hour and 12-hour formats; individual entries need a qualifying ultra. The 2025 edition ran 30-31 Mar at Sree Kanteerava Stadium. Next date not announced yet; shown on the matching weekend.",
    "lastChecked": "2026-10-25",
+   "causes": []
+  },
+  {
+   "id": "ifinish-Fresh_2026",
+   "name": "Freshathon Winter Rush – Paint the City Red",
+   "date": "2027-03-28",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Hyderabad",
+   "venue": "Gachibowli Stadium, Hyderabad",
+   "country": "India",
+   "region": "India - South",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0
+   ],
+   "categories": [],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": "Firefly Events",
+   "regOpens": "2026-10-05",
+   "regCloses": "2027-03-25",
+   "status": "Registrations Open",
+   "regLink": "https://www.ifinish.in/running/Fresh_2026",
+   "entry": null,
+   "sources": [
+    {
+     "name": "iFinish",
+     "url": "https://www.ifinish.in/running/Fresh_2026"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13733,7 +13713,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13775,7 +13755,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": [
     "Environment"
    ]
@@ -13928,7 +13908,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -13966,7 +13946,50 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-prayagraj_half_marathon_2027__6th_edition_28933",
+   "name": "Prayagraj Half Marathon 2027 - 6th Edition",
+   "date": "2027-04-18",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Arail",
+   "venue": "CVCJ+882, Arail Rd, near Falhari Ashram, Arail, Prayagraj, Uttar Pradesh 211008, India, Uttar Pradesh",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Trail",
+   "distances": [
+    2.0,
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "2 KM - Fun Run",
+    "5 KM - Fun Run",
+    "10 KM - Timed Run",
+    "21.097 KM - Half Marathon"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/prayagraj_half_marathon_2027__6th_edition_28933",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/prayagraj_half_marathon_2027__6th_edition_28933"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14046,7 +14069,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14084,7 +14107,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14165,6 +14188,47 @@
    "causes": []
   },
   {
+   "id": "ir-dwarka_international_half_marathon_49016",
+   "name": "DWARKA INTERNATIONAL HALF MARATHON",
+   "date": "2027-05-02",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Dwarka",
+   "venue": "Dwarka, Delhi, India, Delhi",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "5KM TIMED RUN",
+    "10KM TIMED RUN",
+    "21.097KM Half Marathon Timed Run"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/dwarka_international_half_marathon_49016",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/dwarka_international_half_marathon_49016"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
    "id": "fm-wings-for-life-world-run-india-2027-2027",
    "name": "Wings for Life World Run India 2027",
    "date": "2027-05-02",
@@ -14194,7 +14258,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14245,7 +14309,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14355,7 +14419,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14391,7 +14455,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14574,7 +14638,48 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
+   "causes": []
+  },
+  {
+   "id": "ir-kargil_vijay_diwas_international_half_marathon_6th_edition_81624",
+   "name": "Kargil Vijay Diwas International Half Marathon -6th Edition-",
+   "date": "2027-07-25",
+   "dateTBC": false,
+   "endDate": null,
+   "city": "Dwarka",
+   "venue": "Dwarka, Delhi, India, Delhi",
+   "country": "India",
+   "region": "India - North",
+   "discipline": "Road",
+   "distances": [
+    5.0,
+    10.0,
+    21.1
+   ],
+   "categories": [
+    "5KM Timed Run",
+    "10KM Timed Run",
+    "21.097"
+   ],
+   "priceFrom": null,
+   "currency": "INR",
+   "priceNote": null,
+   "organizer": null,
+   "regOpens": null,
+   "regCloses": null,
+   "status": "Check Organiser",
+   "regLink": "https://indiarunning.com/events/kargil_vijay_diwas_international_half_marathon_6th_edition_81624",
+   "entry": null,
+   "sources": [
+    {
+     "name": "IndiaRunning",
+     "url": "https://indiarunning.com/events/kargil_vijay_diwas_international_half_marathon_6th_edition_81624"
+    }
+   ],
+   "tier": "community",
+   "notes": null,
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14612,7 +14717,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -14648,7 +14753,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
@@ -15008,7 +15113,7 @@
    ],
    "tier": "community",
    "notes": null,
-   "lastChecked": "2026-11-16",
+   "lastChecked": "2026-11-23",
    "causes": []
   },
   {
