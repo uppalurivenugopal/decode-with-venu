@@ -25,7 +25,10 @@ export default async function handler(req, res) {
       if (!list.length) return res.status(400).json({ error: 'bad_query' });
       out = await compare(list);
     } else return res.status(400).json({ error: 'bad_query' });
-    res.setHeader('Cache-Control', out.error ? 'public, s-maxage=3600' : 'public, s-maxage=21600, stale-while-revalidate=86400');
+    // A short suggestion list usually means an upstream source timed out: cache it briefly so it refills.
+    const partial = Array.isArray(out.suggestions) && out.suggestions.length < 4;
+    res.setHeader('Cache-Control', out.error ? 'public, s-maxage=3600'
+      : partial ? 'public, s-maxage=300' : 'public, s-maxage=21600, stale-while-revalidate=86400');
     return res.status(out.error ? 404 : 200).json(out);
   } catch (e) {
     return res.status(502).json({ error: 'upstream', detail: String(e?.message || e).slice(0, 200) });
