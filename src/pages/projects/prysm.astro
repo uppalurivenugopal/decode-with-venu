@@ -219,6 +219,7 @@ const stack = ['Python · FastAPI', 'LangGraph orchestration', 'DuckDB evidence 
         <button type="button" role="tab" data-tab="plays" aria-selected="false">Sales plays</button>
         <button type="button" role="tab" data-tab="drivers" aria-selected="false">Financial drivers</button>
         <button type="button" role="tab" data-tab="market" aria-selected="false">Market</button>
+        <button type="button" role="tab" data-tab="competitors" aria-selected="false">Competitors <span class="p-new">New</span></button>
         <button type="button" role="tab" data-tab="signals" aria-selected="false">Signals</button>
       </div>
       <div class="p-body" id="p-body" aria-live="polite"></div>
@@ -332,6 +333,39 @@ const stack = ['Python · FastAPI', 'LangGraph orchestration', 'DuckDB evidence 
   #prysm .p-band ul { margin-top: .75rem; display: grid; gap: .65rem; }
   #prysm .p-band li { font-size: 13.5px; line-height: 1.45; color: var(--p-mute); }
   #prysm .p-band li span { display: block; font-weight: 700; color: var(--band); font-size: 14px; }
+
+  /* ---------- competitor scan ---------- */
+  #prysm .p-new { margin-left: .3rem; padding: 0 .35rem; font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: linear-gradient(90deg, var(--p-violet), var(--p-teal)); vertical-align: 1px; }
+  #prysm .c-sub { font-size: 14px; color: var(--color-mist-300); max-width: 46rem; }
+  #prysm .c-opts { margin-top: 1rem; display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  #prysm .c-opt { display: flex; gap: .6rem; align-items: flex-start; border: 1px solid var(--a-line); padding: .7rem .8rem; cursor: pointer; transition: border-color .15s, background .15s; }
+  #prysm .c-opt.on { border-color: var(--a-accent); background: rgba(14, 130, 151, .05); }
+  #prysm .c-opt input { margin-top: .2rem; accent-color: #0e8297; width: 1rem; height: 1rem; flex: none; }
+  #prysm .c-opt b { font-size: 14.5px; } #prysm .c-opt small { color: var(--color-mist-400); font-weight: 600; }
+  #prysm .c-opt em { display: block; font-style: normal; font-size: 12px; color: var(--color-mist-400); margin-top: .15rem; line-height: 1.35; }
+  #prysm .c-add { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+  #prysm .c-add input { flex: 1 1 16rem; min-width: 0; height: 2.6rem; padding: 0 .8rem; border: 1px solid var(--color-fg); font-size: 15px; background: #fff; }
+  #prysm .c-add button { height: 2.6rem; padding: 0 1.1rem; font-weight: 700; font-size: 14px; border: 1px solid var(--color-fg); }
+  #prysm .c-add .c-run { background: var(--p-bg); color: var(--p-ink); border-color: var(--p-bg); }
+  #prysm .c-add .c-run:hover:not(:disabled) { background: var(--a-accent); }
+  #prysm .c-add button:disabled, #prysm .c-add input:disabled { opacity: .45; cursor: not-allowed; }
+  #prysm .c-views { margin: 1.5rem 0 1rem; display: flex; flex-wrap: wrap; gap: .35rem; }
+  #prysm .c-views button { padding: .45rem .85rem; font-size: 13.5px; font-weight: 600; border: 1px solid var(--a-line); color: var(--color-mist-300); }
+  #prysm .c-views button[aria-selected='true'] { background: var(--p-bg); color: var(--p-ink); border-color: var(--p-bg); }
+  #prysm .c-table th small { display: block; font-size: 10.5px; letter-spacing: .04em; text-transform: none; color: var(--color-mist-400); font-weight: 500; }
+  #prysm .c-table .c-subj { background: rgba(95, 199, 218, .08); }
+  #prysm .c-table td.c-best { background: rgba(16, 150, 110, .12); font-weight: 700; }
+  #prysm .c-best-key { background: rgba(16, 150, 110, .14); padding: 0 .3rem; font-weight: 600; }
+  #prysm .c-note { margin-top: .75rem; font-size: 12.5px; color: var(--color-mist-400); line-height: 1.5; }
+  #prysm .c-cols { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 1rem; overflow-x: auto; padding-bottom: .5rem; }
+  #prysm .c-col { border: 1px solid var(--a-line); border-top: 3px solid var(--color-mist-400); padding: 1rem; display: flex; flex-direction: column; gap: .35rem; }
+  #prysm .c-col-subj { border-top-color: var(--a-accent); background: rgba(95, 199, 218, .05); }
+  #prysm .c-col header b { display: block; font-family: var(--font-serif); font-size: 1.2rem; }
+  #prysm .c-col header small { font-size: 11.5px; color: var(--color-mist-400); }
+  #prysm .c-col .a-h { margin-top: .85rem; margin-bottom: .3rem; }
+  #prysm .c-para { font-size: 13.5px; line-height: 1.6; }
+  #prysm .c-flag { font-size: 12.5px; font-weight: 700; color: var(--a-violet); }
+  #prysm .c-empty { font-size: 13px; font-style: italic; color: var(--color-mist-400); }
 
   /* PRYSM brand tile beside the "Try it live" heading */
   #prysm .p-brand-tile { flex: none; width: 210px; height: 210px; background: var(--p-bg); display: grid; place-items: center; box-shadow: 0 24px 50px -28px rgba(7, 22, 26, .6); }
@@ -643,6 +677,119 @@ const stack = ['Python · FastAPI', 'LangGraph orchestration', 'DuckDB evidence 
       </div>`;
   }
 
+  // ---------------------------------------------------------------- competitor scan
+  type CompClaim = Cl;
+  type CompCo = { ticker: string; name: string; industry: string; fy: string; m: Record<string, { d: string; c: string[]; best?: number }>;
+    own: CompClaim[]; nums: CompClaim[]; customer: { flag: string; claims: CompClaim[] }; geo: { flag: string; claims: CompClaim[] };
+    diff: CompClaim[]; short: CompClaim[]; long: CompClaim[] };
+  type CompResult = { generated: string; rows: { key: string; label: string; dir: string }[]; companies: CompCo[];
+    verification: Sample['verification']; evidence: Record<string, Ev> };
+  type CompState = { status: 'idle' | 'suggesting' | 'ready' | 'comparing' | 'done' | 'error'; subject?: { ticker: string; name: string };
+    options: { ticker: string; name: string; reason: string }[]; selected: Set<string>; result?: CompResult; view: string; msg: string };
+  const compStates: Record<string, CompState> = {};
+  let currentKey = 'caterpillar';
+  const MAX_PEERS = 4;
+  const comp = () => (compStates[currentKey] ??= { status: 'idle', options: [], selected: new Set(), view: 'fin', msg: '' });
+
+  async function compSuggest() {
+    const st = comp(); if (!data || st.status !== 'idle') return;
+    st.status = 'suggesting'; render();
+    try {
+      const r = await fetch(`/api/prysm-compare?suggest=${encodeURIComponent(data.company.ticker)}`);
+      const j = await r.json();
+      if (!r.ok || j.error) throw new Error(j.error || 'failed');
+      st.subject = j.subject; st.options = j.suggestions; st.selected = new Set(j.suggestions.map((x: { ticker: string }) => x.ticker));
+      st.status = 'ready';
+    } catch { st.status = 'error'; st.msg = 'Couldn\u2019t load suggested competitors. You can still add competitors yourself.'; st.subject = { ticker: data.company.ticker, name: data.company.name }; }
+    render();
+  }
+
+  function paragraph(cs: CompClaim[], empty = 'Not disclosed in the latest 10-K text.') {
+    if (!cs.length) return `<p class="c-empty">${empty}</p>`;
+    return `<p class="c-para">${cs.map((c) => `${c.i ? '<span class="a-inf">Inference</span>' : ''}${esc(c.t)} ${cites(c.c)}`).join(' ')}</p>`;
+  }
+
+  function compResultHtml(res: CompResult, view: string) {
+    const cos = res.companies;
+    const views: [string, string][] = [['fin', 'Financials'], ['growth', 'Growth strategy'], ['conc', 'Customer & geo concentration'], ['diff', 'Differentiators'], ['outlook', 'Market outlook']];
+    const head = `<div class="c-views" role="tablist">${views.map(([k, l]) => `<button type="button" data-cview="${k}" aria-selected="${k === view}">${l}</button>`).join('')}</div>`;
+    let bodyHtml = '';
+    if (view === 'fin') {
+      bodyHtml = `<div class="a-scroll"><table class="a-table c-table"><thead><tr><th>Indicator</th>${cos.map((c, i) => `<th class="${i === 0 ? 'c-subj' : ''}">${esc(c.name)}<small>${esc(c.ticker)}${c.fy ? ` · FY ${esc(c.fy.slice(0, 4))}` : ''}</small></th>`).join('')}</tr></thead><tbody>
+        ${res.rows.map((r) => `<tr><td>${esc(r.label)}</td>${cos.map((c, i) => { const v = c.m[r.key]; return `<td class="${i === 0 ? 'c-subj' : ''}${v?.best ? ' c-best' : ''}">${v ? `${esc(v.d)} ${cites(v.c)}` : '—'}</td>`; }).join('')}</tr>`).join('')}
+      </tbody></table></div><p class="c-note">Latest fiscal year per company from SEC XBRL, every figure recomputed before display. <span class="c-best-key">Shaded</span> = best in group (lower is better for cost ratios and leverage). Fiscal year-ends differ.</p>`;
+    } else {
+      const col = (c: CompCo, i: number) => {
+        let inner = '';
+        if (view === 'growth') inner = `<p class="a-h">In its own words</p>${paragraph(c.own)}<p class="a-h">What the numbers say</p>${paragraph(c.nums, 'Not enough comparable data.')}`;
+        if (view === 'conc') inner = `<p class="a-h">Customer concentration</p><p class="c-flag">${esc(c.customer.flag)}</p>${paragraph(c.customer.claims)}<p class="a-h">Geographic concentration</p><p class="c-flag">${esc(c.geo.flag)}</p>${paragraph(c.geo.claims)}`;
+        if (view === 'diff') inner = c.diff.length ? `<ul class="a-claims">${c.diff.map(claim).join('')}</ul>` : '<p class="c-empty">Not stated in the latest 10-K text.</p>';
+        if (view === 'outlook') inner = `<p class="a-h">Short term (next 12–18 months)</p>${paragraph(c.short)}<p class="a-h">Long term (3–5 years)</p>${paragraph(c.long)}${c.m.cagr ? `<p class="c-flag">3-year revenue CAGR: ${esc(c.m.cagr.d)} ${cites(c.m.cagr.c)}</p>` : ''}`;
+        return `<article class="c-col${i === 0 ? ' c-col-subj' : ''}"><header><b>${esc(c.name)}</b><small>${esc(c.ticker)} · ${esc(c.industry)}</small></header>${inner}</article>`;
+      };
+      bodyHtml = `<div class="c-cols">${cos.map(col).join('')}</div>`;
+    }
+    const v = res.verification;
+    return `${head}${bodyHtml}<p class="c-note">Comparison generated ${esc(res.generated)} · ${v.metrics_verified}/${v.metrics_checked} metrics recomputed · ${v.numbers_verified}/${v.numbers_checked} numbers in quotes matched to source. Text is quoted from each company\u2019s latest 10-K; \u201cwhat the numbers say\u201d is a computed comparison (inference). AI-generated; may contain errors.</p>`;
+  }
+
+  function competitors(d: Sample) {
+    const st = comp();
+    if (st.status === 'idle') { setTimeout(compSuggest, 0); }
+    if (st.status === 'idle' || st.status === 'suggesting') return `<p class="a-h">Competitor scan</p><ol class="p-progress"><li class="on">Finding ${esc(d.company.name)}\u2019s nearest competitors (10-K, industry code, investor peer lists)</li></ol>`;
+    const chosen = st.selected.size;
+    const opts = st.options.map((o) => `<label class="c-opt${st.selected.has(o.ticker) ? ' on' : ''}"><input type="checkbox" data-comp-toggle="${esc(o.ticker)}" ${st.selected.has(o.ticker) ? 'checked' : ''} ${!st.selected.has(o.ticker) && chosen >= MAX_PEERS ? 'disabled' : ''} />
+      <span><b>${esc(o.name)}</b> <small>${esc(o.ticker)}</small><em>${esc(o.reason)}</em></span></label>`).join('');
+    const busy = st.status === 'comparing';
+    return `
+      <div class="c-head">
+        <div><p class="a-h">Competitor scan</p><p class="a-title" style="margin-bottom:.25rem">${esc(d.company.name)} vs. its nearest competitors</p>
+        <p class="c-sub">Pick up to ${MAX_PEERS} competitors (${chosen}/${MAX_PEERS} selected), add your own, then compare on financials, growth strategy, concentration, differentiators and market outlook.</p></div>
+      </div>
+      <div class="c-opts">${opts || '<p class="c-empty">No suggestions found. Add competitors below.</p>'}</div>
+      <form class="c-add" id="c-add" autocomplete="off">
+        <input id="c-add-q" maxlength="80" placeholder="Add a competitor: name or ticker (US-listed)" aria-label="Add a competitor by name or ticker" ${chosen >= MAX_PEERS ? 'disabled' : ''} />
+        <button type="submit" ${chosen >= MAX_PEERS ? 'disabled' : ''}>Add</button>
+        <button type="button" class="c-run" id="c-run" ${!chosen || busy ? 'disabled' : ''}>${busy ? 'Comparing…' : `Compare ${chosen + 1} companies`}</button>
+      </form>
+      <p class="p-search-msg">${esc(st.msg)}</p>
+      ${busy ? `<ol class="p-progress"><li class="on">Reading each company\u2019s SEC financials and latest 10-K, then verifying every number</li></ol>` : ''}
+      ${st.result && !busy ? compResultHtml(st.result, st.view) : ''}`;
+  }
+
+  async function compAdd(q: string) {
+    const st = comp(); st.msg = '';
+    if (st.selected.size >= MAX_PEERS) { st.msg = `You can compare up to ${MAX_PEERS} competitors.`; render(); return; }
+    try {
+      const r = await fetch(`/api/prysm-compare?resolve=${encodeURIComponent(q)}`);
+      const j = await r.json();
+      if (!r.ok || j.error) { st.msg = `\u201c${q}\u201d isn\u2019t a US-listed (SEC) company. Try its exact name or stock ticker.`; render(); return; }
+      if (j.ticker === data?.company.ticker) { st.msg = 'That\u2019s the company you\u2019re researching.'; render(); return; }
+      if (!st.options.some((o) => o.ticker === j.ticker)) st.options.push({ ticker: j.ticker, name: j.name, reason: 'Added by you' });
+      st.selected.add(j.ticker);
+    } catch { st.msg = 'Couldn\u2019t look that company up just now. Please try again.'; }
+    render();
+  }
+
+  async function compRun() {
+    const st = comp(); if (!data || !st.selected.size) return;
+    st.status = 'comparing'; st.msg = ''; render();
+    const tickers = [data.company.ticker, ...st.options.filter((o) => st.selected.has(o.ticker)).map((o) => o.ticker)];
+    try {
+      const r = await fetch(`/api/prysm-compare?tickers=${encodeURIComponent(tickers.join(','))}`);
+      const j: CompResult & { error?: string } = await r.json();
+      if (!r.ok || j.error) throw new Error(j.error);
+      // merge sources so badges open in the same drawer and continue the numbering
+      Object.assign(data.evidence, j.evidence);
+      const walk = (x: unknown) => { if (Array.isArray(x)) x.forEach(walk); else if (x && typeof x === 'object') { const o = x as { c?: string[] }; if (Array.isArray(o.c)) o.c.forEach((id) => { if (!numbers.has(id) && data!.evidence[id]) numbers.set(id, numbers.size + 1); }); Object.values(x).forEach(walk); } };
+      walk(j.companies);
+      st.result = j; (data as unknown as { comparison?: CompResult }).comparison = j;
+      st.status = 'done'; st.view = 'fin';
+      track('prysm_compare', { company: data.company.ticker, peers: String(tickers.length - 1) });
+    } catch { st.status = 'ready'; st.msg = 'The comparison couldn\u2019t be completed (a data source didn\u2019t respond). Please try again.'; }
+    render();
+  }
+
   function signals(d: Sample) {
     return `<p class="a-h">Buying signals & triggers, newest first</p>
       <ul class="a-sig">${d.signals.map((s) => `<li><time>${esc(s.dt)}</time><div><b>${esc(s.k)}</b>${esc(s.d)} ${cites(s.c)}</div></li>`).join('')}</ul>`;
@@ -651,7 +798,7 @@ const stack = ['Python · FastAPI', 'LangGraph orchestration', 'DuckDB evidence 
   function render() {
     if (!data) return;
     const d = data;
-    body.innerHTML = ({ overview, plays, drivers, market, signals } as Record<string, (d: Sample) => string>)[tab](d);
+    body.innerHTML = ({ overview, plays, drivers, market, competitors, signals } as Record<string, (d: Sample) => string>)[tab](d);
     root.querySelectorAll<HTMLButtonElement>('.p-tabs [data-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
   }
 
@@ -680,7 +827,9 @@ const stack = ['Python · FastAPI', 'LangGraph orchestration', 'DuckDB evidence 
         if (!r.ok) throw new Error(String(r.status));
         cache[slug] = await r.json();
       }
-      data = cache[slug]; numbers = numberAll(data); peerIdx = 0; openRows.clear();
+      data = cache[slug]; currentKey = slug; numbers = numberAll(data); peerIdx = 0; openRows.clear();
+      const prior = compStates[slug]?.result;
+      if (prior) { const walk = (x: unknown) => { if (Array.isArray(x)) x.forEach(walk); else if (x && typeof x === 'object') { const o = x as { c?: string[] }; if (Array.isArray(o.c)) o.c.forEach((id) => { if (!numbers.has(id) && data!.evidence[id]) numbers.set(id, numbers.size + 1); }); Object.values(x).forEach(walk); } }; walk(prior.companies); }
       data.lines.forEach((l, i) => { if (l.angle) openRows.add(i); });
       setHeader(data); render();
     } catch {
@@ -733,8 +882,27 @@ const stack = ['Python · FastAPI', 'LangGraph orchestration', 'DuckDB evidence 
     }
     const peer = t.closest<HTMLElement>('[data-peer]');
     if (peer) { peerIdx = Number(peer.dataset.peer); render(); return; }
+    const cview = t.closest<HTMLElement>('[data-cview]');
+    if (cview) { comp().view = cview.dataset.cview!; render(); return; }
+    if (t.closest('#c-run')) { compRun(); return; }
     const row = t.closest<HTMLElement>('[data-row]');
     if (row) { const i = Number(row.dataset.row); openRows.has(i) ? openRows.delete(i) : openRows.add(i); render(); }
+  });
+
+  // ---- competitor selection + add
+  body.addEventListener('change', (e) => {
+    const t = e.target as HTMLInputElement;
+    if (!t.dataset.compToggle) return;
+    const st = comp(); st.msg = '';
+    if (t.checked) { if (st.selected.size < MAX_PEERS) st.selected.add(t.dataset.compToggle); } else st.selected.delete(t.dataset.compToggle);
+    render();
+  });
+  body.addEventListener('submit', (e) => {
+    const f = e.target as HTMLFormElement;
+    if (f.id !== 'c-add') return;
+    e.preventDefault();
+    const q = (f.querySelector('#c-add-q') as HTMLInputElement).value.trim();
+    if (q && /^[\p{L}\p{N} .,&'()-]+$/u.test(q)) compAdd(q);
   });
 
   // ---- prism: hovering a band lights its ray

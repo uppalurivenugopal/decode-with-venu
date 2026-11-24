@@ -20,6 +20,11 @@ export type ExportData = {
   trends: { t: string; k: string; mom: string; imp: Cl[]; use: Cl[]; rel: Cl[] }[];
   signals: { k: string; d: string; dt: string; c: string[] }[];
   evidence: Record<string, { s: string; ty: string; sec: string; u: string; pd: string | null; b: string }>;
+  comparison?: {
+    rows: { key: string; label: string }[];
+    companies: { name: string; ticker: string; fy: string; m: Record<string, { d: string; c: string[] }>; own: Cl[]; nums: Cl[];
+      customer: { flag: string; claims: Cl[] }; geo: { flag: string; claims: Cl[] }; diff: Cl[]; short: Cl[]; long: Cl[] }[];
+  };
 };
 
 export const DISCLAIMER =
@@ -88,6 +93,23 @@ function model(d: ExportData, num: (id: string) => number): Block[] {
       if (p.moves.length) B.push({ k: 'bullets', items: p.moves.map((m) => `${m.k} (${m.dt}): ${m.d}${refs(m.c)}`) });
       if (p.imp.length) B.push({ k: 'bullets', items: p.imp.map(c) });
     });
+  }
+
+  if (d.comparison?.companies.length) {
+    const cmp = d.comparison;
+    const para = (cs: Cl[]) => (cs.length ? cs.map(c).join(' ') : 'Not disclosed in the latest 10-K text.');
+    B.push({ k: 'h2', text: 'Competitor comparison' });
+    B.push({ k: 'p', text: `${cmp.companies.map((x) => x.name).join(' vs. ')}. Financials from SEC XBRL (latest fiscal year per company); text quoted from each company's latest 10-K.` });
+    B.push({ k: 'table', head: ['Indicator', ...cmp.companies.map((x) => `${x.name} (FY ${x.fy.slice(0, 4)})`)],
+      rows: cmp.rows.map((r) => [r.label, ...cmp.companies.map((x) => (x.m[r.key] ? x.m[r.key].d + refs(x.m[r.key].c) : '—'))]) });
+    B.push({ k: 'h3', text: 'Growth strategy' });
+    cmp.companies.forEach((x) => B.push({ k: 'bullets', items: [`${x.name}, in its own words: ${para(x.own)}`, `${x.name}, what the numbers say: ${para(x.nums)}`] }));
+    B.push({ k: 'h3', text: 'Customer and geographic concentration' });
+    cmp.companies.forEach((x) => B.push({ k: 'bullets', items: [`${x.name}, customers (${x.customer.flag}): ${para(x.customer.claims)}`, `${x.name}, geography (${x.geo.flag}): ${para(x.geo.claims)}`] }));
+    B.push({ k: 'h3', text: 'Key differentiators' });
+    cmp.companies.forEach((x) => B.push({ k: 'bullets', items: [`${x.name}: ${para(x.diff)}`] }));
+    B.push({ k: 'h3', text: 'Market outlook' });
+    cmp.companies.forEach((x) => B.push({ k: 'bullets', items: [`${x.name}, short term: ${para(x.short)}`, `${x.name}, long term: ${para(x.long)}`] }));
   }
 
   if (d.trends.length) {

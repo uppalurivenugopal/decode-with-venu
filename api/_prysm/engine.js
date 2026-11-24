@@ -78,6 +78,8 @@ const CONCEPTS = {
   Restructuring: ['RestructuringCharges', 'RestructuringCosts'], Capex: ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets'],
   OCF: ['NetCashProvidedByUsedInOperatingActivities'], AR: ['AccountsReceivableNetCurrent'],
   AssetsCurrent: ['AssetsCurrent'], LiabilitiesCurrent: ['LiabilitiesCurrent'],
+  Equity: ['StockholdersEquity', 'StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest'],
+  LongTermDebt: ['LongTermDebtNoncurrent', 'LongTermDebt'],
 };
 const FLOW = new Set(['Revenue', 'OperatingIncome', 'NetIncome', 'DandA', 'COGS', 'GrossProfit', 'RnD', 'SM', 'GA', 'SGA', 'SBC', 'Restructuring', 'Capex', 'OCF']);
 const days = (a, b) => (new Date(b) - new Date(a)) / 86400000;
@@ -530,3 +532,11 @@ export async function deepDive(query) {
   out.evidence = Object.fromEntries(Object.entries(store.ev).filter(([id]) => used.has(id)).map(([id, e]) => [id, { s: e.s, ty: e.ty, sec: e.sec, q: e.q, u: e.u, pd: e.pd, fd: e.fd, b: e.b }]));
   return out;
 }
+
+
+// Shared helpers for the competitor-comparison engine (compare.js).
+export const allTickers = async () => { if (!TICKERS) await resolve('__warmup__'); return TICKERS; };
+export {
+  CATALOG, SEC_UA, UNAVAILABLE, get, safe, makeStore, resolve, niceName, shortName, series, factEv, at, usd, pct, spct,
+  htmlToText, sentences, numbers, supported, close, gnews,
+};
